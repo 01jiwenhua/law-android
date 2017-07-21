@@ -64,9 +64,11 @@ public class SearchFragment extends Fragment implements View.OnClickListener, Ba
     private String[] mTabTitle = new String[]{"全部", "安全标准", "部门规章", "地方法规", "国家标准", "国家法律", "行业标准", "行政法规"};
     private ListView mKeywordTypeSpinner;
     private LinearLayout mKeywordType;
-    private TextView mKeywordTypeTV;
+    //关键字筛选 和结果筛选选项文字
+    private TextView mKeywordTypeTV, mFilterTV;
     private LinearLayout mlayoutEmpty;
-
+    //结果筛选布局
+    private LinearLayout mIndustryLayout;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -88,11 +90,7 @@ public class SearchFragment extends Fragment implements View.OnClickListener, Ba
 
     private void setDefaultRequest() {
         mRequest.setTypeCode("");
-//        if(SystemConfig.appName.equals("三司")){
-            mRequest.setTypeName("三司");
-//        }else{
-//            mRequest.setTypeName("");
-//        }
+            mRequest.setTypeName("");
         mRequest.setKeyword("");
         mRequest.setKeywordType("标题");
         mRequest.setLevel("");
@@ -103,7 +101,6 @@ public class SearchFragment extends Fragment implements View.OnClickListener, Ba
     public void onMessageEvent(EventMessage message) {
         if (message.getFrom().equals("SelectFragment")) {
             mRequest.setTypeCode(message.getSelectMenu());
-            mRequest.setTypeName("三司");
             lawList = loadData();
             if (mAdapter != null) {
                 mAdapter.addData(lawList);
@@ -184,7 +181,10 @@ public class SearchFragment extends Fragment implements View.OnClickListener, Ba
         mKeywordType.setOnClickListener(this);
 
         mKeywordTypeTV = (TextView) view.findViewById(R.id.tv_keywordtype);
+        mFilterTV = (TextView) view.findViewById(R.id.tv_filter);
 
+        mIndustryLayout= (LinearLayout) view.findViewById(R.id.layout_industry);
+        mIndustryLayout.setOnClickListener(this);
         mRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.layout_refresh);
         mRecyclerView = (RecyclerView) view.findViewById(R.id.rv_laws);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
@@ -203,9 +203,6 @@ public class SearchFragment extends Fragment implements View.OnClickListener, Ba
             }
         }, mRecyclerView);
         mAdapter.setOnItemClickListener(this);
-        TextView textView = new TextView(getContext());
-        textView.setText("我是空格");
-        mRefreshLayout.addView(textView);
         mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             public void onRefresh() {
                 isLastPage = false;
@@ -265,6 +262,37 @@ public class SearchFragment extends Fragment implements View.OnClickListener, Ba
                     }
                 });
                 break;
+            case R.id.layout_industry:
+                View IndustryLayoutView = DialogManager.getInstance().showPopupWindow(getContext(), mIndustryLayout, R.layout.layout_spinner);
+                mKeywordTypeSpinner = (ListView) IndustryLayoutView.findViewById(R.id.lv_spinner);
+                final List<String> filterList = new ArrayList();
+                for (String fileter : mTabTitle) {
+                    filterList.add(fileter);
+                }
+                SpinnerAdapter spinnerAdapter = new SpinnerAdapter(filterList, getContext());
+                mKeywordTypeSpinner.setAdapter(spinnerAdapter);
+                mKeywordTypeSpinner.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        if(position==0){
+                            mRequest.setLevel("");
+                        }else {
+                            mRequest.setLevel(filterList.get(position));
+                        }
+                        mFilterTV.setText(filterList.get(position));
+                        isLastPage = false;
+                        mPage = 0;
+                        lawList = loadData();
+                        //数据重新加载完成后，提示数据发生改变，并且设置现在不在刷新
+                        mAdapter.setNewData(lawList);
+                        mAdapter.notifyDataSetChanged();
+                        mAdapter.setEnableLoadMore(true);
+                        DialogManager.getInstance().dissMissPopupWindow();
+
+                    }
+                });
+
+                break;
         }
     }
 
@@ -273,12 +301,18 @@ public class SearchFragment extends Fragment implements View.OnClickListener, Ba
     public void onTabSelected(TabLayout.Tab tab) {
         LogGloble.d("Tab", "onTabSlected===");
         if (TextUtils.isEmpty(tab.getText())) {
+            mIndustryLayout.setVisibility(View.GONE);
             mRequest.setLevel("");
             return;
         }
         if (tab.getText().toString().equals("全部")) {
             mRequest.setLevel("");
+
+        }else if(tab.getText().toString().equals("行业标准")){
+            mRequest.setLevel("行业标准");
+            mIndustryLayout.setVisibility(View.VISIBLE);
         } else {
+            mIndustryLayout.setVisibility(View.GONE);
             mRequest.setLevel(tab.getText().toString());
         }
         isLastPage = false;

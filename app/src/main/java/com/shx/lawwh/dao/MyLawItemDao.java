@@ -27,7 +27,7 @@ public class MyLawItemDao {
     public List<LawItem> selctLawItems(String type_name, int offset, int pageSize) {
         Query builder;
         if (TextUtils.isEmpty(type_name)) {
-            builder = BaseApplication.getContext().getSession().getLawItemDao().queryBuilder().offset(offset * pageSize).limit(pageSize).build();
+            builder = BaseApplication.getContext().getSession().getLawItemDao().queryBuilder().where(LawItemDao.Properties.Description.notEq(""),LawItemDao.Properties.File_path.notEq("")).offset(offset * pageSize).limit(pageSize).build();
         } else {
             builder = BaseApplication.getContext().getSession().getLawItemDao().queryBuilder().where(LawItemDao.Properties.Type_name.eq(type_name)).offset(offset * pageSize).limit(pageSize).build();
         }
@@ -38,6 +38,7 @@ public class MyLawItemDao {
     public List<LawItem> selctLawItemsByParam(LawRequest request, int offset, int pageSize) {
         List<LawItem> list=new ArrayList<>();
         StringBuilder sqlBuider=new StringBuilder("SELECT * FROM LAW_ITEM l WHERE 1=1 ");
+        sqlBuider.append(" and l.FILE_PATH !=''  and l.DESCRIPTION !='' ");
         if(!TextUtils.isEmpty(request.getLevel())){
             sqlBuider.append("and l.LEVEL='"+request.getLevel()+"'");
         }
