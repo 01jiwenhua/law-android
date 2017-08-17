@@ -34,6 +34,16 @@ public class MyLawItemDao {
 
         return builder.list();
     }
+    public List<String> selctLawTypes() {
+        List<String> list=new ArrayList<>();
+        StringBuilder sqlBuider=new StringBuilder("SELECT TYPE_NAME FROM LAW_ITEM GROUP  BY TYPE_NAME ORDER BY _id ");
+        LogGloble.d("sql",sqlBuider.toString()+"=====");
+        Cursor cursor = BaseApplication.getContext().getSession().getDatabase().rawQuery(sqlBuider.toString(),null);
+        while (cursor.moveToNext()){
+            list.add(cursor.getString(cursor.getColumnIndex("TYPE_NAME")));
+        }
+        return list;
+    }
 
     public List<LawItem> selctLawItemsByParam(LawRequest request, int offset, int pageSize) {
         List<LawItem> list=new ArrayList<>();

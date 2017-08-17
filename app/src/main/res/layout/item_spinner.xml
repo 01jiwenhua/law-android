@@ -7,10 +7,12 @@
 
     <TextView
         android:id="@+id/tv_spinner"
-        android:layout_width="80dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="10dp"
         android:text="行业"
+        android:layout_gravity="center"
+        android:gravity="center"
         android:textColor="@color/colorTextGray"
         android:textSize="@dimen/textsize_14" />
 </LinearLayout>

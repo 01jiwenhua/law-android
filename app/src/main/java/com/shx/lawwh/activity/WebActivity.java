@@ -10,12 +10,19 @@ import android.webkit.WebViewClient;
 
 import com.shx.lawwh.R;
 import com.shx.lawwh.base.BaseActivity;
+import com.shx.lawwh.common.LogGloble;
+import com.shx.lawwh.common.SystemConfig;
 import com.shx.lawwh.libs.dialog.DialogManager;
 
 
 public class WebActivity extends BaseActivity {
     private WebView webView;
     private String url;
+    /**
+     * 用来控制字体大小
+     */
+    int fontSize = 1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,6 +36,13 @@ public class WebActivity extends BaseActivity {
         });
         webView = (WebView) findViewById(R.id.webView);
         url = getIntent().getStringExtra("URL");
+        if (!url.startsWith("http")) {
+            if (url.startsWith("0")) {
+                url = url.substring(url.indexOf("0") + 1);
+            }
+            url = String.format(SystemConfig.URL, url);
+            LogGloble.d("url", url + "==");
+        }
         init();
     }
 
@@ -38,16 +52,29 @@ public class WebActivity extends BaseActivity {
         webView.loadUrl(url);
     }
 
-    private void init(){
+    private void init() {
         WebSettings settings = webView.getSettings();
         settings.setJavaScriptEnabled(true);
         settings.setDisplayZoomControls(false); //隐藏webview缩放按钮
         settings.setUseWideViewPort(true);
         settings.setLoadWithOverviewMode(true);
         settings.setSupportZoom(true);  //支持缩放
-        settings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN); //支持内容重新布局
+        settings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.NARROW_COLUMNS);
+        webView.setScrollBarStyle(View.SCROLLBARS_OUTSIDE_OVERLAY);
         settings.setBuiltInZoomControls(true); //设置支持缩放
-        webView.setWebViewClient(new WebViewClient(){
+        if (settings.getTextSize() == WebSettings.TextSize.SMALLEST) {
+            fontSize = 50 * 2;
+        } else if (settings.getTextSize() == WebSettings.TextSize.SMALLER) {
+            fontSize = 75 * 2;
+        } else if (settings.getTextSize() == WebSettings.TextSize.NORMAL) {
+            fontSize = 100 * 2;
+        } else if (settings.getTextSize() == WebSettings.TextSize.LARGER) {
+            fontSize = 150 * 2;
+        } else if (settings.getTextSize() == WebSettings.TextSize.LARGEST) {
+            fontSize = 200 * 2;
+        }
+        settings.setTextZoom(fontSize);
+        webView.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 //返回值是true的时候控制去WebView打开，为false调用系统浏览器或第三方浏览器
@@ -68,19 +95,16 @@ public class WebActivity extends BaseActivity {
             }
         });
     }
+
     //改写物理按键——返回的逻辑
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         // TODO Auto-generated method stub
-        if(keyCode== KeyEvent.KEYCODE_BACK)
-        {
-            if(webView.canGoBack())
-            {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            if (webView.canGoBack()) {
                 webView.goBack();//返回上一页面
                 return true;
-            }
-            else
-            {
+            } else {
                 onBackPressed();
             }
         }

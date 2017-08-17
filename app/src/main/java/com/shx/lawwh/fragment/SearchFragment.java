@@ -34,6 +34,7 @@ import com.shx.lawwh.dao.MyLawItemDao;
 import com.shx.lawwh.libs.dialog.DialogManager;
 import com.shx.lawwh.libs.dialog.ToastUtil;
 import com.shx.lawwh.message.EventMessage;
+import com.shx.lawwh.utils.StringUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -69,6 +70,7 @@ public class SearchFragment extends Fragment implements View.OnClickListener, Ba
     private LinearLayout mlayoutEmpty;
     //结果筛选布局
     private LinearLayout mIndustryLayout;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -90,7 +92,7 @@ public class SearchFragment extends Fragment implements View.OnClickListener, Ba
 
     private void setDefaultRequest() {
         mRequest.setTypeCode("");
-            mRequest.setTypeName("");
+        mRequest.setTypeName("");
         mRequest.setKeyword("");
         mRequest.setKeywordType("标题");
         mRequest.setLevel("");
@@ -100,16 +102,48 @@ public class SearchFragment extends Fragment implements View.OnClickListener, Ba
     @Subscribe(sticky = true)
     public void onMessageEvent(EventMessage message) {
         if (message.getFrom().equals("SelectFragment")) {
-            mRequest.setTypeCode(message.getSelectMenu());
+            mRequest.setLevel(message.getSelectMenu());
+            int index = StringUtils.indexOfArr(mTabTitle,message.getSelectMenu());
+            mTabLayout.getTabAt(index).select();
+            recomputeTlOffset1(index);
             lawList = loadData();
             if (mAdapter != null) {
-                mAdapter.addData(lawList);
+                mAdapter.setNewData(lawList);
                 mAdapter.notifyDataSetChanged();
             }
             return;
         }
     }
-
+    /**
+     * 重新计算需要滚动的距离
+     *
+     * @param index 选择的tab的下标
+     */
+    private void recomputeTlOffset1(int index) {
+//        if (mTabLayout.getTabAt(index) != null) mTabLayout.getTabAt(index).select();
+        final int width = (int) (getTablayoutOffsetWidth(index) * getContext().getResources().getDisplayMetrics().density);
+        mTabLayout.post(new Runnable() {
+            @Override
+            public void run() {
+                mTabLayout.smoothScrollTo(width, 0);
+            }
+        });
+    }
+//重中之重是这个计算偏移量的方法，各位看官看好了。
+    /**
+     * 根据字符个数计算偏移量
+     *
+     * @param index 选中tab的下标
+     * @return 需要移动的长度
+     */
+    private int getTablayoutOffsetWidth(int index) {
+        String str = "";
+        for (int i = 0; i < index; i++) {
+            //取出直到index的tab的文字，计算长度
+            str += mTabTitle[i];
+        }
+        return str.length() * 14 + index * 12;
+    }
     @Override
     public void onStop() {
         super.onStop();
@@ -164,8 +198,8 @@ public class SearchFragment extends Fragment implements View.OnClickListener, Ba
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 mRequest.setKeyword(s.toString());
                 if (TextUtils.isEmpty(s.toString())) {
-                    mAdapter.setLight(false,mRequest);
-                    lawList=loadData();
+                    mAdapter.setLight(false, mRequest);
+                    lawList = loadData();
                     mAdapter.setNewData(lawList);
                     mAdapter.notifyDataSetChanged();
                 }
@@ -183,8 +217,9 @@ public class SearchFragment extends Fragment implements View.OnClickListener, Ba
         mKeywordTypeTV = (TextView) view.findViewById(R.id.tv_keywordtype);
         mFilterTV = (TextView) view.findViewById(R.id.tv_filter);
 
-        mIndustryLayout= (LinearLayout) view.findViewById(R.id.layout_industry);
+        mIndustryLayout = (LinearLayout) view.findViewById(R.id.layout_industry);
         mIndustryLayout.setOnClickListener(this);
+
         mRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.layout_refresh);
         mRecyclerView = (RecyclerView) view.findViewById(R.id.rv_laws);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
@@ -237,7 +272,7 @@ public class SearchFragment extends Fragment implements View.OnClickListener, Ba
                 lawList = loadData();
                 DialogManager.getInstance().dissMissProgressDialog();
                 mAdapter.setNewData(lawList);
-                mAdapter.setLight(true,mRequest);
+                mAdapter.setLight(true, mRequest);
                 mAdapter.notifyDataSetChanged();
                 break;
             case R.id.layout_keyworldtype:
@@ -263,22 +298,16 @@ public class SearchFragment extends Fragment implements View.OnClickListener, Ba
                 });
                 break;
             case R.id.layout_industry:
-                View IndustryLayoutView = DialogManager.getInstance().showPopupWindow(getContext(), mIndustryLayout, R.layout.layout_spinner);
+                View IndustryLayoutView = DialogManager.getInstance().showPopupWindow(getContext(), mIndustryLayout, R.layout.layout_spinnerlist);
                 mKeywordTypeSpinner = (ListView) IndustryLayoutView.findViewById(R.id.lv_spinner);
-                final List<String> filterList = new ArrayList();
-                for (String fileter : mTabTitle) {
-                    filterList.add(fileter);
-                }
+                MyLawItemDao dao = new MyLawItemDao();
+                final List<String> filterList = dao.selctLawTypes();
                 SpinnerAdapter spinnerAdapter = new SpinnerAdapter(filterList, getContext());
                 mKeywordTypeSpinner.setAdapter(spinnerAdapter);
                 mKeywordTypeSpinner.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        if(position==0){
-                            mRequest.setLevel("");
-                        }else {
-                            mRequest.setLevel(filterList.get(position));
-                        }
+                        mRequest.setTypeName(filterList.get(position));
                         mFilterTV.setText(filterList.get(position));
                         isLastPage = false;
                         mPage = 0;
@@ -308,7 +337,7 @@ public class SearchFragment extends Fragment implements View.OnClickListener, Ba
         if (tab.getText().toString().equals("全部")) {
             mRequest.setLevel("");
 
-        }else if(tab.getText().toString().equals("行业标准")){
+        } else if (tab.getText().toString().equals("行业标准")) {
             mRequest.setLevel("行业标准");
             mIndustryLayout.setVisibility(View.VISIBLE);
         } else {

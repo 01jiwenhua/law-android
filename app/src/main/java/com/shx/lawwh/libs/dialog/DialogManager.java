@@ -249,6 +249,38 @@ public class DialogManager {
         contentView.setLayoutParams(lp);
         return contentView;
     }
+    public View showPopupWindow(Context context, View view,int width,int height, int layoutId) {
+        // 一个自定义的布局，作为显示的内容
+        View contentView = LayoutInflater.from(context).inflate(
+                layoutId, null);
+        mPopupWindow= new PopupWindow(contentView,
+                ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
+        mPopupWindow.setTouchable(true);
+        mPopupWindow.setTouchInterceptor(new View.OnTouchListener() {
+
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+
+                Log.i("mengdd", "onTouch : ");
+
+                return false;
+                // 这里如果返回true的话，touch事件将被拦截
+                // 拦截后 PopupWindow的onTouchEvent不被调用，这样点击外部区域无法dismiss
+            }
+        });
+
+        // 如果不设置PopupWindow的背景，无论是点击外部区域还是Back键都无法dismiss弹框
+        // 我觉得这里是API的一个bug
+        mPopupWindow.setBackgroundDrawable(context.getResources().getDrawable(
+                R.drawable.shape_divder));
+
+        // 设置好参数之后再show
+        mPopupWindow.showAsDropDown(view);
+        ViewGroup.LayoutParams lp =  contentView.getLayoutParams();
+        lp.width=view.getWidth();
+        contentView.setLayoutParams(lp);
+        return contentView;
+    }
     public void dissMissPopupWindow(){
         if(mPopupWindow!=null){
             mPopupWindow.dismiss();

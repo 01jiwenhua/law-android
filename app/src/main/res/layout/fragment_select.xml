@@ -1,194 +1,288 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@color/colorWhite">
 
-    <com.shx.lawwh.view.ViewPageWithIndicator
-        android:id="@+id/vp_viewpage"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="160dp"
-        android:visibility="visible"></com.shx.lawwh.view.ViewPageWithIndicator>
+        android:layout_height="wrap_content"
+        android:background="@color/colorWhite"
+        android:orientation="vertical">
 
-    <ScrollView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        <com.shx.lawwh.view.ViewPageWithIndicator
+            android:id="@+id/vp_viewpage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="visible"></com.shx.lawwh.view.ViewPageWithIndicator>
+
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+
             android:orientation="vertical">
 
+
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/colorWhite"
-                android:orientation="horizontal"
-                android:padding="10dp">
-
-                <ImageView
-                    android:layout_width="80dp"
-                    android:layout_height="20dp"
-                    android:background="@drawable/img_select_divder" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_gravity="bottom"
-                    android:background="#84ccc9"></View>
-            </LinearLayout>
-
-            <TableLayout
                 android:id="@+id/tl_table"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/colorWhite"
+                android:orientation="vertical"
                 android:padding="10dp">
 
 
-                <TableRow
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:divider="@drawable/shape_divder"
+                    android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:showDividers="middle">
+                    >
 
                     <LinearLayout
+                        android:id="@+id/layout_aqbz"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
+                        android:gravity="center"
+                        android:orientation="vertical">
 
                         <ImageView
-                            android:layout_width="70dp"
-                            android:layout_height="70dp"
-                            android:background="@drawable/img_wh" />
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:background="@drawable/ic_anquan" />
 
                         <TextView
                             style="@style/style_mainmenu"
-                            android:gravity="left"
                             android:text="安全标准"
-                            android:textColor="@color/colorTextBlack"
                             android:textSize="@dimen/textsize_16" />
 
                     </LinearLayout>
 
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/colorLine"></View>
+
                     <LinearLayout
+                        android:id="@+id/layout_bmgz"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
+                        android:gravity="center"
+                        android:orientation="vertical">
 
                         <ImageView
-                            android:layout_width="70dp"
-                            android:layout_height="70dp"
-                            android:background="@drawable/img_wh" />
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:background="@drawable/ic_bumen" />
 
                         <TextView
                             style="@style/style_mainmenu"
-                            android:gravity="left"
                             android:text="部门规章"
-                            android:textColor="@color/colorTextBlack"
                             android:textSize="@dimen/textsize_16" />
 
                     </LinearLayout>
-                </TableRow>
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginTop="10dp"
-                    android:background="@color/colorLine"></View>
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:divider="@drawable/shape_divder"
-                    android:orientation="horizontal"
-                    android:showDividers="middle">
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/colorLine"></View>
 
                     <LinearLayout
+                        android:id="@+id/layout_gjbz"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
+                        android:gravity="center"
+                        android:orientation="vertical">
 
                         <ImageView
-                            android:layout_width="70dp"
-                            android:layout_height="70dp"
-                            android:background="@drawable/img_wh" />
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:background="@drawable/ic_biaozhun" />
 
                         <TextView
                             style="@style/style_mainmenu"
-                            android:gravity="left"
                             android:text="国家标准"
-                            android:textColor="@color/colorTextBlack"
                             android:textSize="@dimen/textsize_16" />
 
                     </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
-
-                        <ImageView
-                            android:layout_width="70dp"
-                            android:layout_height="70dp"
-                            android:background="@drawable/img_wh" />
-
-                        <TextView
-                            style="@style/style_mainmenu"
-                            android:gravity="left"
-                            android:text="国家法律"
-                            android:textColor="@color/colorTextBlack"
-                            android:textSize="@dimen/textsize_16" />
-
-                    </LinearLayout>
-                </TableRow>
+                </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginTop="10dp"
                     android:background="@color/colorLine"></View>
 
-                <TableRow
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:divider="@drawable/shape_divder"
+                    android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:showDividers="middle">
+                    >
+
+                    <LinearLayout
+                        android:id="@+id/layout_gjfl"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:paddingTop="10dp">
+
+                        <ImageView
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:background="@drawable/ic_falv" />
+
+                        <TextView
+                            style="@style/style_mainmenu"
+                            android:text="国家法律"
+                            android:textSize="@dimen/textsize_16" />
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/colorLine"></View>
+
+                    <LinearLayout
+                        android:id="@+id/layout_xzfg"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:paddingTop="10dp">
+
+                        <ImageView
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:background="@drawable/ic_fagui" />
+
+                        <TextView
+                            style="@style/style_mainmenu"
+                            android:text="行政法规"
+                            android:textSize="@dimen/textsize_16" />
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/colorLine"></View>
+
+                    <LinearLayout
+                        android:id="@+id/layout_dffg"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:paddingTop="10dp">
+
+                        <ImageView
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:background="@drawable/ic_dffg" />
+
+                        <TextView
+                            style="@style/style_mainmenu"
+                            android:text="地方法规"
+                            android:textSize="@dimen/textsize_16" />
+
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/colorLine"></LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    >
+
+                    <LinearLayout
+                        android:id="@+id/layout_hybz"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:paddingTop="10dp">
+
+                        <ImageView
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:background="@drawable/ic_hybz" />
+
+                        <TextView
+                            style="@style/style_mainmenu"
+                            android:text="行业标准"
+                            android:textSize="@dimen/textsize_16" />
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/colorLine"></View>
+
+                    <LinearLayout
+
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:paddingTop="10dp"
+                        android:visibility="invisible">
+
+                        <ImageView
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:background="@drawable/ic_hybz" />
+
+                        <TextView
+                            style="@style/style_mainmenu"
+                            android:text=""
+                            android:textSize="@dimen/textsize_16" />
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/colorLine"
+                        android:visibility="invisible"></View>
 
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:paddingTop="10dp"
+                        android:visibility="invisible">
 
                         <ImageView
-                            android:layout_width="70dp"
-                            android:layout_height="70dp"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
                             android:background="@drawable/img_wh" />
 
                         <TextView
                             style="@style/style_mainmenu"
-                            android:gravity="left"
-                            android:text="行政法规"
-                            android:textColor="@color/colorTextBlack"
+                            android:text=""
                             android:textSize="@dimen/textsize_16" />
 
                     </LinearLayout>
-                </TableRow>
-            </TableLayout>
+                </LinearLayout>
+            </LinearLayout>
         </LinearLayout>
-    </ScrollView>
-</LinearLayout>
+
+    </LinearLayout>
+</ScrollView>

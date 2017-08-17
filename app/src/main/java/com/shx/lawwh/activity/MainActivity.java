@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+
 import com.shx.lawwh.R;
 import com.shx.lawwh.base.BaseActivity;
 import com.shx.lawwh.common.LogGloble;
@@ -14,6 +15,7 @@ import com.shx.lawwh.fragment.MainFragment;
 import com.shx.lawwh.fragment.SearchFragment;
 import com.shx.lawwh.fragment.SelectFragment;
 import com.shx.lawwh.message.EventMessage;
+
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
@@ -120,7 +122,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         switch (index) {
             case 0:
                 transaction.replace(R.id.content, mMainFragment);
-                getTopbar().setTitle("三司法规标准查询");
+                getTopbar().setTitle("法律法规查询");
                 break;
             case 1:
                 transaction.replace(R.id.content, mSelectFragment);

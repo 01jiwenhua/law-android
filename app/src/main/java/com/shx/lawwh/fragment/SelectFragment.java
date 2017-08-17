@@ -13,7 +13,10 @@ import com.shx.lawwh.R;
 import com.shx.lawwh.adapter.LoopViewPagerAdapter;
 import com.shx.lawwh.base.LayoutValue;
 import com.shx.lawwh.base.ViewPagerScheduler;
+import com.shx.lawwh.message.EventMessage;
 import com.shx.lawwh.view.ViewPageWithIndicator;
+
+import org.greenrobot.eventbus.EventBus;
 
 /**
  * 三司查询Fragment
@@ -52,8 +55,13 @@ public class SelectFragment extends Fragment implements View.OnClickListener {
 
     private void initView(View view) {
         setHeaderView(view);
-//        view.findViewById(R.id.layout_chemicals).setOnClickListener(this);
-//        view.findViewById(R.id.layout_fireworks).setOnClickListener(this);
+        view.findViewById(R.id.layout_aqbz).setOnClickListener(this);
+        view.findViewById(R.id.layout_bmgz).setOnClickListener(this);
+        view.findViewById(R.id.layout_gjbz).setOnClickListener(this);
+        view.findViewById(R.id.layout_gjfl).setOnClickListener(this);
+        view.findViewById(R.id.layout_xzfg).setOnClickListener(this);
+        view.findViewById(R.id.layout_dffg).setOnClickListener(this);
+        view.findViewById(R.id.layout_hybz).setOnClickListener(this);
     }
 
     private void setHeaderView(View view) {
@@ -100,20 +108,55 @@ public class SelectFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-//            case R.id.layout_chemicals:
-//                EventMessage messageChemicals = new EventMessage();
-//                messageChemicals.setFrom("SelectFragment");
-//                messageChemicals.setSearchType("三司");
-//                messageChemicals.setSelectMenu("危化品");
-//                EventBus.getDefault().postSticky(messageChemicals);
-//                break;
-//            case R.id.layout_fireworks:
-//                EventMessage messageFireworks = new EventMessage();
-//                messageFireworks.setFrom("SelectFragment");
-//                messageFireworks.setSelectMenu("烟花爆竹");
-//                messageFireworks.setSearchType("三司");
-//                EventBus.getDefault().postSticky(messageFireworks);
-//                break;
+            case R.id.layout_aqbz:
+                EventMessage messageaqbz = new EventMessage();
+                messageaqbz.setFrom("SelectFragment");
+                messageaqbz.setSearchType("法规");
+                messageaqbz.setSelectMenu("安全标准");
+                EventBus.getDefault().postSticky(messageaqbz);
+                break;
+            case R.id.layout_bmgz:
+                EventMessage messageBmgz = new EventMessage();
+                messageBmgz.setFrom("SelectFragment");
+                messageBmgz.setSearchType("法规");
+                messageBmgz.setSelectMenu("部门规章");
+                EventBus.getDefault().postSticky(messageBmgz);
+                break;
+            case R.id.layout_gjbz:
+                EventMessage messageGjfg = new EventMessage();
+                messageGjfg.setFrom("SelectFragment");
+                messageGjfg.setSearchType("法规");
+                messageGjfg.setSelectMenu("国家标准");
+                EventBus.getDefault().postSticky(messageGjfg);
+                break;
+            case R.id.layout_gjfl:
+                EventMessage messageGjfl = new EventMessage();
+                messageGjfl.setFrom("SelectFragment");
+                messageGjfl.setSearchType("法规");
+                messageGjfl.setSelectMenu("国家法律");
+                EventBus.getDefault().postSticky(messageGjfl);
+                break;
+            case R.id.layout_xzfg:
+                EventMessage messageXzfg = new EventMessage();
+                messageXzfg.setFrom("SelectFragment");
+                messageXzfg.setSearchType("法规");
+                messageXzfg.setSelectMenu("行政法规");
+                EventBus.getDefault().postSticky(messageXzfg);
+                break;
+            case R.id.layout_hybz:
+                EventMessage messageHybz = new EventMessage();
+                messageHybz.setFrom("SelectFragment");
+                messageHybz.setSearchType("法规");
+                messageHybz.setSelectMenu("行业标准");
+                EventBus.getDefault().postSticky(messageHybz);
+                break;
+            case R.id.layout_dffg:
+                EventMessage messageDffg = new EventMessage();
+                messageDffg.setFrom("SelectFragment");
+                messageDffg.setSearchType("法规");
+                messageDffg.setSelectMenu("地方法规");
+                EventBus.getDefault().postSticky(messageDffg);
+                break;
         }
     }
 
