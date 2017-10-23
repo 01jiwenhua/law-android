@@ -12,6 +12,7 @@ import com.shx.lawwh.R;
 import com.shx.lawwh.base.BaseActivity;
 import com.shx.lawwh.common.LogGloble;
 import com.shx.lawwh.fragment.MainFragment;
+import com.shx.lawwh.fragment.SSFragment;
 import com.shx.lawwh.fragment.SearchFragment;
 import com.shx.lawwh.fragment.SelectFragment;
 import com.shx.lawwh.message.EventMessage;
@@ -20,9 +21,9 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener{
-    private TextView mMain , mSelect, mSearch;
+    private TextView mMain , mSS,mSelect, mSearch;
     private FrameLayout mContent;
-    private Fragment mMainFragment, mSelectFragment, mSearchFragment;
+    private Fragment mMainFragment,mSSFragment, mSelectFragment, mSearchFragment;
     /**
      * 用于对Fragment进行管理
      */
@@ -46,11 +47,14 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         mMainFragment = new MainFragment();
         mSearchFragment=new SearchFragment();
         mSelectFragment=new SelectFragment();
+        mSSFragment=new SSFragment();
         mMain = (TextView) findViewById(R.id.rb_main);
         mSearch = (TextView) findViewById(R.id.rb_search);
         mSelect= (TextView) findViewById(R.id.rb_select);
         mContent = (FrameLayout) findViewById(R.id.content);
+        mSS= (TextView) findViewById(R.id.rb_ss);
         mMain.setOnClickListener(this);
+        mSS.setOnClickListener(this);
         mSearch.setOnClickListener(this);
         mSelect.setOnClickListener(this);
         mMain.performClick();
@@ -93,21 +97,29 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
                 mMain.setSelected(true);
                 setTabSelection(0);
                 break;
+
             case R.id.rb_select:
                 setSelected();
                 mSelect.setSelected(true);
                 setTabSelection(1);
                 break;
+            case R.id.rb_ss:
+                setSelected();
+                mSS.setSelected(true);
+                setTabSelection(2);
+                break;
             case R.id.rb_search:
                 setSelected();
                 mSearch.setSelected(true);
-                setTabSelection(2);
+                setTabSelection(3);
                 break;
+
         }
     }
     //重置所有文本的选中状态
     private void setSelected() {
         mMain.setSelected(false);
+        mSS.setSelected(false);
         mSearch.setSelected(false);
         mSelect.setSelected(false);
     }
@@ -129,12 +141,16 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
                 getTopbar().setTitle("法规库");
                 break;
             case 2:
+                transaction.replace(R.id.content, mSSFragment);
+                getTopbar().setTitle("三司库");
+                break;
+            case 3:
                 transaction.replace(R.id.content, mSearchFragment);
                 getTopbar().setTitle("法规搜索");
                 break;
             default:
                 transaction.replace(R.id.content, mMainFragment);
-                getTopbar().setTitle("三司法规标准查询");
+                getTopbar().setTitle("三司库");
                 break;
         }
         transaction.commit();

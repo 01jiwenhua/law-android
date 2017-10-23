@@ -102,8 +102,27 @@ public class SearchFragment extends Fragment implements View.OnClickListener, Ba
     @Subscribe(sticky = true)
     public void onMessageEvent(EventMessage message) {
         if (message.getFrom().equals("SelectFragment")) {
+            int index = 0;
+            //如果是三司则只查三司
+            if ("三司".equals(message.getSearchType())) {
+                mRequest.setLevel("");
+                mRequest.setTypeCode(message.getSelectMenu());
+                mRequest.setTypeName(message.getSearchType());
+            } else {
+                mRequest.setLevel(message.getSelectMenu());
+                index = StringUtils.indexOfArr(mTabTitle, message.getSelectMenu());
+            }
+            mTabLayout.getTabAt(index).select();
+            recomputeTlOffset1(index);
+            lawList = loadData();
+            if (mAdapter != null) {
+                mAdapter.setNewData(lawList);
+                mAdapter.notifyDataSetChanged();
+            }
+            return;
+        } else if (message.getFrom().equals("SSFragment")) {
             mRequest.setLevel(message.getSelectMenu());
-            int index = StringUtils.indexOfArr(mTabTitle,message.getSelectMenu());
+            int index = StringUtils.indexOfArr(mTabTitle, message.getSelectMenu());
             mTabLayout.getTabAt(index).select();
             recomputeTlOffset1(index);
             lawList = loadData();
@@ -114,6 +133,7 @@ public class SearchFragment extends Fragment implements View.OnClickListener, Ba
             return;
         }
     }
+
     /**
      * 重新计算需要滚动的距离
      *
@@ -130,6 +150,7 @@ public class SearchFragment extends Fragment implements View.OnClickListener, Ba
         });
     }
 //重中之重是这个计算偏移量的方法，各位看官看好了。
+
     /**
      * 根据字符个数计算偏移量
      *
@@ -144,6 +165,7 @@ public class SearchFragment extends Fragment implements View.OnClickListener, Ba
         }
         return str.length() * 14 + index * 12;
     }
+
     @Override
     public void onStop() {
         super.onStop();
@@ -329,7 +351,7 @@ public class SearchFragment extends Fragment implements View.OnClickListener, Ba
 
     @Override
     public void onTabSelected(TabLayout.Tab tab) {
-        LogGloble.d("Tab", "onTabSlected===");
+        LogGloble.d("Tab", "onTabSlected==="+tab.getText().toString());
         if (TextUtils.isEmpty(tab.getText())) {
             mIndustryLayout.setVisibility(View.GONE);
             mRequest.setLevel("");
@@ -337,14 +359,25 @@ public class SearchFragment extends Fragment implements View.OnClickListener, Ba
         }
         if (tab.getText().toString().equals("全部")) {
             mRequest.setLevel("");
-
-        } else if (tab.getText().toString().equals("行业标准")) {
-            mRequest.setLevel("行业标准");
-            mIndustryLayout.setVisibility(View.VISIBLE);
-        } else {
-            mIndustryLayout.setVisibility(View.GONE);
-            mRequest.setLevel(tab.getText().toString());
         }
+//        else if (tab.getText().toString().equals("行业标准")) {
+//            mRequest.setLevel("行业标准");
+//            if("三司".equals(mRequest.getTypeName())){
+//                mIndustryLayout.setVisibility(View.GONE);
+//            }else{
+//                mIndustryLayout.setVisibility(View.VISIBLE);
+//            }
+//        } else {
+//            mIndustryLayout.setVisibility(View.GONE);
+//            mRequest.setLevel(tab.getText().toString());
+//        }
+        if ("三司".equals(mRequest.getTypeName())) {
+            mIndustryLayout.setVisibility(View.GONE);
+        } else {
+            mIndustryLayout.setVisibility(View.VISIBLE);
+        }
+//        mIndustryLayout.setVisibility(View.VISIBLE);
+        mRequest.setLevel(tab.getText().toString());
         isLastPage = false;
         mPage = 0;
         lawList = loadData();

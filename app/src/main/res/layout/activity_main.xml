@@ -43,6 +43,17 @@
             android:text="法规库"
             android:textColor="@drawable/selector_color_menu" />
         <TextView
+            android:id="@+id/rb_ss"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawableTop="@drawable/selector_button_main"
+            android:gravity="center"
+            android:paddingTop="5dp"
+            android:text="三司库"
+            android:textSize="12dp"
+            android:textColor="@drawable/selector_color_menu" />
+        <TextView
             android:id="@+id/rb_search"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
