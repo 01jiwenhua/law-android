@@ -359,6 +359,8 @@ public class SearchFragment extends Fragment implements View.OnClickListener, Ba
         }
         if (tab.getText().toString().equals("全部")) {
             mRequest.setLevel("");
+        }else{
+            mRequest.setLevel(tab.getText().toString());
         }
 //        else if (tab.getText().toString().equals("行业标准")) {
 //            mRequest.setLevel("行业标准");
@@ -377,7 +379,7 @@ public class SearchFragment extends Fragment implements View.OnClickListener, Ba
             mIndustryLayout.setVisibility(View.VISIBLE);
         }
 //        mIndustryLayout.setVisibility(View.VISIBLE);
-        mRequest.setLevel(tab.getText().toString());
+
         isLastPage = false;
         mPage = 0;
         lawList = loadData();

@@ -47,7 +47,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:drawableTop="@drawable/selector_button_main"
+            android:drawableTop="@drawable/selector_button_ss"
             android:gravity="center"
             android:paddingTop="5dp"
             android:text="三司库"
