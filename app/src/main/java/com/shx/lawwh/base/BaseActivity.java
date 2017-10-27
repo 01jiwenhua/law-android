@@ -11,6 +11,7 @@ import android.widget.Toast;
 import com.shx.lawwh.R;
 import com.shx.lawwh.activity.MainActivity;
 import com.shx.lawwh.view.ActionBarView;
+import com.umeng.analytics.MobclickAgent;
 
 /**
  * Created by 邵鸿轩 on 2017/7/4.
@@ -22,6 +23,7 @@ public class BaseActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         APPActivityManager.getInstance().addActivity(this);
+        MobclickAgent.setScenarioType(this, MobclickAgent.EScenarioType. E_UM_NORMAL);
     }
     public ActionBarView getTopbar() {
         if (topbarView == null) {
@@ -31,6 +33,16 @@ public class BaseActivity extends AppCompatActivity {
             }
         }
         return topbarView;
+    }
+    @Override
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(this);
+    }
+    @Override
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
     }
     /**
      * 处理返回事件，如果在首页 连续按两次back键退出APP

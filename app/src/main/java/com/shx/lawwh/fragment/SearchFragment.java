@@ -181,18 +181,22 @@ public class SearchFragment extends Fragment implements View.OnClickListener, Ba
 
     private void loadMoreData() {
         if (isLastPage) {
+            setFooterView();
+            mAdapter.loadMoreEnd();
             return;
         }
         mPage++;
         List<LawItem> list = loadData();
         LogGloble.d("loadMoreData", mPage + "");
-        if (list.size() > 0) {
-            mAdapter.loadMoreComplete();
-        }
+//        if (list.size() > 0) {
+//            mAdapter.loadMoreComplete();
+//        }
         if (list.size() < pageSize) {
             isLastPage = true;
             setFooterView();
             mAdapter.loadMoreEnd();
+        }else{
+            mAdapter.loadMoreComplete();
         }
         mAdapter.addData(list);
 
@@ -256,6 +260,7 @@ public class SearchFragment extends Fragment implements View.OnClickListener, Ba
         mAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
             @Override
             public void onLoadMoreRequested() {
+                LogGloble.d("setOnLoadMoreListener","==============");
                 loadMoreData();
                 mAdapter.notifyDataSetChanged();
             }

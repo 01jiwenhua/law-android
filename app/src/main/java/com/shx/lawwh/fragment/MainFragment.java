@@ -79,13 +79,15 @@ public class MainFragment extends Fragment implements View.OnClickListener, Base
         page++;
         List<LawItem> list = loadData(page,pageSize);
         LogGloble.d("loadMoreData", page + "");
-        if (list.size() > 0) {
-            mAdapter.loadMoreComplete();
-        }
+//        if (list.size() > 0) {
+//            mAdapter.loadMoreComplete();
+//        }
         if (list.size() < pageSize) {
             isLastPage = true;
             setFooterView();
             mAdapter.loadMoreEnd();
+        }else{
+            mAdapter.loadMoreComplete();
         }
         mAdapter.addData(list);
         LogGloble.d("mAdapter",mAdapter.getItemCount()+"");
@@ -98,6 +100,8 @@ public class MainFragment extends Fragment implements View.OnClickListener, Base
         if (vps != null) {
             vps.restart(4000);
         }
+        mRefreshLayout.setRefreshing(false);
+        mAdapter.setEnableLoadMore(true);
     }
 
     private void initView(View view) {

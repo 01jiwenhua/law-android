@@ -61,7 +61,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
     }
 
     @Override
-    protected void onResume() {
+    public void onResume() {
         super.onResume();
     }
 
