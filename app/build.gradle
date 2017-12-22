@@ -6,7 +6,7 @@ android {
     defaultConfig {
         applicationId "com.shx.lawwh"
         minSdkVersion 14
-        targetSdkVersion 24
+        targetSdkVersion 22
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -42,4 +42,5 @@ dependencies {
     compile 'com.github.arcadefire:nice-spinner:1.2'
     compile 'org.greenrobot:eventbus:3.0.0'
     compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.22'
+    compile 'com.umeng.analytics:analytics:latest.integration'
 }
