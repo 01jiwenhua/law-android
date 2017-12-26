@@ -2,8 +2,6 @@ package com.shx.lawwh.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.text.Html;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +11,7 @@ import android.widget.TextView;
 import com.shx.lawwh.R;
 import com.shx.lawwh.base.OnRecyclerViewItemClickListener;
 import com.shx.lawwh.dao.LawItem;
-import com.shx.lawwh.dao.LawRequest;
+import com.shx.lawwh.entity.request.LawRequest;
 
 import java.util.List;
 
@@ -101,43 +99,43 @@ public class LawAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> im
     //绑定View，这里是根据返回的这个position的类型，从而进行绑定的，   HeaderView和FooterView, 就不同绑定了    
     @Override    
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {        
-        if(getItemViewType(position) == TYPE_NORMAL){            
-            if(holder instanceof ListHolder) {                
-                //这里加载数据的时候要注意，是从position-1开始，因为position==0已经被header占用了                
-//                ((ListHolder) holder).tv.setText(mDatas.get(position-1));
-                LawItem lawItem = mDatas.get(position-1);
-                //是否需要部分文字高亮
-                if(isLight){
-                    if(mLawRequest!=null){
-                        if(TextUtils.isEmpty(mLawRequest.getKeyword())){
-                            return;
-                        }
-                        if(mLawRequest.getKeywordType().equals("标题")){
-                            //标题高亮
-                            lawItem.setLaw_name(lawItem.getLaw_name().replace(mLawRequest.getKeyword(),"<font color='#FF0000'>"+mLawRequest.getKeyword()+"</font>"));
-
-                        }else{
-                            //内容高亮
-                            lawItem.setDescription(lawItem.getDescription().replace(mLawRequest.getKeyword(),"<font color='#FF0000'>"+mLawRequest.getKeyword()+"</font>"));
-                        }
-                        ((ListHolder) holder).name.setText(Html.fromHtml(lawItem.getLaw_name()));
-                        ((ListHolder) holder).desc.setText(Html.fromHtml(TextUtils.isEmpty(lawItem.getDescription())?"暂无摘要":lawItem.getDescription()));
-                    }
-
-                }else{
-                    ((ListHolder) holder).name.setText(lawItem.getLaw_name());
-                    ((ListHolder) holder).desc.setText(TextUtils.isEmpty(lawItem.getDescription())?"暂无摘要":lawItem.getDescription());
-                }
-                ((ListHolder) holder).layoutItem.setTag(lawItem);
-                ((ListHolder) holder).layoutItem.setOnClickListener(this);
-                return;            
-            }            
-            return;        
-        }else if(getItemViewType(position) == TYPE_HEADER){            
-            return;            
-        }else{           
-           return;       
-         }   
+//        if(getItemViewType(position) == TYPE_NORMAL){
+//            if(holder instanceof ListHolder) {
+//                //这里加载数据的时候要注意，是从position-1开始，因为position==0已经被header占用了
+////                ((ListHolder) holder).tv.setText(mDatas.get(position-1));
+//                LawItem lawItem = mDatas.get(position-1);
+//                //是否需要部分文字高亮
+//                if(isLight){
+//                    if(mLawRequest!=null){
+//                        if(TextUtils.isEmpty(mLawRequest.getKeyword())){
+//                            return;
+//                        }
+//                        if(mLawRequest.getKeywordType().equals("标题")){
+//                            //标题高亮
+//                            lawItem.setLaw_name(lawItem.getLaw_name().replace(mLawRequest.getKeyword(),"<font color='#FF0000'>"+mLawRequest.getKeyword()+"</font>"));
+//
+//                        }else{
+//                            //内容高亮
+//                            lawItem.setDescription(lawItem.getDescription().replace(mLawRequest.getKeyword(),"<font color='#FF0000'>"+mLawRequest.getKeyword()+"</font>"));
+//                        }
+//                        ((ListHolder) holder).name.setText(Html.fromHtml(lawItem.getLaw_name()));
+//                        ((ListHolder) holder).desc.setText(Html.fromHtml(TextUtils.isEmpty(lawItem.getDescription())?"暂无摘要":lawItem.getDescription()));
+//                    }
+//
+//                }else{
+//                    ((ListHolder) holder).name.setText(lawItem.getLaw_name());
+//                    ((ListHolder) holder).desc.setText(TextUtils.isEmpty(lawItem.getDescription())?"暂无摘要":lawItem.getDescription());
+//                }
+//                ((ListHolder) holder).layoutItem.setTag(lawItem);
+//                ((ListHolder) holder).layoutItem.setOnClickListener(this);
+//                return;
+//            }
+//            return;
+//        }else if(getItemViewType(position) == TYPE_HEADER){
+//            return;
+//        }else{
+//           return;
+//         }
       }
 
     @Override

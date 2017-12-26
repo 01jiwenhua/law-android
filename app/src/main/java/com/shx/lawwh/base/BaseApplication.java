@@ -70,11 +70,11 @@ public class BaseApplication extends Application {
     }
     private void initDatabass() {
         //这里之后会修改，关于升级数据库
-        DBHelper.getInstance(this).copyDatabaseFile(this,true);
-        dbHelper = new DaoMaster.DevOpenHelper(this, "law.db", null);
-        db = dbHelper.getWritableDatabase();
-        mDaoMaster = new DaoMaster(db);
-        mDaoSession = mDaoMaster.newSession();
+//        DBHelper.getInstance(this).copyDatabaseFile(this,true);
+//        dbHelper = new DaoMaster.DevOpenHelper(this, "law.db", null);
+//        db = dbHelper.getWritableDatabase();
+//        mDaoMaster = new DaoMaster(db);
+//        mDaoSession = mDaoMaster.newSession();
     }
     /**
      * 初始化App

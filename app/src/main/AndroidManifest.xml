@@ -2,43 +2,56 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.shx.lawwh">
+
+    <uses-sdk android:minSdkVersion="8" />
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.NFC" />
-    <uses-feature android:name="android.hardware.nfc" android:required="true" />
-    <uses-sdk android:minSdkVersion="8"></uses-sdk>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+
+    <uses-feature
+        android:name="android.hardware.nfc"
+        android:required="true" />
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
     <application
-        android:name="com.shx.lawwh.base.BaseApplication"
+        android:name=".base.BaseApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.Base">
-        <meta-data android:value="59f2f84e8f4a9d206d00006e" android:name="UMENG_APPKEY"/>
-        <meta-data android:value="UMENNG" android:name="UMENG_CHANNEL"/>
-        <activity android:name="com.shx.lawwh.activity.MainActivity">
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="59f2f84e8f4a9d206d00006e" />
+        <meta-data
+            android:name="UMENG_CHANNEL"
+            android:value="UMENNG" />
 
-        </activity>
-        <activity android:name="com.shx.lawwh.activity.PdfViewActivity"></activity>
-        <activity android:name="com.shx.lawwh.activity.WebActivity">
-        </activity>
-        <activity android:name="com.shx.lawwh.activity.LoadingActivity">
+        <activity android:name=".activity.MainActivity" />
+        <activity android:name=".activity.PdfViewActivity" />
+        <activity android:name=".activity.WebActivity" />
+        <activity android:name=".activity.LoadingActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".activity.LawActivity" />
+        <activity android:name=".activity.SSActivity" />
+        <activity android:name=".activity.ChemicalsActivity" />
+        <activity android:name=".activity.LawSearchActivity" />
+        <activity android:name=".activity.ChemicalsDetailsActivity" />
+        <activity android:name=".activity.UnknownDetailsActivity"></activity>
     </application>
+
 </manifest>
-
-
-

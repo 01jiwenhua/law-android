@@ -8,41 +8,35 @@ import com.alibaba.fastjson.JSONObject;
  * Created by admin on 2016/3/21.
  */
 public class ZCResponse {
-    private ZCResponseHeader header;
-    private ZCResponseData response;
 
-    public ZCResponseData getResponse() {
-        return response;
+    private String message;
+    private String data;
+    private String messageCode;
+
+    public String getMessage() {
+        return message;
     }
 
-    public void setResponse(ZCResponseData response) {
-        this.response = response;
+    public void setMessage(String message) {
+        this.message = message;
     }
 
-    public ZCResponseHeader getHeader() {
-        return header;
+    public String getData() {
+        return data;
     }
 
-    public void setHeader(ZCResponseHeader header) {
-        this.header = header;
+    public void setData(String data) {
+        this.data = data;
     }
 
-    @Nullable
+    public String getMessageCode() {
+        return messageCode;
+    }
+
+    public void setMessageCode(String messageCode) {
+        this.messageCode = messageCode;
+    }
     public JSONObject getMainData(){
-        try {
-            JSONObject object= MyJSON.parseObject( response.getResult().getData());
-            return object;
-        }catch (Exception e){
-            e.printStackTrace();
-            return null;
-        }
-    }
-    //获取每页显示条数
-    public int getSize(){
-        return response.getResult().getSize();
-    }
-    //获取当前页
-    public int getcurrentPage(){
-        return response.getResult().getCurrentPage();
+        return MyJSON.parseObject(data);
     }
 }

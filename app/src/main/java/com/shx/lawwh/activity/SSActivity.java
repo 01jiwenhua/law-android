@@ -1,16 +1,15 @@
-package com.shx.lawwh.fragment;
+package com.shx.lawwh.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.shx.lawwh.R;
 import com.shx.lawwh.adapter.LoopViewPagerAdapter;
+import com.shx.lawwh.base.BaseActivity;
 import com.shx.lawwh.base.LayoutValue;
 import com.shx.lawwh.base.ViewPagerScheduler;
 import com.shx.lawwh.message.EventMessage;
@@ -23,19 +22,21 @@ import org.greenrobot.eventbus.EventBus;
  * Created by 邵鸿轩 on 2016/12/1.
  */
 
-public class SSFragment extends Fragment implements View.OnClickListener {
+public class SSActivity extends BaseActivity implements View.OnClickListener {
     private ViewPageWithIndicator mLoopView;
     private ImageView[] imageViews;
     private LoopViewPagerAdapter loopViewPagerAdapter;
     private ViewPagerScheduler vps;
     private int res[] = new int[]{R.drawable.img_banner1,R.drawable.img_banner2,R.drawable.img_banner3};
-    @Nullable
+
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_ss, null);
-        initView(view);
-        return view;
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_ss);
+        initView();
     }
+
+
 
 
     @Override
@@ -53,19 +54,17 @@ public class SSFragment extends Fragment implements View.OnClickListener {
 
     }
 
-    private void initView(View view) {
-        setHeaderView(view);
-        view.findViewById(R.id.layout_chemicals).setOnClickListener(this);
-        view.findViewById(R.id.layout_fireworks).setOnClickListener(this);
-    }
-
-    private void setHeaderView(View view) {
-        mLoopView = (ViewPageWithIndicator) view.findViewById(R.id.vp_viewpage);
+    private void initView() {
+        mLoopView = (ViewPageWithIndicator) findViewById(R.id.vp_viewpage);
         mLoopView.setFocusable(true);
         mLoopView.setFocusableInTouchMode(true);
         mLoopView.requestFocus();
         initBanner();
+        findViewById(R.id.layout_chemicals).setOnClickListener(this);
+        findViewById(R.id.layout_fireworks).setOnClickListener(this);
     }
+
+
 
     /**
      * 初始化首页Banner
@@ -78,10 +77,10 @@ public class SSFragment extends Fragment implements View.OnClickListener {
         imageViews = new ImageView[res.length];
         //循环创建ImageView，并且用Glide讲图片显示在上面
         for (int i = 0; i < res.length; i++) {
-            ImageView imageView = new ImageView(getActivity());
+            ImageView imageView = new ImageView(this);
             imageViews[i] = imageView;
             imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-            Glide.with(getActivity()).load(res[i]).placeholder(getResources().getDrawable(R.drawable.img_banner)).into(imageView);
+            Glide.with(this).load(res[i]).placeholder(getResources().getDrawable(R.drawable.img_banner)).into(imageView);
         }
 
         loopViewPagerAdapter = new LoopViewPagerAdapter(
@@ -95,31 +94,25 @@ public class SSFragment extends Fragment implements View.OnClickListener {
     }
 
 
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-    }
+
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.layout_chemicals:
-                EventMessage messageChemicals = new EventMessage();
-                messageChemicals.setFrom("SelectFragment");
-                messageChemicals.setSearchType("三司");
-                messageChemicals.setSelectMenu("危化品");
-                EventBus.getDefault().postSticky(messageChemicals);
+                goSearch("危化品");
                 break;
             case R.id.layout_fireworks:
-                EventMessage messageFireworks = new EventMessage();
-                messageFireworks.setFrom("SelectFragment");
-                messageFireworks.setSelectMenu("烟花爆竹");
-                messageFireworks.setSearchType("三司");
-                EventBus.getDefault().postSticky(messageFireworks);
+                goSearch("烟花爆竹");
                 break;
         }
     }
-
+    private void goSearch(String typeCode){
+        Intent intent=new Intent(this,LawSearchActivity.class);
+        intent.putExtra("typeCode",typeCode);
+        intent.putExtra("typeName","三司");
+        startActivity(intent);
+    }
 
     @Override
     public void onStop() {

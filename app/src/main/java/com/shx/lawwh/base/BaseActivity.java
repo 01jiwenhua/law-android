@@ -10,6 +10,9 @@ import android.widget.Toast;
 
 import com.shx.lawwh.R;
 import com.shx.lawwh.activity.MainActivity;
+import com.shx.lawwh.libs.http.HttpCallBack;
+import com.shx.lawwh.libs.http.HttpTrowable;
+import com.shx.lawwh.libs.http.ZCResponse;
 import com.shx.lawwh.view.ActionBarView;
 import com.umeng.analytics.MobclickAgent;
 
@@ -17,7 +20,7 @@ import com.umeng.analytics.MobclickAgent;
  * Created by 邵鸿轩 on 2017/7/4.
  */
 
-public class BaseActivity extends AppCompatActivity {
+public class BaseActivity extends AppCompatActivity implements HttpCallBack{
     protected ActionBarView topbarView;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -65,5 +68,20 @@ public class BaseActivity extends AppCompatActivity {
 
     public void gotoMainActivity() {
         startActivity(new Intent(this,MainActivity.class));
+    }
+
+    @Override
+    public boolean doSuccess(ZCResponse respose, String requestUrl) {
+        return false;
+    }
+
+    @Override
+    public boolean doFaild(HttpTrowable error, String url) {
+        return false;
+    }
+
+    @Override
+    public boolean httpCallBackPreFilter(String result, String url) {
+        return false;
     }
 }

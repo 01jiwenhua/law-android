@@ -45,44 +45,44 @@ public class MyLawItemDao {
         return list;
     }
 
-    public List<LawItem> selctLawItemsByParam(LawRequest request, int offset, int pageSize) {
-        List<LawItem> list=new ArrayList<>();
-        StringBuilder sqlBuider=new StringBuilder("SELECT * FROM LAW_ITEM l WHERE 1=1 ");
-        sqlBuider.append(" and l.FILE_PATH !=''  and l.DESCRIPTION !='' ");
-        if(!TextUtils.isEmpty(request.getLevel())){
-            sqlBuider.append("and l.LEVEL='"+request.getLevel()+"'");
-        }
-        if (!TextUtils.isEmpty(request.getTypeName())) {
-            sqlBuider.append("and l.TYPE_NAME='"+request.getTypeName()+"'");
-        }
-        if (!TextUtils.isEmpty(request.getTypeCode())) {
-            sqlBuider.append("and l.TYPE_CODE='"+request.getTypeCode()+"' ");
-        }
-
-        if (!TextUtils.isEmpty(request.getKeyword())) {
-            if (request.getKeywordType().equals("标题")) {
-                sqlBuider.append("and l.LAW_NAME LIKE '%"+request.getKeyword()+"%'");
-            }
-            if(request.getKeywordType().equals("内容")){
-                sqlBuider.append("and l.DESCRIPTION LIKE '%"+request.getKeyword()+"%'");
-            }
-        }
-        sqlBuider.append(" LIMIT "+offset * pageSize+","+pageSize);
-        LogGloble.d("sql",sqlBuider.toString()+"=====");
-        Cursor cursor = BaseApplication.getContext().getSession().getDatabase().rawQuery(sqlBuider.toString(),null);
-        while (cursor.moveToNext()){
-            LawItem lawItem=new LawItem();
-            lawItem.setId(cursor.getLong(cursor.getColumnIndex("_id")));
-            lawItem.setLaw_name(cursor.getString(cursor.getColumnIndex("LAW_NAME")));
-            lawItem.setIssue_no(cursor.getString(cursor.getColumnIndex("ISSUE_NO")));
-            lawItem.setLevel(cursor.getString(cursor.getColumnIndex("LEVEL")));
-            lawItem.setType_name(cursor.getString(cursor.getColumnIndex("TYPE_NAME")));
-            lawItem.setType_code(cursor.getString(cursor.getColumnIndex("TYPE_CODE")));
-            lawItem.setFile_path(cursor.getString(cursor.getColumnIndex("FILE_PATH")));
-            lawItem.setStatus(cursor.getString(cursor.getColumnIndex("STATUS")));
-            lawItem.setDescription(cursor.getString(cursor.getColumnIndex("DESCRIPTION")));
-            list.add(lawItem);
-        }
-        return list;
-    }
+//    public List<LawItem> selctLawItemsByParam(LawRequest request, int offset, int pageSize) {
+//        List<LawItem> list=new ArrayList<>();
+//        StringBuilder sqlBuider=new StringBuilder("SELECT * FROM LAW_ITEM l WHERE 1=1 ");
+//        sqlBuider.append(" and l.FILE_PATH !=''  and l.DESCRIPTION !='' ");
+//        if(!TextUtils.isEmpty(request.getLevel())){
+//            sqlBuider.append("and l.LEVEL='"+request.getLevel()+"'");
+//        }
+//        if (!TextUtils.isEmpty(request.getTypeName())) {
+//            sqlBuider.append("and l.TYPE_NAME='"+request.getTypeName()+"'");
+//        }
+//        if (!TextUtils.isEmpty(request.getTypeCode())) {
+//            sqlBuider.append("and l.TYPE_CODE='"+request.getTypeCode()+"' ");
+//        }
+//
+//        if (!TextUtils.isEmpty(request.getKeyword())) {
+//            if (request.getKeywordType().equals("标题")) {
+//                sqlBuider.append("and l.LAW_NAME LIKE '%"+request.getKeyword()+"%'");
+//            }
+//            if(request.getKeywordType().equals("内容")){
+//                sqlBuider.append("and l.DESCRIPTION LIKE '%"+request.getKeyword()+"%'");
+//            }
+//        }
+//        sqlBuider.append(" LIMIT "+offset * pageSize+","+pageSize);
+//        LogGloble.d("sql",sqlBuider.toString()+"=====");
+//        Cursor cursor = BaseApplication.getContext().getSession().getDatabase().rawQuery(sqlBuider.toString(),null);
+//        while (cursor.moveToNext()){
+//            LawItem lawItem=new LawItem();
+//            lawItem.setId(cursor.getLong(cursor.getColumnIndex("_id")));
+//            lawItem.setLaw_name(cursor.getString(cursor.getColumnIndex("LAW_NAME")));
+//            lawItem.setIssue_no(cursor.getString(cursor.getColumnIndex("ISSUE_NO")));
+//            lawItem.setLevel(cursor.getString(cursor.getColumnIndex("LEVEL")));
+//            lawItem.setType_name(cursor.getString(cursor.getColumnIndex("TYPE_NAME")));
+//            lawItem.setType_code(cursor.getString(cursor.getColumnIndex("TYPE_CODE")));
+//            lawItem.setFile_path(cursor.getString(cursor.getColumnIndex("FILE_PATH")));
+//            lawItem.setStatus(cursor.getString(cursor.getColumnIndex("STATUS")));
+//            lawItem.setDescription(cursor.getString(cursor.getColumnIndex("DESCRIPTION")));
+//            list.add(lawItem);
+//        }
+//        return list;
+//    }
 }

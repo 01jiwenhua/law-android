@@ -10,4 +10,5 @@ public class SystemConfig {
     public static boolean LOGFLAG = true;
     public static String appName="危化";
     public static String URL="http://60.210.40.196:8086/laws/%s.html";
+    public static String BASEURL="http://192.168.8.120:8090";
 }

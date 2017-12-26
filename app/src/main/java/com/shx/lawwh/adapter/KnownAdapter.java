@@ -8,7 +8,9 @@ import android.widget.TextView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.shx.lawwh.R;
+import com.shx.lawwh.entity.request.ChemicalsRequest;
 import com.shx.lawwh.entity.request.LawRequest;
+import com.shx.lawwh.entity.response.ChemicalsResponse;
 import com.shx.lawwh.entity.response.LawResponse;
 
 import java.util.List;
@@ -17,15 +19,15 @@ import java.util.List;
  * Created by 邵鸿轩 on 2017/7/18.
  */
 
-public class LawBaseAdapter extends BaseQuickAdapter<LawResponse, LawBaseAdapter.ViewHolder> {
-    private LawRequest mLawRequest;
+public class KnownAdapter extends BaseQuickAdapter<ChemicalsResponse, KnownAdapter.ViewHolder> {
+    private ChemicalsRequest mChemicalsRequest;
     private boolean isLight=false;//是否需要高亮
-    public LawBaseAdapter( @Nullable List<LawResponse> data) {
-        super(R.layout.item_law,data);
+    public KnownAdapter(@Nullable List<ChemicalsResponse> data) {
+        super(R.layout.item_chemicals,data);
     }
 
     @Override
-    protected void convert(ViewHolder helper, LawResponse item) {
+    protected void convert(ViewHolder helper, ChemicalsResponse item) {
 
        // 是否需要部分文字高亮
 //        if(isLight){
@@ -45,26 +47,20 @@ public class LawBaseAdapter extends BaseQuickAdapter<LawResponse, LawBaseAdapter
 //               helper.des.setText(Html.fromHtml(TextUtils.isEmpty(item.getDescription())?"暂无摘要":item.getDescription()));
 //            }
 //        }else{
-            helper.name.setText(item.getLawName());
-            helper.des.setText(TextUtils.isEmpty(item.getDescription())?"暂无摘要":item.getDescription());
+            helper.name.setText(item.getNameCn());
 //        }
 
     }
-    /**
-     * 设置文字高亮
-     * @param lawRequest
-     */
-    public void setLight(boolean isLight,LawRequest lawRequest){
-        mLawRequest=lawRequest;
-        this.isLight=isLight;
-    }
+
+//    public void setLight(boolean isLight,LawRequest lawRequest){
+//        m=lawRequest;
+//        this.isLight=isLight;
+//    }
     class ViewHolder extends BaseViewHolder{
         private TextView name;
-        private TextView des;
         public ViewHolder(View view) {
             super(view);
             name= (TextView) view.findViewById(R.id.tv_name);
-            des= (TextView) view.findViewById(R.id.tv_des);
         }
     }
 }

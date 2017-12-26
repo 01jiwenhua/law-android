@@ -3,67 +3,139 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-    <include layout="@layout/layout_topbar"></include>
-    <FrameLayout
-        android:id="@+id/content"
+
+    <com.shx.lawwh.view.ViewPageWithIndicator
+        android:id="@+id/vp_viewpage"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"></FrameLayout>
+        android:layout_height="120dp"></com.shx.lawwh.view.ViewPageWithIndicator>
 
     <LinearLayout
-        android:id="@+id/rg_menu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorWhite"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:gravity="center">
 
-        <TextView
-            android:id="@+id/rb_main"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/layout_fgbz"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="10dp"
             android:layout_weight="1"
-            android:drawableTop="@drawable/selector_button_main"
+            android:background="@color/colorLightYellow"
             android:gravity="center"
-            android:paddingTop="5dp"
-            android:text="首页"
-            android:textSize="12dp"
-            android:textColor="@drawable/selector_color_menu" />
+            android:orientation="vertical"
+            android:padding="20dp">
 
-        <TextView
-            android:id="@+id/rb_select"
-            android:layout_width="wrap_content"
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/ic_falv" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:textColor="#333333"
+                android:text="法规标准库"
+                android:textSize="18dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_ajzj"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_weight="1"
-            android:button="@null"
-            android:drawableTop="@drawable/selector_button_select"
             android:gravity="center"
-            android:paddingTop="5dp"
-            android:textSize="12dp"
-            android:text="法规库"
-            android:textColor="@drawable/selector_color_menu" />
-        <TextView
-            android:id="@+id/rb_ss"
-            android:layout_width="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:padding="20dp"
+
+            android:background="@color/colorLightYellow"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/ic_ss" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:textColor="#333333"
+                android:text="安监总局库"
+                android:textSize="18dp" />
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:gravity="center">
+
+        <LinearLayout
+            android:id="@+id/layout_wxhxp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:drawableTop="@drawable/selector_button_ss"
             android:gravity="center"
-            android:paddingTop="5dp"
-            android:text="三司库"
-            android:textSize="12dp"
-            android:textColor="@drawable/selector_color_menu" />
-        <TextView
-            android:id="@+id/rb_search"
-            android:layout_width="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:padding="20dp"
+            android:background="@color/colorLightYellow"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/ic_wh" />
+
+            <TextView
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:textColor="#333333"
+                android:text="危险化学品"
+                android:textSize="18dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_fhjj"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:button="@null"
-            android:drawableTop="@drawable/selector_button_search"
             android:gravity="center"
-            android:paddingTop="5dp"
-            android:text="法规搜索"
-            android:textSize="12dp"
-            android:textColor="@drawable/selector_color_menu" />
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:padding="20dp"
+            android:background="@color/colorLightYellow"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/ic_fhjj" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="20dp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:textColor="#333333"
+                android:text="防火间距"
+                android:textSize="18dp" />
+        </LinearLayout>
     </LinearLayout>
 </LinearLayout>

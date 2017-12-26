@@ -10,12 +10,12 @@ public interface HttpCallBack {
     /**
      * 成功回调
      */
-    public boolean doSuccess(ZCResponse respose, String requestUrl, String method);
+    public boolean doSuccess(ZCResponse respose, String requestUrl);
 
     /**
      * 失败回调
      */
-    public boolean doFaild(HttpTrowable error, Map<String, Object> requestParams, String requestUrl, String method);
+    public boolean doFaild(HttpTrowable error,String url);
 
     /**
      * 通讯回掉前拦截
@@ -23,5 +23,5 @@ public interface HttpCallBack {
      * @param method 请求标示
      * @return
      */
-    public boolean httpCallBackPreFilter(String result, String method);
+    public boolean httpCallBackPreFilter(String result,String url);
 }

@@ -19,34 +19,32 @@ import com.shx.lawwh.view.ViewPageWithIndicator;
  * Created by xuan on 2017/12/24.
  */
 
-public class MainActivity extends BaseActivity implements View.OnClickListener{
+public class LawActivity extends BaseActivity implements View.OnClickListener{
     private ViewPageWithIndicator mLoopView;
     private ImageView[] imageViews;
     private LoopViewPagerAdapter loopViewPagerAdapter;
     private ViewPagerScheduler vps;
-    private LinearLayout mFgbzk,mAjzjk,mWxhxp,mFhjj;
+    private LinearLayout mLaw,mRegulations,mStandard;
+
     private int res[] = new int[]{R.drawable.img_banner1,R.drawable.img_banner2,R.drawable.img_banner3};
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_law);
         initView();
     }
     private void initView(){
-        mFgbzk= (LinearLayout) findViewById(R.id.layout_fgbz);
-        mAjzjk= (LinearLayout) findViewById(R.id.layout_ajzj);
-        mWxhxp= (LinearLayout) findViewById(R.id.layout_wxhxp);
-        mFhjj= (LinearLayout) findViewById(R.id.layout_fhjj);
-        mFhjj.setOnClickListener(this);
-        mFgbzk.setOnClickListener(this);
-        mWxhxp.setOnClickListener(this);
-        mAjzjk.setOnClickListener(this);
-        mFhjj.setOnClickListener(this);
         mLoopView = (ViewPageWithIndicator) findViewById(R.id.vp_viewpage);
         mLoopView.setFocusable(true);
         mLoopView.setFocusableInTouchMode(true);
         mLoopView.requestFocus();
         initBanner();
+        mLaw= (LinearLayout) findViewById(R.id.layout_law);
+        mRegulations= (LinearLayout) findViewById(R.id.layout_regulations);
+        mStandard= (LinearLayout) findViewById(R.id.layout_standard);
+        mLaw.setOnClickListener(this);
+        mRegulations.setOnClickListener(this);
+        mLaw.setOnClickListener(this);
     }
     /**
      * 初始化首页Banner
@@ -77,18 +75,23 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
 
     @Override
     public void onClick(View v) {
+
         switch (v.getId()){
-            case R.id.layout_fgbz:
-                startActivity(new Intent(this,LawActivity.class));
+            case R.id.layout_law:
+                goSearch("law");
                 break;
-            case R.id.layout_ajzj:
-                startActivity(new Intent(this,SSActivity.class));
+            case R.id.layout_regulations:
+                goSearch("regulation");
                 break;
-            case R.id.layout_wxhxp:
-                startActivity(new Intent(this,ChemicalsActivity.class));
-                break;
-            case R.id.layout_fhjj:
+            case R.id.layout_standard:
+                goSearch("standard");
                 break;
         }
     }
+    private void goSearch(String type){
+        Intent intent=new Intent(this,LawSearchActivity.class);
+        intent.putExtra("type",type);
+        startActivity(intent);
+    }
+
 }
