@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-
+    <include layout="@layout/layout_topbar"></include>
     <com.shx.lawwh.view.ViewPageWithIndicator
         android:id="@+id/vp_viewpage"
         android:layout_width="match_parent"
@@ -22,8 +22,8 @@
         android:paddingTop="10dp">
 
         <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="38dp"
+            android:layout_height="40dp"
             android:background="@drawable/ic_fl" />
 
         <TextView
@@ -64,8 +64,8 @@
         android:paddingTop="10dp">
 
         <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="38dp"
+            android:layout_height="40dp"
             android:background="@drawable/ic_fg" />
 
         <TextView
@@ -104,8 +104,8 @@
         android:paddingTop="10dp">
 
         <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="38dp"
+            android:layout_height="40dp"
             android:background="@drawable/ic_bz" />
 
         <TextView

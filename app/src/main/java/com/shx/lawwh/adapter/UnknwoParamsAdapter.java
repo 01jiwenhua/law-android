@@ -56,10 +56,12 @@ public class UnknwoParamsAdapter extends BaseAdapter{
         UnknownParams params=mList.get(position);
         viewHolder.name= (TextView) convertView.findViewById(R.id.name);
         if(UnKnownFragment.checkMap.containsKey(params.getCategoryCode())){
-
             viewHolder.name.setText(UnKnownFragment.checkMap.get(params.getCategoryCode()).getName());
+            viewHolder.name.setTextColor(mContext.getResources().getColor(R.color.colorBlue));
         }else{
             viewHolder.name.setText(params.getCategoryName());
+            viewHolder.name.setTextColor(mContext.getResources().getColor(R.color.colorTextGray));
+
         }
 
 

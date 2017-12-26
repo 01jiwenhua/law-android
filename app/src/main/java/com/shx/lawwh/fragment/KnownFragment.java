@@ -10,6 +10,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSONObject;
@@ -34,10 +36,12 @@ import java.util.List;
  * Created by xuan on 2017/12/24.
  */
 
-public class KnownFragment extends Fragment implements HttpCallBack,BaseQuickAdapter.OnItemClickListener{
+public class KnownFragment extends Fragment implements HttpCallBack,BaseQuickAdapter.OnItemClickListener,View.OnClickListener{
     private RecyclerView mRecyclerView;
     private SwipeRefreshLayout mRefreshLayout;
     private KnownAdapter mAdapter;
+    private EditText mKeyword;
+    private ImageView mSearchView;
     private int page = 1;
     private final int pageSize = 10;
     private boolean isLastPage = false;
@@ -67,7 +71,9 @@ public class KnownFragment extends Fragment implements HttpCallBack,BaseQuickAda
         super.onViewCreated(view, savedInstanceState);
         mRecyclerView= (RecyclerView) view.findViewById(R.id.rv_known);
         mRefreshLayout= (SwipeRefreshLayout) view.findViewById(R.id.layout_refresh);
-
+        mKeyword= (EditText) view.findViewById(R.id.et_keyworld);
+        mSearchView= (ImageView) view.findViewById(R.id.iv_search);
+        mSearchView.setOnClickListener(this);
         mRequest=new ChemicalsRequest();
         initData();
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
@@ -154,5 +160,25 @@ public class KnownFragment extends Fragment implements HttpCallBack,BaseQuickAda
         Intent intent=new Intent(getContext(), ChemicalsDetailsActivity.class);
         intent.putExtra("chemicals",chemicalsResponse);
         startActivity(intent);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.iv_search:
+                String keyword=mKeyword.getText().toString();
+                mRequest.setName(keyword);
+                page=1;
+                mRequest.setPage(page);
+                chemicalsResponseList.clear();
+                mAdapter.getData().clear();
+                initData();
+                //数据重新加载完成后，提示数据发生改变，并且设置现在不在刷新
+                mAdapter.setNewData(chemicalsResponseList);
+                mRefreshLayout.setRefreshing(false);
+                mAdapter.setLight(true,mRequest);
+                mAdapter.notifyDataSetChanged();
+                break;
+        }
     }
 }

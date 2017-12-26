@@ -55,6 +55,13 @@ public class SSActivity extends BaseActivity implements View.OnClickListener {
     }
 
     private void initView() {
+        getTopbar().setTitle("安监总局库");
+        getTopbar().setLeftImageListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
         mLoopView = (ViewPageWithIndicator) findViewById(R.id.vp_viewpage);
         mLoopView.setFocusable(true);
         mLoopView.setFocusableInTouchMode(true);

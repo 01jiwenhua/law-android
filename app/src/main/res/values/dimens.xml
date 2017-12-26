@@ -15,5 +15,5 @@
     <!-- 无意义 尺寸  只适配 -->
     <dimen name="dp_three">3dp</dimen>
     <dimen name="dp_five">5dp</dimen>
-    <dimen name="guide_point_wh">8dp</dimen>
+    <dimen name="guide_point_wh">10dp</dimen>
 </resources>

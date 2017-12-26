@@ -3,10 +3,10 @@
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
-    <android.support.v4.view.ViewPager
-        android:id="@+id/vp_userGuide"
+    <com.shx.lawwh.view.ViewPageWithIndicator
+        android:id="@+id/vp_viewpage"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"></com.shx.lawwh.view.ViewPageWithIndicator>
 
-    </android.support.v4.view.ViewPager>
+
 </LinearLayout>

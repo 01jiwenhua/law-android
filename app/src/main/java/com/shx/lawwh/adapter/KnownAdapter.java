@@ -1,6 +1,7 @@
 package com.shx.lawwh.adapter;
 
 import android.support.annotation.Nullable;
+import android.text.Html;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
@@ -30,32 +31,26 @@ public class KnownAdapter extends BaseQuickAdapter<ChemicalsResponse, KnownAdapt
     protected void convert(ViewHolder helper, ChemicalsResponse item) {
 
        // 是否需要部分文字高亮
-//        if(isLight){
-//            if(mLawRequest!=null){
-//                if(TextUtils.isEmpty(mLawRequest.getKeyword())){
-//                    return;
-//                }
-//                if(mLawRequest.getKeywordType().equals("标题")){
-//                    //标题高亮
-//                    item.setLaw_name(item.getLaw_name().replace(mLawRequest.getKeyword(),"<font color='#FF0000'>"+mLawRequest.getKeyword()+"</font>"));
-//
-//                }else{
-//                    //内容高亮
-//                    item.setDescription(item.getDescription().replace(mLawRequest.getKeyword(),"<font color='#FF0000'>"+mLawRequest.getKeyword()+"</font>"));
-//                }
-//               helper.name.setText(Html.fromHtml(item.getLaw_name()));
-//               helper.des.setText(Html.fromHtml(TextUtils.isEmpty(item.getDescription())?"暂无摘要":item.getDescription()));
-//            }
-//        }else{
+        if(isLight){
+            if(mChemicalsRequest!=null){
+                if(TextUtils.isEmpty(mChemicalsRequest.getName())){
+                    return;
+                }
+                    //内容
+                    item.setNameCn(item.getNameCn().replace(mChemicalsRequest.getName(),"<font color='#FF0000'>"+mChemicalsRequest.getName()+"</font>"));
+
+               helper.name.setText(Html.fromHtml(item.getNameCn()));
+            }
+        }else{
             helper.name.setText(item.getNameCn());
-//        }
+        }
 
     }
 
-//    public void setLight(boolean isLight,LawRequest lawRequest){
-//        m=lawRequest;
-//        this.isLight=isLight;
-//    }
+    public void setLight(boolean isLight,ChemicalsRequest lawRequest){
+        mChemicalsRequest=lawRequest;
+        this.isLight=isLight;
+    }
     class ViewHolder extends BaseViewHolder{
         private TextView name;
         public ViewHolder(View view) {

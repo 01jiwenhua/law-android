@@ -132,7 +132,7 @@ public class ViewPageWithIndicator extends FrameLayout implements OnPageChangeLi
         mRealPageCount = realPageCount;
         if (MAIN_SCORES_FLAG==referenceFlag) {
             int imgWidth = this.getResources().getDimensionPixelSize(R.dimen.dp_five);
-            int gag = this.getResources().getDimensionPixelSize(R.dimen.dp_three);
+            int gag = this.getResources().getDimensionPixelSize(R.dimen.dp_five);
             if (mRealPageCount<=1){
                 return;
             }else {

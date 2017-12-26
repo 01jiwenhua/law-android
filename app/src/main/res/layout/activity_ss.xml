@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-
+    <include layout="@layout/layout_topbar"></include>
     <com.shx.lawwh.view.ViewPageWithIndicator
         android:id="@+id/vp_viewpage"
         android:layout_width="match_parent"

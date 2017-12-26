@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.QuickContactBadge;
 
 import com.bumptech.glide.Glide;
 import com.shx.lawwh.R;
@@ -34,6 +35,13 @@ public class LawActivity extends BaseActivity implements View.OnClickListener{
         initView();
     }
     private void initView(){
+        getTopbar().setTitle("法规标准库");
+        getTopbar().setLeftImageListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
         mLoopView = (ViewPageWithIndicator) findViewById(R.id.vp_viewpage);
         mLoopView.setFocusable(true);
         mLoopView.setFocusableInTouchMode(true);
