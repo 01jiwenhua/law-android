@@ -8,10 +8,11 @@ import com.shx.lawwh.entity.request.LawRequest;
  */
 
 public class RequestCenter {
-    public static final String GET_LAWLIST="/law//list";
+    public static final String GET_LAWLIST="/law/list";
     public static final String GET_KNOWNLIST="/chemicals/getKnownList";
     public static final String GET_CHEMICALSDETAILS="/chemicals/getChemicalsDetails";
     public static final String GET_UNKNOWPARAMS="/chemicals/getUnknowParams";
+    public static final String GET_UNKNOWPARAMS_DETAILS="/chemicals/getUnknowParamsDetails";
     /**
      * 获取法律法规列表
      * @param lawRequest
@@ -41,6 +42,23 @@ public class RequestCenter {
         ZCRequest request=new ZCRequest();
         request.setUrl(GET_KNOWNLIST);
         request.putParams("name",chemicalsRequest.getName());
+        request.putParams("status",chemicalsRequest.getStatus());
+        request.putParams("color",chemicalsRequest.getColor());
+        request.putParams("smell",chemicalsRequest.getSmell());
+        request.putParams("taste",chemicalsRequest.getTaste());
+        request.putParams("specific_air",chemicalsRequest.getSpecific_air());
+        request.putParams("specific_water",chemicalsRequest.getSpecific_water());
+        request.putParams("ph",chemicalsRequest.getPh());
+        request.putParams("transparency",chemicalsRequest.getTransparency());
+        request.putParams("nervous",chemicalsRequest.getNervous());
+        request.putParams("eye",chemicalsRequest.getEye());
+        request.putParams("ear",chemicalsRequest.getEar());
+        request.putParams("mouth_throat",chemicalsRequest.getMouth_throat());
+        request.putParams("cardiovascular",chemicalsRequest.getCardiovascular());
+        request.putParams("respiratory",chemicalsRequest.getRespiratory());
+        request.putParams("gastro_urinary",chemicalsRequest.getGastro_urinary());
+        request.putParams("skin",chemicalsRequest.getSkin());
+
         request.putParams("page",chemicalsRequest.getPage());
         request.putParams("pageSize",chemicalsRequest.getPageSize());
         HttpManager.getInstance().doPost(request,callBack);
@@ -59,4 +77,10 @@ public class RequestCenter {
         HttpManager.getInstance().doPost(request,callBack);
     }
 
+    public static void getUnknowparamsDetails(String code,HttpCallBack callBack){
+        ZCRequest request=new ZCRequest();
+        request.setUrl(GET_UNKNOWPARAMS_DETAILS);
+        request.putParams("code",code);
+        HttpManager.getInstance().doPost(request,callBack);
+    }
 }

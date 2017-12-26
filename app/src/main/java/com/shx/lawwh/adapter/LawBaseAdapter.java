@@ -1,6 +1,7 @@
 package com.shx.lawwh.adapter;
 
 import android.support.annotation.Nullable;
+import android.text.Html;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
@@ -28,26 +29,25 @@ public class LawBaseAdapter extends BaseQuickAdapter<LawResponse, LawBaseAdapter
     protected void convert(ViewHolder helper, LawResponse item) {
 
        // 是否需要部分文字高亮
-//        if(isLight){
-//            if(mLawRequest!=null){
-//                if(TextUtils.isEmpty(mLawRequest.getKeyword())){
-//                    return;
-//                }
-//                if(mLawRequest.getKeywordType().equals("标题")){
-//                    //标题高亮
-//                    item.setLaw_name(item.getLaw_name().replace(mLawRequest.getKeyword(),"<font color='#FF0000'>"+mLawRequest.getKeyword()+"</font>"));
-//
-//                }else{
-//                    //内容高亮
-//                    item.setDescription(item.getDescription().replace(mLawRequest.getKeyword(),"<font color='#FF0000'>"+mLawRequest.getKeyword()+"</font>"));
-//                }
-//               helper.name.setText(Html.fromHtml(item.getLaw_name()));
-//               helper.des.setText(Html.fromHtml(TextUtils.isEmpty(item.getDescription())?"暂无摘要":item.getDescription()));
-//            }
-//        }else{
-            helper.name.setText(item.getLawName());
+        if(isLight){
+            if(mLawRequest!=null){
+                if(!TextUtils.isEmpty(mLawRequest.getIssue_no())){
+                    //标题高亮
+                    item.setLawName(item.getLawName().replace(mLawRequest.getIssue_no(),"<font color='#FF0000'>"+mLawRequest.getIssue_no()+"</font>"));
+
+                }else if(!TextUtils.isEmpty(mLawRequest.getName())){
+                    item.setLawName(item.getLawName().replace(mLawRequest.getName(),"<font color='#FF0000'>"+mLawRequest.getName()+"</font>"));
+                }else if(!TextUtils.isEmpty(mLawRequest.getDescription())){
+                    //内容高亮
+                    item.setDescription(item.getDescription().replace(mLawRequest.getDescription(),"<font color='#FF0000'>"+mLawRequest.getDescription()+"</font>"));
+                }
+               helper.name.setText(Html.fromHtml(item.getLawName())+"("+item.getIssueNo()+")");
+               helper.des.setText(Html.fromHtml(TextUtils.isEmpty(item.getDescription())?"暂无摘要":item.getDescription()));
+            }
+        }else{
+            helper.name.setText(item.getLawName()+"("+item.getIssueNo()+")");
             helper.des.setText(TextUtils.isEmpty(item.getDescription())?"暂无摘要":item.getDescription());
-//        }
+        }
 
     }
     /**

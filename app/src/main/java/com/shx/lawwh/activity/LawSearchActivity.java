@@ -65,24 +65,31 @@ public class LawSearchActivity extends BaseActivity implements View.OnClickListe
     private TextView mKeywordTypeTV, mFilterTV;
     private LinearLayout mlayoutEmpty;
     //结果筛选布局
-    private LinearLayout mIndustryLayout;
+//    private LinearLayout mIndustryLayout;
     private LawRequest mRequest;
-    private String keywordType="title";
+    private String keywordType = "title";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_law_search);
         mRequest = new LawRequest();
+        getTopbar().setTitle("查询");
+        getTopbar().setLeftImageListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
         initView();
         initTabs();
-        initData();
 
     }
 
     private void initData() {
         mRequest.setPage(mPage);
         mRequest.setPageSize(pageSize);
+        DialogManager.getInstance().showProgressDialog(this);
         RequestCenter.getLawList(mRequest, this);
     }
 
@@ -92,8 +99,8 @@ public class LawSearchActivity extends BaseActivity implements View.OnClickListe
             //三司
             mTabLayout.setVisibility(View.VISIBLE);
             mTabTitle = new String[]{"全部", "安全标准", "部门规章", "地方法规", "国家标准", "国家法律", "行业标准", "行政法规"};
-            String typeName=getIntent().getStringExtra("typeName");
-            String typeCode=getIntent().getStringExtra("typeCode");
+            String typeName = getIntent().getStringExtra("typeName");
+            String typeCode = getIntent().getStringExtra("typeCode");
             mRequest.setTypeName(typeName);
             mRequest.setTypeCode(typeCode);
 
@@ -169,7 +176,6 @@ public class LawSearchActivity extends BaseActivity implements View.OnClickListe
     }
 
 
-
     private void loadMoreData() {
         if (isLastPage) {
             setFooterView();
@@ -180,6 +186,7 @@ public class LawSearchActivity extends BaseActivity implements View.OnClickListe
         LogGloble.d("loadMoreData", mPage + "");
         mRequest.setPage(mPage);
         RequestCenter.getLawList(mRequest, this);
+
 
     }
 
@@ -208,8 +215,8 @@ public class LawSearchActivity extends BaseActivity implements View.OnClickListe
         mKeywordTypeTV = (TextView) findViewById(R.id.tv_keywordtype);
         mFilterTV = (TextView) findViewById(R.id.tv_filter);
 
-        mIndustryLayout = (LinearLayout) findViewById(R.id.layout_industry);
-        mIndustryLayout.setOnClickListener(this);
+//        mIndustryLayout = (LinearLayout) findViewById(R.id.layout_industry);
+//        mIndustryLayout.setOnClickListener(this);
 
         mRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.layout_refresh);
         mRecyclerView = (RecyclerView) findViewById(R.id.rv_laws);
@@ -257,19 +264,18 @@ public class LawSearchActivity extends BaseActivity implements View.OnClickListe
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.iv_search:
-                DialogManager.getInstance().showProgressDialog(this);
                 mPage = 1;
                 isLastPage = false;
 
-                String keyword=mKeyword.getText().toString();
+                String keyword = mKeyword.getText().toString();
 
-                if(keywordType.equals("title")){
+                if (keywordType.equals("title")) {
                     mRequest.setName(keyword);
                 }
-                if(keywordType.equals("desc")){
+                if (keywordType.equals("desc")) {
                     mRequest.setDescription(keyword);
                 }
-                if(keywordType.equals("issue_no")){
+                if (keywordType.equals("issue_no")) {
                     mRequest.setIssue_no(keyword);
                 }
                 mAdapter.getData().clear();
@@ -291,13 +297,13 @@ public class LawSearchActivity extends BaseActivity implements View.OnClickListe
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         if (position == 0) {
-                            keywordType="title";
+                            keywordType = "title";
                         }
                         if (position == 1) {
-                            keywordType="desc";
+                            keywordType = "desc";
                         }
-                        if(position==2){
-                            keywordType="issue_no";
+                        if (position == 2) {
+                            keywordType = "issue_no";
                         }
 
                         DialogManager.getInstance().dissMissPopupWindow();
@@ -305,15 +311,15 @@ public class LawSearchActivity extends BaseActivity implements View.OnClickListe
                 });
                 break;
             case R.id.layout_industry:
-                View IndustryLayoutView = DialogManager.getInstance().showPopupWindow(this, mIndustryLayout, R.layout.layout_spinnerlist);
-                mKeywordTypeSpinner = (ListView) IndustryLayoutView.findViewById(R.id.lv_spinner);
-                MyLawItemDao dao = new MyLawItemDao();
-                final List<String> filterList = dao.selctLawTypes();
-                SpinnerAdapter spinnerAdapter = new SpinnerAdapter(filterList, this);
-                mKeywordTypeSpinner.setAdapter(spinnerAdapter);
-                mKeywordTypeSpinner.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                View IndustryLayoutView = DialogManager.getInstance().showPopupWindow(this, mIndustryLayout, R.layout.layout_spinnerlist);
+//                mKeywordTypeSpinner = (ListView) IndustryLayoutView.findViewById(R.id.lv_spinner);
+//                MyLawItemDao dao = new MyLawItemDao();
+//                final List<String> filterList = dao.selctLawTypes();
+//                SpinnerAdapter spinnerAdapter = new SpinnerAdapter(filterList, this);
+//                mKeywordTypeSpinner.setAdapter(spinnerAdapter);
+//                mKeywordTypeSpinner.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//                    @Override
+//                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 //                        mRequest.setTypeName(filterList.get(position));
 //                        mFilterTV.setText(filterList.get(position));
 //                        isLastPage = false;
@@ -325,8 +331,8 @@ public class LawSearchActivity extends BaseActivity implements View.OnClickListe
 //                        mAdapter.setEnableLoadMore(true);
 //                        DialogManager.getInstance().dissMissPopupWindow();
 
-                    }
-                });
+//                    }
+//                });
 
                 break;
         }
@@ -334,43 +340,44 @@ public class LawSearchActivity extends BaseActivity implements View.OnClickListe
 
 
     @Override
-    public void onTabSelected(TabLayout.Tab tab) {
-        LogGloble.d("Tab", "onTabSlected===" + tab.getText().toString());
-//        if (TextUtils.isEmpty(tab.getText())) {
-//            mIndustryLayout.setVisibility(View.GONE);
-//            mRequest.setLevel("");
-//            return;
-//        }
-//        if (tab.getText().toString().equals("全部")) {
-//            mRequest.setLevel("");
-//        } else {
-//            mRequest.setLevel(tab.getText().toString());
-//        }
-//        else if (tab.getText().toString().equals("行业标准")) {
-//            mRequest.setLevel("行业标准");
-//            if("三司".equals(mRequest.getTypeName())){
-//                mIndustryLayout.setVisibility(View.GONE);
-//            }else{
+    public void onTabSelected(TabLayout.Tab tab){
+        LogGloble.d("Tab","onTabSlected==="+tab.getText().toString());
+        if(TextUtils.isEmpty(tab.getText())){
+//        mIndustryLayout.setVisibility(View.GONE);
+        mRequest.setLevel("");
+        return;
+        }
+        if(tab.getText().toString().equals("全部")){
+        mRequest.setLevel("");
+        }else{
+        mRequest.setLevel(tab.getText().toString());
+        }
+        if(tab.getText().toString().equals("行业标准")){
+        mRequest.setLevel("行业标准");
+        if("三司".equals(mRequest.getTypeName())){
+//        mIndustryLayout.setVisibility(View.GONE);
+        }else{
 //                mIndustryLayout.setVisibility(View.VISIBLE);
-//            }
-//        } else {
-//            mIndustryLayout.setVisibility(View.GONE);
-//            mRequest.setLevel(tab.getText().toString());
-//        }
-//        if ("三司".equals(mRequest.getTypeName())) {
-//            mIndustryLayout.setVisibility(View.GONE);
-//        } else {
+        }
+        }else{
+//        mIndustryLayout.setVisibility(View.GONE);
+        mRequest.setLevel(tab.getText().toString());
+        }
+        if("三司".equals(mRequest.getTypeName())){
+//        mIndustryLayout.setVisibility(View.GONE);
+        }else{
 //            mIndustryLayout.setVisibility(View.VISIBLE);
-//        }
+        }
 //        mIndustryLayout.setVisibility(View.VISIBLE);
 
-//        isLastPage = false;
-//        mPage = 0;
-//        lawList = loadData();
-//        //数据重新加载完成后，提示数据发生改变，并且设置现在不在刷新
-//        mAdapter.setNewData(lawList);
-//        mAdapter.notifyDataSetChanged();
-//        mAdapter.setEnableLoadMore(true);
+        isLastPage = false;
+        mPage = 1;
+        initData();
+        //数据重新加载完成后，提示数据发生改变，并且设置现在不在刷新
+        lawList.clear();
+        mAdapter.setNewData(lawList);
+        mAdapter.notifyDataSetChanged();
+        mAdapter.setEnableLoadMore(true);
     }
 
     @Override

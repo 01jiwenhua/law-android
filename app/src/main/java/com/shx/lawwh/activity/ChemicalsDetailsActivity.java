@@ -2,6 +2,7 @@ package com.shx.lawwh.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ExpandableListView;
 import android.widget.TextView;
 
@@ -28,6 +29,13 @@ public class ChemicalsDetailsActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chemicals_details);
+        getTopbar().setLeftImageListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+        getTopbar().setTitle("详情");
         mNameCN= (TextView) findViewById(R.id.tv_name_cn);
         mNameEN= (TextView) findViewById(R.id.tv_name_en);
         mCAS= (TextView) findViewById(R.id.tv_cas);

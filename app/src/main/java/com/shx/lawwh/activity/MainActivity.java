@@ -13,6 +13,7 @@ import com.shx.lawwh.adapter.LoopViewPagerAdapter;
 import com.shx.lawwh.base.BaseActivity;
 import com.shx.lawwh.base.LayoutValue;
 import com.shx.lawwh.base.ViewPagerScheduler;
+import com.shx.lawwh.libs.dialog.ToastUtil;
 import com.shx.lawwh.view.ViewPageWithIndicator;
 
 /**
@@ -88,6 +89,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
                 startActivity(new Intent(this,ChemicalsActivity.class));
                 break;
             case R.id.layout_fhjj:
+                ToastUtil.getInstance().toastInCenter(this,"该功能暂未开放使用");
                 break;
         }
     }

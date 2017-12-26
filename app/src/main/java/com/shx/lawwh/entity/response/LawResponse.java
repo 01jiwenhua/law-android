@@ -1,22 +1,13 @@
 package com.shx.lawwh.entity.response;
 
+import java.io.Serializable;
+
 /**
  * Created by xuan on 2017/12/24.
  */
 
-public class LawResponse {
-//    {
-//        "id": 1001,
-//            "lawName": "自动扶梯和自动人行道的制造与安装安全规范",
-//            "issueNo": "GB 16899-2011",
-//            "typeName": "总图、建筑",
-//            "typeCode": "",
-//            "createTime": null,
-//            "updateTime": null,
-//            "description": "",
-//            "status": null,
-//            "filePath": null
-//    }
+public class LawResponse implements Serializable{
+
     private String id;
     private String lawName;
     private String issueNo;
@@ -27,6 +18,7 @@ public class LawResponse {
     private String description;
     private String status;
     private String filePath;
+
 
     public String getId() {
         return id;

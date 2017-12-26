@@ -52,6 +52,10 @@
         <activity android:name=".activity.LawSearchActivity" />
         <activity android:name=".activity.ChemicalsDetailsActivity" />
         <activity android:name=".activity.UnknownDetailsActivity"></activity>
+        <activity android:name=".activity.UserGuideActivity">
+
+        </activity>
+        <activity android:name=".activity.ChemicalsSeaarchResultActivity"></activity>
     </application>
 
 </manifest>

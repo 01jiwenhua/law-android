@@ -40,7 +40,8 @@ public class LoadingActivity extends BaseActivity {
         @Override
         public void handleMessage(Message msg) {
             if (msg.what == 0) {
-                gotoMainActivity();
+                gotoUserGuideActivity();
+//                gotoMainActivity();
             }
         }
     };

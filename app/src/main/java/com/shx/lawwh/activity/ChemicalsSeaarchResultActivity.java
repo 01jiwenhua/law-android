@@ -1,4 +1,4 @@
-package com.shx.lawwh.fragment;
+package com.shx.lawwh.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,13 +10,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.alibaba.fastjson.JSONObject;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.shx.lawwh.R;
-import com.shx.lawwh.activity.ChemicalsDetailsActivity;
 import com.shx.lawwh.adapter.KnownAdapter;
+import com.shx.lawwh.base.BaseActivity;
 import com.shx.lawwh.common.LogGloble;
 import com.shx.lawwh.entity.request.ChemicalsRequest;
 import com.shx.lawwh.entity.response.ChemicalsResponse;
@@ -34,7 +33,7 @@ import java.util.List;
  * Created by xuan on 2017/12/24.
  */
 
-public class KnownFragment extends Fragment implements HttpCallBack,BaseQuickAdapter.OnItemClickListener{
+public class ChemicalsSeaarchResultActivity extends BaseActivity implements HttpCallBack,BaseQuickAdapter.OnItemClickListener{
     private RecyclerView mRecyclerView;
     private SwipeRefreshLayout mRefreshLayout;
     private KnownAdapter mAdapter;
@@ -44,12 +43,18 @@ public class KnownFragment extends Fragment implements HttpCallBack,BaseQuickAda
     private ChemicalsRequest mRequest;
     private List<ChemicalsResponse> chemicalsResponseList=new ArrayList<>();
 
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view=inflater.inflate(R.layout.fragment_known,null);
-        return view;
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_chemicals_result);
+        getTopbar().setTitle("查询结果");
+        mRequest= (ChemicalsRequest) getIntent().getSerializableExtra("request");
+        initView();
+//        DialogManager.getInstance().showProgressDialog(this);
+//        RequestCenter.getKnownlist(mRequest,this);
+
     }
+
     private void loadMoreData(){
         if (isLastPage) {
             setFooterView();
@@ -59,18 +64,13 @@ public class KnownFragment extends Fragment implements HttpCallBack,BaseQuickAda
         page++;
         LogGloble.d("loadMoreData", page + "");
         mRequest.setPage(page);
-        DialogManager.getInstance().showProgressDialog(getContext());
-        RequestCenter.getKnownlist(mRequest, this);
     }
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        mRecyclerView= (RecyclerView) view.findViewById(R.id.rv_known);
-        mRefreshLayout= (SwipeRefreshLayout) view.findViewById(R.id.layout_refresh);
 
-        mRequest=new ChemicalsRequest();
+    public void initView() {
+        mRecyclerView= (RecyclerView) findViewById(R.id.rv_known);
+        mRefreshLayout= (SwipeRefreshLayout) findViewById(R.id.layout_refresh);
         initData();
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(linearLayoutManager);
         mRecyclerView.setNestedScrollingEnabled(false);
         mAdapter = new KnownAdapter(chemicalsResponseList);
@@ -109,11 +109,11 @@ public class KnownFragment extends Fragment implements HttpCallBack,BaseQuickAda
         page=1;
         mRequest.setPage(page);
         mRequest.setPageSize(pageSize);
-        DialogManager.getInstance().showProgressDialog(getContext());
+        DialogManager.getInstance().showProgressDialog(this);
         RequestCenter.getKnownlist(mRequest,this);
     }
     private void setFooterView() {
-        View footer = LayoutInflater.from(getContext()).inflate(R.layout.layout_footer, null);
+        View footer = LayoutInflater.from(this).inflate(R.layout.layout_footer, null);
         mAdapter.setFooterView(footer);
     }
     @Override
@@ -138,20 +138,11 @@ public class KnownFragment extends Fragment implements HttpCallBack,BaseQuickAda
         return false;
     }
 
-    @Override
-    public boolean doFaild(HttpTrowable error, String url) {
-        return false;
-    }
-
-    @Override
-    public boolean httpCallBackPreFilter(String result, String url) {
-        return false;
-    }
 
     @Override
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
         ChemicalsResponse chemicalsResponse= (ChemicalsResponse) adapter.getData().get(position);
-        Intent intent=new Intent(getContext(), ChemicalsDetailsActivity.class);
+        Intent intent=new Intent(this, ChemicalsDetailsActivity.class);
         intent.putExtra("chemicals",chemicalsResponse);
         startActivity(intent);
     }

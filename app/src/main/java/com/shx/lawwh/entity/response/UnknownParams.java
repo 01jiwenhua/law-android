@@ -1,12 +1,13 @@
 package com.shx.lawwh.entity.response;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Created by xuan on 2017/12/25.
  */
 
-public class UnknownParams {
+public class UnknownParams implements Serializable{
     /**
      * "id":36,"name":null,
      * "code":null,"

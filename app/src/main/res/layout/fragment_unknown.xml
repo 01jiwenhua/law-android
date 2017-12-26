@@ -51,13 +51,13 @@
     </com.shx.lawwh.view.NoScrollGridView>
 
     <Button
+        android:id="@+id/btn_query"
         android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
         android:background="@drawable/shape_button"
-
         android:text="查询"
         android:textColor="@color/colorWhite" />
 </LinearLayout>

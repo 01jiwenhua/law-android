@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import com.shx.lawwh.R;
 import com.shx.lawwh.activity.MainActivity;
+import com.shx.lawwh.activity.UserGuideActivity;
 import com.shx.lawwh.libs.http.HttpCallBack;
 import com.shx.lawwh.libs.http.HttpTrowable;
 import com.shx.lawwh.libs.http.ZCResponse;
@@ -68,6 +69,10 @@ public class BaseActivity extends AppCompatActivity implements HttpCallBack{
 
     public void gotoMainActivity() {
         startActivity(new Intent(this,MainActivity.class));
+    }
+    public void gotoUserGuideActivity() {
+        startActivity(new Intent(this,UserGuideActivity.class));
+        finish();
     }
 
     @Override

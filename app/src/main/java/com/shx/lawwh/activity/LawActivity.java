@@ -45,6 +45,7 @@ public class LawActivity extends BaseActivity implements View.OnClickListener{
         mLaw.setOnClickListener(this);
         mRegulations.setOnClickListener(this);
         mLaw.setOnClickListener(this);
+        mStandard.setOnClickListener(this);
     }
     /**
      * 初始化首页Banner
