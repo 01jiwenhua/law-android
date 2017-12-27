@@ -31,18 +31,22 @@ public class LawBaseAdapter extends BaseQuickAdapter<LawResponse, LawBaseAdapter
        // 是否需要部分文字高亮
         if(isLight){
             if(mLawRequest!=null){
+                String lawName=item.getLawName();
+                String issueNo=item.getIssueNo();
+                String description=item.getDescription();
                 if(!TextUtils.isEmpty(mLawRequest.getIssue_no())){
                     //标题高亮
-                    item.setLawName(item.getLawName().replace(mLawRequest.getIssue_no(),"<font color='#FF0000'>"+mLawRequest.getIssue_no()+"</font>"));
+                    issueNo=issueNo.replace(mLawRequest.getIssue_no(),"<font color='#FF0000'>"+mLawRequest.getIssue_no()+"</font>");
+
 
                 }else if(!TextUtils.isEmpty(mLawRequest.getName())){
-                    item.setLawName(item.getLawName().replace(mLawRequest.getName(),"<font color='#FF0000'>"+mLawRequest.getName()+"</font>"));
+                    lawName=lawName.replace(mLawRequest.getName(),"<font color='#FF0000'>"+mLawRequest.getName()+"</font>");
                 }else if(!TextUtils.isEmpty(mLawRequest.getDescription())){
                     //内容高亮
-                    item.setDescription(item.getDescription().replace(mLawRequest.getDescription(),"<font color='#FF0000'>"+mLawRequest.getDescription()+"</font>"));
+                    description=description.replace(mLawRequest.getDescription(),"<font color='#FF0000'>"+mLawRequest.getDescription()+"</font>");
                 }
-               helper.name.setText(Html.fromHtml(item.getLawName())+"("+item.getIssueNo()+")");
-               helper.des.setText(Html.fromHtml(TextUtils.isEmpty(item.getDescription())?"暂无摘要":item.getDescription()));
+               helper.name.setText(Html.fromHtml(lawName+"("+issueNo+")"));
+               helper.des.setText(Html.fromHtml(TextUtils.isEmpty(description)?"暂无摘要":item.getDescription()));
             }
         }else{
             helper.name.setText(item.getLawName()+"("+item.getIssueNo()+")");

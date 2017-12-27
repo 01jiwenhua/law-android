@@ -48,6 +48,12 @@ public class ChemicalsSeaarchResultActivity extends BaseActivity implements Http
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chemicals_result);
         getTopbar().setTitle("查询结果");
+        getTopbar().setLeftImageListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
         mRequest= (ChemicalsRequest) getIntent().getSerializableExtra("request");
         initView();
 //        DialogManager.getInstance().showProgressDialog(this);

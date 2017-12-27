@@ -268,7 +268,12 @@ public class LawSearchActivity extends BaseActivity implements View.OnClickListe
                 isLastPage = false;
 
                 String keyword = mKeyword.getText().toString();
+                if(TextUtils.isEmpty(keyword)){
+                    mRequest.setName("");
+                    mRequest.setIssue_no("");
+                    mRequest.setDescription("");
 
+                }
                 if (keywordType.equals("title")) {
                     mRequest.setName(keyword);
                 }
@@ -287,7 +292,7 @@ public class LawSearchActivity extends BaseActivity implements View.OnClickListe
             case R.id.layout_keyworldtype:
                 View keyworldView = DialogManager.getInstance().showPopupWindow(this, mKeywordType, R.layout.layout_spinner);
                 mKeywordTypeSpinner = (ListView) keyworldView.findViewById(R.id.lv_spinner);
-                List<String> list = new ArrayList();
+                final List<String> list = new ArrayList();
                 list.add("标题");
                 list.add("内容");
                 list.add("令号");
@@ -305,7 +310,7 @@ public class LawSearchActivity extends BaseActivity implements View.OnClickListe
                         if (position == 2) {
                             keywordType = "issue_no";
                         }
-
+                        mKeywordTypeTV.setText(list.get(position));
                         DialogManager.getInstance().dissMissPopupWindow();
                     }
                 });
