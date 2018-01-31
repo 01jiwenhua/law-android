@@ -9,8 +9,7 @@ import android.widget.ListView;
 
 import com.alibaba.fastjson.JSONObject;
 import com.shx.lawwh.R;
-import com.shx.lawwh.adapter.UnknwoParamsAdapter;
-import com.shx.lawwh.adapter.UnknwoParamsDetailsAdapter;
+import com.shx.lawwh.adapter.UnknowParamsDetailsAdapter;
 import com.shx.lawwh.base.BaseActivity;
 import com.shx.lawwh.entity.response.UnknownParams;
 import com.shx.lawwh.libs.dialog.DialogManager;
@@ -22,7 +21,7 @@ import java.util.List;
 
 public class UnknownDetailsActivity extends BaseActivity implements AdapterView.OnItemClickListener {
     private ListView mListView;
-    private UnknwoParamsDetailsAdapter mAdapter;
+    private UnknowParamsDetailsAdapter mAdapter;
     private List<UnknownParams> mList;
 
     @Override
@@ -50,7 +49,7 @@ public class UnknownDetailsActivity extends BaseActivity implements AdapterView.
         if (requestUrl.equals(RequestCenter.GET_UNKNOWPARAMS_DETAILS)) {
             if (object.size() > 0) {
                 mList = MyJSON.parseArray(object.getString("list"), UnknownParams.class);
-                mAdapter = new UnknwoParamsDetailsAdapter(mList,this);
+                mAdapter = new UnknowParamsDetailsAdapter(mList,this);
                 mListView.setAdapter(mAdapter);
 
             }

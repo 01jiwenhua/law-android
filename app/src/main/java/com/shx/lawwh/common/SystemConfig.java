@@ -11,5 +11,9 @@ public class SystemConfig {
     public static String appName="危化";
     public static String URL="http://60.210.40.196:8086/laws/%s.html";
 //    public static String BASEURL="http://192.168.8.120:8090";
-    public static String BASEURL="http://60.210.40.196:25018/law-server";
+    //测试地址
+    public static String TEST_URL="http://192.168.1.127:8080";
+    //生产地址
+    public static String PRODUCE_URL="http://60.210.40.196:25018/law-server";
+    public static String BASEURL=TEST_URL;
 }

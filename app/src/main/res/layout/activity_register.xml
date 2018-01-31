@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+    <include layout="@layout/layout_topbar"/>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="25dp"
+        android:paddingRight="25dp"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
+        >
+
+        <EditText
+            android:id="@+id/et_phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="请输入手机号"
+            android:inputType="phone"
+            android:maxLines="1" />
+    </android.support.design.widget.TextInputLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingLeft="25dp"
+        android:paddingRight="25dp"
+        >
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_gravity="center_vertical"
+            >
+            <EditText
+                android:id="@+id/et_authCode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="请输入验证码"
+                android:inputType="phone"
+                android:maxLines="1" />
+        </android.support.design.widget.TextInputLayout>
+        <View
+            android:layout_width="1dp"
+            android:layout_height="50dp"
+            android:background="@color/colorLine"
+            android:layout_gravity="center_vertical"
+            />
+        <TextView
+            android:id="@+id/tv_requestAuthCode"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="发送验证码"
+            android:textColor="@color/colorTextGray"
+            android:layout_gravity="center_vertical"
+            android:gravity="center_horizontal"
+            />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_next"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="完善个人资料"
+        android:background="@color/colorBlue"
+        android:textColor="@color/colorWhite"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="50dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        />
+
+</LinearLayout>

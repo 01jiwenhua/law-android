@@ -11,9 +11,8 @@ import android.widget.TextView;
 
 import com.shx.lawwh.R;
 import com.shx.lawwh.base.BaseActivity;
-import com.shx.lawwh.entity.response.UnknownParams;
 import com.shx.lawwh.fragment.KnownFragment;
-import com.shx.lawwh.fragment.UnKnownFragment;
+import com.shx.lawwh.fragment.UnknowFragment;
 
 /**
  * Created by xuan on 2017/12/24.
@@ -22,7 +21,7 @@ import com.shx.lawwh.fragment.UnKnownFragment;
 public class ChemicalsActivity extends BaseActivity implements View.OnClickListener{
 
     private FrameLayout mContent;
-    private Fragment mKnownFragment,mUnknownFragment;
+    private Fragment mKnownFragment,mUnknowFragment;
     private View line1,line2;
     /**
      * 用于对Fragment进行管理
@@ -46,7 +45,7 @@ public class ChemicalsActivity extends BaseActivity implements View.OnClickListe
         line1=findViewById(R.id.line1);
         line2=findViewById(R.id.line2);
         mKnownFragment = new KnownFragment();
-        mUnknownFragment=new UnKnownFragment();
+        mUnknowFragment=new UnknowFragment();
         mKnown = (TextView) findViewById(R.id.rb_known);
         mUnknown = (TextView) findViewById(R.id.rb_unknown);
         mContent = (FrameLayout) findViewById(R.id.content);
@@ -77,15 +76,15 @@ public class ChemicalsActivity extends BaseActivity implements View.OnClickListe
                 line2.setVisibility(View.GONE);
                 break;
             case 1:
-                transaction.replace(R.id.content, mUnknownFragment);
+                transaction.replace(R.id.content, mUnknowFragment);
                 getTopbar().setTitle("未知物质查询");
                 getTopbar().setRightText("清空");
                 getTopbar().setRightTextListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        UnKnownFragment.checkMap.clear();
-                        ((UnKnownFragment)mUnknownFragment).getmAdapter().notifyDataSetChanged();
-                        ((UnKnownFragment)mUnknownFragment).getmAdapter2().notifyDataSetChanged();
+                        UnknowFragment.checkMap.clear();
+                        ((UnknowFragment)mUnknowFragment).getmAdapter().notifyDataSetChanged();
+                        ((UnknowFragment)mUnknowFragment).getmAdapter2().notifyDataSetChanged();
 
                     }
                 });

@@ -9,7 +9,6 @@ import android.widget.TextView;
 
 import com.shx.lawwh.R;
 import com.shx.lawwh.entity.response.UnknownParams;
-import com.shx.lawwh.fragment.UnKnownFragment;
 
 import java.util.HashMap;
 import java.util.List;
@@ -19,11 +18,11 @@ import java.util.Map;
  * Created by xuan on 2017/12/25.
  */
 
-public class UnknwoParamsAdapter extends BaseAdapter{
+public class UnknowParamsDetailsAdapter extends BaseAdapter{
     private List<UnknownParams> mList;
     private Context mContext;
-
-    public UnknwoParamsAdapter(List mList, Context mContext) {
+    public Map<String,UnknownParams> paramsMap=new HashMap<>();
+    public UnknowParamsDetailsAdapter(List mList, Context mContext) {
         this.mList = mList;
         this.mContext = mContext;
     }
@@ -47,7 +46,7 @@ public class UnknwoParamsAdapter extends BaseAdapter{
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder viewHolder=null;
         if(convertView==null){
-            convertView= LayoutInflater.from(mContext).inflate(R.layout.item_unknown_params,null);
+            convertView= LayoutInflater.from(mContext).inflate(R.layout.item_params_details,null);
             viewHolder=new ViewHolder();
             convertView.setTag(viewHolder);
         }
@@ -55,13 +54,10 @@ public class UnknwoParamsAdapter extends BaseAdapter{
 
         UnknownParams params=mList.get(position);
         viewHolder.name= (TextView) convertView.findViewById(R.id.name);
-        if(UnKnownFragment.checkMap.containsKey(params.getCategoryCode())){
-            viewHolder.name.setText(UnKnownFragment.checkMap.get(params.getCategoryCode()).getName());
-            viewHolder.name.setTextColor(mContext.getResources().getColor(R.color.colorBlue));
-        }else{
-            viewHolder.name.setText(params.getCategoryName());
-            viewHolder.name.setTextColor(mContext.getResources().getColor(R.color.colorTextGray));
+        if(paramsMap.containsKey(params.getCategoryCode())){
 
+        }else{
+            viewHolder.name.setText(params.getName());
         }
 
 

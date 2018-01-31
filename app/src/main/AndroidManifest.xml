@@ -40,11 +40,7 @@
         <activity android:name=".activity.PdfViewActivity" />
         <activity android:name=".activity.WebActivity" />
         <activity android:name=".activity.LoadingActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".activity.LawActivity" />
         <activity android:name=".activity.SSActivity" />
@@ -52,9 +48,15 @@
         <activity android:name=".activity.LawSearchActivity" />
         <activity android:name=".activity.ChemicalsDetailsActivity" />
         <activity android:name=".activity.UnknownDetailsActivity"></activity>
-        <activity android:name=".activity.UserGuideActivity">
+        <activity android:name=".activity.UserGuideActivity"/>
+        <activity android:name=".activity.RegisterActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
+
         <activity android:name=".activity.ChemicalsSeaarchResultActivity"></activity>
     </application>
 

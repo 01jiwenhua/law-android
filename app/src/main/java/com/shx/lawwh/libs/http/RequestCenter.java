@@ -1,5 +1,6 @@
 package com.shx.lawwh.libs.http;
 
+import com.shx.lawwh.entity.RegisterInfo;
 import com.shx.lawwh.entity.request.ChemicalsRequest;
 import com.shx.lawwh.entity.request.LawRequest;
 
@@ -13,6 +14,10 @@ public class RequestCenter {
     public static final String GET_CHEMICALSDETAILS="/chemicals/getChemicalsDetails";
     public static final String GET_UNKNOWPARAMS="/chemicals/getUnknowParams";
     public static final String GET_UNKNOWPARAMS_DETAILS="/chemicals/getUnknowParamsDetails";
+    public static final String GET_COMPANY_LIST="/user/getCompanyList";
+    public static final String CHECK_REGIST="/user/checkRegist";
+    public static final String GET_VERIFYCODE="/user/getVerifyCode";
+    public static final String REGIST="/user/regist";
     /**
      * 获取法律法规列表
      * @param lawRequest
@@ -83,4 +88,55 @@ public class RequestCenter {
         request.putParams("code",code);
         HttpManager.getInstance().doPost(request,callBack);
     }
+
+    /**
+     * 得到公司列表
+     * */
+    public static void getCompanyList(HttpCallBack callBack){
+        ZCRequest request=new ZCRequest();
+        request.setUrl(GET_COMPANY_LIST);
+        HttpManager.getInstance().doPost(request,callBack);
+    }
+
+    /**
+     * 验证手机注册
+     * */
+    public static void checkRegist(String phone,String verifyCode ,HttpCallBack callBack){
+        ZCRequest request=new ZCRequest();
+        request.setUrl(CHECK_REGIST);
+        request.putParams("phone",phone);
+        request.putParams("verifyCode",verifyCode);
+        HttpManager.getInstance().doPost(request,callBack);
+    }
+
+    /**
+     * 得到手机验证码
+     * */
+    public static void getVerifyCode(String phone,HttpCallBack callBack){
+        ZCRequest request=new ZCRequest();
+        request.setUrl(GET_VERIFYCODE);
+        request.putParams("phone",phone);
+        HttpManager.getInstance().doPost(request,callBack);
+    }
+
+    /**
+     * 注册
+     * */
+    public static void regist(RegisterInfo info, HttpCallBack callBack){
+        ZCRequest request=new ZCRequest();
+        request.setUrl(GET_VERIFYCODE);
+        request.putParams("loginName",info.getLoginName());
+        request.putParams("nickName",info.getNickName());
+        request.putParams("realName",info.getNickName());
+        request.putParams("departmentId",info.getNickName());
+        request.putParams("regionId",info.getNickName());
+        request.putParams("email",info.getNickName());
+        request.putParams("idNo",info.getNickName());
+        request.putParams("jobId",info.getNickName());
+        request.putParams("phone",info.getNickName());
+        request.putParams("sex",info.getNickName());
+        request.putParams("userType",info.getNickName());
+        HttpManager.getInstance().doPost(request,callBack);
+    }
 }
+

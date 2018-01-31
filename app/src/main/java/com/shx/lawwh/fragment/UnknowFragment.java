@@ -16,7 +16,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.shx.lawwh.R;
 import com.shx.lawwh.activity.ChemicalsSeaarchResultActivity;
 import com.shx.lawwh.activity.UnknownDetailsActivity;
-import com.shx.lawwh.adapter.UnknwoParamsAdapter;
+import com.shx.lawwh.adapter.UnknowParamsAdapter;
 import com.shx.lawwh.entity.request.ChemicalsRequest;
 import com.shx.lawwh.entity.response.LawResponse;
 import com.shx.lawwh.entity.response.UnknownParams;
@@ -39,31 +39,31 @@ import static android.app.Activity.RESULT_OK;
  * Created by xuan on 2017/12/24.
  */
 
-public class UnKnownFragment extends Fragment implements HttpCallBack, AdapterView.OnItemClickListener, View.OnClickListener {
+public class UnknowFragment extends Fragment implements HttpCallBack, AdapterView.OnItemClickListener, View.OnClickListener {
 
     private NoScrollGridView mLhGridView;
     private NoScrollGridView mJkwhGridView;
-    private UnknwoParamsAdapter mAdapter;
-    private UnknwoParamsAdapter mAdapter2;
+    private UnknowParamsAdapter mAdapter;
+    private UnknowParamsAdapter mAdapter2;
     private List<UnknownParams> LhList = new ArrayList<>();
     private List<UnknownParams> jkwhList = new ArrayList<>();
     private Button mBtnQuery;
     public static Map<String, UnknownParams> checkMap;
     private ChemicalsRequest mRequest = new ChemicalsRequest();
 
-    public UnknwoParamsAdapter getmAdapter() {
+    public UnknowParamsAdapter getmAdapter() {
         return mAdapter;
     }
 
-    public void setmAdapter(UnknwoParamsAdapter mAdapter) {
+    public void setmAdapter(UnknowParamsAdapter mAdapter) {
         this.mAdapter = mAdapter;
     }
 
-    public UnknwoParamsAdapter getmAdapter2() {
+    public UnknowParamsAdapter getmAdapter2() {
         return mAdapter2;
     }
 
-    public void setmAdapter2(UnknwoParamsAdapter mAdapter2) {
+    public void setmAdapter2(UnknowParamsAdapter mAdapter2) {
         this.mAdapter2 = mAdapter2;
     }
 
@@ -95,10 +95,10 @@ public class UnKnownFragment extends Fragment implements HttpCallBack, AdapterVi
         if (requestUrl.equals(RequestCenter.GET_UNKNOWPARAMS)) {
             if (object.size() > 0) {
                 LhList = MyJSON.parseArray(object.getString("lhList"), UnknownParams.class);
-                mAdapter = new UnknwoParamsAdapter(LhList, getContext());
+                mAdapter = new UnknowParamsAdapter(LhList, getContext());
                 mLhGridView.setAdapter(mAdapter);
                 jkwhList = MyJSON.parseArray(object.getString("jkwhList"), UnknownParams.class);
-                mAdapter2 = new UnknwoParamsAdapter(jkwhList, getContext());
+                mAdapter2 = new UnknowParamsAdapter(jkwhList, getContext());
                 mJkwhGridView.setAdapter(mAdapter2);
             }
         }
