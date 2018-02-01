@@ -44,4 +44,11 @@
         <item name="tabIndicatorColor">@color/colorBlue</item>
         <item name="tabSelectedTextColor">@color/colorBlue</item>
     </style>
+
+    <!--TabLayout 样式-->
+    <style name="TabLayoutStyle" parent="Widget.Design.TabLayout">
+        <item name="tabIndicatorColor">#3CA0F4</item>
+        <item name="tabSelectedTextColor">#3CA0F4</item>
+        <item name="tabBackground">@color/colorWhite</item>
+    </style>
 </resources>

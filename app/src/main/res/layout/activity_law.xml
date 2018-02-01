@@ -1,131 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
     <include layout="@layout/layout_topbar"></include>
-    <com.shx.lawwh.view.ViewPageWithIndicator
-        android:id="@+id/vp_viewpage"
-        android:layout_width="match_parent"
-        android:layout_height="120dp"></com.shx.lawwh.view.ViewPageWithIndicator>
 
-    <LinearLayout
-        android:id="@+id/layout_law"
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tl_law"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:paddingBottom="10dp"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:paddingTop="10dp">
+        app:tabGravity="fill"
+        app:tabMode="fixed"
+        style="@style/TabLayoutStyle"
+        />
 
-        <ImageView
-            android:layout_width="38dp"
-            android:layout_height="40dp"
-            android:background="@drawable/ic_fl" />
-
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:text="法律"
-            android:textColor="@color/colorTextGray"
-            android:textSize="@dimen/textsize_18" />
-
-        <View
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-
-            android:layout_weight="1"></View>
-
-        <ImageView
-            android:layout_width="30dp"
-            android:layout_height="40dp"
-            android:src="@drawable/ic_right" />
-    </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/colorLine"></View>
-    <LinearLayout
-        android:id="@+id/layout_regulations"
+    <com.unitransdata.mallclient.view.MyViewPager
+        android:id="@+id/vp_law"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:paddingBottom="10dp"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:paddingTop="10dp">
-
-        <ImageView
-            android:layout_width="38dp"
-            android:layout_height="40dp"
-            android:background="@drawable/ic_fg" />
-
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:text="法规"
-            android:textColor="@color/colorTextGray"
-            android:textSize="@dimen/textsize_18" />
-
-        <View
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_weight="1"></View>
-
-        <ImageView
-            android:layout_width="30dp"
-            android:layout_height="40dp"
-            android:src="@drawable/ic_right" />
-    </LinearLayout>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/colorLine"></View>
-    <LinearLayout
-        android:id="@+id/layout_standard"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:paddingBottom="10dp"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:paddingTop="10dp">
-
-        <ImageView
-            android:layout_width="38dp"
-            android:layout_height="40dp"
-            android:background="@drawable/ic_bz" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:text="标准"
-            android:textColor="@color/colorTextGray"
-            android:textSize="@dimen/textsize_18" />
-
-        <View
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_weight="1"></View>
-
-        <ImageView
-            android:layout_width="30dp"
-            android:layout_height="40dp"
-            android:src="@drawable/ic_right" />
-    </LinearLayout>
-
+        />
 
 </LinearLayout>
