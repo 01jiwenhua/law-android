@@ -1,11 +1,11 @@
-package com.shx.lawwh.entity;
+package com.shx.lawwh.entity.request;
 
 /**
  * Created by zhou on 2018/1/31.
  * 注册时完善个人信息
  */
 
-public class RegisterInfo {
+public class RequestRegisterInfo {
 
     private String loginName;
     private String loginPassword;

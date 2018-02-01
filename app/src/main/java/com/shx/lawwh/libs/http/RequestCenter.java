@@ -1,6 +1,6 @@
 package com.shx.lawwh.libs.http;
 
-import com.shx.lawwh.entity.RegisterInfo;
+import com.shx.lawwh.entity.request.RequestRegisterInfo;
 import com.shx.lawwh.entity.request.ChemicalsRequest;
 import com.shx.lawwh.entity.request.LawRequest;
 
@@ -123,7 +123,7 @@ public class RequestCenter {
     /**
      * 注册
      * */
-    public static void regist(RegisterInfo info, HttpCallBack callBack){
+    public static void regist(RequestRegisterInfo info, HttpCallBack callBack){
         ZCRequest request=new ZCRequest();
         request.setUrl(REGIST);
         request.putParams("loginName",info.getLoginName());
