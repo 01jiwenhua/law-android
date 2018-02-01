@@ -34,6 +34,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
     }
 
     private  void initView(){
+        getTopbar().setTitle("注册");
         phoneET= (EditText) findViewById(R.id.et_phone);
         verifyCodeET= (EditText) findViewById(R.id.et_authCode);
         requestAuthCodeTV= (TextView) findViewById(R.id.tv_requestAuthCode);
@@ -68,6 +69,8 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
     public boolean doSuccess(ZCResponse respose, String requestUrl) {
         if(requestUrl.equals(RequestCenter.GET_VERIFYCODE)){
             mCountDownTimerUtils.start();
+        }else if(requestUrl.equals(RequestCenter.CHECK_REGIST)){
+            startActivity(new Intent(this,CompleteInfoActivity.class));
         }
         return super.doSuccess(respose, requestUrl);
     }

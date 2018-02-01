@@ -10,7 +10,7 @@
         android:id="@+id/topbar_view"
         android:layout_width="match_parent"
         android:layout_height="@dimen/actionbar_height"
-        android:background="@color/colorBlue"
+        android:background="@color/colorWhite"
         android:gravity="center_vertical"
         >
 
@@ -19,7 +19,7 @@
             android:layout_width="45dp"
             android:layout_height="20dp"
             android:layout_centerVertical="true"
-            android:src="@drawable/ic_left_white" />
+            android:src="@drawable/ic_left_black" />
 
         <TextView
             android:id="@+id/tv_actionBarLeft"
@@ -38,7 +38,7 @@
             android:layout_height="match_parent"
             android:layout_centerInParent="true"
             android:gravity="center"
-            android:textColor="@color/colorWhite"
+            android:textColor="@color/colorTitle"
             android:textSize="@dimen/textsize_16" />
 
 

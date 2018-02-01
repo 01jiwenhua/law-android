@@ -3,6 +3,7 @@ package com.shx.lawwh.activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
+import com.shx.lawwh.R;
 import com.shx.lawwh.base.BaseActivity;
 
 /**
@@ -15,5 +16,16 @@ public class CompleteInfoActivity extends BaseActivity{
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_completeinfo);
+        initView();
+        initData();
+    }
+
+    private void initView(){
+
+    }
+
+    private void initData(){
+
     }
 }

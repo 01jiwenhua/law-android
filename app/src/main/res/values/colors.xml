@@ -7,11 +7,18 @@
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorBlue">#3BA0F3</color>
     <color name="colorBack">#F8F8F8</color>
-    <color name="colorLine">#EBEBEB</color>
+    <color name="colorLine">#E9ECEF</color>
     <color name="colorTextDisable">#DDDDDD</color>
     <color name="colorTextGrayLight">#999999</color>
     <color name="colorTextGray">#666666</color>
     <color name="colorTextBlack">#222222</color>
-    <color name="colorTextDark">#000000</color>
+    <color name="colorTextDark">#1E2022</color>
     <color name="colorTransparent">#00000000</color>
+
+    <color name="colorGray">#DBDBDB</color>
+    <color name="colorHint">#A8A8A8</color>
+    <color name="colorTitle">#474747</color>
+
+
+
 </resources>

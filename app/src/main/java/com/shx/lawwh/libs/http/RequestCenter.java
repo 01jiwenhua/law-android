@@ -18,6 +18,7 @@ public class RequestCenter {
     public static final String CHECK_REGIST="/user/checkRegist";
     public static final String GET_VERIFYCODE="/user/getVerifyCode";
     public static final String REGIST="/user/regist";
+    public static final String LOGIN="/user/login";
     /**
      * 获取法律法规列表
      * @param lawRequest
@@ -124,19 +125,32 @@ public class RequestCenter {
      * */
     public static void regist(RegisterInfo info, HttpCallBack callBack){
         ZCRequest request=new ZCRequest();
-        request.setUrl(GET_VERIFYCODE);
+        request.setUrl(REGIST);
         request.putParams("loginName",info.getLoginName());
         request.putParams("nickName",info.getNickName());
-        request.putParams("realName",info.getNickName());
-        request.putParams("departmentId",info.getNickName());
-        request.putParams("regionId",info.getNickName());
-        request.putParams("email",info.getNickName());
-        request.putParams("idNo",info.getNickName());
-        request.putParams("jobId",info.getNickName());
-        request.putParams("phone",info.getNickName());
-        request.putParams("sex",info.getNickName());
-        request.putParams("userType",info.getNickName());
+        request.putParams("realName",info.getRealName());
+        request.putParams("departmentId",info.getDepartmentId());
+        request.putParams("regionId",info.getRegionId());
+        request.putParams("email",info.getEmail());
+        request.putParams("idNo",info.getIdNo());
+        request.putParams("jobId",info.getJobId());
+        request.putParams("phone",info.getPhone());
+        request.putParams("sex",info.getSex());
+        request.putParams("userType",info.getUserType());
         HttpManager.getInstance().doPost(request,callBack);
     }
+
+    /**
+     * 登录接口
+     * */
+    public static void login(String phone,String verifyCode,HttpCallBack callBack){
+        ZCRequest request=new ZCRequest();
+        request.setUrl(LOGIN);
+        request.putParams("phone",phone);
+        request.putParams("verifyCode",verifyCode);
+        HttpManager.getInstance().doPost(request,callBack);
+    }
+
+
 }
 
