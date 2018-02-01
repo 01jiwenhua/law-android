@@ -1,11 +1,18 @@
 package com.shx.lawwh.entity.request;
 
+import android.databinding.BaseObservable;
+import android.databinding.Bindable;
+
+import com.shx.lawwh.BR;
+
+import static android.R.string.no;
+
 /**
  * Created by zhou on 2018/1/31.
  * 注册时完善个人信息
  */
 
-public class RequestRegisterInfo {
+public class RequestRegisterInfo extends BaseObservable {
 
     private String loginName;
     private String loginPassword;
@@ -20,12 +27,14 @@ public class RequestRegisterInfo {
     private String sex;
     private String userType;
 
+    @Bindable
     public String getLoginName() {
         return loginName;
     }
 
     public void setLoginName(String loginName) {
         this.loginName = loginName;
+        notifyPropertyChanged(BR.loginName);
     }
 
     public String getLoginPassword() {
@@ -68,20 +77,24 @@ public class RequestRegisterInfo {
         this.regionId = regionId;
     }
 
+    @Bindable
     public String getEmail() {
         return email;
     }
 
     public void setEmail(String email) {
-        this.email = email;
+      this.email = email;
+        notifyPropertyChanged(BR.email);
     }
 
+    @Bindable
     public String getIdNo() {
         return idNo;
     }
 
     public void setIdNo(String idNo) {
         this.idNo = idNo;
+        notifyPropertyChanged(BR.idNo);
     }
 
     public String getJobId() {

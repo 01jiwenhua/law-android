@@ -15,6 +15,9 @@ public class RequestCenter {
     public static final String GET_UNKNOWPARAMS="/chemicals/getUnknowParams";
     public static final String GET_UNKNOWPARAMS_DETAILS="/chemicals/getUnknowParamsDetails";
     public static final String GET_COMPANY_LIST="/user/getCompanyList";
+    public static final String GET_DEPARTMENT_LIST="/user/getDepartmentList";
+    public static final String GET_JOB_LIST="/user/getJobList";
+
     public static final String CHECK_REGIST="/user/checkRegist";
     public static final String GET_VERIFYCODE="/user/getVerifyCode";
     public static final String REGIST="/user/regist";
@@ -96,6 +99,25 @@ public class RequestCenter {
     public static void getCompanyList(HttpCallBack callBack){
         ZCRequest request=new ZCRequest();
         request.setUrl(GET_COMPANY_LIST);
+        HttpManager.getInstance().doPost(request,callBack);
+    }
+
+    /**
+     * 得到部门列表
+     * */
+    public static void getDepartmentList(String companyId,HttpCallBack callBack){
+        ZCRequest request=new ZCRequest();
+        request.setUrl(GET_DEPARTMENT_LIST);
+        request.putParams("companyId",companyId);
+        HttpManager.getInstance().doPost(request,callBack);
+    }
+
+    /**
+     * 得到部门列表
+     * */
+    public static void getJobList(HttpCallBack callBack){
+        ZCRequest request=new ZCRequest();
+        request.setUrl(GET_JOB_LIST);
         HttpManager.getInstance().doPost(request,callBack);
     }
 

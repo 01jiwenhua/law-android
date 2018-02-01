@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.shx.lawwh">
-
+    package="com.shx.lawwh"
+    android:installLocation="preferExternal"
+    >
     <uses-sdk android:minSdkVersion="8" />
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -37,11 +38,7 @@
             android:value="UMENNG" />
 
         <activity android:name=".activity.MainActivity" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".activity.PdfViewActivity" />
         <activity android:name=".activity.WebActivity" />
@@ -53,15 +50,24 @@
         </activity>
         <activity android:name=".activity.SSActivity" />
         <activity android:name=".activity.ChemicalsActivity" />
-        <activity android:name=".activity.LawSearchActivity" />
+        <activity android:name=".activity.LawSearchActivity" >
+
+            </activity>
         <activity android:name=".activity.ChemicalsDetailsActivity" />
         <activity android:name=".activity.UnknownDetailsActivity"></activity>
         <activity android:name=".activity.UserGuideActivity"/>
         <activity android:name=".activity.RegisterActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
 
       <activity android:name=".activity.LoginActivity">
+
+        </activity>
+        <activity android:name=".activity.CompleteInfoActivity">
 
         </activity>
 

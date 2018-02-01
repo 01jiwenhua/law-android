@@ -80,8 +80,8 @@ public class UnknowFragment extends Fragment implements HttpCallBack, AdapterVie
         super.onViewCreated(view, savedInstanceState);
         DialogManager.getInstance().showProgressDialog(getContext());
         RequestCenter.getUnknowparams(this);
-        mLhGridView = (NoScrollGridView) view.findViewById(R.id.lhtx);
-        mJkwhGridView = (NoScrollGridView) view.findViewById(R.id.jkwh);
+        //mLhGridView = (NoScrollGridView) view.findViewById(R.id.lhtx);
+       // mJkwhGridView = (NoScrollGridView) view.findViewById(R.id.jkwh);
         mBtnQuery = (Button) view.findViewById(R.id.btn_query);
         mLhGridView.setOnItemClickListener(this);
         mJkwhGridView.setOnItemClickListener(this);
