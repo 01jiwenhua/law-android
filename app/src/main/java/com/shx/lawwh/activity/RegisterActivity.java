@@ -70,7 +70,9 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
         if(requestUrl.equals(RequestCenter.GET_VERIFYCODE)){
             mCountDownTimerUtils.start();
         }else if(requestUrl.equals(RequestCenter.CHECK_REGIST)){
-            startActivity(new Intent(this,CompleteInfoActivity.class));
+            Intent intent =new Intent(this,CompleteInfoActivity.class);
+            intent.putExtra("phone",phoneET.getText().toString());
+            startActivity(intent);
         }
         return super.doSuccess(respose, requestUrl);
     }

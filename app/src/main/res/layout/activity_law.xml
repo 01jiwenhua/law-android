@@ -15,7 +15,7 @@
         style="@style/TabLayoutStyle"
         />
 
-    <com.unitransdata.mallclient.view.MyViewPager
+    <com.shx.lawwh.view.MyViewPager
         android:id="@+id/vp_law"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

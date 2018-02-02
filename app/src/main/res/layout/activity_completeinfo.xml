@@ -112,6 +112,7 @@
             <include layout="@layout/layout_placeview" />
 
             <TextView
+                android:id="@+id/tv_licenseType"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="无"
@@ -182,6 +183,7 @@
             <include layout="@layout/layout_placeview" />
 
             <TextView
+                android:id="@+id/tv_sex"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="男"

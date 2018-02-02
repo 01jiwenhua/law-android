@@ -8,25 +8,31 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:background="@drawable/shape_for_search"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        >
 
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_top_search" />
         <EditText
             android:id="@+id/et_keyworld"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
+            android:layout_marginLeft="5dp"
             android:layout_weight="1"
-            android:background="@drawable/shape_rectangle"
             android:hint="请输入危化品名称进行搜索"
+            android:textColor="#FF393939"
+            android:background="@null"
             android:padding="5dp"
             android:textSize="@dimen/textsize_14" />
 
-        <ImageView
-            android:id="@+id/iv_search"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:padding="10dp"
-            android:src="@drawable/ic_search" />
+
     </LinearLayout>
 
     <android.support.v4.widget.SwipeRefreshLayout
