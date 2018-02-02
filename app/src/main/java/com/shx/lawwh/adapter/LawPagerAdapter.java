@@ -4,6 +4,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
+import com.shx.lawwh.entity.response.ResponseLevelList;
+
 import java.util.List;
 
 /**
@@ -12,13 +14,13 @@ import java.util.List;
 
 public class LawPagerAdapter extends FragmentPagerAdapter{
 
-    private final String[] mTitles = new String[]{"国家法规", "行政法规", "部门法规","地方法规"};
     private List<Fragment> mFragments;
+    private List<ResponseLevelList> datas;
 
-
-    public LawPagerAdapter(FragmentManager fm,List<Fragment> fragments) {
+    public LawPagerAdapter(FragmentManager fm, List<Fragment> fragments, List<ResponseLevelList> datas) {
         super(fm);
         this.mFragments = fragments;
+        this.datas=datas;
     }
 
 
@@ -34,6 +36,6 @@ public class LawPagerAdapter extends FragmentPagerAdapter{
 
     @Override
     public CharSequence getPageTitle(int position) {
-        return mTitles[position];
+        return datas.get(position).getName();
     }
 }

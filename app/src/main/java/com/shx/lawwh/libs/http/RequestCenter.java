@@ -22,6 +22,7 @@ public class RequestCenter {
     public static final String GET_VERIFYCODE="/user/getVerifyCode";
     public static final String REGIST="/user/regist";
     public static final String LOGIN="/user/login";
+    public static final String GET_LEVELLIST="/law/getLevelList";
     /**
      * 获取法律法规列表
      * @param lawRequest
@@ -159,6 +160,7 @@ public class RequestCenter {
         request.putParams("phone",info.getPhone());
         request.putParams("sex",info.getSex());
         request.putParams("userType",info.getUserType());
+        request.putParams("licenseType",info.getLicenseType());
         HttpManager.getInstance().doPost(request,callBack);
     }
 
@@ -170,6 +172,16 @@ public class RequestCenter {
         request.setUrl(LOGIN);
         request.putParams("phone",phone);
         request.putParams("verifyCode",verifyCode);
+        HttpManager.getInstance().doPost(request,callBack);
+    }
+
+    /**
+     * 得到法律法规，标准规范，政策文件的列表
+     * */
+    public static void getLevelList(String typeCode,HttpCallBack callBack){
+        ZCRequest request=new ZCRequest();
+        request.setUrl(GET_LEVELLIST);
+        request.putParams("typeCode",typeCode);
         HttpManager.getInstance().doPost(request,callBack);
     }
 

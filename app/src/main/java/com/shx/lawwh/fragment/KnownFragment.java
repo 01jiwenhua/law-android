@@ -7,6 +7,10 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,12 +40,12 @@ import java.util.List;
  * Created by xuan on 2017/12/24.
  */
 
-public class KnownFragment extends Fragment implements HttpCallBack,BaseQuickAdapter.OnItemClickListener,View.OnClickListener{
+public class KnownFragment extends Fragment implements HttpCallBack,BaseQuickAdapter.OnItemClickListener,View.OnClickListener, TextWatcher, TextView.OnEditorActionListener {
     private RecyclerView mRecyclerView;
     private SwipeRefreshLayout mRefreshLayout;
     private KnownAdapter mAdapter;
     private EditText mKeyword;
-    private ImageView mSearchView;
+    //private ImageView mSearchView;
     private int page = 1;
     private final int pageSize = 10;
     private boolean isLastPage = false;
@@ -72,8 +76,10 @@ public class KnownFragment extends Fragment implements HttpCallBack,BaseQuickAda
         mRecyclerView= (RecyclerView) view.findViewById(R.id.rv_known);
         mRefreshLayout= (SwipeRefreshLayout) view.findViewById(R.id.layout_refresh);
         mKeyword= (EditText) view.findViewById(R.id.et_keyworld);
-        mSearchView= (ImageView) view.findViewById(R.id.iv_search);
-        mSearchView.setOnClickListener(this);
+        mKeyword.addTextChangedListener(this);
+        mKeyword.setOnEditorActionListener(this);
+//        mSearchView= (ImageView) view.findViewById(R.id.iv_search);
+//        mSearchView.setOnClickListener(this);
         mRequest=new ChemicalsRequest();
         initData();
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
@@ -165,20 +171,55 @@ public class KnownFragment extends Fragment implements HttpCallBack,BaseQuickAda
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.iv_search:
-                String keyword=mKeyword.getText().toString();
-                mRequest.setName(keyword);
-                page=1;
-                mRequest.setPage(page);
-                chemicalsResponseList.clear();
-                mAdapter.getData().clear();
-                initData();
-                //数据重新加载完成后，提示数据发生改变，并且设置现在不在刷新
-                mAdapter.setNewData(chemicalsResponseList);
-                mRefreshLayout.setRefreshing(false);
-                mAdapter.setLight(true,mRequest);
-                mAdapter.notifyDataSetChanged();
-                break;
+//            case R.id.iv_search:
+//                String keyword=mKeyword.getText().toString();
+//                mRequest.setName(keyword);
+//                page=1;
+//                mRequest.setPage(page);
+//                chemicalsResponseList.clear();
+//                mAdapter.getData().clear();
+//                initData();
+//                //数据重新加载完成后，提示数据发生改变，并且设置现在不在刷新
+//                mAdapter.setNewData(chemicalsResponseList);
+//                mRefreshLayout.setRefreshing(false);
+//                mAdapter.setLight(true,mRequest);
+//                mAdapter.notifyDataSetChanged();
+//                break;
         }
+    }
+
+    @Override
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+    }
+
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+    }
+
+    @Override
+    public void afterTextChanged(Editable s) {
+
+        mRequest.setName(s.toString());
+        page=1;
+        mRequest.setPage(page);
+        chemicalsResponseList.clear();
+        mAdapter.getData().clear();
+        initData();
+        //数据重新加载完成后，提示数据发生改变，并且设置现在不在刷新
+        mAdapter.setNewData(chemicalsResponseList);
+        mRefreshLayout.setRefreshing(false);
+        if(s.toString().isEmpty()){
+            mAdapter.setLight(false,mRequest);
+        }else {
+            mAdapter.setLight(true, mRequest);
+        }
+        mAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+        return false;
     }
 }

@@ -31,7 +31,7 @@ public class MainFragment extends Fragment implements View.OnClickListener {
     private ImageView[] imageViews;
     private LoopViewPagerAdapter loopViewPagerAdapter;
     private ViewPagerScheduler vps;
-    private LinearLayout mFlfg,mBzgf,mWxhxp,mFhjj;
+    private LinearLayout mFlfg,mBzgf,mWxhxp,mFhjj,mZcwj;
     private int res[] = new int[]{R.drawable.img_banner1,R.drawable.img_banner2,R.drawable.img_banner3};
 
     @Nullable
@@ -50,6 +50,7 @@ public class MainFragment extends Fragment implements View.OnClickListener {
     private void initView(View view){
         mFlfg= (LinearLayout) view.findViewById(R.id.layout_flfgcx);
         mBzgf= (LinearLayout) view.findViewById(R.id.layout_bzgfcx);
+        mZcwj= (LinearLayout) view.findViewById(R.id.layout_zcwjcx);
         mWxhxp= (LinearLayout) view.findViewById(R.id.layout_whp);
         mFhjj= (LinearLayout) view.findViewById(R.id.layout_fhjjjs);
         mFhjj.setOnClickListener(this);
@@ -57,6 +58,7 @@ public class MainFragment extends Fragment implements View.OnClickListener {
         mWxhxp.setOnClickListener(this);
         mBzgf.setOnClickListener(this);
         mFhjj.setOnClickListener(this);
+        mZcwj.setOnClickListener(this);
         mLoopView = (ViewPageWithIndicator) view.findViewById(R.id.vp_viewpage);
         mLoopView.setFocusable(true);
         mLoopView.setFocusableInTouchMode(true);
@@ -94,17 +96,28 @@ public class MainFragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.layout_flfgcx:
-                startActivity(new Intent(getContext(),LawActivity.class));
+                Intent flfgIntent=new Intent(getContext(),LawActivity.class);
+                flfgIntent.putExtra("typeCode","flfg");
+                flfgIntent.putExtra("title","法律法规");
+                startActivity(flfgIntent);
                 break;
             case R.id.layout_bzgfcx:
-                startActivity(new Intent(getContext(),SSActivity.class));
+                Intent bzgfIntent=new Intent(getContext(),LawActivity.class);
+                bzgfIntent.putExtra("typeCode","bzgf");
+                bzgfIntent.putExtra("title","标准规范");
+                startActivity(bzgfIntent);
                 break;
             case R.id.layout_zcwjcx:
-                ToastUtil.getInstance().toastInCenter(getContext(),"该功能暂未开放使用");
+                Intent zcwjIntent=new Intent(getContext(),LawActivity.class);
+                zcwjIntent.putExtra("typeCode","zcwj");
+                zcwjIntent.putExtra("title","政策文件");
+                startActivity(zcwjIntent);
                 break;
             case R.id.layout_whp:
                 startActivity(new Intent(getContext(),ChemicalsActivity.class));
-
+                break;
+            case R.id.layout_fhjjjs:
+                ToastUtil.getInstance().toastInCenter(getContext(),"该功能暂未开放使用");
                 break;
         }
     }

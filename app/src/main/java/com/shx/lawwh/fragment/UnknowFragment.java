@@ -11,14 +11,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ListView;
 
 import com.alibaba.fastjson.JSONObject;
 import com.shx.lawwh.R;
 import com.shx.lawwh.activity.ChemicalsSeaarchResultActivity;
 import com.shx.lawwh.activity.UnknownDetailsActivity;
 import com.shx.lawwh.adapter.UnknowParamsAdapter;
+import com.shx.lawwh.adapter.UnknowParamsDetailsAdapter;
 import com.shx.lawwh.entity.request.ChemicalsRequest;
 import com.shx.lawwh.entity.response.LawResponse;
+import com.shx.lawwh.entity.response.ResponseJobList;
 import com.shx.lawwh.entity.response.UnknownParams;
 import com.shx.lawwh.libs.dialog.DialogManager;
 import com.shx.lawwh.libs.http.HttpCallBack;
@@ -27,11 +30,14 @@ import com.shx.lawwh.libs.http.MyJSON;
 import com.shx.lawwh.libs.http.RequestCenter;
 import com.shx.lawwh.libs.http.ZCResponse;
 import com.shx.lawwh.view.NoScrollGridView;
+import com.shx.lawwh.view.NoScrollListView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import cn.qqtheme.framework.picker.SinglePicker;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -41,8 +47,8 @@ import static android.app.Activity.RESULT_OK;
 
 public class UnknowFragment extends Fragment implements HttpCallBack, AdapterView.OnItemClickListener, View.OnClickListener {
 
-    private NoScrollGridView mLhGridView;
-    private NoScrollGridView mJkwhGridView;
+    private NoScrollListView mLhRLv;
+    private NoScrollListView mJkwhLv;
     private UnknowParamsAdapter mAdapter;
     private UnknowParamsAdapter mAdapter2;
     private List<UnknownParams> LhList = new ArrayList<>();
@@ -50,6 +56,8 @@ public class UnknowFragment extends Fragment implements HttpCallBack, AdapterVie
     private Button mBtnQuery;
     public static Map<String, UnknownParams> checkMap;
     private ChemicalsRequest mRequest = new ChemicalsRequest();
+
+    private List<UnknownParams> mList;
 
     public UnknowParamsAdapter getmAdapter() {
         return mAdapter;
@@ -80,11 +88,11 @@ public class UnknowFragment extends Fragment implements HttpCallBack, AdapterVie
         super.onViewCreated(view, savedInstanceState);
         DialogManager.getInstance().showProgressDialog(getContext());
         RequestCenter.getUnknowparams(this);
-        //mLhGridView = (NoScrollGridView) view.findViewById(R.id.lhtx);
-       // mJkwhGridView = (NoScrollGridView) view.findViewById(R.id.jkwh);
+        mLhRLv = (NoScrollListView) view.findViewById(R.id.lhtx);
+        mJkwhLv = (NoScrollListView) view.findViewById(R.id.jkwh);
         mBtnQuery = (Button) view.findViewById(R.id.btn_query);
-        mLhGridView.setOnItemClickListener(this);
-        mJkwhGridView.setOnItemClickListener(this);
+        mLhRLv.setOnItemClickListener(this);
+        mJkwhLv.setOnItemClickListener(this);
         mBtnQuery.setOnClickListener(this);
     }
 
@@ -96,14 +104,35 @@ public class UnknowFragment extends Fragment implements HttpCallBack, AdapterVie
             if (object.size() > 0) {
                 LhList = MyJSON.parseArray(object.getString("lhList"), UnknownParams.class);
                 mAdapter = new UnknowParamsAdapter(LhList, getContext());
-                mLhGridView.setAdapter(mAdapter);
+                mLhRLv.setAdapter(mAdapter);
                 jkwhList = MyJSON.parseArray(object.getString("jkwhList"), UnknownParams.class);
                 mAdapter2 = new UnknowParamsAdapter(jkwhList, getContext());
-                mJkwhGridView.setAdapter(mAdapter2);
+                mJkwhLv.setAdapter(mAdapter2);
+            }
+        } else if (requestUrl.equals(RequestCenter.GET_UNKNOWPARAMS_DETAILS)) {
+            if (object.size() > 0) {
+                mList = MyJSON.parseArray(object.getString("list"), UnknownParams.class);
+                SinglePicker<UnknownParams> picker = new SinglePicker<>(getActivity(), mList);
+                picker.setCanceledOnTouchOutside(false);
+                picker.setSelectedIndex(1);
+                picker.setCycleDisable(true);
+                picker.setOnItemPickListener(new SinglePicker.OnItemPickListener<UnknownParams>() {
+                    @Override
+                    public void onItemPicked(int index, UnknownParams item) {
+                        checkMap.put(item.getCategoryCode(), item);
+                        mAdapter.notifyDataSetChanged();
+                        mAdapter2.notifyDataSetChanged();
+                    }
+                });
+                picker.show();
+
+
             }
         }
         return false;
     }
+
+
 
     @Override
     public boolean doFaild(HttpTrowable error, String url) {
@@ -118,9 +147,10 @@ public class UnknowFragment extends Fragment implements HttpCallBack, AdapterVie
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         UnknownParams unknownParams = (UnknownParams) parent.getAdapter().getItem(position);
-        Intent intent = new Intent(getContext(), UnknownDetailsActivity.class);
-        intent.putExtra("code", unknownParams.getCategoryCode());
-        startActivityForResult(intent, 100);
+//        Intent intent = new Intent(getContext(), UnknownDetailsActivity.class);
+//        intent.putExtra("code", unknownParams.getCategoryCode());
+//        startActivityForResult(intent, 100);
+        RequestCenter.getUnknowparamsDetails(unknownParams.getCategoryCode(),this);
     }
 
     @Override

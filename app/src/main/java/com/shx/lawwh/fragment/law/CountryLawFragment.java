@@ -50,7 +50,6 @@ public class CountryLawFragment extends Fragment implements HttpCallBack{
         mRequest.setTypeCode("法律法规");
         mRequest.setIssue_no(null);
         mRequest.setTypeName(null);
-        mRequest.setLevel(null);
         mRequest.setName(null);
         mRequest.setLevel("国家法律");
         mRequest.setPage(1);

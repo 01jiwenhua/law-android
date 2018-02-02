@@ -26,7 +26,7 @@ import java.util.List;
  * Created by zhou on 2018/2/1.
  */
 
-public class DepartmentLayFragment extends Fragment implements HttpCallBack{
+public class DepartmentLawFragment extends Fragment implements HttpCallBack{
 
     private LawListAdapter adapter;
     private RecyclerView recyclerView;
@@ -49,7 +49,6 @@ public class DepartmentLayFragment extends Fragment implements HttpCallBack{
         mRequest.setTypeCode("法律法规");
         mRequest.setIssue_no(null);
         mRequest.setTypeName(null);
-        mRequest.setLevel(null);
         mRequest.setName(null);
         mRequest.setLevel("部门规章");
         mRequest.setPage(1);

@@ -8,72 +8,38 @@ import java.io.Serializable;
 
 public class LawResponse implements Serializable{
 
-    private String id;
-    private String lawName;
-    private String issueNo;
-    private String typeName;
-    private String typeCode;
-    private String createTime;
-    private String updateTime;
+    /**
+     * content :
+     * description : 为了加强安全生产工作，防止和减少事故保障人民群众 第一条为了加强安全生产工作，防止和减少事故保障人民群众 生命和财产安全，促进经济社会持续健康发展制定本法。
+     * effectiveTime : 1417363200000
+     * filePath : 中华人民共和国安全生产法
+     * id : 1
+     * issueNo : 主席令第13号修订
+     * lawName : 中华人民共和国安全生产法
+     * levleCode : gjfl
+     * publishOrg : 全国人民代表大会常务委员会
+     * publishTime : 1409414400000
+     * typeCode : flfg
+     */
+
+    private String content;
     private String description;
-    private String status;
+    private long effectiveTime;
     private String filePath;
+    private int id;
+    private String issueNo;
+    private String lawName;
+    private String levleCode;
+    private String publishOrg;
+    private long publishTime;
+    private String typeCode;
 
-
-    public String getId() {
-        return id;
+    public String getContent() {
+        return content;
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getLawName() {
-        return lawName;
-    }
-
-    public void setLawName(String lawName) {
-        this.lawName = lawName;
-    }
-
-    public String getIssueNo() {
-        return issueNo;
-    }
-
-    public void setIssueNo(String issueNo) {
-        this.issueNo = issueNo;
-    }
-
-    public String getTypeName() {
-        return typeName;
-    }
-
-    public void setTypeName(String typeName) {
-        this.typeName = typeName;
-    }
-
-    public String getTypeCode() {
-        return typeCode;
-    }
-
-    public void setTypeCode(String typeCode) {
-        this.typeCode = typeCode;
-    }
-
-    public String getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(String createTime) {
-        this.createTime = createTime;
-    }
-
-    public String getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(String updateTime) {
-        this.updateTime = updateTime;
+    public void setContent(String content) {
+        this.content = content;
     }
 
     public String getDescription() {
@@ -84,12 +50,12 @@ public class LawResponse implements Serializable{
         this.description = description;
     }
 
-    public String getStatus() {
-        return status;
+    public long getEffectiveTime() {
+        return effectiveTime;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setEffectiveTime(long effectiveTime) {
+        this.effectiveTime = effectiveTime;
     }
 
     public String getFilePath() {
@@ -98,5 +64,61 @@ public class LawResponse implements Serializable{
 
     public void setFilePath(String filePath) {
         this.filePath = filePath;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getIssueNo() {
+        return issueNo;
+    }
+
+    public void setIssueNo(String issueNo) {
+        this.issueNo = issueNo;
+    }
+
+    public String getLawName() {
+        return lawName;
+    }
+
+    public void setLawName(String lawName) {
+        this.lawName = lawName;
+    }
+
+    public String getLevleCode() {
+        return levleCode;
+    }
+
+    public void setLevleCode(String levleCode) {
+        this.levleCode = levleCode;
+    }
+
+    public String getPublishOrg() {
+        return publishOrg;
+    }
+
+    public void setPublishOrg(String publishOrg) {
+        this.publishOrg = publishOrg;
+    }
+
+    public long getPublishTime() {
+        return publishTime;
+    }
+
+    public void setPublishTime(long publishTime) {
+        this.publishTime = publishTime;
+    }
+
+    public String getTypeCode() {
+        return typeCode;
+    }
+
+    public void setTypeCode(String typeCode) {
+        this.typeCode = typeCode;
     }
 }

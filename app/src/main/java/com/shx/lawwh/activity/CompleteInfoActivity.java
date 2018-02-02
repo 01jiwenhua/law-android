@@ -4,16 +4,21 @@ import android.databinding.DataBindingUtil;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
+import android.widget.LinearLayout;
 
 import com.alibaba.fastjson.JSONObject;
 import com.shx.lawwh.R;
+import com.shx.lawwh.base.APPActivityManager;
 import com.shx.lawwh.base.BaseActivity;
 import com.shx.lawwh.databinding.ActivityCompleteinfoBinding;
 import com.shx.lawwh.entity.request.RequestRegisterInfo;
 import com.shx.lawwh.entity.response.ResponseCompanyList;
 import com.shx.lawwh.entity.response.ResponseDepartmentList;
 import com.shx.lawwh.entity.response.ResponseJobList;
+import com.shx.lawwh.libs.dialog.DialogManager;
 import com.shx.lawwh.libs.dialog.ToastUtil;
 import com.shx.lawwh.libs.http.MyJSON;
 import com.shx.lawwh.libs.http.RequestCenter;
@@ -41,6 +46,7 @@ public class CompleteInfoActivity extends BaseActivity implements View.OnClickLi
     private List<ResponseCompanyList> companyList;
     private List<ResponseDepartmentList> departmentList;
     private List<ResponseJobList> jobList;
+    private View registerTip;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,6 +70,7 @@ public class CompleteInfoActivity extends BaseActivity implements View.OnClickLi
         registerInfo=new RequestRegisterInfo();
         registerInfo.setPhone(getIntent().getStringExtra("phone"));
         registerInfo.setRegionId("1");
+        registerInfo.setSex("1");
         companyList=new ArrayList<>();
         departmentList=new ArrayList<>();
         jobList=new ArrayList<>();
@@ -72,14 +79,14 @@ public class CompleteInfoActivity extends BaseActivity implements View.OnClickLi
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.ll_avatar:
                 break;
             case R.id.ll_company:
                 RequestCenter.getCompanyList(this);
                 break;
             case R.id.ll_department:
-                RequestCenter.getDepartmentList("1",this);
+                RequestCenter.getDepartmentList("1", this);
                 break;
             case R.id.ll_district:
                 registerInfo.setRegionId("1");
@@ -94,7 +101,15 @@ public class CompleteInfoActivity extends BaseActivity implements View.OnClickLi
                 pickSex();
                 break;
             case R.id.btn_finish:
-                RequestCenter.regist(registerInfo,this);
+                if (registerInfo.getDepartmentId()==null || registerInfo.getEmail()==null
+                        || registerInfo.getIdNo()==null || registerInfo.getJobId()==null
+                        || registerInfo.getLicenseType()==null || registerInfo.getPhone()==null
+                        || registerInfo.getRealName()==null || registerInfo.getRegionId()==null
+                        || registerInfo.getSex()==null) {
+                    ToastUtil.getInstance().toastInCenter(this,"请将信息填写完整！");
+                } else {
+                    RequestCenter.regist(registerInfo, this);
+                }
                 break;
         }
     }
@@ -192,6 +207,24 @@ public class CompleteInfoActivity extends BaseActivity implements View.OnClickLi
         picker.show();
     }
 
+    /**
+     * 弹出正在审核的提示框
+     * */
+    private void popRegisterTip(){
+        registerTip=LayoutInflater.from(this).inflate(R.layout.pop_registertip,null);
+        LinearLayout mLinelayout = (LinearLayout) registerTip.findViewById(R.id.ll_pop);
+        DialogManager.getInstance().showCustomDialog(this, registerTip, true);
+        Button okBtn=(Button) registerTip.findViewById(R.id.btn_ok);
+        okBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DialogManager.getInstance().dissMissCustomDialog();
+                APPActivityManager.getInstance().finishActivities();
+                System.exit(0);
+            }
+        });
+    }
+
     @Override
     public boolean doSuccess(ZCResponse respose, String requestUrl) {
         if(requestUrl.equals(RequestCenter.GET_COMPANY_LIST)){
@@ -208,8 +241,7 @@ public class CompleteInfoActivity extends BaseActivity implements View.OnClickLi
             jobList=MyJSON.parseArray(mainData.getString("jobList"),ResponseJobList.class);
             pickJob();
         }else if(requestUrl.equals(RequestCenter.REGIST)){
-
-            ToastUtil.getInstance().toastInCenter(CompleteInfoActivity.this,"注册成功！");
+            popRegisterTip();
         }
         return super.doSuccess(respose, requestUrl);
     }
