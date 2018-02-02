@@ -11,6 +11,9 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+    dataBinding {
+        enabled = true
+    }
     buildTypes {
         release {
             minifyEnabled false
@@ -43,4 +46,5 @@ dependencies {
     compile 'org.greenrobot:eventbus:3.0.0'
     compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.22'
     compile 'com.umeng.analytics:analytics:latest.integration'
+
 }
