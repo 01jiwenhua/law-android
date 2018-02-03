@@ -4,262 +4,268 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:orientation="horizontal"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:gravity="center_vertical"
-        android:layout_marginBottom="10dp"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="36dp"
-            android:orientation="horizontal"
-            android:layout_weight="1"
-            android:gravity="center_vertical"
-            android:background="@drawable/shape_for_search">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/ic_top_search" />
-
-            <EditText
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@null"
-                android:textSize="16dp"
+                android:layout_marginBottom="10dp"
                 android:layout_marginLeft="10dp"
-                android:hint="搜索" />
-
-
-        </LinearLayout>
-
-        <ImageView
-            android:layout_width="24dp"
-            android:layout_height="19dp"
-            android:layout_marginLeft="15dp"
-            android:background="@drawable/ic_message" />
-    </LinearLayout>
-
-    <com.shx.lawwh.view.ViewPageWithIndicator
-        android:id="@+id/vp_viewpage"
-        android:layout_width="match_parent"
-        android:layout_height="120dp"></com.shx.lawwh.view.ViewPageWithIndicator>
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp">
-
-        <LinearLayout
-            android:id="@+id/layout_flfgcx"
-            android:layout_width="140dp"
-            android:layout_height="130dp"
-            android:gravity="center"
-            android:paddingTop="10dp"
-            android:layout_weight="1"
-            android:paddingBottom="10dp"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
-            android:background="@drawable/bg_main_item"
-            android:orientation="vertical">
-
-            <ImageView
+                android:layout_marginRight="10dp"
                 android:layout_marginTop="10dp"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:background="@drawable/ic_flfg" />
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
 
-            <TextView
-                android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="36dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/ic_main_search"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:background="@drawable/ic_top_search" />
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:background="@null"
+                        android:hint="搜索"
+                        android:textSize="16dp" />
+
+
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="19dp"
+                    android:layout_marginLeft="15dp"
+                    android:background="@drawable/ic_message" />
+            </LinearLayout>
+
+            <com.shx.lawwh.view.ViewPageWithIndicator
+                android:id="@+id/vp_viewpage"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"></com.shx.lawwh.view.ViewPageWithIndicator>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="20dp"
                 android:gravity="center"
-                android:layout_marginBottom="10dp"
-                android:text="法律法规查询"
-                android:textColor="@color/colorWhite"
-                android:textSize="17dp" />
-        </LinearLayout>
+                android:orientation="horizontal"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp">
 
-        <LinearLayout
-            android:id="@+id/layout_bzgfcx"
-            android:layout_width="140dp"
-            android:layout_height="130dp"
-            android:gravity="center"
-            android:paddingTop="10dp"
-            android:layout_weight="1"
-            android:paddingBottom="10dp"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
-            android:background="@drawable/bg_main_item"
-            android:orientation="vertical">
+                <LinearLayout
+                    android:id="@+id/layout_flfgcx"
+                    android:layout_width="140dp"
+                    android:layout_height="130dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_main_item"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:paddingTop="10dp">
 
-            <ImageView
-                android:layout_marginTop="10dp"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:background="@drawable/ic_flfgcx" />
+                    <ImageView
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/ic_flfg" />
 
-            <TextView
-                android:layout_width="wrap_content"
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="10dp"
+                        android:gravity="center"
+                        android:text="法律法规查询"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="17dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layout_bzgfcx"
+                    android:layout_width="140dp"
+                    android:layout_height="130dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_main_item"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:paddingTop="10dp">
+
+                    <ImageView
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/ic_flfgcx" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="10dp"
+                        android:gravity="center"
+                        android:text="标准规范查询"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="17dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layout_zcwjcx"
+                    android:layout_width="140dp"
+                    android:layout_height="130dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_main_item"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:paddingTop="10dp">
+
+                    <ImageView
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/ic_zcwj" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="10dp"
+                        android:gravity="center"
+                        android:text="政策文件查询"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="17dp" />
+                </LinearLayout>
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="5dp"
                 android:gravity="center"
-                android:layout_marginBottom="10dp"
-                android:text="标准规范查询"
-                android:textColor="@color/colorWhite"
-                android:textSize="17dp" />
+                android:orientation="horizontal"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:weightSum="3">
+
+                <LinearLayout
+                    android:id="@+id/layout_whp"
+                    android:layout_width="140dp"
+                    android:layout_height="130dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_main_item"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:paddingTop="10dp">
+
+                    <ImageView
+                        android:id="@+id/imageView"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/ic_whp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="10dp"
+                        android:gravity="center"
+                        android:text="危化品查询"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="17dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layout_fhjjjs"
+                    android:layout_width="140dp"
+                    android:layout_height="130dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_main_item"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:paddingTop="10dp">
+
+                    <ImageView
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/ic_fhjj" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="10dp"
+                        android:gravity="center"
+                        android:text="防火间距计算"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="17dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layout_new"
+                    android:layout_width="140dp"
+                    android:layout_height="130dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_main_none_item"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:paddingTop="10dp"
+                    android:visibility="visible">
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="10dp"
+                        android:gravity="center"
+                        android:text="新功能    待开发"
+                        android:textColor="#D6D6D6"
+                        android:textSize="17dp" />
+                </LinearLayout>
+            </LinearLayout>
+
         </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/layout_zcwjcx"
-            android:layout_width="140dp"
-            android:layout_height="130dp"
-            android:gravity="center"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
-            android:layout_weight="1"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
-            android:background="@drawable/bg_main_item"
-            android:orientation="vertical">
-
-            <ImageView
-                android:layout_marginTop="10dp"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:background="@drawable/ic_zcwj" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="10dp"
-                android:gravity="center"
-                android:layout_marginBottom="10dp"
-                android:text="政策文件查询"
-                android:textColor="@color/colorWhite"
-                android:textSize="17dp" />
-        </LinearLayout>
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:gravity="center"
-        android:weightSum="3"
-        android:orientation="horizontal"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp">
-
-        <LinearLayout
-            android:id="@+id/layout_whp"
-            android:layout_width="140dp"
-            android:layout_height="130dp"
-            android:gravity="center"
-            android:paddingTop="10dp"
-            android:layout_weight="1"
-            android:paddingBottom="10dp"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
-            android:background="@drawable/bg_main_item"
-            android:orientation="vertical">
-
-            <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/ic_whp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="10dp"
-                android:gravity="center"
-                android:layout_marginBottom="10dp"
-                android:text="危化品查询"
-                android:textColor="@color/colorWhite"
-                android:textSize="17dp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/layout_fhjjjs"
-            android:layout_width="140dp"
-            android:layout_height="130dp"
-            android:gravity="center"
-            android:paddingTop="10dp"
-            android:layout_weight="1"
-            android:paddingBottom="10dp"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
-            android:background="@drawable/bg_main_item"
-            android:orientation="vertical">
-
-            <ImageView
-                android:layout_marginTop="10dp"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:background="@drawable/ic_fhjj" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="10dp"
-                android:gravity="center"
-                android:layout_marginBottom="10dp"
-                android:text="防火间距计算"
-                android:textColor="@color/colorWhite"
-                android:textSize="17dp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/layout_new"
-            android:layout_width="140dp"
-            android:layout_height="130dp"
-            android:gravity="center"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
-            android:layout_weight="1"
-            android:paddingLeft="20dp"
-            android:visibility="invisible"
-            android:paddingRight="20dp"
-            android:background="@drawable/bg_main_item"
-            android:orientation="vertical">
-
-            <ImageView
-                android:layout_marginTop="10dp"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:background="@drawable/ic_flfgcx" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="10dp"
-                android:gravity="center"
-                android:layout_marginBottom="10dp"
-                android:text="政策文件查询"
-                android:textColor="@color/colorWhite"
-                android:textSize="17dp" />
-        </LinearLayout>
-    </LinearLayout>
-
-
+    </ScrollView>
 </LinearLayout>

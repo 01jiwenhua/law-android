@@ -14,6 +14,7 @@ import com.bumptech.glide.Glide;
 import com.shx.lawwh.R;
 import com.shx.lawwh.activity.ChemicalsActivity;
 import com.shx.lawwh.activity.LawActivity;
+import com.shx.lawwh.activity.LawSearchActivity;
 import com.shx.lawwh.activity.SSActivity;
 import com.shx.lawwh.adapter.LoopViewPagerAdapter;
 import com.shx.lawwh.base.LayoutValue;
@@ -96,19 +97,19 @@ public class MainFragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.layout_flfgcx:
-                Intent flfgIntent=new Intent(getContext(),LawActivity.class);
+                Intent flfgIntent=new Intent(getContext(),LawSearchActivity.class);
                 flfgIntent.putExtra("typeCode","flfg");
                 flfgIntent.putExtra("title","法律法规");
                 startActivity(flfgIntent);
                 break;
             case R.id.layout_bzgfcx:
-                Intent bzgfIntent=new Intent(getContext(),LawActivity.class);
+                Intent bzgfIntent=new Intent(getContext(),LawSearchActivity.class);
                 bzgfIntent.putExtra("typeCode","bzgf");
                 bzgfIntent.putExtra("title","标准规范");
                 startActivity(bzgfIntent);
                 break;
             case R.id.layout_zcwjcx:
-                Intent zcwjIntent=new Intent(getContext(),LawActivity.class);
+                Intent zcwjIntent=new Intent(getContext(),LawSearchActivity.class);
                 zcwjIntent.putExtra("typeCode","zcwj");
                 zcwjIntent.putExtra("title","政策文件");
                 startActivity(zcwjIntent);

@@ -11,6 +11,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.shx.lawwh.R;
 import com.shx.lawwh.entity.request.LawRequest;
 import com.shx.lawwh.entity.response.LawResponse;
+import com.shx.lawwh.utils.DateUtil;
 
 import java.util.List;
 
@@ -34,23 +35,30 @@ public class LawBaseAdapter extends BaseQuickAdapter<LawResponse, LawBaseAdapter
                 String lawName=item.getLawName();
                 String issueNo=item.getIssueNo();
                 String description=item.getDescription();
-                if(!TextUtils.isEmpty(mLawRequest.getIssue_no())){
+//                if(!TextUtils.isEmpty(mLawRequest.getIssue_no())){
+//
+//                    issueNo=issueNo.replace(mLawRequest.getIssue_no(),"<font color='#FF0000'>"+mLawRequest.getIssue_no()+"</font>");
+//
+//
+//                }
+                if(!TextUtils.isEmpty(mLawRequest.getName())){
                     //标题高亮
-                    issueNo=issueNo.replace(mLawRequest.getIssue_no(),"<font color='#FF0000'>"+mLawRequest.getIssue_no()+"</font>");
-
-
-                }else if(!TextUtils.isEmpty(mLawRequest.getName())){
                     lawName=lawName.replace(mLawRequest.getName(),"<font color='#FF0000'>"+mLawRequest.getName()+"</font>");
-                }else if(!TextUtils.isEmpty(mLawRequest.getDescription())){
+                }
+                if(!TextUtils.isEmpty(mLawRequest.getDescription())){
                     //内容高亮
                     description=description.replace(mLawRequest.getDescription(),"<font color='#FF0000'>"+mLawRequest.getDescription()+"</font>");
                 }
-               helper.name.setText(Html.fromHtml(lawName+"("+issueNo+")"));
-               helper.des.setText(Html.fromHtml(TextUtils.isEmpty(description)?"暂无摘要":item.getDescription()));
+               helper.name.setText(Html.fromHtml(lawName));
+               helper.des.setText(Html.fromHtml(TextUtils.isEmpty(description)?"暂无摘要": description));
+                helper.order.setText(issueNo);
+                helper.date.setText(DateUtil.parseDate(item.getPublishTime()));
             }
         }else{
-            helper.name.setText(item.getLawName()+"("+item.getIssueNo()+")");
+            helper.name.setText(item.getLawName());
             helper.des.setText(TextUtils.isEmpty(item.getDescription())?"暂无摘要":item.getDescription());
+            helper.order.setText(item.getIssueNo());
+            helper.date.setText(DateUtil.parseDate(item.getPublishTime()));
         }
 
     }
@@ -65,10 +73,15 @@ public class LawBaseAdapter extends BaseQuickAdapter<LawResponse, LawBaseAdapter
     class ViewHolder extends BaseViewHolder{
         private TextView name;
         private TextView des;
+        private TextView order;
+        private TextView date;
+
         public ViewHolder(View view) {
             super(view);
             name= (TextView) view.findViewById(R.id.tv_name);
             des= (TextView) view.findViewById(R.id.tv_des);
+            order= (TextView) view.findViewById(R.id.tv_order);
+            date= (TextView) view.findViewById(R.id.tv_date);
         }
     }
 }

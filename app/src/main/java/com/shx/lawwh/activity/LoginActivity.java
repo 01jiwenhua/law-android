@@ -21,6 +21,8 @@ import com.shx.lawwh.libs.http.ZCResponse;
 import com.shx.lawwh.utils.CountDownTimerUtils;
 import com.shx.lawwh.utils.SharedPreferencesUtil;
 
+import java.lang.ref.ReferenceQueue;
+
 /**
  * Created by zhou on 2018/2/1.
  */
@@ -54,6 +56,10 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener{
     }
 
     private void initData(){
+        if(SharedPreferencesUtil.readObject(this,CommonValues.USERINFO)!=null){
+            //调用获取用户信息的接口更新本地用户信息
+
+        }
         //初始化验证码倒计时工具
         mCountDownTimerUtils= new CountDownTimerUtils(verifyCodeTv, 60000, 1000);
     }

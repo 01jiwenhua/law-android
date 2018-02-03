@@ -161,7 +161,7 @@ public class LawAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> im
             }
             name= (TextView) itemView.findViewById(R.id.tv_name);
             desc= (TextView) itemView.findViewById(R.id.tv_des);
-            layoutItem= (LinearLayout) itemView.findViewById(R.id.layout_item);
+            //layoutItem= (LinearLayout) itemView.findViewById(R.id.layout_item);
          }    
     }    
 

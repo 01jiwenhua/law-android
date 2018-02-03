@@ -68,7 +68,7 @@
             android:layout_height="1dp"
             android:background="@color/colorLine"
             android:layout_alignParentBottom="true"
-            android:visibility="gone"
+            android:visibility="visible"
             ></View>
     </RelativeLayout>
 </LinearLayout>

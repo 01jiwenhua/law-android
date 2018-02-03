@@ -4,33 +4,28 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
+import android.widget.EditText;
 
 import com.alibaba.fastjson.JSONObject;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.shx.lawwh.R;
-import com.shx.lawwh.adapter.LawListAdapter;
-import com.shx.lawwh.adapter.LawPagerAdapter;
+import com.shx.lawwh.adapter.LawBaseAdapter;
 import com.shx.lawwh.base.BaseActivity;
-import com.shx.lawwh.base.OnRecyclerViewItemClickListener;
 import com.shx.lawwh.common.LogGloble;
 import com.shx.lawwh.common.SystemConfig;
 import com.shx.lawwh.entity.request.LawRequest;
 import com.shx.lawwh.entity.response.LawResponse;
 import com.shx.lawwh.entity.response.ResponseLevelList;
-import com.shx.lawwh.fragment.law.AdministrationLayFragment;
-import com.shx.lawwh.fragment.law.CountryLawFragment;
-import com.shx.lawwh.fragment.law.DepartmentLawFragment;
-import com.shx.lawwh.fragment.law.DistrictLawFragment;
 import com.shx.lawwh.libs.dialog.ToastUtil;
 import com.shx.lawwh.libs.http.MyJSON;
 import com.shx.lawwh.libs.http.RequestCenter;
 import com.shx.lawwh.libs.http.ZCResponse;
-import com.shx.lawwh.view.MyViewPager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,15 +34,17 @@ import java.util.List;
  * Created by xuan on 2017/12/24.
  */
 
-public class LawActivity extends BaseActivity implements OnRecyclerViewItemClickListener {
+public class LawActivity extends BaseActivity implements TextWatcher, BaseQuickAdapter.OnItemClickListener {
 
     private TabLayout mTablayout;
     private List<ResponseLevelList> levelDatas;
 
-    private LawListAdapter adapter;
-    private RecyclerView recyclerView;
+    private LawBaseAdapter mAdapter;
+    private RecyclerView mRecyclerView;
     private LawRequest mRequest;
     private List<LawResponse> lawDatas;
+
+    private EditText keyworldEt;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,10 +60,11 @@ public class LawActivity extends BaseActivity implements OnRecyclerViewItemClick
             }
         });
         mTablayout=(TabLayout)findViewById(R.id.tl_law);
-
-        recyclerView= (RecyclerView)findViewById(R.id.rv_countryLayList);
+        keyworldEt= (EditText) findViewById(R.id.et_keyworld);
+        keyworldEt.addTextChangedListener(this);
+        mRecyclerView = (RecyclerView)findViewById(R.id.rv_countryLayList);
         LinearLayoutManager linearLayoutManager=new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(linearLayoutManager);
+        mRecyclerView.setLayoutManager(linearLayoutManager);
     }
 
     private void initData(){
@@ -124,17 +122,57 @@ public class LawActivity extends BaseActivity implements OnRecyclerViewItemClick
                     lawDatas.clear();
                 }
                 lawDatas= MyJSON.parseArray(object.getString("lawList"),LawResponse.class);
-                adapter=new LawListAdapter(lawDatas);
-                adapter.setmOnItemClickListener(this);
-                recyclerView.setAdapter(adapter);
+                mAdapter =new LawBaseAdapter(lawDatas);
+                mAdapter.bindToRecyclerView(mRecyclerView);
+                mAdapter.setOnItemClickListener(this);
+                mRecyclerView.setAdapter(mAdapter);
+                mAdapter.setEmptyView(R.layout.layout_empty_view);
+                mAdapter.disableLoadMoreIfNotFullPage();
+                mAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
+                    @Override
+                    public void onLoadMoreRequested() {
+                        LogGloble.d("setOnLoadMoreListener", "==============");
+                        //loadMoreData();
+
+                    }
+                }, mRecyclerView);
             }
         }
         return super.doSuccess(respose, requestUrl);
     }
 
+
     @Override
-    public void onItemClick(View view, Object data) {
-        LawResponse item = (LawResponse) data;
+    public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+    }
+
+    @Override
+    public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+    }
+
+    @Override
+    public void afterTextChanged(Editable editable) {
+       /* mPage = 1;
+        isLastPage = false;*/
+
+        String keyword = editable.toString();
+        if(TextUtils.isEmpty(keyword)){
+            mRequest.setName("");
+        }else {
+            mRequest.setName(keyword);
+        }
+
+        mAdapter.getData().clear();
+        mAdapter.notifyDataSetChanged();
+        initData();
+        mAdapter.setLight(true, mRequest);
+    }
+
+    @Override
+    public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+        LawResponse item = (LawResponse) adapter.getItem(position);
         LogGloble.d("MainFragment", item.getFilePath() + "");
         if (TextUtils.isEmpty(item.getFilePath())) {
             ToastUtil.getInstance().toastInCenter(this, "该文件不存在！");

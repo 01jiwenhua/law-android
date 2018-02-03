@@ -74,7 +74,7 @@ public class CommonAdapter extends RecyclerView.Adapter<CommonAdapter.LawsHolder
             super(itemView);
             name= (TextView) itemView.findViewById(R.id.tv_name);
             desc= (TextView) itemView.findViewById(R.id.tv_des);
-            layoutItem= (LinearLayout) itemView.findViewById(R.id.layout_item);
+            //layoutItem= (LinearLayout) itemView.findViewById(R.id.layout_item);
         }
 
     }

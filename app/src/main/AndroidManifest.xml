@@ -38,7 +38,11 @@
             android:value="UMENNG" />
 
         <activity android:name=".activity.MainActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name=".activity.PdfViewActivity" />
         <activity android:name=".activity.WebActivity" />
@@ -61,11 +65,7 @@
         </activity>
 
       <activity android:name=".activity.LoginActivity">
-          <intent-filter>
-              <action android:name="android.intent.action.MAIN" />
 
-              <category android:name="android.intent.category.LAUNCHER" />
-          </intent-filter>
         </activity>
         <activity android:name=".activity.CompleteInfoActivity">
 
