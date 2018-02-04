@@ -71,7 +71,7 @@ public class ChemicalFragment extends Fragment implements HttpCallBack {
         if(requestUrl.equals(RequestCenter.GET_KNOWNLIST)){
             chemicalsResponseList = MyJSON.parseArray(mainData.getString("chemicalsList"), ChemicalsResponse.class);
             mAdapter=new KnownAdapter(chemicalsResponseList);
-
+            mRecyclerView.setAdapter(mAdapter);
         }
         return false;
     }
@@ -85,4 +85,15 @@ public class ChemicalFragment extends Fragment implements HttpCallBack {
     public boolean httpCallBackPreFilter(String result, String url) {
         return false;
     }
+
+    public void searchKey(String key){
+        mRequest.setName(key);
+        RequestCenter.getKnownlist(mRequest,this);
+        if(key.toString().isEmpty()){
+            mAdapter.setLight(false,mRequest);
+        }else {
+            mAdapter.setLight(true, mRequest);
+        }
+    }
+
 }

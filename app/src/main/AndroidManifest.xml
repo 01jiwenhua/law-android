@@ -73,6 +73,10 @@
 
         <activity android:name=".activity.ChemicalsSeaarchResultActivity"></activity>
         <activity android:name=".activity.MainSearchActivity"></activity>
+        <activity android:name=".activity.VersionActivity"></activity>
+        <activity android:name=".activity.ProtocolActivity"></activity>
+        <activity android:name=".activity.AboutUsActivity"></activity>
+        <activity android:name=".activity.UserInfoActivity"></activity>
     </application>
 
 </manifest>

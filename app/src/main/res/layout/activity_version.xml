@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <include layout="@layout/layout_topbar"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="本网站是北京市安全生产监督管理局、北京煤矿安全监察局主办的专业性政府网站。网站承担着发布全市有关安全生产类的政策法规、执法动态、重点工作、安全规划、事故通报、文件下我、危险化学品、教育考核和其它各类信息的职能，同时通过网络在线咨询、有奖举报等在线服务业务，逐步实现对全市安全生产的动态管理。
+
+通过网站树立并宣传北京市安全生产监督管理局、北京煤矿安全监察局，发布全市的安全生产有关的政策法规和政务信息以及区县动态。建立网上政府信息平台服务于社会公众和企业;加強北京市安全生产监督管理局、北京煤矿安全监察局与各区县安监局和各级重点企业的信息交流和政务公开，强化全市安全生产的宏观调控和煤矿安全运行的综合协调，为政府办公及社会公众了解知情提供信息在线举报、在线咨询等服务。"
+        android:textColor="#FF676767"
+        android:textSize="@dimen/textsize_16"
+        android:paddingTop="15dp"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"
+        />
+</LinearLayout>

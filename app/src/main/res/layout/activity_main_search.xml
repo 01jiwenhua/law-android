@@ -29,6 +29,7 @@
                 android:background="@drawable/ic_top_search" />
 
             <EditText
+                android:id="@+id/et_search"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"

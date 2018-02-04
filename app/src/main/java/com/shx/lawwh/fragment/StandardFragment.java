@@ -30,7 +30,7 @@ import java.util.List;
 
 public class StandardFragment extends Fragment implements HttpCallBack {
 
-    private LawBaseAdapter mAdatper;
+    private LawBaseAdapter mAdapter;
     private RecyclerView mRecyclerView;
     private SwipeRefreshLayout refreshLayout;
     private LawRequest mRequest;
@@ -71,8 +71,8 @@ public class StandardFragment extends Fragment implements HttpCallBack {
         JSONObject mainData = respose.getMainData();
         if(requestUrl.equals(RequestCenter.GET_LAWLIST)){
             lawList = MyJSON.parseArray(mainData.getString("lawList"), LawResponse.class);
-            mAdatper=new LawBaseAdapter(lawList);
-            mRecyclerView.setAdapter(mAdatper);
+            mAdapter =new LawBaseAdapter(lawList);
+            mRecyclerView.setAdapter(mAdapter);
 
         }
         return false;
@@ -86,5 +86,15 @@ public class StandardFragment extends Fragment implements HttpCallBack {
     @Override
     public boolean httpCallBackPreFilter(String result, String url) {
         return false;
+    }
+
+    public void searchKey(String key){
+        mRequest.setName(key);
+        RequestCenter.getLawList(mRequest,this);
+        if(key.toString().isEmpty()){
+            mAdapter.setLight(false,mRequest);
+        }else {
+            mAdapter.setLight(true, mRequest);
+        }
     }
 }

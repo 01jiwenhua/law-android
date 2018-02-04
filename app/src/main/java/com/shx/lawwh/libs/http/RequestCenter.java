@@ -187,7 +187,7 @@ public class RequestCenter {
     }
 
     /**
-     * 得到法律法规，标准规范，政策文件的列表
+     * 获取用户信息
      * */
     public static void getUserInfo(String userId,HttpCallBack callBack){
         ZCRequest request=new ZCRequest();

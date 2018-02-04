@@ -6,7 +6,10 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.widget.BaseAdapter;
+import android.widget.EditText;
 
 import com.shx.lawwh.R;
 import com.shx.lawwh.adapter.MainSearchPagerAdapter;
@@ -26,14 +29,20 @@ import java.util.List;
  * Created by adm on 2018/2/4.
  */
 
-public class MainSearchActivity extends BaseActivity{
+public class MainSearchActivity extends BaseActivity implements TextWatcher {
 
     private TabLayout tabLayout;
     private ViewPager mViewPager;
     private MainSearchPagerAdapter mAdatper;
-    private Fragment sumFragment,standerFragment,lawFragment,policyFragment,chemicalFragment,fireproofingFragment;
+    private SumFragment sumFragment;
+    private StandardFragment standerFragment;
+    private LawFragment lawFragment;
+    private PolicyFragment policyFragment;
+    private ChemicalFragment chemicalFragment;
+    private FireproofingFragment fireproofingFragment;
     private List<Fragment> fragments;
-
+    private EditText searchEt;
+    private static int currentIndex;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,7 +54,8 @@ public class MainSearchActivity extends BaseActivity{
     private void initView(){
         tabLayout= (TabLayout) findViewById(R.id.tl_item);
         mViewPager= (ViewPager) findViewById(R.id.vp_item);
-
+        searchEt= (EditText) findViewById(R.id.et_search);
+        searchEt.addTextChangedListener(this);
     }
 
     private void initData(){
@@ -67,6 +77,56 @@ public class MainSearchActivity extends BaseActivity{
         mAdatper=new MainSearchPagerAdapter(manager,fragments);
         mViewPager.setAdapter(mAdatper);
         tabLayout.setupWithViewPager(mViewPager);
+        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                currentIndex=position;
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+
+    }
+
+    @Override
+    public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+    }
+
+    @Override
+    public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+    }
+
+    @Override
+    public void afterTextChanged(Editable editable) {
+
+        String key=editable.toString();
+        switch (currentIndex) {
+            case 0:
+                sumFragment.searchKey(key);
+                break;
+            case 1:
+                standerFragment.searchKey(key);
+                break;
+            case 2:
+                lawFragment.searchKey(key);
+                break;
+            case 3:
+                policyFragment.searchKey(key);
+                break;
+            case 4:
+                chemicalFragment.searchKey(key);
+                break;
+
+        }
     }
 }

@@ -62,7 +62,6 @@ public class LoadingActivity extends BaseActivity {
                 gotoMainActivity();
             }else if (msg.what == 1) {
                 startActivity(new Intent(LoadingActivity.this,LoginActivity.class));
-
             }
             finish();
         }

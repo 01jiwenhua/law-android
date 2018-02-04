@@ -26,6 +26,7 @@ public class LawBaseAdapter extends BaseQuickAdapter<LawResponse, LawBaseAdapter
         super(R.layout.item_law,data);
     }
 
+
     @Override
     protected void convert(ViewHolder helper, LawResponse item) {
 

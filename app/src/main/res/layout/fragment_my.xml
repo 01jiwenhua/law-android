@@ -5,6 +5,7 @@
     android:background="@color/colorWhite"
     >
     <LinearLayout
+        android:id="@+id/ll_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -16,6 +17,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_marginLeft="20dp"
+            android:visibility="gone"
             >
             <TextView
                 android:layout_width="wrap_content"
@@ -34,18 +36,18 @@
                 />
         </LinearLayout>
         <LinearLayout
-            android:id="@+id/ll_login"
+            android:id="@+id/ll_logined"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_marginLeft="20dp"
-            android:visibility="gone"
+            android:visibility="visible"
             >
             <ImageView
                 android:id="@+id/iv_avater"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:background="@color/colorBlue"
+                android:src="@drawable/ic_avatar"
                 />
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -85,7 +87,9 @@
         android:background="#FFF5F5F5"
         android:layout_marginTop="60dp"
         />
+
     <LinearLayout
+        android:id="@+id/ll_userInfo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -94,27 +98,28 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="个人资料"
-            android:textColor="#FF1E2022"
-            android:textSize="@dimen/textsize_18"
             android:drawableLeft="@drawable/ic_person"
             android:drawablePadding="20dp"
-            />
+            android:text="个人资料"
+            android:textColor="#FF1E2022"
+            android:textSize="@dimen/textsize_18" />
 
         <include layout="@layout/layout_placeview" />
+
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_right"
             android:layout_gravity="center_vertical"
-            />
+            android:src="@drawable/ic_right" />
     </LinearLayout>
+
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="#E9ECEF"
         />
     <LinearLayout
+        android:id="@+id/ll_news"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -144,6 +149,7 @@
         android:background="#E9ECEF"
         />
     <LinearLayout
+        android:id="@+id/ll_update"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -173,6 +179,7 @@
         android:background="#E9ECEF"
         />
     <LinearLayout
+        android:id="@+id/ll_aboutUs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -202,6 +209,7 @@
         android:background="#E9ECEF"
         />
     <LinearLayout
+        android:id="@+id/ll_help"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -231,6 +239,7 @@
         android:background="#E9ECEF"
         />
     <LinearLayout
+        android:id="@+id/ll_setting"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"

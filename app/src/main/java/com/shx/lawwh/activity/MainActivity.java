@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.shx.lawwh.R;
 import com.shx.lawwh.base.BaseActivity;
 import com.shx.lawwh.fragment.MainFragment;
+import com.shx.lawwh.fragment.MyFragment;
 
 
 /**
@@ -86,10 +87,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     }
 
     private void showUserFragment() {
-//        mPersonCenterFragment = new UserFragment();
-//        FragmentTransaction transaction = mFragmentManager.beginTransaction();
-//        transaction.replace(R.id.content, mPersonCenterFragment);
-//        transaction.commitAllowingStateLoss();
+        mPersonCenterFragment = new MyFragment();
+        FragmentTransaction transaction = mFragmentManager.beginTransaction();
+        transaction.replace(R.id.content, mPersonCenterFragment);
+        transaction.commitAllowingStateLoss();
 
     }
 
