@@ -62,6 +62,13 @@ public class CompleteInfoActivity extends BaseActivity implements View.OnClickLi
     }
 
     private void initView(){
+        getTopbar().setTitle("补充个人信息");
+        getTopbar().setLeftImageListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
         mBinding.llAvatar.setOnClickListener(this);
         mBinding.llCompany.setOnClickListener(this);
         mBinding.llDepartment.setOnClickListener(this);
