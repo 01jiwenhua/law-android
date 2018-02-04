@@ -71,6 +71,7 @@ public class ChemicalFragment extends Fragment implements HttpCallBack {
         if(requestUrl.equals(RequestCenter.GET_KNOWNLIST)){
             chemicalsResponseList = MyJSON.parseArray(mainData.getString("chemicalsList"), ChemicalsResponse.class);
             mAdapter=new KnownAdapter(chemicalsResponseList);
+            mAdapter.setLight(true,mRequest);
             mRecyclerView.setAdapter(mAdapter);
         }
         return false;

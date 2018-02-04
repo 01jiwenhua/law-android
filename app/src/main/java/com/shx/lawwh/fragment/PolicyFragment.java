@@ -72,6 +72,7 @@ public class PolicyFragment extends Fragment implements HttpCallBack {
         if(requestUrl.equals(RequestCenter.GET_LAWLIST)){
             lawList = MyJSON.parseArray(mainData.getString("lawList"), LawResponse.class);
             mAdapter=new LawBaseAdapter(lawList);
+            mAdapter.setLight(true,mRequest);
             mRecyclerView.setAdapter(mAdapter);
 
         }
@@ -90,6 +91,7 @@ public class PolicyFragment extends Fragment implements HttpCallBack {
 
     public void searchKey(String key){
         mRequest.setName(key);
+        mRequest.setDescription(key);
         RequestCenter.getLawList(mRequest,this);
         if(key.toString().isEmpty()){
             mAdapter.setLight(false,mRequest);

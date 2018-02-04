@@ -72,6 +72,7 @@ public class SumFragment extends Fragment implements HttpCallBack {
         if(requestUrl.equals(RequestCenter.GET_LAWLIST)){
             lawList = MyJSON.parseArray(mainData.getString("lawList"), LawResponse.class);
             mAdapter =new LawBaseAdapter(lawList);
+            mAdapter.setLight(true,mRequest);
             mRecyclerView.setAdapter(mAdapter);
         }
         return false;
@@ -89,6 +90,7 @@ public class SumFragment extends Fragment implements HttpCallBack {
 
     public void searchKey(String key){
         mRequest.setName(key);
+        mRequest.setDescription(key);
         if(key.toString().isEmpty()){
             mAdapter.setLight(false,mRequest);
         }else {
