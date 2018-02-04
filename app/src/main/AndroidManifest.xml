@@ -77,6 +77,10 @@
         <activity android:name=".activity.ProtocolActivity"></activity>
         <activity android:name=".activity.AboutUsActivity"></activity>
         <activity android:name=".activity.UserInfoActivity"></activity>
+        <activity android:name=".activity.SettingActivity"></activity>
+        <activity android:name=".activity.NewsActivity"></activity>
+        <activity android:name=".activity.UpdateActivity"></activity>
+        <activity android:name=".activity.HelpActivity"></activity>
     </application>
 
 </manifest>

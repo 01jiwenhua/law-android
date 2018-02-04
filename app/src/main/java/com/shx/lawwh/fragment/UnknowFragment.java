@@ -96,9 +96,7 @@ public class UnknowFragment extends Fragment implements HttpCallBack, AdapterVie
         mLhRLv = (NoScrollListView) view.findViewById(R.id.lhtx);
         mLhRLv.setId(0);
         mJkwhLv = (NoScrollListView) view.findViewById(R.id.jkwh);
-
         mJkwhLv.setId(1);
-
         mBtnQuery = (Button) view.findViewById(R.id.btn_query);
         mLhRLv.setOnItemClickListener(this);
         mJkwhLv.setOnItemClickListener(this);

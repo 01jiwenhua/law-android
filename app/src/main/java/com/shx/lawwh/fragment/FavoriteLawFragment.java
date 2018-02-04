@@ -96,11 +96,9 @@ public class FavoriteLawFragment extends Fragment implements HttpCallBack {
     public boolean doSuccess(ZCResponse respose, String requestUrl) {
         JSONObject mainData = respose.getMainData();
         if(requestUrl.equals(RequestCenter.GET_FAVORITE)){
-            lawList = MyJSON.parseArray(mainData.getString("lawList"), LawResponse.class);
+            lawList = MyJSON.parseArray(mainData.getString("favoriteList"), LawResponse.class);
             mAdatper=new LawBaseAdapter(lawList);
             mRecyclerView.setAdapter(mAdatper);
-
-
         }
         return false;
     }

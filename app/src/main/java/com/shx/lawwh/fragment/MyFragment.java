@@ -12,6 +12,10 @@ import android.widget.LinearLayout;
 
 import com.shx.lawwh.R;
 import com.shx.lawwh.activity.AboutUsActivity;
+import com.shx.lawwh.activity.HelpActivity;
+import com.shx.lawwh.activity.NewsActivity;
+import com.shx.lawwh.activity.SettingActivity;
+import com.shx.lawwh.activity.UpdateActivity;
 import com.shx.lawwh.activity.UserInfoActivity;
 import com.shx.lawwh.common.CommonValues;
 import com.shx.lawwh.databinding.FragmentMyBinding;
@@ -69,19 +73,19 @@ public class MyFragment extends Fragment implements View.OnClickListener {
                 startActivity(new Intent(getActivity(), UserInfoActivity.class));
                 break;
             case R.id.ll_news:
-
+                startActivity(new Intent(getActivity(),NewsActivity.class));
                 break;
             case R.id.ll_update:
-
+                startActivity(new Intent(getActivity(), UpdateActivity.class));
                 break;
             case R.id.ll_aboutUs:
                 startActivity(new Intent(getActivity(), AboutUsActivity.class));
                 break;
             case R.id.ll_help:
-
+                startActivity(new Intent(getActivity(), HelpActivity.class));
                 break;
             case R.id.ll_setting:
-
+                startActivity(new Intent(getActivity(), SettingActivity.class));
                 break;
         }
 
