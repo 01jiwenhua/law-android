@@ -35,6 +35,12 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
 
     private  void initView(){
         getTopbar().setTitle("注册");
+        getTopbar().setLeftImageListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
         phoneET= (EditText) findViewById(R.id.et_phone);
         verifyCodeET= (EditText) findViewById(R.id.et_authCode);
         requestAuthCodeTV= (TextView) findViewById(R.id.tv_requestAuthCode);
