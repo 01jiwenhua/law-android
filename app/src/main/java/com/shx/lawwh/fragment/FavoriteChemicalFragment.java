@@ -10,9 +10,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 
 import com.alibaba.fastjson.JSONObject;
 import com.shx.lawwh.R;
+import com.shx.lawwh.activity.ChemicalsDetailsActivity;
 import com.shx.lawwh.activity.LoginActivity;
 import com.shx.lawwh.adapter.KnownAdapter;
 import com.shx.lawwh.base.UserInfo;
@@ -32,7 +34,7 @@ import java.util.List;
  * Created by adm on 2018/2/4.
  */
 
-public class FavoriteChemicalFragment extends Fragment implements HttpCallBack {
+public class FavoriteChemicalFragment extends Fragment implements HttpCallBack,AdapterView.OnItemClickListener {
 
 
     private RecyclerView mRecyclerView;
@@ -97,5 +99,13 @@ public class FavoriteChemicalFragment extends Fragment implements HttpCallBack {
     @Override
     public boolean httpCallBackPreFilter(String result, String url) {
         return false;
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        ChemicalsResponse chemicalsResponse= mAdapter.getData().get(position);
+        Intent intent=new Intent(getContext(), ChemicalsDetailsActivity.class);
+        intent.putExtra("chemicals",chemicalsResponse);
+        startActivity(intent);
     }
 }

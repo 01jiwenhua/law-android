@@ -17,7 +17,7 @@ import static android.media.CamcorderProfile.get;
 public class MainSearchPagerAdapter extends FragmentPagerAdapter{
 
     private List<Fragment> mFragments;
-    private final String[] mTitles = new String[]{"综合", "标准规范", "法律规范","政策文件","危险化学品","防火间距"};
+    private final String[] mTitles = new String[]{"综合","法律规范", "标准规范","政策文件","危险化学品","防火间距"};
 
     public MainSearchPagerAdapter(FragmentManager fm, List<Fragment> fragments) {
         super(fm);

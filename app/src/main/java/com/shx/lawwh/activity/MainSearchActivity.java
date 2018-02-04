@@ -67,12 +67,11 @@ public class MainSearchActivity extends BaseActivity implements TextWatcher {
         fireproofingFragment=new FireproofingFragment();
         fragments=new ArrayList<>();
         fragments.add(sumFragment);
-        fragments.add(standerFragment);
         fragments.add(lawFragment);
+        fragments.add(standerFragment);
         fragments.add(policyFragment);
         fragments.add(chemicalFragment);
         fragments.add(fireproofingFragment);
-
         FragmentManager manager=getSupportFragmentManager();
         mAdatper=new MainSearchPagerAdapter(manager,fragments);
         mViewPager.setAdapter(mAdatper);

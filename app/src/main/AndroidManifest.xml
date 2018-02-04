@@ -81,6 +81,7 @@
         <activity android:name=".activity.NewsActivity"></activity>
         <activity android:name=".activity.UpdateActivity"></activity>
         <activity android:name=".activity.HelpActivity"></activity>
+        <activity android:name=".activity.BrowserActivity"></activity>
     </application>
 
 </manifest>

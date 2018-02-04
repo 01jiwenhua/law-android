@@ -9,16 +9,22 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 
 import com.alibaba.fastjson.JSONObject;
 import com.shx.lawwh.R;
 import com.shx.lawwh.activity.LoginActivity;
+import com.shx.lawwh.activity.PdfViewActivity;
+import com.shx.lawwh.activity.WebActivity;
 import com.shx.lawwh.adapter.LawBaseAdapter;
 import com.shx.lawwh.base.UserInfo;
+import com.shx.lawwh.common.LogGloble;
+import com.shx.lawwh.common.SystemConfig;
 import com.shx.lawwh.entity.request.LawRequest;
 import com.shx.lawwh.entity.response.LawResponse;
 import com.shx.lawwh.libs.dialog.ToastUtil;
@@ -35,7 +41,7 @@ import java.util.List;
  * Created by adm on 2018/2/4.
  */
 
-public class FavoriteLawFragment extends Fragment implements HttpCallBack {
+public class FavoriteLawFragment extends Fragment implements HttpCallBack ,AdapterView.OnItemClickListener{
     private LawBaseAdapter mAdatper;
     private RecyclerView mRecyclerView;
     private SwipeRefreshLayout refreshLayout;
@@ -111,5 +117,25 @@ public class FavoriteLawFragment extends Fragment implements HttpCallBack {
     @Override
     public boolean httpCallBackPreFilter(String result, String url) {
         return false;
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        LawResponse item=lawList.get(position);
+        LogGloble.d("MainFragment", item.getFilePath() + "");
+        if (TextUtils.isEmpty(item.getFilePath())) {
+            ToastUtil.getInstance().toastInCenter(getContext(), "该文件不存在！");
+            return;
+        }
+        if (item.getFilePath().endsWith(".pdf")) {
+            Intent intent = new Intent(getContext(), PdfViewActivity.class);
+//            intent.putExtra("URL", item.getFilePath());
+            intent.putExtra("URL", SystemConfig.BASEURL);
+            startActivity(intent);
+        } else {
+            Intent intent = new Intent(getContext(), WebActivity.class);
+            intent.putExtra("URL", SystemConfig.BASEURL);
+            startActivity(intent);
+        }
     }
 }
