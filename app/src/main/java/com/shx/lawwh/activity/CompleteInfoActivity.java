@@ -23,16 +23,22 @@ import com.shx.lawwh.libs.dialog.ToastUtil;
 import com.shx.lawwh.libs.http.MyJSON;
 import com.shx.lawwh.libs.http.RequestCenter;
 import com.shx.lawwh.libs.http.ZCResponse;
+import com.shx.lawwh.view.AddressInitTask;
 
 import java.lang.ref.ReferenceQueue;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.qqtheme.framework.entity.City;
+import cn.qqtheme.framework.entity.County;
+import cn.qqtheme.framework.entity.Province;
+import cn.qqtheme.framework.picker.AddressPicker;
 import cn.qqtheme.framework.picker.OptionPicker;
 import cn.qqtheme.framework.picker.SinglePicker;
 import cn.qqtheme.framework.widget.WheelView;
 
 import static android.R.attr.data;
+import static com.shx.lawwh.R.id.tv_district;
 
 /**
  * Created by zhou on 2018/1/31.
@@ -64,6 +70,7 @@ public class CompleteInfoActivity extends BaseActivity implements View.OnClickLi
         mBinding.llLicenseType.setOnClickListener(this);
         mBinding.llSex.setOnClickListener(this);
         mBinding.btnFinish.setOnClickListener(this);
+
     }
 
     private void initData(){
@@ -89,7 +96,7 @@ public class CompleteInfoActivity extends BaseActivity implements View.OnClickLi
                 RequestCenter.getDepartmentList("1", this);
                 break;
             case R.id.ll_district:
-                registerInfo.setRegionId("1");
+                pickAddress();
                 break;
             case R.id.ll_duty:
                 RequestCenter.getJobList(this);
@@ -223,6 +230,44 @@ public class CompleteInfoActivity extends BaseActivity implements View.OnClickLi
                 System.exit(0);
             }
         });
+    }
+
+    /**
+     * 选择地区
+     * */
+    public void pickAddress() {
+        new AddressInitTask(this, new AddressInitTask.InitCallback() {
+            @Override
+            public void onDataInitFailure() {
+                ToastUtil.getInstance().toastInCenter(CompleteInfoActivity.this,"数据初始化失败");
+            }
+
+            @Override
+            public void onDataInitSuccess(ArrayList<Province> provinces) {
+                AddressPicker picker = new AddressPicker(CompleteInfoActivity.this, provinces);
+                picker.setOnAddressPickListener(new AddressPicker.OnAddressPickListener() {
+                    @Override
+                    public void onAddressPicked(Province province, City city, County county) {
+                        String provinceName = province.getName();
+                        String cityName = "";
+                        if (city != null) {
+                            cityName = city.getName();
+                            //忽略直辖市的二级名称
+                            if (cityName.equals("市辖区") || cityName.equals("市") || cityName.equals("县")) {
+                                cityName = "";
+                            }
+                        }
+                        String countyName = "";
+                        if (county != null) {
+                            countyName = county.getName();
+                        }
+                        mBinding.tvDistrict.setText(provinceName+","+countyName);
+                        registerInfo.setRegionId("1");
+                    }
+                });
+                picker.show();
+            }
+        }).execute();
     }
 
     @Override
