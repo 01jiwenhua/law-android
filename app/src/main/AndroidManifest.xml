@@ -38,16 +38,16 @@
             android:value="UMENNG" />
 
         <activity android:name=".activity.MainActivity" >
+
+        </activity>
+        <activity android:name=".activity.PdfViewActivity" />
+        <activity android:name=".activity.WebActivity" />
+        <activity android:name=".activity.LoadingActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity android:name=".activity.PdfViewActivity" />
-        <activity android:name=".activity.WebActivity" />
-        <activity android:name=".activity.LoadingActivity">
-
         </activity>
         <activity android:name=".activity.LawActivity" >
 
@@ -72,6 +72,7 @@
         </activity>
 
         <activity android:name=".activity.ChemicalsSeaarchResultActivity"></activity>
+        <activity android:name=".activity.MainSearchActivity"></activity>
     </application>
 
 </manifest>

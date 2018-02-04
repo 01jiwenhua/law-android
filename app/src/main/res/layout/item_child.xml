@@ -7,33 +7,39 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:paddingLeft="10dp"
+        android:paddingLeft="20dp"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
-        android:paddingRight="10dp"
-        android:weightSum="7">
+        android:paddingRight="20dp"
+        android:gravity="center_vertical"
+        android:background="@color/colorWhite"
+
+        >
 
         <TextView
             android:id="@+id/name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:textColor="@color/colorTextGray"
             android:textSize="@dimen/textsize_16" />
-
+        <include layout="@layout/layout_placeview"/>
         <TextView
             android:id="@+id/value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="6"
             android:textColor="@color/colorTextBlack"
-            android:textSize="@dimen/textsize_14" />
+            android:textSize="@dimen/textsize_14"
+            android:singleLine="false"
+            android:paddingLeft="5dp"
+            android:ellipsize="none"
+            android:maxLines="30"
+            android:scrollHorizontally="false"
+            />
     </LinearLayout>
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:visibility="gone"
+        android:visibility="visible"
         android:background="@color/colorLine"></View>
 </LinearLayout>

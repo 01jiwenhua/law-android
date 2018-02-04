@@ -8,19 +8,20 @@ import com.shx.lawwh.entity.response.ResponseLevelList;
 
 import java.util.List;
 
+import static android.media.CamcorderProfile.get;
+
 /**
  * Created by zhou on 2018/2/1.
  */
 
-public class LawPagerAdapter extends FragmentPagerAdapter{
+public class MainSearchPagerAdapter extends FragmentPagerAdapter{
 
     private List<Fragment> mFragments;
-    private List<ResponseLevelList> datas;
+    private final String[] mTitles = new String[]{"综合", "标准规范", "法律规范","政策文件","危险化学品","防火间距"};
 
-    public LawPagerAdapter(FragmentManager fm, List<Fragment> fragments, List<ResponseLevelList> datas) {
+    public MainSearchPagerAdapter(FragmentManager fm, List<Fragment> fragments) {
         super(fm);
         this.mFragments = fragments;
-        this.datas=datas;
     }
 
 
@@ -36,6 +37,6 @@ public class LawPagerAdapter extends FragmentPagerAdapter{
 
     @Override
     public CharSequence getPageTitle(int position) {
-        return datas.get(position).getName();
+        return mTitles[position];
     }
 }

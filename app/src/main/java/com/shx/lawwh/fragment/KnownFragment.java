@@ -67,7 +67,7 @@ public class KnownFragment extends Fragment implements HttpCallBack,BaseQuickAda
         page++;
         LogGloble.d("loadMoreData", page + "");
         mRequest.setPage(page);
-        DialogManager.getInstance().showProgressDialog(getContext());
+        //DialogManager.getInstance().showProgressDialog(getActivity());
         RequestCenter.getKnownlist(mRequest, this);
     }
     @Override
@@ -121,16 +121,17 @@ public class KnownFragment extends Fragment implements HttpCallBack,BaseQuickAda
         page=1;
         mRequest.setPage(page);
         mRequest.setPageSize(pageSize);
-        DialogManager.getInstance().showProgressDialog(getContext());
+        //DialogManager.getInstance().showProgressDialog(getActivity());
         RequestCenter.getKnownlist(mRequest,this);
     }
     private void setFooterView() {
         View footer = LayoutInflater.from(getContext()).inflate(R.layout.layout_footer, null);
         mAdapter.setFooterView(footer);
     }
+
     @Override
     public boolean doSuccess(ZCResponse respose, String requestUrl) {
-        DialogManager.getInstance().dissMissProgressDialog();
+        //DialogManager.getInstance().dissMissProgressDialog();
         JSONObject object = respose.getMainData();
         if (requestUrl.equals(RequestCenter.GET_KNOWNLIST)) {
             if (object.size() > 0) {

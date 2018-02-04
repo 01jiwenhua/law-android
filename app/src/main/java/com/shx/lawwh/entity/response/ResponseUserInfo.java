@@ -1,12 +1,15 @@
 package com.shx.lawwh.entity.response;
 
+import java.io.Serializable;
+
 /**
  * Created by zhou on 2018/2/1.
  */
 
-public class ResponseUserInfo {
+public class ResponseUserInfo  implements Serializable{
 
 
+    private static final long serialVersionUID = 5558410932748370767L;
     /**
      * company_id : 1
      * departmentName : 安全监督管理一处
@@ -42,6 +45,8 @@ public class ResponseUserInfo {
     private String real_name;
     private int region_id;
     private int sex;
+
+
 
     public int getCompany_id() {
         return company_id;

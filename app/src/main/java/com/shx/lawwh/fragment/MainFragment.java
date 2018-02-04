@@ -7,14 +7,17 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.shx.lawwh.R;
 import com.shx.lawwh.activity.ChemicalsActivity;
 import com.shx.lawwh.activity.LawActivity;
 import com.shx.lawwh.activity.LawSearchActivity;
+import com.shx.lawwh.activity.MainSearchActivity;
 import com.shx.lawwh.activity.SSActivity;
 import com.shx.lawwh.adapter.LoopViewPagerAdapter;
 import com.shx.lawwh.base.LayoutValue;
@@ -34,6 +37,7 @@ public class MainFragment extends Fragment implements View.OnClickListener {
     private ViewPagerScheduler vps;
     private LinearLayout mFlfg,mBzgf,mWxhxp,mFhjj,mZcwj;
     private int res[] = new int[]{R.drawable.img_banner1,R.drawable.img_banner2,R.drawable.img_banner3};
+    private TextView searchTv;
 
     @Nullable
     @Override
@@ -54,6 +58,8 @@ public class MainFragment extends Fragment implements View.OnClickListener {
         mZcwj= (LinearLayout) view.findViewById(R.id.layout_zcwjcx);
         mWxhxp= (LinearLayout) view.findViewById(R.id.layout_whp);
         mFhjj= (LinearLayout) view.findViewById(R.id.layout_fhjjjs);
+        searchTv= (TextView) view.findViewById(R.id.tv_search);
+        searchTv.setOnClickListener(this);
         mFhjj.setOnClickListener(this);
         mFlfg.setOnClickListener(this);
         mWxhxp.setOnClickListener(this);
@@ -119,6 +125,9 @@ public class MainFragment extends Fragment implements View.OnClickListener {
                 break;
             case R.id.layout_fhjjjs:
                 ToastUtil.getInstance().toastInCenter(getContext(),"该功能暂未开放使用");
+                break;
+            case R.id.tv_search:
+                startActivity(new Intent(getActivity(), MainSearchActivity.class));
                 break;
         }
     }

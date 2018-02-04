@@ -19,7 +19,7 @@ import java.util.Map;
  * Created by xuan on 2017/12/25.
  */
 
-public class UnknowParamsAdapter extends BaseAdapter{
+public class UnknowParamsAdapter extends BaseAdapter {
     private List<UnknownParams> mList;
     private Context mContext;
 
@@ -27,6 +27,7 @@ public class UnknowParamsAdapter extends BaseAdapter{
         this.mList = mList;
         this.mContext = mContext;
     }
+
 
     @Override
     public int getCount() {
@@ -45,29 +46,34 @@ public class UnknowParamsAdapter extends BaseAdapter{
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder viewHolder=null;
-        if(convertView==null){
-            convertView= LayoutInflater.from(mContext).inflate(R.layout.item_unknown_params,null);
-            viewHolder=new ViewHolder();
+        ViewHolder viewHolder = null;
+        if (convertView == null) {
+            convertView = LayoutInflater.from(mContext).inflate(R.layout.item_unknown_params, null);
+            viewHolder = new ViewHolder();
             convertView.setTag(viewHolder);
         }
-        viewHolder= (ViewHolder) convertView.getTag();
+        viewHolder = (ViewHolder) convertView.getTag();
 
-        UnknownParams params=mList.get(position);
-        viewHolder.name= (TextView) convertView.findViewById(R.id.name);
-        if(UnknowFragment.checkMap.containsKey(params.getCategoryCode())){
-            viewHolder.name.setText(UnknowFragment.checkMap.get(params.getCategoryCode()).getName());
-            viewHolder.name.setTextColor(mContext.getResources().getColor(R.color.colorBlue));
-        }else{
-            viewHolder.name.setText(params.getCategoryName());
-            viewHolder.name.setTextColor(mContext.getResources().getColor(R.color.colorTextGray));
-
+        UnknownParams params = mList.get(position);
+        viewHolder.name = (TextView) convertView.findViewById(R.id.name);
+        viewHolder.select = (TextView) convertView.findViewById(R.id.tv_select);
+        viewHolder.name.setText(params.getCategoryName());
+        viewHolder.name.setTextColor(mContext.getResources().getColor(R.color.colorTextGray));
+        if (UnknowFragment.checkMap.containsKey(params.getCategoryCode())) {
+            viewHolder.select.setText(UnknowFragment.checkMap.get(params.getCategoryCode()).getName());
+            viewHolder.select.setTextColor(mContext.getResources().getColor(R.color.colorTitle));
+        } else if (UnknowFragment.checkMap1.containsKey(params.getCategoryCode())) {
+            viewHolder.select.setText(UnknowFragment.checkMap1.get(params.getCategoryCode()).getName());
+            viewHolder.select.setTextColor(mContext.getResources().getColor(R.color.colorTitle));
+        } else {
+            viewHolder.select.setText("");
         }
-
 
         return convertView;
     }
-    class ViewHolder{
+
+    class ViewHolder {
         private TextView name;
+        private TextView select;
     }
 }

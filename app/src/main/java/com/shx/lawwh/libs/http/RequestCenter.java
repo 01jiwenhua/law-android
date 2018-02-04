@@ -23,6 +23,7 @@ public class RequestCenter {
     public static final String REGIST="/user/regist";
     public static final String LOGIN="/user/login";
     public static final String GET_LEVELLIST="/law/getLevelList";
+    public static final String GET_USERINFO="/user/getUserInfo";
     /**
      * 获取法律法规列表
      * @param lawRequest
@@ -182,6 +183,16 @@ public class RequestCenter {
         ZCRequest request=new ZCRequest();
         request.setUrl(GET_LEVELLIST);
         request.putParams("typeCode",typeCode);
+        HttpManager.getInstance().doPost(request,callBack);
+    }
+
+    /**
+     * 得到法律法规，标准规范，政策文件的列表
+     * */
+    public static void getUserInfo(String userId,HttpCallBack callBack){
+        ZCRequest request=new ZCRequest();
+        request.setUrl(GET_USERINFO);
+        request.putParams("userId",userId);
         HttpManager.getInstance().doPost(request,callBack);
     }
 

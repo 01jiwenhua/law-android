@@ -23,6 +23,8 @@ import com.shx.lawwh.utils.SharedPreferencesUtil;
 
 import java.lang.ref.ReferenceQueue;
 
+import static com.umeng.analytics.pro.x.S;
+
 /**
  * Created by zhou on 2018/2/1.
  */
@@ -56,10 +58,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener{
     }
 
     private void initData(){
-        if(SharedPreferencesUtil.readObject(this,CommonValues.USERINFO)!=null){
-            //调用获取用户信息的接口更新本地用户信息
-
-        }
         //初始化验证码倒计时工具
         mCountDownTimerUtils= new CountDownTimerUtils(verifyCodeTv, 60000, 1000);
     }
@@ -89,10 +87,10 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener{
 
     @Override
     public boolean doSuccess(ZCResponse respose, String requestUrl) {
+        JSONObject mainData = respose.getMainData();
         if(requestUrl.equals(RequestCenter.LOGIN)){
-            JSONObject mainData = respose.getMainData();
             ResponseUserInfo userInfo=MyJSON.parseObject(mainData.getString("userInfo"),ResponseUserInfo.class);
-            SharedPreferencesUtil.saveObject(this, CommonValues.USERINFO,userInfo);
+            SharedPreferencesUtil.saveObject(LoginActivity.this, CommonValues.USERINFO,userInfo);
             startActivity(new Intent(this,MainActivity.class));
             finish();
         }else if(requestUrl.equals(RequestCenter.GET_VERIFYCODE)){

@@ -11,4 +11,9 @@ public class CommonValues {
      */
     public static final String USERINFO="userInfo";
     public static final String DEFAULT_SHAREDPREFERENCES_NAME = "law_sharedpreferences";
+
+    /**
+     * 引导页显示开关
+     */
+    public static final String SHOWGUIDE = "show_guide";
 }
