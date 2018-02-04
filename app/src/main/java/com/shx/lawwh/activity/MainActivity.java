@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.shx.lawwh.R;
 import com.shx.lawwh.base.BaseActivity;
+import com.shx.lawwh.fragment.FavoriteFragment;
 import com.shx.lawwh.fragment.MainFragment;
 
 
@@ -78,10 +79,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     }
 
     private void showfavoriteFragment() {
-//        mShoppingCartFragment = new ShoppingCartFragment();
-//        FragmentTransaction transaction = mFragmentManager.beginTransaction();
-//        transaction.replace(R.id.content, mShoppingCartFragment);
-//        transaction.commitAllowingStateLoss();
+        mFavoriteFragment = new FavoriteFragment();
+        FragmentTransaction transaction = mFragmentManager.beginTransaction();
+        transaction.replace(R.id.content, mFavoriteFragment);
+        transaction.commitAllowingStateLoss();
 
     }
 

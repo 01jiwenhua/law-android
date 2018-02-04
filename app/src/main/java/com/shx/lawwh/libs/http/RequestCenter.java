@@ -24,6 +24,21 @@ public class RequestCenter {
     public static final String LOGIN="/user/login";
     public static final String GET_LEVELLIST="/law/getLevelList";
     public static final String GET_USERINFO="/user/getUserInfo";
+    public static final String GET_FAVORITE="/law/getFavoriteList";
+
+    /**
+     * 获取收藏列表
+     * @param
+     * @param callBack
+     */
+    public static void getFavoriteList(String typeCode,String userId ,HttpCallBack callBack){
+        ZCRequest request=new ZCRequest();
+        request.setUrl(GET_FAVORITE);
+        request.putParams("typeCode",typeCode);
+        request.putParams("userId",userId);
+        HttpManager.getInstance().doPost(request,callBack);
+    }
+
     /**
      * 获取法律法规列表
      * @param lawRequest
