@@ -48,6 +48,11 @@ public class FavoriteLawFragment extends Fragment implements HttpCallBack {
         this.typeCode=typeCode;
 
     }
+
+    public FavoriteLawFragment(){
+
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

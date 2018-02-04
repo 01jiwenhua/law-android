@@ -45,7 +45,7 @@ import static android.app.Activity.RESULT_OK;
 /**
  * Created by xuan on 2017/12/24.
  */
-
+@SuppressWarnings("ResourceType")
 public class UnknowFragment extends Fragment implements HttpCallBack, AdapterView.OnItemClickListener, View.OnClickListener {
 
     private NoScrollListView mLhRLv;
@@ -96,7 +96,9 @@ public class UnknowFragment extends Fragment implements HttpCallBack, AdapterVie
         mLhRLv = (NoScrollListView) view.findViewById(R.id.lhtx);
         mLhRLv.setId(0);
         mJkwhLv = (NoScrollListView) view.findViewById(R.id.jkwh);
+
         mJkwhLv.setId(1);
+
         mBtnQuery = (Button) view.findViewById(R.id.btn_query);
         mLhRLv.setOnItemClickListener(this);
         mJkwhLv.setOnItemClickListener(this);
@@ -126,10 +128,10 @@ public class UnknowFragment extends Fragment implements HttpCallBack, AdapterVie
                 picker.setOnItemPickListener(new SinglePicker.OnItemPickListener<UnknownParams>() {
                     @Override
                     public void onItemPicked(int index, UnknownParams item) {
-                        if(currentListId==0){
+                        if (currentListId == 0) {
                             checkMap.put(item.getCategoryCode(), item);
-                        }else{
-                            checkMap1.put(item.getCategoryCode(),item);
+                        } else {
+                            checkMap1.put(item.getCategoryCode(), item);
                         }
 
                         mAdapter.notifyDataSetChanged();
@@ -143,7 +145,6 @@ public class UnknowFragment extends Fragment implements HttpCallBack, AdapterVie
         }
         return false;
     }
-
 
 
     @Override
@@ -162,23 +163,23 @@ public class UnknowFragment extends Fragment implements HttpCallBack, AdapterVie
 //        Intent intent = new Intent(getContext(), UnknownDetailsActivity.class);
 //        intent.putExtra("code", unknownParams.getCategoryCode());
 //        startActivityForResult(intent, 100);
-        currentListId=parent.getId();
-        RequestCenter.getUnknowparamsDetails(unknownParams.getCategoryCode(),this);
+        currentListId = parent.getId();
+        RequestCenter.getUnknowparamsDetails(unknownParams.getCategoryCode(), this);
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode==RESULT_OK){
-        if (requestCode == 100) {
-            UnknownParams unknownParams = (UnknownParams) data.getSerializableExtra("details");
-            checkMap.put(unknownParams.getCategoryCode(), unknownParams);
+        if (resultCode == RESULT_OK) {
+            if (requestCode == 100) {
+                UnknownParams unknownParams = (UnknownParams) data.getSerializableExtra("details");
+                checkMap.put(unknownParams.getCategoryCode(), unknownParams);
 
-            mAdapter.notifyDataSetChanged();
-            mAdapter2.notifyDataSetChanged();
+                mAdapter.notifyDataSetChanged();
+                mAdapter2.notifyDataSetChanged();
 
 
-        }
+            }
         }
 
     }
@@ -193,52 +194,52 @@ public class UnknowFragment extends Fragment implements HttpCallBack, AdapterVie
                 if (checkMap.containsKey("B_COLOR")) {
                     mRequest.setColor(checkMap.get("B_COLOR").getName());
                 }
-                if(checkMap.containsKey("B_SMELL")){
+                if (checkMap.containsKey("B_SMELL")) {
                     mRequest.setSmell(checkMap.get("B_SMELL").getName());
                 }
-                if(checkMap.containsKey("B_TASTE")){
+                if (checkMap.containsKey("B_TASTE")) {
                     mRequest.setTaste(checkMap.get("B_TASTE").getName());
                 }
-                if(checkMap.containsKey("B_SPECIFIC_AIR")){
+                if (checkMap.containsKey("B_SPECIFIC_AIR")) {
                     mRequest.setSpecific_air(checkMap.get("B_SPECIFIC_AIR").getName());
                 }
-                if(checkMap.containsKey("B_SPECIFIC_WATER")){
+                if (checkMap.containsKey("B_SPECIFIC_WATER")) {
                     mRequest.setSpecific_water(checkMap.get("B_SPECIFIC_WATER").getName());
                 }
-                if(checkMap.containsKey("B_PH")){
+                if (checkMap.containsKey("B_PH")) {
                     mRequest.setPh(checkMap.get("B_PH").getName());
                 }
-                if(checkMap.containsKey("B_TRANSPARENCY")){
+                if (checkMap.containsKey("B_TRANSPARENCY")) {
                     mRequest.setTransparency(checkMap.get("B_TRANSPARENCY").getName());
                 }
-                if(checkMap1.containsKey("B_NERVOUS")){
+                if (checkMap1.containsKey("B_NERVOUS")) {
                     mRequest.setNervous(checkMap1.get("B_NERVOUS").getName());
                 }
-                if(checkMap1.containsKey("B_EYE")){
+                if (checkMap1.containsKey("B_EYE")) {
                     mRequest.setEye(checkMap1.get("B_EYE").getName());
                 }
-                if(checkMap1.containsKey("B_EAR")){
+                if (checkMap1.containsKey("B_EAR")) {
                     mRequest.setEar(checkMap1.get("B_EAR").getName());
                 }
-                if(checkMap1.containsKey("B_MOUTH_THROAT")){
+                if (checkMap1.containsKey("B_MOUTH_THROAT")) {
                     mRequest.setMouth_throat(checkMap1.get("B_MOUTH_THROAT").getName());
                 }
-                if(checkMap1.containsKey("B_CARDIOVASCULAR")){
+                if (checkMap1.containsKey("B_CARDIOVASCULAR")) {
                     mRequest.setCardiovascular(checkMap1.get("B_CARDIOVASCULAR").getName());
                 }
-                if(checkMap1.containsKey("B_RESPIRATORY")){
+                if (checkMap1.containsKey("B_RESPIRATORY")) {
                     mRequest.setRespiratory(checkMap1.get("B_RESPIRATORY").getName());
                 }
-                if(checkMap1.containsKey("B_GASTRO_URINARY")){
+                if (checkMap1.containsKey("B_GASTRO_URINARY")) {
                     mRequest.setGastro_urinary(checkMap1.get("B_GASTRO_URINARY").getName());
                 }
-                if(checkMap1.containsKey("B_SKIN")){
+                if (checkMap1.containsKey("B_SKIN")) {
                     mRequest.setSkin(checkMap1.get("B_SKIN").getName());
                 }
-                Intent intent=new Intent(getContext(), ChemicalsSeaarchResultActivity.class);
-                intent.putExtra("request",mRequest);
-                intent.putExtra("character",(Serializable)checkMap);
-                intent.putExtra("endanger",(Serializable)checkMap1);
+                Intent intent = new Intent(getContext(), ChemicalsSeaarchResultActivity.class);
+                intent.putExtra("request", mRequest);
+                intent.putExtra("character", (Serializable) checkMap);
+                intent.putExtra("endanger", (Serializable) checkMap1);
                 startActivity(intent);
                 break;
         }
