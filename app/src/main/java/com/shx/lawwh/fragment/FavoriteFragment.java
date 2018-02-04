@@ -59,7 +59,7 @@ public class FavoriteFragment extends Fragment {
         standerFragment=new FavoriteLawFragment("bzgf");
         lawFragment=new FavoriteLawFragment("flfg");
         policyFragment=new FavoriteLawFragment("zcwj");
-        chemicalFragment=new ChemicalFragment();
+        chemicalFragment=new FavoriteChemicalFragment();
         fragments=new ArrayList<>();
         fragments.add(standerFragment);
         fragments.add(lawFragment);
