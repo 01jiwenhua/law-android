@@ -38,9 +38,16 @@ public class PdfViewActivity extends BaseActivity implements OnPageChangeListene
         setContentView(R.layout.activity_pdf_view);
         getTopbar().setTitle("详情见");
         getTopbar().setRightImageVisibility(View.VISIBLE);
-        getTopbar().setRightImage(R.drawable.ic_uncollect);
         final String typeCode=getIntent().getStringExtra("typeCode");
         final int id=getIntent().getIntExtra("lawId",-1);
+        int isFavorite=getIntent().getIntExtra("is_favorite",-1);
+        if(isFavorite==1){
+            isCollect=true;
+            getTopbar().setRightImage(R.drawable.ic_collect);
+        }else{
+            isCollect=false;
+            getTopbar().setRightImage(R.drawable.ic_uncollect);
+        }
             final ResponseUserInfo userInfo= (ResponseUserInfo) SharedPreferencesUtil.readObject(this, CommonValues.USERINFO);
             getTopbar().setRightImageListener(new View.OnClickListener() {
                 @Override

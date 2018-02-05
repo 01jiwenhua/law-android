@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.shx.lawwh.R;
 import com.shx.lawwh.activity.ChemicalsActivity;
+import com.shx.lawwh.activity.FireproofingActivity;
 import com.shx.lawwh.activity.LawActivity;
 import com.shx.lawwh.activity.LawSearchActivity;
 import com.shx.lawwh.activity.MainSearchActivity;
@@ -124,7 +125,7 @@ public class MainFragment extends Fragment implements View.OnClickListener {
                 startActivity(new Intent(getContext(),ChemicalsActivity.class));
                 break;
             case R.id.layout_fhjjjs:
-                ToastUtil.getInstance().toastInCenter(getContext(),"该功能暂未开放使用");
+               startActivity(new Intent(getContext(), FireproofingActivity.class));
                 break;
             case R.id.tv_search:
                 startActivity(new Intent(getActivity(), MainSearchActivity.class));

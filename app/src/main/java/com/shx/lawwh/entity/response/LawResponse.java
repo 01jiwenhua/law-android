@@ -33,6 +33,15 @@ public class LawResponse implements Serializable{
     private String publishOrg;
     private long publishTime;
     private String typeCode;
+    private int is_favorite;
+
+    public int getIs_favorite() {
+        return is_favorite;
+    }
+
+    public void setIs_favorite(int is_favorite) {
+        this.is_favorite = is_favorite;
+    }
 
     public String getContent() {
         return content;

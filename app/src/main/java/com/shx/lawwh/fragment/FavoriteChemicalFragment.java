@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 
 import com.alibaba.fastjson.JSONObject;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.shx.lawwh.R;
 import com.shx.lawwh.activity.ChemicalsDetailsActivity;
 import com.shx.lawwh.activity.LoginActivity;
@@ -34,7 +35,7 @@ import java.util.List;
  * Created by adm on 2018/2/4.
  */
 
-public class FavoriteChemicalFragment extends Fragment implements HttpCallBack,AdapterView.OnItemClickListener {
+public class FavoriteChemicalFragment extends Fragment implements HttpCallBack, BaseQuickAdapter.OnItemClickListener {
 
 
     private RecyclerView mRecyclerView;
@@ -84,9 +85,10 @@ public class FavoriteChemicalFragment extends Fragment implements HttpCallBack,A
     public boolean doSuccess(ZCResponse respose, String requestUrl) {
         JSONObject mainData = respose.getMainData();
         if(requestUrl.equals(RequestCenter.GET_FAVORITE)){
-            chemicalsResponseList = MyJSON.parseArray(mainData.getString("chemicalsList"), ChemicalsResponse.class);
+            chemicalsResponseList = MyJSON.parseArray(mainData.getString("favoriteList"), ChemicalsResponse.class);
             mAdapter=new KnownAdapter(chemicalsResponseList);
-
+            mAdapter.setOnItemClickListener(this);
+            mRecyclerView.setAdapter(mAdapter);
         }
         return false;
     }
@@ -101,9 +103,10 @@ public class FavoriteChemicalFragment extends Fragment implements HttpCallBack,A
         return false;
     }
 
+
     @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        ChemicalsResponse chemicalsResponse= mAdapter.getData().get(position);
+    public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+        ChemicalsResponse chemicalsResponse= (ChemicalsResponse) adapter.getData().get(position);
         Intent intent=new Intent(getContext(), ChemicalsDetailsActivity.class);
         intent.putExtra("chemicals",chemicalsResponse);
         startActivity(intent);

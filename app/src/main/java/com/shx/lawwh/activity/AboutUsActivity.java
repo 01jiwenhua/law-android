@@ -23,6 +23,13 @@ public class AboutUsActivity extends BaseActivity implements View.OnClickListene
     }
 
     private void initView(){
+        getTopbar().setTitle("关于我们");
+        getTopbar().setLeftImageListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
         findViewById(R.id.ll_versions).setOnClickListener(this);
         findViewById(R.id.ll_opinion).setOnClickListener(this);
         findViewById(R.id.ll_protocol).setOnClickListener(this);

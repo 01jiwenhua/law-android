@@ -42,10 +42,18 @@ public class WebActivity extends BaseActivity {
             }
         });
         getTopbar().setRightImageVisibility(View.VISIBLE);
-        getTopbar().setRightImage(R.drawable.ic_uncollect);
         final String typeCode=getIntent().getStringExtra("typeCode");
         final int id=getIntent().getIntExtra("lawId",-1);
         final ResponseUserInfo userInfo= (ResponseUserInfo) SharedPreferencesUtil.readObject(this, CommonValues.USERINFO);
+        int isFavorite=getIntent().getIntExtra("is_favorite",-1);
+        //先检查是否收藏过
+        if(isFavorite==1){
+            isCollect=true;
+            getTopbar().setRightImage(R.drawable.ic_collect);
+        }else{
+            isCollect=false;
+            getTopbar().setRightImage(R.drawable.ic_uncollect);
+        }
         getTopbar().setRightImageListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
