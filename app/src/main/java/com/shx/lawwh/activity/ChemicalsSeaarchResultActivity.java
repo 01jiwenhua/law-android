@@ -193,6 +193,8 @@ public class ChemicalsSeaarchResultActivity extends BaseActivity implements Http
         ChemicalsResponse chemicalsResponse= (ChemicalsResponse) adapter.getData().get(position);
         Intent intent=new Intent(this, ChemicalsDetailsActivity.class);
         intent.putExtra("chemicals",chemicalsResponse);
+        intent.putExtra("lawId",chemicalsResponse.getId());
+
         startActivity(intent);
     }
 }

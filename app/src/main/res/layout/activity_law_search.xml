@@ -7,19 +7,15 @@
 
     <include layout="@layout/layout_topbar"></include>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorWhite"
-        >
+
 
         <android.support.design.widget.TabLayout
             android:id="@+id/tabLayout"
             style="@style/TabLayoutStyle"
+            android:background="@color/colorWhite"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:tabMode="scrollable" />
-    </LinearLayout>
+            app:tabMode="fixed" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -38,7 +34,7 @@
             android:layout_marginLeft="15dp"
             android:layout_marginTop="8dp"
             android:layout_weight="1"
-            android:background="@drawable/shape_for_search"
+            android:background="@drawable/ic_main_search"
             android:drawableLeft="@drawable/ic_top_search"
             android:drawablePadding="5dp"
             android:hint="请输入关键字"

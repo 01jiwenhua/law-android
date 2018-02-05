@@ -14,6 +14,7 @@ import com.shx.lawwh.base.BaseActivity;
 import com.shx.lawwh.fragment.FavoriteFragment;
 import com.shx.lawwh.fragment.MainFragment;
 import com.shx.lawwh.fragment.MyFragment;
+import com.tencent.bugly.Bugly;
 
 
 /**
@@ -33,6 +34,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         initView();
         mFragmentManager = getSupportFragmentManager();
         mMain.performClick();
+        //腾讯Bugly初始化，用于自动更新
+        Bugly.init(getApplicationContext(), "6b18cdc901", false);
     }
 
 
@@ -108,6 +111,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 setSelected();
                 mMain.setSelected(true);
                 showMainFragment();
+//                Intent intent = new Intent(this, PdfViewActivity.class);
+//                intent.putExtra("URL", "aa");
+//                startActivity(intent);
                 break;
 
             case R.id.rb_my:

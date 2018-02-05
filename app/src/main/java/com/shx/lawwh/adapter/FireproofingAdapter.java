@@ -4,22 +4,18 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.shx.lawwh.entity.response.ResponseLevelList;
-
 import java.util.List;
-
-import static android.media.CamcorderProfile.get;
 
 /**
  * Created by zhou on 2018/2/1.
  */
 
-public class MainSearchPagerAdapter extends FragmentPagerAdapter{
+public class FireproofingAdapter extends FragmentPagerAdapter{
 
     private List<Fragment> mFragments;
-    private final String[] mTitles = new String[]{"综合","法律规范", "标准规范","政策文件","危险化学品","防火间距"};
+    private final String[] mTitles = new String[]{"标准查询","模糊查询"};
 
-    public MainSearchPagerAdapter(FragmentManager fm, List<Fragment> fragments) {
+    public FireproofingAdapter(FragmentManager fm, List<Fragment> fragments) {
         super(fm);
         this.mFragments = fragments;
     }

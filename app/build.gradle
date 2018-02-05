@@ -10,6 +10,10 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        ndk {
+            //设置支持的SO库架构
+            abiFilters 'armeabi' //, 'x86', 'armeabi-v7a', 'x86_64', 'arm64-v8a'
+        }
     }
     dataBinding{
         enabled true
@@ -46,7 +50,8 @@ dependencies {
     compile 'org.greenrobot:eventbus:3.0.0'
     compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.22'
     compile 'com.umeng.analytics:analytics:latest.integration'
-
+    compile 'com.tencent.bugly:crashreport_upgrade:latest.release'
+    compile 'com.tencent.bugly:nativecrashreport:latest.release'
     compile('com.github.gzu-liyujiang.AndroidPicker:WheelPicker:1.5.5') {
         exclude group: 'com.android.support'
     }

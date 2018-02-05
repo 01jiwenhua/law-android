@@ -10,9 +10,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 
 import com.alibaba.fastjson.JSONObject;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.shx.lawwh.R;
+import com.shx.lawwh.activity.ChemicalsDetailsActivity;
 import com.shx.lawwh.activity.LoginActivity;
 import com.shx.lawwh.adapter.KnownAdapter;
 import com.shx.lawwh.base.UserInfo;
@@ -32,7 +35,7 @@ import java.util.List;
  * Created by adm on 2018/2/4.
  */
 
-public class FavoriteChemicalFragment extends Fragment implements HttpCallBack {
+public class FavoriteChemicalFragment extends Fragment implements HttpCallBack, BaseQuickAdapter.OnItemClickListener {
 
 
     private RecyclerView mRecyclerView;
@@ -82,9 +85,10 @@ public class FavoriteChemicalFragment extends Fragment implements HttpCallBack {
     public boolean doSuccess(ZCResponse respose, String requestUrl) {
         JSONObject mainData = respose.getMainData();
         if(requestUrl.equals(RequestCenter.GET_FAVORITE)){
-            chemicalsResponseList = MyJSON.parseArray(mainData.getString("chemicalsList"), ChemicalsResponse.class);
+            chemicalsResponseList = MyJSON.parseArray(mainData.getString("favoriteList"), ChemicalsResponse.class);
             mAdapter=new KnownAdapter(chemicalsResponseList);
-
+            mAdapter.setOnItemClickListener(this);
+            mRecyclerView.setAdapter(mAdapter);
         }
         return false;
     }
@@ -97,5 +101,14 @@ public class FavoriteChemicalFragment extends Fragment implements HttpCallBack {
     @Override
     public boolean httpCallBackPreFilter(String result, String url) {
         return false;
+    }
+
+
+    @Override
+    public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+        ChemicalsResponse chemicalsResponse= (ChemicalsResponse) adapter.getData().get(position);
+        Intent intent=new Intent(getContext(), ChemicalsDetailsActivity.class);
+        intent.putExtra("chemicals",chemicalsResponse);
+        startActivity(intent);
     }
 }

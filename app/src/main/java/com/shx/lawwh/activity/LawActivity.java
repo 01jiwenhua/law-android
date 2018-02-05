@@ -112,7 +112,7 @@ public class LawActivity extends BaseActivity implements TextWatcher, BaseQuickA
             JSONObject mainData = respose.getMainData();
             levelDatas= MyJSON.parseArray(mainData.getString("levelList"),ResponseLevelList.class);
             for(int i=0;i<levelDatas.size();i++){
-                mTablayout.addTab(mTablayout.newTab().setText(levelDatas.get(i).getName()));
+                mTablayout.addTab(mTablayout.newTab().setText("          "+levelDatas.get(i).getName()+"   "));
             }
             mRequest.setLevel(levelDatas.get(0).getCode());
             RequestCenter.getLawList(mRequest,this);

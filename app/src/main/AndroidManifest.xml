@@ -30,13 +30,24 @@
         android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.Base">
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.shx.lawwh.fileProvider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>
         <meta-data
             android:name="UMENG_APPKEY"
             android:value="59f2f84e8f4a9d206d00006e" />
         <meta-data
             android:name="UMENG_CHANNEL"
             android:value="UMENNG" />
-
+        <activity
+            android:name="com.tencent.bugly.beta.ui.BetaActivity"
+            android:theme="@android:style/Theme.Translucent" />
         <activity android:name=".activity.MainActivity" >
 
         </activity>
@@ -81,6 +92,7 @@
         <activity android:name=".activity.NewsActivity"></activity>
         <activity android:name=".activity.UpdateActivity"></activity>
         <activity android:name=".activity.HelpActivity"></activity>
+        <activity android:name=".activity.FireproofingActivity"></activity>
     </application>
 
 </manifest>

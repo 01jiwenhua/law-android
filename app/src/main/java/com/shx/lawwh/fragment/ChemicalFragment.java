@@ -1,5 +1,6 @@
 package com.shx.lawwh.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -11,7 +12,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.alibaba.fastjson.JSONObject;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.shx.lawwh.R;
+import com.shx.lawwh.activity.ChemicalsDetailsActivity;
 import com.shx.lawwh.adapter.KnownAdapter;
 import com.shx.lawwh.entity.request.ChemicalsRequest;
 import com.shx.lawwh.entity.response.ChemicalsResponse;
@@ -28,7 +31,7 @@ import java.util.List;
  * Created by adm on 2018/2/4.
  */
 
-public class ChemicalFragment extends Fragment implements HttpCallBack {
+public class ChemicalFragment extends Fragment implements HttpCallBack, BaseQuickAdapter.OnItemClickListener {
 
 
     private RecyclerView mRecyclerView;
@@ -73,6 +76,7 @@ public class ChemicalFragment extends Fragment implements HttpCallBack {
             mAdapter=new KnownAdapter(chemicalsResponseList);
             mAdapter.setLight(true,mRequest);
             mRecyclerView.setAdapter(mAdapter);
+            mAdapter.setOnItemClickListener(this);
         }
         return false;
     }
@@ -90,11 +94,13 @@ public class ChemicalFragment extends Fragment implements HttpCallBack {
     public void searchKey(String key){
         mRequest.setName(key);
         RequestCenter.getKnownlist(mRequest,this);
-        if(key.toString().isEmpty()){
-            mAdapter.setLight(false,mRequest);
-        }else {
-            mAdapter.setLight(true, mRequest);
-        }
     }
 
+    @Override
+    public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+        ChemicalsResponse chemicalsResponse= (ChemicalsResponse) adapter.getData().get(position);
+        Intent intent=new Intent(getContext(), ChemicalsDetailsActivity.class);
+        intent.putExtra("chemicals",chemicalsResponse);
+        startActivity(intent);
+    }
 }

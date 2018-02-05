@@ -86,7 +86,6 @@ public class LawSearchActivity extends BaseActivity implements View.OnClickListe
         });
         initView();
         initTabs();
-
     }
 
     private void initData() {
@@ -201,6 +200,7 @@ public class LawSearchActivity extends BaseActivity implements View.OnClickListe
     @Override
     public void onResume() {
         super.onResume();
+        initData();
     }
 
     private void initView() {
@@ -409,7 +409,7 @@ public class LawSearchActivity extends BaseActivity implements View.OnClickListe
 
     @Override
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-        LawResponse item = (LawResponse) adapter.getItem(position);
+        LawResponse item = (LawResponse) lawList.get(position);
         LogGloble.d("MainFragment", item.getFilePath() + "");
         if (TextUtils.isEmpty(item.getFilePath())) {
             ToastUtil.getInstance().toastInCenter(this, "该文件不存在！");
@@ -418,10 +418,16 @@ public class LawSearchActivity extends BaseActivity implements View.OnClickListe
         if (item.getFilePath().endsWith(".pdf")) {
             Intent intent = new Intent(this, PdfViewActivity.class);
             intent.putExtra("URL", item.getFilePath());
+            intent.putExtra("typeCode",item.getTypeCode());
+            intent.putExtra("lawId",item.getId());
+            intent.putExtra("is_favorite",item.getIs_favorite());
             startActivity(intent);
         } else {
             Intent intent = new Intent(this, WebActivity.class);
             intent.putExtra("URL", item.getFilePath());
+            intent.putExtra("typeCode",item.getTypeCode());
+            intent.putExtra("lawId",item.getId());
+            intent.putExtra("is_favorite",item.getIs_favorite());
             startActivity(intent);
         }
     }

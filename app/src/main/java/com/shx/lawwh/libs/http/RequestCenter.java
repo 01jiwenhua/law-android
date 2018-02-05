@@ -1,5 +1,6 @@
 package com.shx.lawwh.libs.http;
 
+import com.shx.lawwh.base.UserInfo;
 import com.shx.lawwh.entity.request.RequestRegisterInfo;
 import com.shx.lawwh.entity.request.ChemicalsRequest;
 import com.shx.lawwh.entity.request.LawRequest;
@@ -25,6 +26,36 @@ public class RequestCenter {
     public static final String GET_LEVELLIST="/law/getLevelList";
     public static final String GET_USERINFO="/user/getUserInfo";
     public static final String GET_FAVORITE="/law/getFavoriteList";
+    public static final String ADD_FAVORITE="/law/addFavorite";
+    public static final String CANCEL_FAVORITE="/law/cancelFavorite";
+
+    /**
+     * 添加收藏
+     * @param
+     * @param callBack
+     */
+    public static void addFavorite(String typeCode,int userId ,int lawId,HttpCallBack callBack){
+        ZCRequest request=new ZCRequest();
+        request.setUrl(ADD_FAVORITE);
+        request.putParams("typeCode",typeCode);
+        request.putParams("userId",userId);
+        request.putParams("lawId",lawId);
+        HttpManager.getInstance().doPost(request,callBack);
+    }
+
+    /**
+     * 取消收藏
+     * @param
+     * @param callBack
+     */
+    public static void cancelFavorite(String typeCode,int userId ,int lawId,HttpCallBack callBack){
+        ZCRequest request=new ZCRequest();
+        request.setUrl(CANCEL_FAVORITE);
+        request.putParams("typeCode",typeCode);
+        request.putParams("userId",userId);
+        request.putParams("lawId",lawId);
+        HttpManager.getInstance().doPost(request,callBack);
+    }
 
     /**
      * 获取收藏列表
@@ -56,6 +87,7 @@ public class RequestCenter {
         request.putParams("page",lawRequest.getPage());
         request.putParams("pageSize",lawRequest.getPageSize());
         request.putParams("description",lawRequest.getDescription());
+        request.putParams("userId", UserInfo.getUserInfoInstance().getId());
         HttpManager.getInstance().doPost(request,callBack);
     }
 
@@ -84,7 +116,6 @@ public class RequestCenter {
         request.putParams("respiratory",chemicalsRequest.getRespiratory());
         request.putParams("gastro_urinary",chemicalsRequest.getGastro_urinary());
         request.putParams("skin",chemicalsRequest.getSkin());
-
         request.putParams("page",chemicalsRequest.getPage());
         request.putParams("pageSize",chemicalsRequest.getPageSize());
         HttpManager.getInstance().doPost(request,callBack);
@@ -94,6 +125,8 @@ public class RequestCenter {
         ZCRequest request=new ZCRequest();
         request.setUrl(GET_CHEMICALSDETAILS);
         request.putParams("id",id);
+        request.putParams("userId",UserInfo.getUserInfoInstance().getId());
+        request.putParams("typeCode","wxhxp");
         HttpManager.getInstance().doPost(request,callBack);
 
     }

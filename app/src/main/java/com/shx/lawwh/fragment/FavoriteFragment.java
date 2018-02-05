@@ -5,22 +5,17 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.shx.lawwh.R;
 import com.shx.lawwh.adapter.FavoritePagerAdapter;
-import com.shx.lawwh.adapter.MainSearchPagerAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.shx.lawwh.R.id.tabLayout;
 
 /**
  * Created by xuan on 2018/2/4.
@@ -61,8 +56,8 @@ public class FavoriteFragment extends Fragment {
         policyFragment=new FavoriteLawFragment("zcwj");
         chemicalFragment=new FavoriteChemicalFragment();
         fragments=new ArrayList<>();
-        fragments.add(standerFragment);
         fragments.add(lawFragment);
+        fragments.add(standerFragment);
         fragments.add(policyFragment);
         fragments.add(chemicalFragment);
         FragmentManager manager=getChildFragmentManager();
