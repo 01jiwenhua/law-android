@@ -45,7 +45,6 @@ public class LawActivity extends BaseActivity implements TextWatcher, BaseQuickA
     private List<LawResponse> lawDatas;
 
     private EditText keyworldEt;
-    private int a;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
