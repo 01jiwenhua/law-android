@@ -1,5 +1,6 @@
 package com.shx.lawwh.libs.http;
 
+import com.shx.lawwh.base.UserInfo;
 import com.shx.lawwh.entity.request.RequestRegisterInfo;
 import com.shx.lawwh.entity.request.ChemicalsRequest;
 import com.shx.lawwh.entity.request.LawRequest;
@@ -86,6 +87,7 @@ public class RequestCenter {
         request.putParams("page",lawRequest.getPage());
         request.putParams("pageSize",lawRequest.getPageSize());
         request.putParams("description",lawRequest.getDescription());
+        request.putParams("userId", UserInfo.getUserInfoInstance().getId());
         HttpManager.getInstance().doPost(request,callBack);
     }
 
@@ -114,7 +116,6 @@ public class RequestCenter {
         request.putParams("respiratory",chemicalsRequest.getRespiratory());
         request.putParams("gastro_urinary",chemicalsRequest.getGastro_urinary());
         request.putParams("skin",chemicalsRequest.getSkin());
-
         request.putParams("page",chemicalsRequest.getPage());
         request.putParams("pageSize",chemicalsRequest.getPageSize());
         HttpManager.getInstance().doPost(request,callBack);
@@ -124,6 +125,8 @@ public class RequestCenter {
         ZCRequest request=new ZCRequest();
         request.setUrl(GET_CHEMICALSDETAILS);
         request.putParams("id",id);
+        request.putParams("userId",UserInfo.getUserInfoInstance().getId());
+        request.putParams("typeCode","wxhxp");
         HttpManager.getInstance().doPost(request,callBack);
 
     }

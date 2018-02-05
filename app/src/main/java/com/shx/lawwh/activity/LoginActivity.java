@@ -21,10 +21,6 @@ import com.shx.lawwh.libs.http.ZCResponse;
 import com.shx.lawwh.utils.CountDownTimerUtils;
 import com.shx.lawwh.utils.SharedPreferencesUtil;
 
-import java.lang.ref.ReferenceQueue;
-
-import static com.umeng.analytics.pro.x.S;
-
 /**
  * Created by zhou on 2018/2/1.
  */
@@ -74,6 +70,9 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener{
                 break;
             case R.id.btn_register:
                 startActivity(new Intent(this,RegisterActivity.class));
+//                Intent intent = new Intent(this, PdfViewActivity.class);
+//                intent.putExtra("URL", "aa");
+//                startActivity(intent);
                 break;
             case R.id.tv_verifyCode:
                 if(!TextUtils.isEmpty(phoneEt.getText().toString())){
