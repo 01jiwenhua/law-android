@@ -55,6 +55,7 @@ public class LawFragment extends Fragment implements HttpCallBack , BaseQuickAda
         mRecyclerView= (RecyclerView) view.findViewById(R.id.rv_list);
         LinearLayoutManager manager=new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(manager);
+
     }
 
     @Override
@@ -99,11 +100,6 @@ public class LawFragment extends Fragment implements HttpCallBack , BaseQuickAda
         mRequest.setName(key);
         mRequest.setDescription(key);
         RequestCenter.getLawList(mRequest,this);
-        if(key.toString().isEmpty()){
-            mAdapter.setLight(false,mRequest);
-        }else {
-            mAdapter.setLight(true, mRequest);
-        }
     }
 
 

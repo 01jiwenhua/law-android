@@ -99,11 +99,6 @@ public class SumFragment extends Fragment implements HttpCallBack ,BaseQuickAdap
     public void searchKey(String key){
         mRequest.setName(key);
         mRequest.setDescription(key);
-        if(key.toString().isEmpty()){
-            mAdapter.setLight(false,mRequest);
-        }else {
-            mAdapter.setLight(true, mRequest);
-        }
         RequestCenter.getLawList(mRequest,this);
     }
 

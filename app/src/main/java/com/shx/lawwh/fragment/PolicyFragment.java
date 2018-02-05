@@ -80,6 +80,7 @@ public class PolicyFragment extends Fragment implements HttpCallBack ,BaseQuickA
             lawList = MyJSON.parseArray(mainData.getString("lawList"), LawResponse.class);
             mAdapter=new LawBaseAdapter(lawList);
             mAdapter.setLight(true,mRequest);
+            mAdapter.setOnItemClickListener(this);
             mRecyclerView.setAdapter(mAdapter);
 
         }
@@ -100,11 +101,6 @@ public class PolicyFragment extends Fragment implements HttpCallBack ,BaseQuickA
         mRequest.setName(key);
         mRequest.setDescription(key);
         RequestCenter.getLawList(mRequest,this);
-        if(key.toString().isEmpty()){
-            mAdapter.setLight(false,mRequest);
-        }else {
-            mAdapter.setLight(true, mRequest);
-        }
     }
 
 
