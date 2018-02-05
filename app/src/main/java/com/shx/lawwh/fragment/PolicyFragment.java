@@ -11,9 +11,9 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 
 import com.alibaba.fastjson.JSONObject;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.shx.lawwh.R;
 import com.shx.lawwh.activity.PdfViewActivity;
 import com.shx.lawwh.activity.WebActivity;
@@ -35,7 +35,7 @@ import java.util.List;
  * Created by adm on 2018/2/4.
  */
 
-public class PolicyFragment extends Fragment implements HttpCallBack ,AdapterView.OnItemClickListener{
+public class PolicyFragment extends Fragment implements HttpCallBack ,BaseQuickAdapter.OnItemClickListener{
 
     private LawBaseAdapter mAdapter;
     private RecyclerView mRecyclerView;
@@ -107,8 +107,9 @@ public class PolicyFragment extends Fragment implements HttpCallBack ,AdapterVie
         }
     }
 
+
     @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+    public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
         LawResponse item = (LawResponse) mAdapter.getItem(position);
         LogGloble.d("MainFragment", item.getFilePath() + "");
         if (TextUtils.isEmpty(item.getFilePath())) {

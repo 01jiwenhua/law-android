@@ -13,7 +13,7 @@ import java.util.List;
 public class FavoritePagerAdapter extends FragmentPagerAdapter{
 
     private List<Fragment> mFragments;
-    private final String[] mTitles = new String[]{ "标准规范", "法律规范","政策文件","危险化学品"};
+    private final String[] mTitles = new String[]{ "法律规范","标准规范", "政策文件","危险化学品"};
 
     public FavoritePagerAdapter(FragmentManager fm, List<Fragment> fragments) {
         super(fm);

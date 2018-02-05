@@ -2,7 +2,6 @@ package com.shx.lawwh.fragment;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.media.MediaRouter;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -10,13 +9,12 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 
 import com.alibaba.fastjson.JSONObject;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.shx.lawwh.R;
 import com.shx.lawwh.activity.LoginActivity;
 import com.shx.lawwh.activity.PdfViewActivity;
@@ -41,7 +39,7 @@ import java.util.List;
  * Created by adm on 2018/2/4.
  */
 
-public class FavoriteLawFragment extends Fragment implements HttpCallBack ,AdapterView.OnItemClickListener{
+public class FavoriteLawFragment extends Fragment implements HttpCallBack, BaseQuickAdapter.OnItemClickListener{
     private LawBaseAdapter mAdatper;
     private RecyclerView mRecyclerView;
     private SwipeRefreshLayout refreshLayout;
@@ -83,6 +81,7 @@ public class FavoriteLawFragment extends Fragment implements HttpCallBack ,Adapt
         mRecyclerView= (RecyclerView) view.findViewById(R.id.rv_list);
         LinearLayoutManager manager=new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(manager);
+
     }
 
 
@@ -105,6 +104,7 @@ public class FavoriteLawFragment extends Fragment implements HttpCallBack ,Adapt
             lawList = MyJSON.parseArray(mainData.getString("favoriteList"), LawResponse.class);
             mAdatper=new LawBaseAdapter(lawList);
             mRecyclerView.setAdapter(mAdatper);
+            mAdatper.setOnItemClickListener(this);
         }
         return false;
     }
@@ -119,8 +119,9 @@ public class FavoriteLawFragment extends Fragment implements HttpCallBack ,Adapt
         return false;
     }
 
+
     @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+    public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
         LawResponse item=lawList.get(position);
         LogGloble.d("MainFragment", item.getFilePath() + "");
         if (TextUtils.isEmpty(item.getFilePath())) {

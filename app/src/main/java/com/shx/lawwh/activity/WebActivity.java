@@ -13,7 +13,6 @@ import com.shx.lawwh.R;
 import com.shx.lawwh.base.BaseActivity;
 import com.shx.lawwh.common.LogGloble;
 import com.shx.lawwh.common.SystemConfig;
-import com.shx.lawwh.libs.dialog.DialogManager;
 
 
 public class WebActivity extends BaseActivity {
@@ -46,7 +45,7 @@ public class WebActivity extends BaseActivity {
             LogGloble.d("url", url + "==");
         }
 //        @TODO 临时测试用
-        url = "http://60.210.40.196:25018/law-server";
+        url = "http://www.baidu.com";
         init();
     }
 

@@ -10,7 +10,6 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 
 import com.shx.lawwh.common.LogGloble;
-import com.shx.lawwh.dao.DBHelper;
 import com.shx.lawwh.dao.DaoMaster;
 import com.shx.lawwh.dao.DaoSession;
 import com.tencent.smtt.sdk.QbSdk;
@@ -56,8 +55,8 @@ public class BaseApplication extends Application {
                 // TODO Auto-generated method stub
             }
         };
-        //x5内核初始化接口
-        QbSdk.initX5Environment(getApplicationContext(),  cb);
+//        //x5内核初始化接口
+//        QbSdk.initX5Environment(getApplicationContext(),  cb);
         // 获取屏幕宽高
         DisplayMetrics dm = getResources().getDisplayMetrics();
         if (dm.widthPixels <= dm.heightPixels) {
