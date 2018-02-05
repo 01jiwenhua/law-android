@@ -1,6 +1,5 @@
 package com.shx.lawwh.activity;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ExpandableListView;
@@ -59,6 +58,11 @@ public class ChemicalsDetailsActivity extends BaseActivity {
                 chemicalsResponseList = MyJSON.parseArray(object.getString("chemicalsDetails"), ChemicalsDetailsResponse.class);
                 mAdapter=new ChemicalsDetailsAdapter(this,chemicalsResponseList);
                 mListView.setAdapter(mAdapter);
+                //遍历所有group,将所有项设置成默认展开
+                int intgroupCount = mListView.getCount();
+                for (int i=0; i<intgroupCount; i++) {
+                    mListView.expandGroup(i);
+                }
             }
         }
         return super.doSuccess(respose, requestUrl);

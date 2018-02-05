@@ -1,6 +1,7 @@
 package com.shx.lawwh.adapter;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,16 +9,10 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
 
 import com.shx.lawwh.R;
-import com.shx.lawwh.common.ChemicalsEnum;
 import com.shx.lawwh.entity.response.ChemicalsDetailsResponse;
-import com.shx.lawwh.entity.response.ChemicalsResponse;
 import com.shx.lawwh.entity.response.DetailsParams;
 
-import org.w3c.dom.Text;
-
 import java.util.List;
-import java.util.Map;
-import java.util.zip.Inflater;
 
 /**
  * Created by xuan on 2017/12/25.
@@ -82,12 +77,9 @@ public class ChemicalsDetailsAdapter extends BaseExpandableListAdapter {
         TextView name= (TextView) view.findViewById(R.id.name);
         TextView value= (TextView) view.findViewById(R.id.value);
         ChemicalsDetailsResponse chemicalsDetailsResponse=mList.get(groupPosition);
-
-
-
         DetailsParams params=chemicalsDetailsResponse.getList().get(childPosition);
         name.setText(params.getKey().substring(2));
-        value.setText(params.getValue());
+        value.setText(TextUtils.isEmpty(params.getValue())?"暂无资料":params.getValue());
         return view;
     }
 
