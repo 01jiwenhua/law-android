@@ -213,7 +213,5 @@ public class RequestCenter {
         request.putParams("userId",userId);
         HttpManager.getInstance().doPost(request,callBack);
     }
-
-
 }
 

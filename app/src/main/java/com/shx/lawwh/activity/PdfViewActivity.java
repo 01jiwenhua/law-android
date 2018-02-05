@@ -42,8 +42,8 @@ public class PdfViewActivity extends BaseActivity implements OnPageChangeListene
         mView.setMinZoom(1.0f);
         mView.setMidZoom(1.5f);
         mView.setMaxZoom(2f);
-//        mUrl = getIntent().getStringExtra("URL");
-        mUrl = "http://60.210.40.196:8086/laws/安全阀的设置和选用.pdf";
+        mUrl = getIntent().getStringExtra("URL");
+//        mUrl = "http://192.168.1.127:8080/files/7、SHT 3544-2009 石油化工对置式往复压缩机组施工及验收规范.pdf";
         int index = mUrl.lastIndexOf("/");
         String fileName = mUrl.substring(index);
         DialogManager.getInstance().showProgressDialogNotCancelbale(this);
