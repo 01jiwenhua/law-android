@@ -114,10 +114,10 @@ public class MainSearchActivity extends BaseActivity implements TextWatcher {
                 sumFragment.searchKey(key);
                 break;
             case 1:
-                standerFragment.searchKey(key);
+                lawFragment.searchKey(key);
                 break;
             case 2:
-                lawFragment.searchKey(key);
+                standerFragment.searchKey(key);
                 break;
             case 3:
                 policyFragment.searchKey(key);

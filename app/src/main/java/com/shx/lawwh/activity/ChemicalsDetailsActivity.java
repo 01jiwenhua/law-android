@@ -10,12 +10,16 @@ import com.alibaba.fastjson.JSONObject;
 import com.shx.lawwh.R;
 import com.shx.lawwh.adapter.ChemicalsDetailsAdapter;
 import com.shx.lawwh.base.BaseActivity;
+import com.shx.lawwh.common.CommonValues;
 import com.shx.lawwh.entity.response.ChemicalsDetailsResponse;
 import com.shx.lawwh.entity.response.ChemicalsResponse;
+import com.shx.lawwh.entity.response.ResponseUserInfo;
 import com.shx.lawwh.libs.dialog.DialogManager;
+import com.shx.lawwh.libs.dialog.ToastUtil;
 import com.shx.lawwh.libs.http.MyJSON;
 import com.shx.lawwh.libs.http.RequestCenter;
 import com.shx.lawwh.libs.http.ZCResponse;
+import com.shx.lawwh.utils.SharedPreferencesUtil;
 
 import java.util.List;
 
@@ -25,6 +29,8 @@ public class ChemicalsDetailsActivity extends BaseActivity {
     private List<ChemicalsDetailsResponse> chemicalsResponseList;
     private ChemicalsDetailsAdapter mAdapter;
     private ExpandableListView mListView;
+    private boolean isCollect= false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +42,26 @@ public class ChemicalsDetailsActivity extends BaseActivity {
             }
         });
         getTopbar().setTitle("详情");
+        getTopbar().setRightImageVisibility(View.VISIBLE);
+        getTopbar().setRightImage(R.drawable.ic_uncollect);
+        final String typeCode=getIntent().getStringExtra("typeCode");
+        final int id=getIntent().getIntExtra("lawId",-1);
+        final ResponseUserInfo userInfo= (ResponseUserInfo) SharedPreferencesUtil.readObject(this, CommonValues.USERINFO);
+        getTopbar().setRightImageListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(isCollect){
+                    getTopbar().setRightImage(R.drawable.ic_uncollect);
+                    RequestCenter.cancelFavorite(typeCode,userInfo.getId(),id,ChemicalsDetailsActivity.this);
+                    isCollect=!isCollect;
+                }else{
+                    getTopbar().setRightImage(R.drawable.ic_collect);
+                    RequestCenter.addFavorite(typeCode,userInfo.getId(),id,ChemicalsDetailsActivity.this);
+                    isCollect=!isCollect;
+                }
+
+            }
+        });
         mNameCN= (TextView) findViewById(R.id.tv_name_cn);
         mNameEN= (TextView) findViewById(R.id.tv_name_en);
         mCAS= (TextView) findViewById(R.id.tv_cas);
@@ -60,6 +86,10 @@ public class ChemicalsDetailsActivity extends BaseActivity {
                 mAdapter=new ChemicalsDetailsAdapter(this,chemicalsResponseList);
                 mListView.setAdapter(mAdapter);
             }
+        }else  if(requestUrl.equals(RequestCenter.ADD_FAVORITE)) {
+            ToastUtil.getInstance().toastInCenter(this,"收藏成功!");
+        }else if(requestUrl.equals(RequestCenter.CANCEL_FAVORITE)){
+            ToastUtil.getInstance().toastInCenter(this,"取消收藏！");
         }
         return super.doSuccess(respose, requestUrl);
     }

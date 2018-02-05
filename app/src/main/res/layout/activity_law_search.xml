@@ -34,7 +34,7 @@
             android:layout_marginLeft="15dp"
             android:layout_marginTop="8dp"
             android:layout_weight="1"
-            android:background="@drawable/shape_for_search"
+            android:background="@drawable/ic_main_search"
             android:drawableLeft="@drawable/ic_top_search"
             android:drawablePadding="5dp"
             android:hint="请输入关键字"

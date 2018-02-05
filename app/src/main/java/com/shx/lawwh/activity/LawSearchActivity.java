@@ -418,10 +418,14 @@ public class LawSearchActivity extends BaseActivity implements View.OnClickListe
         if (item.getFilePath().endsWith(".pdf")) {
             Intent intent = new Intent(this, PdfViewActivity.class);
             intent.putExtra("URL", item.getFilePath());
+            intent.putExtra("typeCode",item.getTypeCode());
+            intent.putExtra("lawId",item.getId());
             startActivity(intent);
         } else {
             Intent intent = new Intent(this, WebActivity.class);
             intent.putExtra("URL", item.getFilePath());
+            intent.putExtra("typeCode",item.getTypeCode());
+            intent.putExtra("lawId",item.getId());
             startActivity(intent);
         }
     }

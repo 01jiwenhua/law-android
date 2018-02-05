@@ -11,8 +11,14 @@ import android.webkit.WebViewClient;
 
 import com.shx.lawwh.R;
 import com.shx.lawwh.base.BaseActivity;
+import com.shx.lawwh.common.CommonValues;
 import com.shx.lawwh.common.LogGloble;
 import com.shx.lawwh.common.SystemConfig;
+import com.shx.lawwh.entity.response.ResponseUserInfo;
+import com.shx.lawwh.libs.dialog.ToastUtil;
+import com.shx.lawwh.libs.http.RequestCenter;
+import com.shx.lawwh.libs.http.ZCResponse;
+import com.shx.lawwh.utils.SharedPreferencesUtil;
 
 
 public class WebActivity extends BaseActivity {
@@ -22,6 +28,7 @@ public class WebActivity extends BaseActivity {
      * 用来控制字体大小
      */
     int fontSize = 1;
+    private boolean isCollect= false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +39,26 @@ public class WebActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 onBackPressed();
+            }
+        });
+        getTopbar().setRightImageVisibility(View.VISIBLE);
+        getTopbar().setRightImage(R.drawable.ic_uncollect);
+        final String typeCode=getIntent().getStringExtra("typeCode");
+        final int id=getIntent().getIntExtra("lawId",-1);
+        final ResponseUserInfo userInfo= (ResponseUserInfo) SharedPreferencesUtil.readObject(this, CommonValues.USERINFO);
+        getTopbar().setRightImageListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(isCollect){
+                    getTopbar().setRightImage(R.drawable.ic_uncollect);
+                    RequestCenter.cancelFavorite(typeCode,userInfo.getId(),id,WebActivity.this);
+                    isCollect=!isCollect;
+                }else{
+                    getTopbar().setRightImage(R.drawable.ic_collect);
+                    RequestCenter.addFavorite(typeCode,userInfo.getId(),id,WebActivity.this);
+                    isCollect=!isCollect;
+                }
+
             }
         });
         webView = (WebView) findViewById(R.id.webView);
@@ -166,5 +193,15 @@ public class WebActivity extends BaseActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+    }
+
+    @Override
+    public boolean doSuccess(ZCResponse respose, String requestUrl) {
+        if(requestUrl.equals(RequestCenter.ADD_FAVORITE)) {
+            ToastUtil.getInstance().toastInCenter(this,"收藏成功!");
+        }else if(requestUrl.equals(RequestCenter.CANCEL_FAVORITE)){
+            ToastUtil.getInstance().toastInCenter(this,"取消收藏！");
+        }
+        return super.doSuccess(respose, requestUrl);
     }
 }

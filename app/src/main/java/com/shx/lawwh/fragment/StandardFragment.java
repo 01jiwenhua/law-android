@@ -100,11 +100,6 @@ public class StandardFragment extends Fragment implements HttpCallBack ,BaseQuic
         mRequest.setName(key);
         mRequest.setDescription(key);
         RequestCenter.getLawList(mRequest,this);
-        if(key.toString().isEmpty()){
-            mAdapter.setLight(false,mRequest);
-        }else {
-            mAdapter.setLight(true, mRequest);
-        }
     }
 
 
