@@ -1,5 +1,6 @@
 package com.shx.lawwh.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -12,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.shx.lawwh.R;
+import com.shx.lawwh.activity.GasolineActivity;
 
 /**
  * Created by zhou on 2018/2/5.
@@ -41,10 +43,12 @@ public class StandardSearchFragment extends Fragment implements View.OnClickList
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.ll_first:
+
                 break;
             case R.id.ll_second:
                 break;
             case R.id.ll_third:
+                startActivity(new Intent(getActivity(), GasolineActivity.class));
                 break;
         }
     }

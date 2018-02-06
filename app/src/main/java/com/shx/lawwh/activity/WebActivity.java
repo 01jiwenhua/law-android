@@ -80,7 +80,7 @@ public class WebActivity extends BaseActivity {
             LogGloble.d("url", url + "==");
         }
 //        @TODO 临时测试用
-        url = "http://www.baidu.com";
+        url = "http://www.bjsafety.gov.cn/art/2018/2/1/art_612_3641.html";
         init();
     }
 

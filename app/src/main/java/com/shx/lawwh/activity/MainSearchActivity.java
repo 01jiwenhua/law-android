@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.View;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
 
@@ -52,6 +53,13 @@ public class MainSearchActivity extends BaseActivity implements TextWatcher {
     }
 
     private void initView(){
+        getTopbar().setTitle("搜索");
+        getTopbar().setLeftImageListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
         tabLayout= (TabLayout) findViewById(R.id.tl_item);
         mViewPager= (ViewPager) findViewById(R.id.vp_item);
         searchEt= (EditText) findViewById(R.id.et_search);

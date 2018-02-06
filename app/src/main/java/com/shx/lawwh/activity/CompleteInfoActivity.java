@@ -23,6 +23,7 @@ import com.shx.lawwh.libs.dialog.ToastUtil;
 import com.shx.lawwh.libs.http.MyJSON;
 import com.shx.lawwh.libs.http.RequestCenter;
 import com.shx.lawwh.libs.http.ZCResponse;
+import com.shx.lawwh.utils.RegexpUtils;
 import com.shx.lawwh.view.AddressInitTask;
 
 import java.lang.ref.ReferenceQueue;
@@ -122,7 +123,9 @@ public class CompleteInfoActivity extends BaseActivity implements View.OnClickLi
                         || registerInfo.getSex()==null) {
                     ToastUtil.getInstance().toastInCenter(this,"请将信息填写完整！");
                 } else {
-                    RequestCenter.regist(registerInfo, this);
+                    if(RegexpUtils.regexEdttext(this,mBinding.etIdNo,mBinding.etMail)) {
+                        RequestCenter.regist(registerInfo, this);
+                    }
                 }
                 break;
         }
