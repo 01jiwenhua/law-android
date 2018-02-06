@@ -17,6 +17,7 @@
         android:paddingBottom="15dp"
         >
     <TextView
+        android:id="@+id/tv_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="2018-01-22"
@@ -26,6 +27,7 @@
         android:textSize="14dp"
         />
     <TextView
+        android:id="@+id/tv_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="春节期间加强检查的通知"
@@ -34,6 +36,7 @@
         android:layout_marginTop="15dp"
         />
     <TextView
+        android:id="@+id/tv_content"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="春节临近，为了加强对危险品的管理，需要全体人员

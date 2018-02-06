@@ -19,6 +19,7 @@ import java.util.List;
 
 /**
  * Created by adm on 2018/2/4.
+ * 消息通知界面
  */
 
 public class NewsActivity extends BaseActivity {

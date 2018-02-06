@@ -28,6 +28,19 @@ public class RequestCenter {
     public static final String GET_FAVORITE="/law/getFavoriteList";
     public static final String ADD_FAVORITE="/law/addFavorite";
     public static final String CANCEL_FAVORITE="/law/cancelFavorite";
+    public static final String GET_MESSAGE="/user/getMessage";
+
+    /**
+     * 得到通知，1为系统消息 2为工作通知
+     * @param
+     * @param callBack
+     */
+    public static void getMessage(int type,HttpCallBack callBack){
+        ZCRequest request=new ZCRequest();
+        request.setUrl(GET_MESSAGE);
+        request.putParams("type",type);
+        HttpManager.getInstance().doPost(request,callBack);
+    }
 
     /**
      * 添加收藏
