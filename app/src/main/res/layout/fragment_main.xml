@@ -70,40 +70,11 @@
                 android:orientation="horizontal"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp">
-
-                <LinearLayout
-                    android:id="@+id/layout_bzgfcx"
-                    android:layout_width="140dp"
-                    android:layout_height="130dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/bg_main_item"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:padding="10dp">
-
-                    <ImageView
-                        android:layout_width="35dp"
-                        android:layout_height="35dp"
-                        android:layout_marginTop="10dp"
-                        android:background="@drawable/ic_flfgcx" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginBottom="10dp"
-                        android:layout_marginTop="10dp"
-                        android:gravity="center"
-                        android:text="标准规范      查询"
-                        android:textColor="@color/colorWhite"
-                        android:textSize="17dp" />
-                </LinearLayout>
-
                 <LinearLayout
                     android:id="@+id/layout_flfgcx"
                     android:layout_width="140dp"
                     android:layout_height="130dp"
-                    android:layout_marginLeft="-10dp"
+
                     android:layout_weight="1"
                     android:background="@drawable/bg_main_item"
                     android:gravity="center"
@@ -127,6 +98,36 @@
                         android:textColor="@color/colorWhite"
                         android:textSize="17dp" />
                 </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/layout_bzgfcx"
+                    android:layout_width="140dp"
+                    android:layout_height="130dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_main_item"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:layout_marginLeft="-10dp"
+                    android:padding="10dp">
+
+                    <ImageView
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/ic_flfgcx" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="10dp"
+                        android:gravity="center"
+                        android:text="标准规范      查询"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="17dp" />
+                </LinearLayout>
+
+
 
 
                 <LinearLayout

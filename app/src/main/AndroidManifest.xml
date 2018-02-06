@@ -93,6 +93,7 @@
         <activity android:name=".activity.UpdateActivity"></activity>
         <activity android:name=".activity.HelpActivity"></activity>
         <activity android:name=".activity.FireproofingActivity"></activity>
+        <activity android:name=".activity.GasolineActivity"></activity>
     </application>
 
 </manifest>

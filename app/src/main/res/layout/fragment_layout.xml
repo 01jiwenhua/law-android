@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+    <LinearLayout
+        android:id="@+id/ll_equipment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingLeft="10dp"
+        android:paddingTop="18dp"
+        android:paddingBottom="18dp"
+        android:background="@color/colorWhite"
+        android:layout_marginTop="1dp"
+        >
+        <ImageView
+            android:layout_width="5dp"
+            android:layout_height="20dp"
+            android:background="@color/colorBlue"
+            android:layout_gravity="center_vertical"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="站内设施A"
+            android:textSize="@dimen/textsize_18"
+            android:textColor="#474747"
+            android:layout_marginLeft="5dp"
+            />
+        <include layout="@layout/layout_placeview"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18dp"
+            android:textColor="#474747"
+            android:text="汽油罐"
+            android:layout_marginRight="10dp"
+            />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_right"
+            android:layout_gravity="center_vertical"
+            android:paddingRight="20dp"
+
+            />
+
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/ll_buildings"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingLeft="10dp"
+        android:paddingTop="18dp"
+        android:paddingBottom="18dp"
+        android:background="@color/colorWhite"
+        android:layout_marginTop="20dp"
+        >
+        <ImageView
+            android:layout_width="5dp"
+            android:layout_height="20dp"
+            android:background="@color/colorBlue"
+            android:layout_gravity="center_vertical"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="站内设施B"
+            android:textSize="@dimen/textsize_18"
+            android:textColor="#474747"
+            android:layout_marginLeft="5dp"
+            />
+        <include layout="@layout/layout_placeview"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18dp"
+            android:textColor="#474747"
+            android:text="LPG储罐"
+            android:layout_marginRight="10dp"
+            />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_right"
+            android:layout_gravity="center_vertical"
+            android:paddingRight="20dp"
+
+            />
+
+    </LinearLayout>
+    <include layout="@layout/layout_placeview"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="查询"
+        android:textColor="@color/colorWhite"
+        android:textSize="@dimen/textsize_18"
+        android:background="@color/colorBlue"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="20dp"
+        />
+</LinearLayout>

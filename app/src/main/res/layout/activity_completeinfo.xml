@@ -46,14 +46,13 @@
                 android:layout_gravity="center_vertical"
                 />
 
-            <TextView
+            <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginLeft="5dp"
-                android:text=">"
-                android:textColor="#BABABA"
-                android:textSize="@dimen/textsize_20" />
+                android:layout_marginLeft="10dp"
+                android:src="@drawable/ic_right"
+                />
         </LinearLayout>
 
         <ImageView
@@ -117,15 +116,16 @@
                 android:layout_height="wrap_content"
                 android:text="无"
                 android:textSize="@dimen/textsize_18"
+                android:layout_gravity="center_vertical"
                 />
 
-            <TextView
+            <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:text=">"
-                android:textColor="#BABABA"
-                android:textSize="@dimen/textsize_20" />
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="10dp"
+                android:src="@drawable/ic_right"
+                />
         </LinearLayout>
 
         <ImageView
@@ -157,6 +157,7 @@
                 android:hint="请输入证件号码"
                 android:textSize="@dimen/textsize_18"
                 android:text="@={registerInfo.idNo}"
+                android:tag="@string/reg_identitycard"
                 />
         </LinearLayout>
 
@@ -187,16 +188,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="男"
+                android:layout_gravity="center_vertical"
                 android:textSize="@dimen/textsize_18"
                 />
 
-            <TextView
+            <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:text=">"
-                android:textColor="#BABABA"
-                android:textSize="@dimen/textsize_20" />
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="10dp"
+                android:src="@drawable/ic_right"
+                />
         </LinearLayout>
 
         <ImageView
@@ -228,6 +230,7 @@
                 android:hint="请输入邮箱"
                 android:textSize="@dimen/textsize_18"
                 android:text="@={registerInfo.email}"
+                android:tag="@string/reg_mail"
                 />
         </LinearLayout>
 
@@ -260,13 +263,13 @@
                 android:textSize="@dimen/textsize_18"
                 />
 
-            <TextView
+            <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:text=">"
-                android:textColor="#BABABA"
-                android:textSize="@dimen/textsize_20" />
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="10dp"
+                android:src="@drawable/ic_right"
+                />
         </LinearLayout>
 
         <ImageView
@@ -301,13 +304,13 @@
                 android:maxLines="1"
                 />
 
-            <TextView
+            <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:text=">"
-                android:textColor="#BABABA"
-                android:textSize="@dimen/textsize_20" />
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="10dp"
+                android:src="@drawable/ic_right"
+                />
         </LinearLayout>
 
         <ImageView
@@ -339,13 +342,13 @@
                 android:textSize="@dimen/textsize_18"
                 />
 
-            <TextView
+            <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:text=">"
-                android:textColor="#BABABA"
-                android:textSize="@dimen/textsize_20" />
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="10dp"
+                android:src="@drawable/ic_right"
+                />
         </LinearLayout>
 
         <ImageView
@@ -378,12 +381,13 @@
                 android:textSize="@dimen/textsize_18"
                 />
 
-            <TextView
+            <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:text=">"
-                android:textSize="@dimen/textsize_20" />
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="10dp"
+                android:src="@drawable/ic_right"
+                />
         </LinearLayout>
 
         <Button

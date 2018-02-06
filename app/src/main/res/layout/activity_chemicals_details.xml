@@ -8,9 +8,8 @@
     <include layout="@layout/layout_topbar"></include>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
+        android:layout_height="wrap_content"
+        android:padding="20dp"
         android:background="@color/colorWhite"
         android:gravity="center_vertical"
         android:orientation="horizontal"
@@ -25,7 +24,7 @@
         <include layout="@layout/layout_placeview"/>
         <TextView
             android:id="@+id/tv_name_cn"
-            android:layout_width="wrap_content"
+            android:layout_width="220dp"
             android:layout_height="wrap_content"
             android:text="氯对甲苯"
             android:textColor="@color/colorTextBlack"
@@ -40,10 +39,9 @@
         android:background="@color/colorLine"></View>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="wrap_content"
         android:gravity="center_vertical"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
+        android:padding="20dp"
         android:background="@color/colorWhite"
         android:orientation="horizontal">
         <TextView
@@ -55,7 +53,7 @@
         <include layout="@layout/layout_placeview"/>
         <TextView
             android:id="@+id/tv_name_en"
-            android:layout_width="wrap_content"
+            android:layout_width="220dp"
             android:textColor="@color/colorTextBlack"
             android:layout_height="wrap_content"
             android:textSize="@dimen/textsize_16"
@@ -68,10 +66,9 @@
         android:background="@color/colorLine"></View>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="wrap_content"
         android:gravity="center_vertical"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
+        android:padding="20dp"
         android:background="@color/colorWhite"
         android:orientation="horizontal">
         <TextView
@@ -96,11 +93,10 @@
         android:background="@color/colorLine"></View>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="wrap_content"
         android:gravity="center_vertical"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
         android:orientation="horizontal"
+        android:padding="20dp"
         android:background="@color/colorWhite"
         >
         <TextView

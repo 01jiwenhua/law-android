@@ -51,4 +51,11 @@
         <item name="tabSelectedTextColor">#3CA0F4</item>
         <item name="tabBackground">@color/colorWhite</item>
     </style>
+
+    <!--设置TabLayout字体默认-->
+    <style name="TextAppearance.Design.Tab.Custom" parent="TextAppearance.AppCompat.Button">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">?android:textColorSecondary</item>
+        <item name="textAllCaps">true</item>
+    </style>
 </resources>
