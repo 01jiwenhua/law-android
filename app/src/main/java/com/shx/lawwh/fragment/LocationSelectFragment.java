@@ -26,6 +26,9 @@ import java.util.List;
 
 import cn.qqtheme.framework.picker.SinglePicker;
 
+import static android.R.attr.id;
+import static android.icu.text.UnicodeSet.CASE;
+
 /**
  * Created by zhou on 2018/2/6.
  * 站址选择
@@ -36,18 +39,26 @@ public class LocationSelectFragment extends Fragment implements View.OnClickList
     private FragmentLocationSelectBinding mBinding;
     private List<ResponseGasolineItem> items;
     private int index = 0;//默认为0
+    private ResponseGasolineItem selectedItem;//在滑动列表中选中的条目
+    //用于记录第一条数据的code和第5条数据的code
+    private String oneCode, fiveCode;
+    private List<String> codeList=new ArrayList<>();
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_location_select, container, false);
+        mBinding.llOne.setOnClickListener(this);
+        mBinding.llTwo.setOnClickListener(this);
+        mBinding.llThree.setOnClickListener(this);
+        mBinding.llFour.setOnClickListener(this);
+        mBinding.llFive.setOnClickListener(this);
+        mBinding.llSix.setOnClickListener(this);
+        mBinding.llSeven.setOnClickListener(this);
+        mBinding.llEight.setOnClickListener(this);
         return mBinding.getRoot();
     }
 
-    private void initView(View view) {
-
-
-    }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -64,15 +75,36 @@ public class LocationSelectFragment extends Fragment implements View.OnClickList
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.ll_one:
-                RequestCenter.getArchitecture("", items.get(0).getCode(), "GB 50156-2012", this);
-                index = (int) mBinding.llOne.getTag();
-                showItemCchoice();
+                index = 1;
+                RequestCenter.getArchitecture("", oneCode, "GB 50156-2012", this);
                 break;
             case R.id.ll_two:
-                index = (int) mBinding.llTwo.getTag();
+                index = 2;
+                RequestCenter.getArchitecture("", codeList.get(0), "GB 50156-2012", this);
                 break;
             case R.id.ll_three:
-                index = (int) mBinding.llThree.getTag();
+                index = 3;
+                RequestCenter.getArchitecture("", codeList.get(1), "GB 50156-2012", this);
+                break;
+            case R.id.ll_four:
+                index = 4;
+                RequestCenter.getArchitecture("", codeList.get(2), "GB 50156-2012", this);
+                break;
+            case R.id.ll_five:
+                index = 5;
+                RequestCenter.getArchitecture("", fiveCode, "GB 50156-2012", this);
+                break;
+            case R.id.ll_six:
+                index = 6;
+                RequestCenter.getArchitecture("", codeList.get(3), "GB 50156-2012", this);
+                break;
+            case R.id.ll_seven:
+                index = 7;
+                RequestCenter.getArchitecture("", codeList.get(4), "GB 50156-2012", this);
+                break;
+            case R.id.ll_eight:
+                index = 8;
+                RequestCenter.getArchitecture("", codeList.get(5), "GB 50156-2012", this);
                 break;
         }
     }
@@ -80,33 +112,37 @@ public class LocationSelectFragment extends Fragment implements View.OnClickList
     private void showItemCchoice() {
         //默认数据已经回来了，回不来可以用ProgressDialog控制
         //显示选择管轮弹框
+
         //当点击弹框里边的数据时即选中了一条
         //接下来出来应该显示哪个数据了
         //list.onItemClicke({
         //  点击了第几个，获取数据
-        if (index == 1) {
-            //     显示第2个
-            mBinding.llTwo.setVisibility(View.VISIBLE);
-//            mBinding.llTwo.getChildAt(1);
-            //左侧显示mBinding.one的vule值  右侧等待数据返回
-        }
+        switch (index) {
+            case 1:
+                pick(mBinding.tvOneValue, mBinding.llTwo, mBinding.tvTwoKey);
+                break;
+            case 2:
+                pick(mBinding.tvTwoValue, mBinding.llThree, mBinding.tvThreeKey);
 
-        if (index == 2) {
-            //     显示第3个
-            mBinding.llThree.setVisibility(View.VISIBLE);
-            //左侧显示mBinding.llTwo的vule值  右侧等待数据返回
-            //  }
-            if (index == 3) {
-                //  限时第4个
-                mBinding.llFour.setVisibility(View.VISIBLE);
-//                左侧显示mBinding.llThree的vule值  右侧等待数据返回
-            }
-            if(index==4){
-//                显示第5个
-                mBinding.llFive.setVisibility(View.VISIBLE);
-//                左侧显示mBinding.llFour的vule值  右侧等待数据返回
-            }
-
+                break;
+            case 3:
+                pick(mBinding.tvThreeValue, mBinding.llFour, mBinding.tvFourKey);
+                break;
+            case 4:
+                pick(mBinding.tvFourValue);
+                break;
+            case 5:
+                pick(mBinding.tvFiveValue, mBinding.llSix, mBinding.tvSixKey);
+                break;
+            case 6:
+                pick(mBinding.tvSixValue, mBinding.llSeven, mBinding.tvSevenKey);
+                break;
+            case 7:
+                pick(mBinding.tvSevenValue, mBinding.llEight, mBinding.tvEightKey);
+                break;
+            case 8:
+                pick(mBinding.tvEightValue);
+                break;
         }
     }
 
@@ -115,38 +151,23 @@ public class LocationSelectFragment extends Fragment implements View.OnClickList
         if (requestUrl.equals(RequestCenter.GET_ARCHITECTURE)) {
             JSONObject mainData = respose.getMainData();
             items = MyJSON.parseArray(mainData.getString("architecture"), ResponseGasolineItem.class);
-            //判断数据是否为空
-            if (index == 0) {
-                //第一次进来
+            if (items.size() > 0) {
+                if (items.get(0).getLevel() <= 6) {
+                    //判断数据是否为空
+                    if (index == 0) {
+                        //第一次进来
 //                mBinding.one 的右侧显示list(0);
+                        mBinding.tvOneKey.setText(items.get(0).getName());
+                        mBinding.tvFiveKey.setText(items.get(1).getName());
+                        oneCode = items.get(0).getCode();
+                        fiveCode = items.get(1).getCode();
+
+                    } else {
+                        showItemCchoice();
+                    }
+                }
 
             }
-            if (index == 1) {
-                //在第一条弹出框选中数据以后
-//                mBinding.llTwo 的右侧显示list(0);
-
-            }
-            if (index == 2) {
-                //在第二条弹出框选中数据以后
-//                mBinding.llThree 的右侧显示list(0);
-
-            }
-            if (index == 3) {
-                //在第三条弹出框选中数据以后
-//                mBinding.llFour 的右侧显示list(0);
-
-            }
-//            for (int i=0;i<items.size();i++){
-//                if(items.get(i).getLevel()==2){
-//                    if(i==0) {
-//                        mBinding.tvOneKey.setText(items.get(i).getName());
-//                        mBinding.llOne.setOnClickListener(this);
-//                    }else{
-//                        mBinding.tvFiveKey.setText(items.get(i).getName());
-//                        mBinding.llFive.setOnClickListener(this);
-//                    }
-//                }
-//            }
         }
         return false;
     }
@@ -154,15 +175,37 @@ public class LocationSelectFragment extends Fragment implements View.OnClickList
     /**
      * 选择
      */
-    private void pick() {
-        SinglePicker<ResponseCompanyList> picker = new SinglePicker<>(this, companyList);
+    private void pick(final TextView currentValue, final LinearLayout layout, final TextView nextKey) {
+        SinglePicker<ResponseGasolineItem> picker = new SinglePicker<>(getActivity(), items);
         picker.setCanceledOnTouchOutside(false);
         picker.setSelectedIndex(1);
         picker.setCycleDisable(true);
-        picker.setOnItemPickListener(new SinglePicker.OnItemPickListener<ResponseCompanyList>() {
+        picker.setOnItemPickListener(new SinglePicker.OnItemPickListener<ResponseGasolineItem>() {
             @Override
-            public void onItemPicked(int index, ResponseCompanyList item) {
-                mBinding.tvCompany.setText(item.getName());
+            public void onItemPicked(int index, ResponseGasolineItem item) {
+                currentValue.setText(item.getName());
+                layout.setVisibility(View.VISIBLE);
+                nextKey.setText(item.getName());
+                codeList.add(item.getCode());
+//                selectedItem = item;
+            }
+        });
+        picker.show();
+    }
+
+    /**
+     * 选择
+     */
+    private void pick(final TextView currentValue) {
+        SinglePicker<ResponseGasolineItem> picker = new SinglePicker<>(getActivity(), items);
+        picker.setCanceledOnTouchOutside(false);
+        picker.setSelectedIndex(1);
+        picker.setCycleDisable(true);
+        picker.setOnItemPickListener(new SinglePicker.OnItemPickListener<ResponseGasolineItem>() {
+            @Override
+            public void onItemPicked(int index, ResponseGasolineItem item) {
+                currentValue.setText(item.getName());
+                codeList.add(item.getCode());
             }
         });
         picker.show();
