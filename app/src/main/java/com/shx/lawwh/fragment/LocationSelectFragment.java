@@ -41,7 +41,7 @@ public class LocationSelectFragment extends Fragment implements View.OnClickList
     private int index = 0;//默认为0
     private ResponseGasolineItem selectedItem;//在滑动列表中选中的条目
     //用于记录第一条数据的code和第5条数据的code
-    private String oneCode, fiveCode;
+    private String oneCode, twoCode,threeCode,fourCode,fiveCode,sixCode,sevenCode,eightCode;
     private List<String> codeList=new ArrayList<>();
 
     @Nullable
@@ -80,15 +80,15 @@ public class LocationSelectFragment extends Fragment implements View.OnClickList
                 break;
             case R.id.ll_two:
                 index = 2;
-                RequestCenter.getArchitecture("", codeList.get(0), "GB 50156-2012", this);
+                RequestCenter.getArchitecture("", twoCode, "GB 50156-2012", this);
                 break;
             case R.id.ll_three:
                 index = 3;
-                RequestCenter.getArchitecture("", codeList.get(1), "GB 50156-2012", this);
+                RequestCenter.getArchitecture("", threeCode, "GB 50156-2012", this);
                 break;
             case R.id.ll_four:
                 index = 4;
-                RequestCenter.getArchitecture("", codeList.get(2), "GB 50156-2012", this);
+                RequestCenter.getArchitecture("", fourCode, "GB 50156-2012", this);
                 break;
             case R.id.ll_five:
                 index = 5;
@@ -96,15 +96,15 @@ public class LocationSelectFragment extends Fragment implements View.OnClickList
                 break;
             case R.id.ll_six:
                 index = 6;
-                RequestCenter.getArchitecture("", codeList.get(3), "GB 50156-2012", this);
+                RequestCenter.getArchitecture("", sixCode, "GB 50156-2012", this);
                 break;
             case R.id.ll_seven:
                 index = 7;
-                RequestCenter.getArchitecture("", codeList.get(4), "GB 50156-2012", this);
+                RequestCenter.getArchitecture("", sevenCode, "GB 50156-2012", this);
                 break;
             case R.id.ll_eight:
                 index = 8;
-                RequestCenter.getArchitecture("", codeList.get(5), "GB 50156-2012", this);
+                RequestCenter.getArchitecture("", eightCode, "GB 50156-2012", this);
                 break;
         }
     }
@@ -167,6 +167,10 @@ public class LocationSelectFragment extends Fragment implements View.OnClickList
                     }
                 }
 
+            }else{
+                if(index<4){
+
+                }
             }
         }
         return false;
@@ -182,11 +186,36 @@ public class LocationSelectFragment extends Fragment implements View.OnClickList
         picker.setCycleDisable(true);
         picker.setOnItemPickListener(new SinglePicker.OnItemPickListener<ResponseGasolineItem>() {
             @Override
-            public void onItemPicked(int index, ResponseGasolineItem item) {
+            public void onItemPicked(int i, ResponseGasolineItem item) {
                 currentValue.setText(item.getName());
-                layout.setVisibility(View.VISIBLE);
+                if(item.getLevel()<6){
+                    layout.setVisibility(View.VISIBLE);
+                }
                 nextKey.setText(item.getName());
-                codeList.add(item.getCode());
+                switch (index){
+                    case 1:
+                        twoCode=item.getCode();
+                        break;
+                    case 2:
+                        threeCode=item.getCode();
+                        break;
+                    case 3:
+                        fourCode=item.getCode();
+                        break;
+                    case 4:
+                        fiveCode=item.getCode();
+                        break;
+                    case 5:
+                        sixCode=item.getCode();
+                        break;
+                    case 6:
+                        sevenCode=item.getCode();
+                        break;
+                    case 7:
+                        eightCode=item.getCode();
+                        break;
+
+                }
 //                selectedItem = item;
             }
         });
@@ -205,7 +234,30 @@ public class LocationSelectFragment extends Fragment implements View.OnClickList
             @Override
             public void onItemPicked(int index, ResponseGasolineItem item) {
                 currentValue.setText(item.getName());
-                codeList.add(item.getCode());
+                switch (index){
+                    case 1:
+                        twoCode=item.getCode();
+                        break;
+                    case 2:
+                        threeCode=item.getCode();
+                        break;
+                    case 3:
+                        fourCode=item.getCode();
+                        break;
+                    case 4:
+                        fiveCode=item.getCode();
+                        break;
+                    case 5:
+                        sixCode=item.getCode();
+                        break;
+                    case 6:
+                        sevenCode=item.getCode();
+                        break;
+                    case 7:
+                        eightCode=item.getCode();
+                        break;
+
+                }
             }
         });
         picker.show();

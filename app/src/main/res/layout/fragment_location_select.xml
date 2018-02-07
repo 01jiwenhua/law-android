@@ -1,383 +1,409 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
+
     <data>
 
     </data>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    >
-    <LinearLayout
-        android:id="@+id/ll_one"
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingLeft="10dp"
-        android:paddingTop="18dp"
-        android:paddingBottom="18dp"
-        android:background="@color/colorWhite"
-        android:layout_marginTop="1dp"
-        android:tag="1"
-        >
-        <ImageView
-            android:layout_width="5dp"
-            android:layout_height="20dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/ll_one"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="1dp"
+                    android:background="@color/colorWhite"
+                    android:orientation="horizontal"
+                    android:paddingBottom="18dp"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="18dp"
+                    android:tag="1">
+
+                    <ImageView
+                        android:layout_width="5dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="center_vertical"
+                        android:background="@color/colorBlue" />
+
+                    <TextView
+                        android:id="@+id/tv_oneKey"
+                        android:layout_width="130dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:textColor="#474747"
+                        android:layout_gravity="center_vertical"
+                        android:textSize="@dimen/textsize_18" />
+
+                    <include layout="@layout/layout_placeview" />
+
+                    <TextView
+                        android:id="@+id/tv_oneValue"
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10dp"
+                        android:textColor="#474747"
+                        android:layout_marginLeft="20dp"
+                        android:textSize="18dp" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:paddingRight="20dp"
+                        android:src="@drawable/ic_right"
+
+                        />
+
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/colorLine" />
+
+                <LinearLayout
+                    android:id="@+id/ll_two"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorWhite"
+                    android:orientation="horizontal"
+                    android:paddingBottom="18dp"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="18dp"
+                    android:tag="2"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:id="@+id/tv_twoKey"
+                        android:layout_width="130dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:textColor="#474747"
+                        android:textSize="@dimen/textsize_18" />
+
+                    <include layout="@layout/layout_placeview" />
+
+                    <TextView
+                        android:id="@+id/tv_twoValue"
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10dp"
+                        android:textColor="#474747"
+                        android:layout_marginLeft="20dp"
+                        android:textSize="18dp" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginRight="20dp"
+                        android:src="@drawable/ic_right"
+
+                        />
+
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/colorLine" />
+
+                <LinearLayout
+                    android:id="@+id/ll_three"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorWhite"
+                    android:orientation="horizontal"
+                    android:paddingBottom="18dp"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="18dp"
+                    android:tag="3"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:id="@+id/tv_threeKey"
+                        android:layout_width="130dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:textColor="#474747"
+                        android:textSize="@dimen/textsize_18" />
+
+                    <include layout="@layout/layout_placeview" />
+
+                    <TextView
+                        android:id="@+id/tv_threeValue"
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10dp"
+                        android:textColor="#474747"
+                        android:textSize="18dp" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:paddingRight="20dp"
+                        android:src="@drawable/ic_right"
+
+                        />
+
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/colorLine" />
+
+                <LinearLayout
+                    android:id="@+id/ll_four"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorWhite"
+                    android:orientation="horizontal"
+                    android:paddingBottom="18dp"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="18dp"
+                    android:tag="4"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:id="@+id/tv_fourKey"
+                        android:layout_width="130dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:textColor="#474747"
+                        android:textSize="@dimen/textsize_18" />
+
+                    <include layout="@layout/layout_placeview" />
+
+                    <TextView
+                        android:id="@+id/tv_fourValue"
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10dp"
+                        android:textColor="#474747"
+                        android:textSize="18dp" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:paddingRight="20dp"
+                        android:src="@drawable/ic_right"
+
+                        />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_five"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:background="@color/colorWhite"
+                    android:orientation="horizontal"
+                    android:paddingBottom="18dp"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="18dp">
+
+                    <ImageView
+                        android:layout_width="5dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="center_vertical"
+                        android:background="@color/colorBlue" />
+
+                    <TextView
+                        android:id="@+id/tv_fiveKey"
+                        android:layout_width="130dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:textColor="#474747"
+                        android:layout_gravity="center_vertical"
+                        android:textSize="@dimen/textsize_18" />
+
+                    <include layout="@layout/layout_placeview" />
+
+                    <TextView
+                        android:id="@+id/tv_fiveValue"
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10dp"
+                        android:textColor="#474747"
+                        android:textSize="18dp" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:paddingRight="20dp"
+                        android:src="@drawable/ic_right"
+
+                        />
+
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/colorLine" />
+
+                <LinearLayout
+                    android:id="@+id/ll_six"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorWhite"
+                    android:orientation="horizontal"
+                    android:paddingBottom="18dp"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="18dp"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:id="@+id/tv_sixKey"
+                        android:layout_width="130dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:textColor="#474747"
+                        android:textSize="@dimen/textsize_18" />
+
+                    <include layout="@layout/layout_placeview" />
+
+                    <TextView
+                        android:id="@+id/tv_sixValue"
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10dp"
+                        android:textColor="#474747"
+                        android:textSize="18dp" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:paddingRight="20dp"
+                        android:src="@drawable/ic_right"
+
+                        />
+
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/colorLine" />
+
+                <LinearLayout
+                    android:id="@+id/ll_seven"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorWhite"
+                    android:orientation="horizontal"
+                    android:paddingBottom="18dp"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="18dp"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:id="@+id/tv_sevenKey"
+                        android:layout_width="130dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:textColor="#474747"
+                        android:textSize="@dimen/textsize_18" />
+
+                    <include layout="@layout/layout_placeview" />
+
+                    <TextView
+                        android:id="@+id/tv_sevenValue"
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10dp"
+                        android:textColor="#474747"
+                        android:textSize="18dp" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:paddingRight="20dp"
+                        android:src="@drawable/ic_right"
+
+                        />
+
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/colorLine" />
+
+                <LinearLayout
+                    android:id="@+id/ll_eight"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorWhite"
+                    android:orientation="horizontal"
+                    android:paddingBottom="18dp"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="18dp"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:id="@+id/tv_eightKey"
+                        android:layout_width="130dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:textColor="#474747"
+                        android:textSize="@dimen/textsize_18" />
+
+                    <include layout="@layout/layout_placeview" />
+
+                    <TextView
+                        android:id="@+id/tv_eightValue"
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10dp"
+                        android:textColor="#474747"
+                        android:textSize="18dp" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:paddingRight="20dp"
+                        android:src="@drawable/ic_right"
+
+                        />
+
+                </LinearLayout>
+
+                <include layout="@layout/layout_placeview" />
+            </LinearLayout>
+        </ScrollView>
+
+        <Button
+            android:id="@+id/btn_search"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
             android:background="@color/colorBlue"
-            android:layout_gravity="center_vertical"
-            />
-        <TextView
-            android:id="@+id/tv_oneKey"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/textsize_18"
-            android:textColor="#474747"
-            android:layout_marginLeft="5dp"
-            />
-        <include layout="@layout/layout_placeview"/>
-        <TextView
-            android:id="@+id/tv_oneValue"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="18dp"
-            android:textColor="#474747"
-            android:layout_marginRight="10dp"
-            />
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_right"
-            android:layout_gravity="center_vertical"
-            android:paddingRight="20dp"
-
-            />
-
+            android:text="查询"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/textsize_18" />
     </LinearLayout>
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/colorLine"
-        />
-    <LinearLayout
-        android:id="@+id/ll_two"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingLeft="10dp"
-        android:paddingTop="18dp"
-        android:paddingBottom="18dp"
-        android:background="@color/colorWhite"
-        android:visibility="gone"
-        android:tag="2"
-        >
-
-        <TextView
-            android:id="@+id/tv_twoKey"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/textsize_18"
-            android:textColor="#474747"
-            android:layout_marginLeft="5dp"
-            />
-        <include layout="@layout/layout_placeview"/>
-        <TextView
-            android:id="@+id/tv_twoValue"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="18dp"
-            android:textColor="#474747"
-            android:layout_marginRight="10dp"
-            />
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_right"
-            android:layout_gravity="center_vertical"
-            android:paddingRight="20dp"
-
-            />
-
-    </LinearLayout>
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/colorLine"
-        />
-    <LinearLayout
-        android:id="@+id/ll_three"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingLeft="10dp"
-        android:paddingTop="18dp"
-        android:paddingBottom="18dp"
-        android:background="@color/colorWhite"
-        android:visibility="gone"
-        android:tag="3"
-        >
-
-        <TextView
-            android:id="@+id/tv_threeKey"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/textsize_18"
-            android:textColor="#474747"
-            android:layout_marginLeft="5dp"
-            />
-        <include layout="@layout/layout_placeview"/>
-        <TextView
-            android:id="@+id/tv_threeValue"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="18dp"
-            android:textColor="#474747"
-            android:layout_marginRight="10dp"
-            />
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_right"
-            android:layout_gravity="center_vertical"
-            android:paddingRight="20dp"
-
-            />
-
-    </LinearLayout>
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/colorLine"
-        />
-    <LinearLayout
-        android:id="@+id/ll_four"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingLeft="10dp"
-        android:paddingTop="18dp"
-        android:paddingBottom="18dp"
-        android:background="@color/colorWhite"
-        android:visibility="gone"
-        android:tag="4"
-        >
-
-        <TextView
-            android:id="@+id/tv_fourKey"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/textsize_18"
-            android:textColor="#474747"
-            android:layout_marginLeft="5dp"
-            />
-        <include layout="@layout/layout_placeview"/>
-        <TextView
-            android:id="@+id/tv_fourValue"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="18dp"
-            android:textColor="#474747"
-            android:layout_marginRight="10dp"
-            />
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_right"
-            android:layout_gravity="center_vertical"
-            android:paddingRight="20dp"
-
-            />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/ll_five"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingLeft="10dp"
-        android:paddingTop="18dp"
-        android:paddingBottom="18dp"
-        android:background="@color/colorWhite"
-        android:layout_marginTop="20dp"
-        >
-        <ImageView
-            android:layout_width="5dp"
-            android:layout_height="20dp"
-            android:background="@color/colorBlue"
-            android:layout_gravity="center_vertical"
-            />
-        <TextView
-            android:id="@+id/tv_fiveKey"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/textsize_18"
-            android:textColor="#474747"
-            android:layout_marginLeft="5dp"
-            />
-        <include layout="@layout/layout_placeview"/>
-        <TextView
-            android:id="@+id/tv_fiveValue"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="18dp"
-            android:textColor="#474747"
-            android:layout_marginRight="10dp"
-            />
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_right"
-            android:layout_gravity="center_vertical"
-            android:paddingRight="20dp"
-
-            />
-
-    </LinearLayout>
-
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/colorLine"
-        />
-    <LinearLayout
-        android:id="@+id/ll_six"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingLeft="10dp"
-        android:paddingTop="18dp"
-        android:paddingBottom="18dp"
-        android:background="@color/colorWhite"
-        android:visibility="gone"
-        >
-
-        <TextView
-            android:id="@+id/tv_sixKey"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/textsize_18"
-            android:textColor="#474747"
-            android:layout_marginLeft="5dp"
-            />
-        <include layout="@layout/layout_placeview"/>
-        <TextView
-            android:id="@+id/tv_sixValue"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="18dp"
-            android:textColor="#474747"
-            android:layout_marginRight="10dp"
-            />
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_right"
-            android:layout_gravity="center_vertical"
-            android:paddingRight="20dp"
-
-            />
-
-    </LinearLayout>
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/colorLine"
-        />
-    <LinearLayout
-        android:id="@+id/ll_seven"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingLeft="10dp"
-        android:paddingTop="18dp"
-        android:paddingBottom="18dp"
-        android:background="@color/colorWhite"
-        android:visibility="gone"
-        >
-
-        <TextView
-            android:id="@+id/tv_sevenKey"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/textsize_18"
-            android:textColor="#474747"
-            android:layout_marginLeft="5dp"
-            />
-        <include layout="@layout/layout_placeview"/>
-        <TextView
-            android:id="@+id/tv_sevenValue"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="18dp"
-            android:textColor="#474747"
-            android:layout_marginRight="10dp"
-            />
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_right"
-            android:layout_gravity="center_vertical"
-            android:paddingRight="20dp"
-
-            />
-
-    </LinearLayout>
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/colorLine"
-        />
-    <LinearLayout
-        android:id="@+id/ll_eight"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingLeft="10dp"
-        android:paddingTop="18dp"
-        android:paddingBottom="18dp"
-        android:background="@color/colorWhite"
-        android:visibility="gone"
-        >
-
-        <TextView
-            android:id="@+id/tv_eightKey"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/textsize_18"
-            android:textColor="#474747"
-            android:layout_marginLeft="5dp"
-            />
-        <include layout="@layout/layout_placeview"/>
-        <TextView
-            android:id="@+id/tv_eightValue"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="18dp"
-            android:textColor="#474747"
-            android:layout_marginRight="10dp"
-            />
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_right"
-            android:layout_gravity="center_vertical"
-            android:paddingRight="20dp"
-
-            />
-
-    </LinearLayout>
-    <include layout="@layout/layout_placeview"/>
-
-    <Button
-        android:id="@+id/btn_search"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:background="@color/colorBlue"
-        android:text="查询"
-        android:textColor="@color/colorWhite"
-        android:textSize="@dimen/textsize_18" />
-</LinearLayout>
 </layout>
