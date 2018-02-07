@@ -14,6 +14,7 @@ import com.shx.lawwh.R;
 import com.shx.lawwh.base.BaseActivity;
 import com.shx.lawwh.common.CommonValues;
 import com.shx.lawwh.common.LogGloble;
+import com.shx.lawwh.common.SystemConfig;
 import com.shx.lawwh.entity.response.ResponseUserInfo;
 import com.shx.lawwh.libs.dialog.DialogManager;
 import com.shx.lawwh.libs.dialog.ToastUtil;
@@ -75,8 +76,9 @@ public class PdfViewActivity extends BaseActivity implements OnPageChangeListene
         mView.setMinZoom(1.0f);
         mView.setMidZoom(1.5f);
         mView.setMaxZoom(2f);
-//        mUrl = getIntent().getStringExtra("URL");
-        mUrl = "http://60.210.40.196:8086/laws/安全阀的设置和选用.pdf";
+        mUrl = getIntent().getStringExtra("URL");
+
+        mUrl = String.format(SystemConfig.PDFURL, mUrl);
         int index = mUrl.lastIndexOf("/");
         String fileName = mUrl.substring(index);
         DialogManager.getInstance().showProgressDialogNotCancelbale(this);

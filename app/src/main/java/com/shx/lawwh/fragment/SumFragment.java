@@ -111,7 +111,7 @@ public class SumFragment extends Fragment implements HttpCallBack ,BaseQuickAdap
             ToastUtil.getInstance().toastInCenter(getContext(), "该文件不存在！");
             return;
         }
-        if (item.getFilePath().endsWith(".pdf")) {
+        if (item.getFileFrom().equals("pdf")) {
             Intent intent = new Intent(getContext(), PdfViewActivity.class);
             intent.putExtra("URL", item.getFilePath());
             startActivity(intent);

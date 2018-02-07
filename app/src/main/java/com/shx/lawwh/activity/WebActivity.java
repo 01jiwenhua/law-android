@@ -72,15 +72,13 @@ public class WebActivity extends BaseActivity {
         webView = (WebView) findViewById(R.id.webView);
         url = getIntent().getStringExtra("URL");
         if (!url.startsWith("http")) {
-            if (url.startsWith("0")) {
-                url = url.substring(url.indexOf("0") + 1);
-            }
+//            if (url.startsWith("0")) {
+//                url = url.substring(url.indexOf("0") + 1);
+//            }
             url = String.format(SystemConfig.URL, url);
 
             LogGloble.d("url", url + "==");
         }
-//        @TODO 临时测试用
-        url = "http://www.bjsafety.gov.cn/art/2018/2/1/art_612_3641.html";
         init();
     }
 

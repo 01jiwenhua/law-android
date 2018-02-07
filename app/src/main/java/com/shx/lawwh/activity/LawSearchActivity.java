@@ -415,7 +415,7 @@ public class LawSearchActivity extends BaseActivity implements View.OnClickListe
             ToastUtil.getInstance().toastInCenter(this, "该文件不存在！");
             return;
         }
-        if (item.getFilePath().endsWith(".pdf")) {
+        if (item.getFileFrom().equals("pdf")) {
             Intent intent = new Intent(this, PdfViewActivity.class);
             intent.putExtra("URL", item.getFilePath());
             intent.putExtra("typeCode",item.getTypeCode());
