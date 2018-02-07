@@ -34,7 +34,7 @@ public class WebActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.webview_activity);
-        getTopbar().setTitle("详细内容");
+        getTopbar().setTitle("详情");
         getTopbar().setLeftImageListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

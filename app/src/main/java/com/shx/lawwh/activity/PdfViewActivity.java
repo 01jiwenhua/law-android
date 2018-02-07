@@ -43,7 +43,7 @@ public class PdfViewActivity extends BaseActivity implements OnPageChangeListene
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pdf_view);
-        getTopbar().setTitle("详情见");
+        getTopbar().setTitle("详情");
         getTopbar().setRightImageVisibility(View.VISIBLE);
         final String typeCode=getIntent().getStringExtra("typeCode");
         final int id=getIntent().getIntExtra("lawId",-1);

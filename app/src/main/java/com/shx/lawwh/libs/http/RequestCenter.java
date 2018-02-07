@@ -31,6 +31,7 @@ public class RequestCenter {
     public static final String GET_MESSAGE="/user/getMessage";
     public static final String GET_ARCHITECTURE="/distance/getArchitecture";
     public static final String GET_DISTANCE="/distance/getDistance";
+    public static final String GET_NEWLAW="/law/getNewLawList";
 
 
     /**
@@ -113,7 +114,17 @@ public class RequestCenter {
         request.putParams("userId",userId);
         HttpManager.getInstance().doPost(request,callBack);
     }
-
+    /**
+     * 获取最近查询列表
+     * @param
+     * @param callBack
+     */
+    public static void getNewLawList(String userId ,HttpCallBack callBack){
+        ZCRequest request=new ZCRequest();
+        request.setUrl(GET_NEWLAW);
+        request.putParams("userId",userId);
+        HttpManager.getInstance().doPost(request,callBack);
+    }
     /**
      * 获取法律法规列表
      * @param lawRequest

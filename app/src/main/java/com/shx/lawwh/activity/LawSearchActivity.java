@@ -409,7 +409,7 @@ public class LawSearchActivity extends BaseActivity implements View.OnClickListe
 
     @Override
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-        LawResponse item = (LawResponse) lawList.get(position);
+        LawResponse item = (LawResponse) adapter.getData().get(position);
         LogGloble.d("MainFragment", item.getFilePath() + "");
         if (TextUtils.isEmpty(item.getFilePath())) {
             ToastUtil.getInstance().toastInCenter(this, "该文件不存在！");
