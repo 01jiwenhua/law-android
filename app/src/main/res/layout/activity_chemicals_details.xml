@@ -1,126 +1,156 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+
     <include layout="@layout/layout_topbar"></include>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="20dp"
-        android:background="@color/colorWhite"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        >
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="中文名称"
-            android:textColor="@color/colorTextGray"
-            android:textSize="@dimen/textsize_18" />
-        <include layout="@layout/layout_placeview"/>
-        <TextView
-            android:id="@+id/tv_name_cn"
-            android:layout_width="220dp"
-            android:layout_height="wrap_content"
-            android:text="氯对甲苯"
-            android:textColor="@color/colorTextBlack"
-            android:textSize="@dimen/textsize_16"
-
-            />
-    </LinearLayout>
-    <View
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:visibility="visible"
-        android:background="@color/colorLine"></View>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:padding="20dp"
-        android:background="@color/colorWhite"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="英文名称"
-            android:textColor="@color/colorTextGray"
-            android:textSize="@dimen/textsize_18"/>
-        <include layout="@layout/layout_placeview"/>
-        <TextView
-            android:id="@+id/tv_name_en"
-            android:layout_width="220dp"
-            android:textColor="@color/colorTextBlack"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/textsize_16"
-            android:text="氯对甲苯"/>
-    </LinearLayout>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:visibility="visible"
-        android:background="@color/colorLine"></View>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:padding="20dp"
-        android:background="@color/colorWhite"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="CAS编号"
-            android:textColor="@color/colorTextGray"
-            android:textSize="@dimen/textsize_18"/>
-        <include layout="@layout/layout_placeview"/>
-        <TextView
-            android:id="@+id/tv_cas"
-            android:layout_width="wrap_content"
-            android:textColor="@color/colorTextBlack"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/textsize_16"
-            android:text="氯对甲苯"/>
-    </LinearLayout>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:visibility="visible"
-        android:background="@color/colorLine"></View>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:padding="20dp"
-        android:background="@color/colorWhite"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
         >
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="分子式"
-            android:textColor="@color/colorTextGray"
-            android:textSize="@dimen/textsize_18"/>
-        <include layout="@layout/layout_placeview"/>
-        <TextView
-            android:id="@+id/tv_molecularformula"
-            android:layout_width="wrap_content"
-            android:textColor="@color/colorTextBlack"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/textsize_16"
-            android:text="氯对甲苯"/>
-    </LinearLayout>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/colorLine"></View>
-    <ExpandableListView
-        android:id="@+id/list"
-        android:groupIndicator="@null"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"></ExpandableListView>
+            android:orientation="vertical"
+            >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorWhite"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="中文名称"
+                    android:textColor="@color/colorTextGray"
+                    android:textSize="@dimen/textsize_18" />
+
+                <include layout="@layout/layout_placeview" />
+
+                <TextView
+                    android:id="@+id/tv_name_cn"
+                    android:layout_width="220dp"
+                    android:layout_height="wrap_content"
+                    android:text="氯对甲苯"
+                    android:textColor="@color/colorTextBlack"
+                    android:textSize="@dimen/textsize_16"
+
+                    />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorLine"
+                android:visibility="visible"></View>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorWhite"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="英文名称"
+                    android:textColor="@color/colorTextGray"
+                    android:textSize="@dimen/textsize_18" />
+
+                <include layout="@layout/layout_placeview" />
+
+                <TextView
+                    android:id="@+id/tv_name_en"
+                    android:layout_width="220dp"
+                    android:layout_height="wrap_content"
+                    android:text="氯对甲苯"
+                    android:textColor="@color/colorTextBlack"
+                    android:textSize="@dimen/textsize_16" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorLine"
+                android:visibility="visible"></View>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorWhite"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="CAS编号"
+                    android:textColor="@color/colorTextGray"
+                    android:textSize="@dimen/textsize_18" />
+
+                <include layout="@layout/layout_placeview" />
+
+                <TextView
+                    android:id="@+id/tv_cas"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="氯对甲苯"
+                    android:textColor="@color/colorTextBlack"
+                    android:textSize="@dimen/textsize_16" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorLine"
+                android:visibility="visible"></View>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorWhite"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="分子式"
+                    android:textColor="@color/colorTextGray"
+                    android:textSize="@dimen/textsize_18" />
+
+                <include layout="@layout/layout_placeview" />
+
+                <TextView
+                    android:id="@+id/tv_molecularformula"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="氯对甲苯"
+                    android:textColor="@color/colorTextBlack"
+                    android:textSize="@dimen/textsize_16" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorLine"></View>
+            <com.shx.lawwh.view.NoScrollExpandableListView
+                android:id="@+id/list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:groupIndicator="@null">
+
+            </com.shx.lawwh.view.NoScrollExpandableListView>
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>

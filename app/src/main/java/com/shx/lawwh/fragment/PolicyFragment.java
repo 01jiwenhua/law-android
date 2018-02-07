@@ -115,10 +115,16 @@ public class PolicyFragment extends Fragment implements HttpCallBack ,BaseQuickA
         if (item.getFilePath().endsWith(".pdf")) {
             Intent intent = new Intent(getContext(), PdfViewActivity.class);
             intent.putExtra("URL", item.getFilePath());
+            intent.putExtra("typeCode",item.getTypeCode());
+            intent.putExtra("lawId",item.getId());
+            intent.putExtra("is_favorite",1);
             startActivity(intent);
         } else {
             Intent intent = new Intent(getContext(), WebActivity.class);
             intent.putExtra("URL", item.getFilePath());
+            intent.putExtra("typeCode",item.getTypeCode());
+            intent.putExtra("lawId",item.getId());
+            intent.putExtra("is_favorite",1);
             startActivity(intent);
         }
     }

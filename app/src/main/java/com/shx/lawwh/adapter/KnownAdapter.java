@@ -37,9 +37,10 @@ public class KnownAdapter extends BaseQuickAdapter<ChemicalsResponse, KnownAdapt
                     return;
                 }
                     //内容
-                    item.setNameCn(item.getNameCn().replace(mChemicalsRequest.getName(),"<font color='#FF0000'>"+mChemicalsRequest.getName()+"</font>"));
+                    //item.setNameCn();
+                String name=item.getNameCn().replace(mChemicalsRequest.getName(),"<font color='#FF0000'>"+mChemicalsRequest.getName()+"</font>");
 
-               helper.name.setText(Html.fromHtml(item.getNameCn()));
+               helper.name.setText(Html.fromHtml(name));
             }
         }else{
             helper.name.setText(item.getNameCn());

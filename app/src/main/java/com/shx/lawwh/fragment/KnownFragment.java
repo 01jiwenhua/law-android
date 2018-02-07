@@ -163,7 +163,7 @@ public class KnownFragment extends Fragment implements HttpCallBack,BaseQuickAda
 
     @Override
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-        ChemicalsResponse chemicalsResponse= (ChemicalsResponse) adapter.getData().get(position);
+        ChemicalsResponse chemicalsResponse= chemicalsResponseList.get(position);
         Intent intent=new Intent(getContext(), ChemicalsDetailsActivity.class);
         intent.putExtra("chemicals",chemicalsResponse);
         startActivity(intent);

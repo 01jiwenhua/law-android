@@ -29,6 +29,23 @@ public class RequestCenter {
     public static final String ADD_FAVORITE="/law/addFavorite";
     public static final String CANCEL_FAVORITE="/law/cancelFavorite";
     public static final String GET_MESSAGE="/user/getMessage";
+    public static final String GET_ARCHITECTURE="/distance/getArchitecture";
+
+
+    /**
+     *
+     * @param
+     * @param callBack
+     */
+    public static void getArchitecture(String name,String typarentCodepe,String standard,HttpCallBack callBack){
+        ZCRequest request=new ZCRequest();
+        request.setUrl(GET_ARCHITECTURE);
+        request.putParams("name",name);
+        request.putParams("parentCode",typarentCodepe);
+        request.putParams("standard",standard);
+        HttpManager.getInstance().doPost(request,callBack);
+    }
+
 
     /**
      * 得到通知，1为系统消息 2为工作通知

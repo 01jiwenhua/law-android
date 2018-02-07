@@ -19,6 +19,7 @@ import com.shx.lawwh.activity.FireproofingActivity;
 import com.shx.lawwh.activity.LawActivity;
 import com.shx.lawwh.activity.LawSearchActivity;
 import com.shx.lawwh.activity.MainSearchActivity;
+import com.shx.lawwh.activity.NewsActivity;
 import com.shx.lawwh.activity.SSActivity;
 import com.shx.lawwh.adapter.LoopViewPagerAdapter;
 import com.shx.lawwh.base.LayoutValue;
@@ -60,6 +61,7 @@ public class MainFragment extends Fragment implements View.OnClickListener {
         mWxhxp= (LinearLayout) view.findViewById(R.id.layout_whp);
         mFhjj= (LinearLayout) view.findViewById(R.id.layout_fhjjjs);
         searchTv= (TextView) view.findViewById(R.id.tv_search);
+        view.findViewById(R.id.iv_message).setOnClickListener(this);
         searchTv.setOnClickListener(this);
         mFhjj.setOnClickListener(this);
         mFlfg.setOnClickListener(this);
@@ -129,6 +131,9 @@ public class MainFragment extends Fragment implements View.OnClickListener {
                 break;
             case R.id.tv_search:
                 startActivity(new Intent(getActivity(), MainSearchActivity.class));
+                break;
+            case R.id.iv_message:
+                startActivity(new Intent(getActivity(), NewsActivity.class));
                 break;
         }
     }

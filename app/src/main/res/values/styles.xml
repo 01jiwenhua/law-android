@@ -56,6 +56,16 @@
     <style name="TextAppearance.Design.Tab.Custom" parent="TextAppearance.AppCompat.Button">
         <item name="android:textSize">12sp</item>
         <item name="android:textColor">?android:textColorSecondary</item>
+        <item name="tabIndicatorColor">#3CA0F4</item>
+        <item name="tabSelectedTextColor">#3CA0F4</item>
         <item name="textAllCaps">true</item>
+    </style>
+
+    <!--SwitchButton样式-->
+    <style name="SwitchButtonStyle">
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:paddingRight">10dp</item>
+        <item name="android:paddingTop">4dp</item>
+        <item name="android:paddingBottom">4dp</item>
     </style>
 </resources>

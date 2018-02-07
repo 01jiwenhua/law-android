@@ -43,9 +43,10 @@ public class AboutUsActivity extends BaseActivity implements View.OnClickListene
                 startActivity(new Intent(this,VersionActivity.class));
                 break;
             case R.id.ll_opinion:
-                startActivity(new Intent(this,ProtocolActivity.class));
+                startActivity(new Intent(this,OpinionActivity.class));
                 break;
             case R.id.ll_protocol:
+                startActivity(new Intent(this,ProtocolActivity.class));
                 break;
         }
     }

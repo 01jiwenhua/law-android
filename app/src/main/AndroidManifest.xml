@@ -94,6 +94,9 @@
         <activity android:name=".activity.HelpActivity"></activity>
         <activity android:name=".activity.FireproofingActivity"></activity>
         <activity android:name=".activity.GasolineActivity"></activity>
+        <activity android:name=".activity.NewsDetailsActivity"></activity>
+        <activity android:name=".activity.MessageManagerActivity"></activity>
+        <activity android:name=".activity.OpinionActivity"></activity>
     </application>
 
 </manifest>

@@ -50,6 +50,7 @@
                 </LinearLayout>
 
                 <ImageView
+                    android:id="@+id/iv_message"
                     android:layout_width="24dp"
                     android:layout_height="19dp"
                     android:layout_marginLeft="15dp"

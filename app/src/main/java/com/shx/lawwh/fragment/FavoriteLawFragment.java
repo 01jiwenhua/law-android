@@ -132,10 +132,16 @@ public class FavoriteLawFragment extends Fragment implements HttpCallBack, BaseQ
             Intent intent = new Intent(getContext(), PdfViewActivity.class);
 //            intent.putExtra("URL", item.getFilePath());
             intent.putExtra("URL", SystemConfig.BASEURL);
+            intent.putExtra("typeCode",item.getTypeCode());
+            intent.putExtra("lawId",item.getId());
+            intent.putExtra("is_favorite",1);
             startActivity(intent);
         } else {
             Intent intent = new Intent(getContext(), WebActivity.class);
             intent.putExtra("URL", SystemConfig.BASEURL);
+            intent.putExtra("typeCode",item.getTypeCode());
+            intent.putExtra("lawId",item.getId());
+            intent.putExtra("is_favorite",1);
             startActivity(intent);
         }
     }
