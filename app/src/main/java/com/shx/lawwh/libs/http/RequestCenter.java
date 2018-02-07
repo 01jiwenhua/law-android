@@ -30,7 +30,21 @@ public class RequestCenter {
     public static final String CANCEL_FAVORITE="/law/cancelFavorite";
     public static final String GET_MESSAGE="/user/getMessage";
     public static final String GET_ARCHITECTURE="/distance/getArchitecture";
+    public static final String GET_DISTANCE="/distance/getDistance";
 
+
+    /**
+     *
+     * @param
+     * @param callBack
+     */
+    public static void getDistance(int deviceInId,int structureOutId,HttpCallBack callBack){
+        ZCRequest request=new ZCRequest();
+        request.setUrl(GET_DISTANCE);
+        request.putParams("deviceInId",deviceInId);
+        request.putParams("structureOutId",structureOutId);
+        HttpManager.getInstance().doPost(request,callBack);
+    }
 
     /**
      *

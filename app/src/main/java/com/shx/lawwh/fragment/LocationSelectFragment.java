@@ -1,5 +1,6 @@
 package com.shx.lawwh.fragment;
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -12,17 +13,22 @@ import android.widget.TextView;
 
 import com.alibaba.fastjson.JSONObject;
 import com.shx.lawwh.R;
+import com.shx.lawwh.activity.GasolineResultActivity;
 import com.shx.lawwh.databinding.FragmentLocationSelectBinding;
 import com.shx.lawwh.entity.response.ResponseCompanyList;
 import com.shx.lawwh.entity.response.ResponseGasolineItem;
+import com.shx.lawwh.entity.response.ResponseGasolineResult;
 import com.shx.lawwh.libs.http.HttpCallBack;
 import com.shx.lawwh.libs.http.HttpTrowable;
 import com.shx.lawwh.libs.http.MyJSON;
 import com.shx.lawwh.libs.http.RequestCenter;
 import com.shx.lawwh.libs.http.ZCResponse;
 
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import cn.qqtheme.framework.picker.SinglePicker;
 
@@ -39,11 +45,15 @@ public class LocationSelectFragment extends Fragment implements View.OnClickList
     private FragmentLocationSelectBinding mBinding;
     private List<ResponseGasolineItem> items;
     private int index = 0;//默认为0
-    private ResponseGasolineItem selectedItem;//在滑动列表中选中的条目
     //用于记录第一条数据的code和第5条数据的code
     private String oneCode, twoCode,threeCode,fourCode,fiveCode,sixCode,sevenCode,eightCode;
-    private List<String> codeList=new ArrayList<>();
+    //记录第一次得到的两个Key值，在下个页面用
+    private String oneKey,twoKey;
+    //记录最后两条记录的id
+    private int oneId,twoId;
 
+    private Map<Integer,String> conditionOneSelected=new HashMap<>();
+    private Map<Integer,String> conditionTwoSelected=new HashMap<>();
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -56,6 +66,7 @@ public class LocationSelectFragment extends Fragment implements View.OnClickList
         mBinding.llSix.setOnClickListener(this);
         mBinding.llSeven.setOnClickListener(this);
         mBinding.llEight.setOnClickListener(this);
+        mBinding.btnSearch.setOnClickListener(this);
         return mBinding.getRoot();
     }
 
@@ -76,14 +87,20 @@ public class LocationSelectFragment extends Fragment implements View.OnClickList
         switch (v.getId()) {
             case R.id.ll_one:
                 index = 1;
+                mBinding.llTwo.setVisibility(View.GONE);
+                mBinding.llThree.setVisibility(View.GONE);
+                mBinding.llFour.setVisibility(View.GONE);
                 RequestCenter.getArchitecture("", oneCode, "GB 50156-2012", this);
                 break;
             case R.id.ll_two:
                 index = 2;
+                mBinding.llThree.setVisibility(View.GONE);
+                mBinding.llFour.setVisibility(View.GONE);
                 RequestCenter.getArchitecture("", twoCode, "GB 50156-2012", this);
                 break;
             case R.id.ll_three:
                 index = 3;
+                mBinding.llFour.setVisibility(View.GONE);
                 RequestCenter.getArchitecture("", threeCode, "GB 50156-2012", this);
                 break;
             case R.id.ll_four:
@@ -92,19 +109,28 @@ public class LocationSelectFragment extends Fragment implements View.OnClickList
                 break;
             case R.id.ll_five:
                 index = 5;
+                mBinding.llSix.setVisibility(View.GONE);
+                mBinding.llSeven.setVisibility(View.GONE);
+                mBinding.llEight.setVisibility(View.GONE);
                 RequestCenter.getArchitecture("", fiveCode, "GB 50156-2012", this);
                 break;
             case R.id.ll_six:
                 index = 6;
+                mBinding.llSeven.setVisibility(View.GONE);
+                mBinding.llEight.setVisibility(View.GONE);
                 RequestCenter.getArchitecture("", sixCode, "GB 50156-2012", this);
                 break;
             case R.id.ll_seven:
                 index = 7;
+                mBinding.llEight.setVisibility(View.GONE);
                 RequestCenter.getArchitecture("", sevenCode, "GB 50156-2012", this);
                 break;
             case R.id.ll_eight:
                 index = 8;
                 RequestCenter.getArchitecture("", eightCode, "GB 50156-2012", this);
+                break;
+            case R.id.btn_search:
+                RequestCenter.getDistance(oneId,twoId,this);
                 break;
         }
     }
@@ -161,17 +187,25 @@ public class LocationSelectFragment extends Fragment implements View.OnClickList
                         mBinding.tvFiveKey.setText(items.get(1).getName());
                         oneCode = items.get(0).getCode();
                         fiveCode = items.get(1).getCode();
+                        oneKey=items.get(0).getName();
+                        twoKey= items.get(1).getName();
 
                     } else {
                         showItemCchoice();
                     }
                 }
 
-            }else{
-                if(index<4){
-
-                }
             }
+        }else if(requestUrl.equals(RequestCenter.GET_DISTANCE)){
+            JSONObject mainData = respose.getMainData();
+            ResponseGasolineResult responseGasolineResult=MyJSON.parseObject(mainData.getString("distance"),ResponseGasolineResult.class);
+            Intent intent=new Intent(getActivity(), GasolineResultActivity.class);
+            intent.putExtra("result",responseGasolineResult);
+            intent.putExtra("oneCondition", (Serializable) conditionOneSelected);
+            intent.putExtra("twoCondition", (Serializable) conditionTwoSelected);
+            intent.putExtra("oneKey",oneKey);
+            intent.putExtra("twoKey",twoKey);
+            startActivity(intent);
         }
         return false;
     }
@@ -188,8 +222,19 @@ public class LocationSelectFragment extends Fragment implements View.OnClickList
             @Override
             public void onItemPicked(int i, ResponseGasolineItem item) {
                 currentValue.setText(item.getName());
+                if(index<5) {
+                    conditionOneSelected.put(index, item.getName());
+                }else{
+                    conditionTwoSelected.put(index,item.getName());
+                }
                 if(item.getLevel()<6){
                     layout.setVisibility(View.VISIBLE);
+                }else{
+                    if(index<5){
+                        oneId=item.getId();
+                    }else{
+                        twoId=item.getId();
+                    }
                 }
                 nextKey.setText(item.getName());
                 switch (index){
@@ -234,6 +279,18 @@ public class LocationSelectFragment extends Fragment implements View.OnClickList
             @Override
             public void onItemPicked(int index, ResponseGasolineItem item) {
                 currentValue.setText(item.getName());
+                if(index<5) {
+                    conditionOneSelected.put(index, item.getName());
+                }else{
+                    conditionTwoSelected.put(index,item.getName());
+                }
+                if(item.getLevel()==6){
+                    if(index<5){
+                        oneId=item.getId();
+                    }else{
+                        twoId=item.getId();
+                    }
+                }
                 switch (index){
                     case 1:
                         twoCode=item.getCode();
