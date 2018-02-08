@@ -21,7 +21,6 @@ import com.shx.lawwh.activity.GasolineActivity;
 
 public class StandardSearchFragment extends Fragment implements View.OnClickListener {
 
-    private LinearLayout firstLL,secondLL,thirdLL;
 
     @Nullable
     @Override

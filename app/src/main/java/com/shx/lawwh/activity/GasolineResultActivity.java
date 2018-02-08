@@ -10,6 +10,7 @@ import com.shx.lawwh.base.BaseActivity;
 import com.shx.lawwh.databinding.ActivityGasolineResultBinding;
 import com.shx.lawwh.entity.response.ResponseGasolineResult;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -41,23 +42,28 @@ public class GasolineResultActivity extends BaseActivity {
         mBinding.tvOneKey.setText(onekey+":");
         mBinding.tvTwoKey.setText(twokey+":");
         mBinding.tvOneValue.setText(oneMap.get(1));
-        mBinding.tvTwoValue.setText(twoMap.get(1));
-        StringBuilder oneCondition=new StringBuilder();
-        StringBuilder twoCondition=new StringBuilder();
-        Iterator<Map.Entry<Integer, String>> iterator = oneMap.entrySet().iterator();
-        while ((iterator.hasNext())){
-            Map.Entry<Integer, String> next = iterator.next();
-            oneCondition.append(next.getValue()+">>");
-        }
-        Iterator<Map.Entry<Integer, String>> iterator1 = twoMap.entrySet().iterator();
-        while(iterator1.hasNext()){
-            Map.Entry<Integer, String> next = iterator1.next();
-            twoCondition.append(next.getValue()+">>");
-        }
-        mBinding.tvOneCondition.setText(oneCondition.toString());
-        mBinding.tvTwoCondition.setText(twoCondition.toString());
+        mBinding.tvTwoValue.setText(twoMap.get(5));
+        mBinding.tvOneCondition.setText(sortKey(oneMap));
+        mBinding.tvTwoCondition.setText(sortKey(twoMap));
         mBinding.tvDistance.setText(responseGasolineResult.getDistance()+"m");
         mBinding.tvStandard.setText(responseGasolineResult.getStandard());
         mBinding.tvDeclare.setText(responseGasolineResult.getInstruction());
+    }
+
+    /**
+     * 根据map中的key值排序，然后把value拼接起来
+     * */
+    private String sortKey(HashMap<Integer, String> hashMap){
+        Object[] key_arr =  hashMap.keySet().toArray();
+        StringBuilder stringBuilder=new StringBuilder();
+        Arrays.sort(key_arr);
+        for(int i=0;i<key_arr.length;i++){
+            Object key=key_arr[i];
+            stringBuilder.append(hashMap.get(key));
+            if((1+i)!=key_arr.length) {
+                stringBuilder.append(">>");
+            }
+        }
+        return stringBuilder.toString();
     }
 }
