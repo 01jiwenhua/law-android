@@ -34,6 +34,15 @@ public class LawResponse implements Serializable{
     private long publishTime;
     private String typeCode;
     private int is_favorite;
+    private String fileFrom;
+
+    public String getFileFrom() {
+        return fileFrom;
+    }
+
+    public void setFileFrom(String fileFrom) {
+        this.fileFrom = fileFrom;
+    }
 
     public int getIs_favorite() {
         return is_favorite;

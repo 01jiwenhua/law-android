@@ -255,7 +255,25 @@
                         android:textSize="17dp" />
                 </LinearLayout>
             </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="最近查询记录"
+                android:textColor="@color/colorTextBlack"
+                android:layout_margin="10dp"
+                android:textSize="@dimen/textsize_16"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@color/colorTextGray"></View>
+            <com.shx.lawwh.view.NoScrollListView
+                android:id="@+id/lv_new"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"></com.shx.lawwh.view.NoScrollListView>
 
         </LinearLayout>
+
     </ScrollView>
 </LinearLayout>

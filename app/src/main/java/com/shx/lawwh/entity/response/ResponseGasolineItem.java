@@ -69,4 +69,9 @@ public class ResponseGasolineItem {
     public void setStandard(String standard) {
         this.standard = standard;
     }
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }

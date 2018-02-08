@@ -97,6 +97,7 @@
         <activity android:name=".activity.NewsDetailsActivity"></activity>
         <activity android:name=".activity.MessageManagerActivity"></activity>
         <activity android:name=".activity.OpinionActivity"></activity>
+        <activity android:name=".activity.GasolineResultActivity"></activity>
     </application>
 
 </manifest>

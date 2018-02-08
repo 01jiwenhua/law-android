@@ -111,7 +111,7 @@ public class StandardFragment extends Fragment implements HttpCallBack ,BaseQuic
             ToastUtil.getInstance().toastInCenter(getContext(), "该文件不存在！");
             return;
         }
-        if (item.getFilePath().endsWith(".pdf")) {
+        if (item.getFileFrom().equals("pdf")) {
             Intent intent = new Intent(getContext(), PdfViewActivity.class);
             intent.putExtra("URL", item.getFilePath());
             intent.putExtra("typeCode",item.getTypeCode());
