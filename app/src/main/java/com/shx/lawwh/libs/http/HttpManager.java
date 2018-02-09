@@ -190,6 +190,7 @@ public class HttpManager {
 
                     @Override
                     public void onResponse(Object result, int id) {
+                        LogGloble.d("http：", "url--" + request.getUrl()  + "--result--" + result);
                         ZCResponse response = null;
                         try {
                             response = MyJSON.parseObject((String) result, ZCResponse.class);

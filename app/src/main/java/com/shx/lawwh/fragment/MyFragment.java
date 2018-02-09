@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import com.bumptech.glide.Glide;
 import com.shx.lawwh.R;
 import com.shx.lawwh.activity.AboutUsActivity;
 import com.shx.lawwh.activity.HelpActivity;
@@ -27,6 +28,7 @@ import com.shx.lawwh.libs.http.MyJSON;
 import com.shx.lawwh.libs.http.RequestCenter;
 import com.shx.lawwh.libs.http.ZCResponse;
 import com.shx.lawwh.utils.DeviceUtils;
+import com.shx.lawwh.utils.GlideCircleTransform;
 import com.shx.lawwh.utils.SharedPreferencesUtil;
 
 import org.json.JSONObject;
@@ -56,6 +58,7 @@ public class MyFragment extends Fragment implements View.OnClickListener,HttpCal
         super.onResume();
         ResponseUserInfo userInfo= (ResponseUserInfo) SharedPreferencesUtil.readObject(getActivity(), CommonValues.USERINFO);
         myBinding.setUserInfo(userInfo);
+        Glide.with(this).load(userInfo.getHead_icon()).placeholder(R.drawable.ic_avatar).transform(new GlideCircleTransform(getActivity())).into(myBinding.ivAvatar);
     }
 
     private void initView(View view){

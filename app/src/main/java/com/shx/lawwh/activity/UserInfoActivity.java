@@ -16,10 +16,12 @@ import android.support.annotation.Nullable;
 import android.view.View;
 
 import com.alibaba.fastjson.JSONObject;
+import com.bumptech.glide.Glide;
 import com.shx.lawwh.R;
 import com.shx.lawwh.base.BaseActivity;
 import com.shx.lawwh.base.UserInfo;
 import com.shx.lawwh.common.CommonValues;
+import com.shx.lawwh.common.SystemConfig;
 import com.shx.lawwh.databinding.ActivityUserInfoBinding;
 import com.shx.lawwh.entity.response.ResponseCompanyList;
 import com.shx.lawwh.entity.response.ResponseDepartmentList;
@@ -31,6 +33,8 @@ import com.shx.lawwh.libs.http.RequestCenter;
 import com.shx.lawwh.libs.http.ZCResponse;
 import com.shx.lawwh.utils.BitmapTools;
 import com.shx.lawwh.utils.DateUtil;
+import com.shx.lawwh.utils.GlideCircleTransform;
+import com.shx.lawwh.utils.LogGloble;
 import com.shx.lawwh.utils.RegexpUtils;
 import com.shx.lawwh.utils.SharedPreferencesUtil;
 import com.shx.lawwh.view.AddressInitTask;
@@ -48,6 +52,7 @@ import cn.qqtheme.framework.picker.OptionPicker;
 import cn.qqtheme.framework.picker.SinglePicker;
 import cn.qqtheme.framework.widget.WheelView;
 
+import static com.shx.lawwh.base.UserInfo.getUserInfoInstance;
 import static com.shx.lawwh.utils.SharedPreferencesUtil.readObject;
 
 /**
@@ -224,7 +229,7 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
                             mAvatarFile = BitmapTools.compress(mAvatarPath);
                             if (mAvatarFile != null) {
                                 //这里写上传图片的接口
-                                RequestCenter.uploadAvatar(UserInfo.getUserInfoInstance().getId(),mAvatarFile,this);
+                                RequestCenter.uploadAvatar(getUserInfoInstance().getId(),mAvatarFile,this);
                             }
                         } catch (IOException e) {
                             e.printStackTrace();
@@ -239,7 +244,7 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
                             mAvatarFile = BitmapTools.compress(mAvatarPath);
                             if (mAvatarFile != null) {
                                 //这里写上传图片的接口
-                                RequestCenter.uploadAvatar(UserInfo.getUserInfoInstance().getId(),mAvatarFile,this);
+                                RequestCenter.uploadAvatar(getUserInfoInstance().getId(),mAvatarFile,this);
                             }
                         } catch (IOException e) {
                             e.printStackTrace();
@@ -404,6 +409,19 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
             JSONObject mainData = respose.getMainData();
             ResponseUserInfo userInfo=MyJSON.parseObject(mainData.getString("userInfo"),ResponseUserInfo.class);
             SharedPreferencesUtil.saveObject(UserInfoActivity.this, CommonValues.USERINFO,userInfo);
+        }else if(requestUrl.equals(RequestCenter.UPLOAD_AVATAR)){
+            JSONObject mainData = respose.getMainData();
+            ResponseUserInfo userInfo=UserInfo.getUserInfoInstance();
+            String str = mainData.getString("avatar");
+            JSONObject jsonObject = MyJSON.parseObject(str);
+            String path=jsonObject.getString("path");
+            String newPath=path.replace("\\","/");
+            String url= SystemConfig.BASEURL+newPath;
+            userInfo.setHead_icon(url);
+            SharedPreferencesUtil.saveObject(this, CommonValues.USERINFO, userInfo);
+            LogGloble.d("aaaa",url);
+            Glide.with(this).load(url).placeholder(R.drawable.ic_avatar).transform(new GlideCircleTransform(this)).into(mBinding.ivAvatar);
+            mAvatarFile.delete();
         }
         return super.doSuccess(respose, requestUrl);
     }

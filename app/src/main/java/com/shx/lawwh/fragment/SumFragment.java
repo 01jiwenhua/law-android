@@ -11,6 +11,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.alibaba.fastjson.JSONObject;
@@ -43,7 +44,7 @@ public class SumFragment extends Fragment implements HttpCallBack, BaseQuickAdap
     private SwipeRefreshLayout refreshLayout;
     private LawRequest mRequest;
     private List<LawResponse> lawList = new ArrayList<>();
-    private RelativeLayout emptyRL;
+    private LinearLayout emptyRL;
 
     @Nullable
     @Override
@@ -56,7 +57,7 @@ public class SumFragment extends Fragment implements HttpCallBack, BaseQuickAdap
     private void initView(View view) {
         refreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.layout_refresh);
         mRecyclerView = (RecyclerView) view.findViewById(R.id.rv_list);
-        emptyRL = (RelativeLayout) view.findViewById(R.id.rl_empty);
+        emptyRL = (LinearLayout) view.findViewById(R.id.rl_empty);
         LinearLayoutManager manager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(manager);
 
@@ -86,6 +87,11 @@ public class SumFragment extends Fragment implements HttpCallBack, BaseQuickAdap
             mAdapter.setLight(true, mRequest);
             mRecyclerView.setAdapter(mAdapter);
             mAdapter.setOnItemClickListener(this);
+            if(lawList.size()==0){
+                emptyRL.setVisibility(View.VISIBLE);
+            }else{
+                emptyRL.setVisibility(View.GONE);
+            }
         }
 
         return false;
