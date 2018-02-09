@@ -45,12 +45,17 @@ public class MyFragment extends Fragment implements View.OnClickListener,HttpCal
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        ResponseUserInfo userInfo= (ResponseUserInfo) SharedPreferencesUtil.readObject(getActivity(), CommonValues.USERINFO);
         myBinding= DataBindingUtil.inflate(inflater,R.layout.fragment_my,container,false);
-        myBinding.setUserInfo(userInfo);
         View view=myBinding.getRoot();
         initView(view);
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        ResponseUserInfo userInfo= (ResponseUserInfo) SharedPreferencesUtil.readObject(getActivity(), CommonValues.USERINFO);
+        myBinding.setUserInfo(userInfo);
     }
 
     private void initView(View view){

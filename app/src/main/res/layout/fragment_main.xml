@@ -95,7 +95,7 @@
                         android:layout_marginBottom="10dp"
                         android:layout_marginTop="10dp"
                         android:gravity="center"
-                        android:text="法律法规      查询"
+                        android:text="法律法规\n查询"
                         android:textColor="@color/colorWhite"
                         android:textSize="17dp" />
                 </LinearLayout>
@@ -123,7 +123,7 @@
                         android:layout_marginBottom="10dp"
                         android:layout_marginTop="10dp"
                         android:gravity="center"
-                        android:text="标准规范      查询"
+                        android:text="标准规范\n查询"
                         android:textColor="@color/colorWhite"
                         android:textSize="17dp" />
                 </LinearLayout>
@@ -155,7 +155,7 @@
                         android:layout_marginBottom="10dp"
                         android:layout_marginTop="10dp"
                         android:gravity="center"
-                        android:text="政策文件      查询"
+                        android:text="政策文件\n查询"
                         android:textColor="@color/colorWhite"
                         android:textSize="17dp" />
                 </LinearLayout>
@@ -195,7 +195,7 @@
                         android:layout_marginBottom="10dp"
                         android:layout_marginTop="10dp"
                         android:gravity="center"
-                        android:text="危化品          查询"
+                        android:text="危化品\n查询"
                         android:textColor="@color/colorWhite"
                         android:textSize="17dp" />
                 </LinearLayout>
@@ -224,7 +224,7 @@
                         android:layout_marginBottom="10dp"
                         android:layout_marginTop="10dp"
                         android:gravity="center"
-                        android:text="防火间距       计算"
+                        android:text="防火间距\n计算"
                         android:textColor="@color/colorWhite"
                         android:textSize="17dp" />
                 </LinearLayout>
@@ -250,7 +250,7 @@
                         android:layout_marginBottom="10dp"
                         android:layout_marginTop="10dp"
                         android:gravity="center"
-                        android:text="新功能        待开发"
+                        android:text="新功能\n待开发"
                         android:textColor="#D6D6D6"
                         android:textSize="17dp" />
                 </LinearLayout>
@@ -258,16 +258,16 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="最近查询记录"
+                android:text="最近更新记录"
                 android:textColor="@color/colorTextBlack"
-                android:layout_margin="10dp"
-                android:textSize="@dimen/textsize_16"/>
+                android:layout_margin="20dp"
+                android:textSize="@dimen/textsize_18"/>
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:background="@color/colorTextGray"></View>
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:background="#C8C7CC"></View>
             <com.shx.lawwh.view.NoScrollListView
                 android:id="@+id/lv_new"
                 android:layout_width="match_parent"

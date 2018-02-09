@@ -44,7 +44,7 @@ public class ResponseUserInfo  implements Serializable{
     private String phone;
     private String real_name;
     private int region_id;
-    private int sex;
+    private int sex=-1;
 
 
 

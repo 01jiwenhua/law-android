@@ -87,7 +87,7 @@ public class PdfViewActivity extends BaseActivity implements OnPageChangeListene
         mUrl = String.format(SystemConfig.PDFURL, mUrl);
         int index = mUrl.lastIndexOf("/");
         String fileName = mUrl.substring(index);
-        DialogManager.getInstance().showProgressDialogNotCancelbale(this);
+        DialogManager.getInstance().showProgressDialog(this);
         new Thread(new Runnable() {
             @Override
             public void run() {

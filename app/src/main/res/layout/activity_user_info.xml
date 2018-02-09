@@ -77,15 +77,19 @@
 
             <include layout="@layout/layout_placeview" />
 
-            <TextView
+            <EditText
                 android:id="@+id/et_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{userInfo.real_name}"
+                android:text="@={userInfo.real_name}"
                 android:textSize="@dimen/textsize_18"
+                android:background="@null"
                 />
         </LinearLayout>
-
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorLine" />
         <LinearLayout
             android:id="@+id/ll_sex"
             android:layout_width="match_parent"
@@ -123,10 +127,6 @@
             android:layout_height="1dp"
             android:background="@color/colorLine" />
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/colorLine" />
         <LinearLayout
             android:id="@+id/ll_licenseType"
             android:layout_width="match_parent"
@@ -183,13 +183,14 @@
 
             <include layout="@layout/layout_placeview" />
 
-            <TextView
+            <EditText
                 android:id="@+id/et_idNo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@null"
                 android:textSize="@dimen/textsize_18"
-                android:text="@{userInfo.id_no}"
+                android:tag="@string/reg_identitycard"
+                android:text="@={userInfo.id_no}"
                 />
         </LinearLayout>
 
@@ -217,15 +218,55 @@
 
             <include layout="@layout/layout_placeview" />
 
-            <TextView
+            <EditText
                 android:id="@+id/et_mail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/textsize_18"
-                android:text="@{userInfo.email}"
+                android:text="@={userInfo.email}"
+                android:background="@null"
+                android:tag="@string/reg_mail"
                 />
         </LinearLayout>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:background="@color/colorLine" />
 
+        <LinearLayout
+            android:id="@+id/ll_phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="手机号码"
+                android:textColor="#808080"
+                android:textSize="@dimen/textsize_18"
+                />
+
+            <include layout="@layout/layout_placeview" />
+
+            <TextView
+                android:id="@+id/tv_phone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/textsize_18"
+                android:text="@{userInfo.phone}"
+                android:ellipsize="end"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:text=">"
+                android:textColor="#BABABA"
+                android:textSize="@dimen/textsize_20" />
+        </LinearLayout>
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="5dp"
