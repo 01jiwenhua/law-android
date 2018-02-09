@@ -19,6 +19,7 @@ import com.shx.lawwh.activity.SettingActivity;
 import com.shx.lawwh.activity.UpdateActivity;
 import com.shx.lawwh.activity.UserInfoActivity;
 import com.shx.lawwh.common.CommonValues;
+import com.shx.lawwh.common.SystemConfig;
 import com.shx.lawwh.databinding.FragmentMyBinding;
 import com.shx.lawwh.entity.response.ResponseUserInfo;
 import com.shx.lawwh.entity.response.ResponseVersionInfo;
@@ -58,7 +59,7 @@ public class MyFragment extends Fragment implements View.OnClickListener,HttpCal
         super.onResume();
         ResponseUserInfo userInfo= (ResponseUserInfo) SharedPreferencesUtil.readObject(getActivity(), CommonValues.USERINFO);
         myBinding.setUserInfo(userInfo);
-        Glide.with(this).load(userInfo.getHead_icon()).placeholder(R.drawable.ic_avatar).transform(new GlideCircleTransform(getActivity())).into(myBinding.ivAvatar);
+        Glide.with(this).load(SystemConfig.BASEURL+userInfo.getHead_icon()).placeholder(R.drawable.ic_avatar).transform(new GlideCircleTransform(getActivity())).into(myBinding.ivAvatar);
     }
 
     private void initView(View view){

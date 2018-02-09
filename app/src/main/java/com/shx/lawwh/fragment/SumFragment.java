@@ -44,7 +44,6 @@ public class SumFragment extends Fragment implements HttpCallBack, BaseQuickAdap
     private SwipeRefreshLayout refreshLayout;
     private LawRequest mRequest;
     private List<LawResponse> lawList = new ArrayList<>();
-    private LinearLayout emptyRL;
 
     @Nullable
     @Override
@@ -57,7 +56,6 @@ public class SumFragment extends Fragment implements HttpCallBack, BaseQuickAdap
     private void initView(View view) {
         refreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.layout_refresh);
         mRecyclerView = (RecyclerView) view.findViewById(R.id.rv_list);
-        emptyRL = (LinearLayout) view.findViewById(R.id.rl_empty);
         LinearLayoutManager manager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(manager);
 
@@ -87,11 +85,6 @@ public class SumFragment extends Fragment implements HttpCallBack, BaseQuickAdap
             mAdapter.setLight(true, mRequest);
             mRecyclerView.setAdapter(mAdapter);
             mAdapter.setOnItemClickListener(this);
-            if(lawList.size()==0){
-                emptyRL.setVisibility(View.VISIBLE);
-            }else{
-                emptyRL.setVisibility(View.GONE);
-            }
         }
 
         return false;

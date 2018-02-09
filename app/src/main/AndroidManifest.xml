@@ -54,7 +54,11 @@
         <activity android:name=".activity.PdfViewActivity" />
         <activity android:name=".activity.WebActivity" />
         <activity android:name=".activity.LoadingActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name=".activity.LawActivity" >
 
@@ -72,11 +76,7 @@
         </activity>
 
       <activity android:name=".activity.LoginActivity">
-          <intent-filter>
-              <action android:name="android.intent.action.MAIN" />
 
-              <category android:name="android.intent.category.LAUNCHER" />
-          </intent-filter>
         </activity>
         <activity android:name=".activity.CompleteInfoActivity">
             <!--<intent-filter>-->

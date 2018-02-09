@@ -2,6 +2,8 @@ package com.shx.lawwh.entity.response;
 
 import java.io.Serializable;
 
+import static android.R.attr.path;
+
 /**
  * Created by zhou on 2018/2/1.
  */
@@ -48,7 +50,8 @@ public class ResponseUserInfo  implements Serializable{
     private String head_icon;
 
     public String getHead_icon() {
-        return head_icon;
+
+        return head_icon.replace("\\","/");
     }
 
     public void setHead_icon(String head_icon) {

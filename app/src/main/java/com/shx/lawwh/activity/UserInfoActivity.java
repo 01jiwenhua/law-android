@@ -106,6 +106,7 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
         });
         initListerner();
         mAvatarPath = getApplicationContext().getFilesDir().getAbsolutePath() + "/avatar.jpg";
+        Glide.with(this).load(SystemConfig.BASEURL+userInfo.getHead_icon()).placeholder(R.drawable.ic_avatar).transform(new GlideCircleTransform(this)).into(mBinding.ivAvatar);
     }
 
     private void initListerner() {
