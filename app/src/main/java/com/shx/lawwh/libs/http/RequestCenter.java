@@ -32,6 +32,20 @@ public class RequestCenter {
     public static final String GET_ARCHITECTURE="/distance/getArchitecture";
     public static final String GET_DISTANCE="/distance/getDistance";
     public static final String GET_NEWLAW="/law/getNewLawList";
+    public static final String GET_NEWVERSION="/user/getNewVersion";
+
+
+    /**
+     * 得到新版本号
+     * @param
+     * @param callBack
+     */
+    public static void getNewVersion(String versionCode,HttpCallBack callBack){
+        ZCRequest request=new ZCRequest();
+        request.setUrl(GET_NEWVERSION);
+        request.putParams("versionCode",versionCode);
+        HttpManager.getInstance().doPost(request,callBack);
+    }
 
 
     /**
