@@ -38,6 +38,7 @@ public class RequestCenter {
     public static final String GET_NEWVERSION="/user/getNewVersion";
     public static final String SAVE_ADVICE="/system/saveAdvice";
     public static final String CHANGE_PHONE="/user/changePhone";
+    public static final String UPLOAD_AVATAR="/user/uploadAvatar";
 
 
     /**
@@ -53,6 +54,19 @@ public class RequestCenter {
         request.setUrl(CHANGE_PHONE);
         request.putParams("phone",phone);
         request.putParams("verifyCode",verifyCode);
+        HttpManager.getInstance().doPost(request,callBack);
+    }
+
+    /**
+     * 上传头像
+     *
+     * @param userId
+     * @param callBack
+     */
+    public static void uploadAvatar(String userId, HttpCallBack callBack){
+        ZCRequest request=new ZCRequest();
+        request.setUrl(UPLOAD_AVATAR);
+        request.putParams("userId",userId);
         HttpManager.getInstance().doPost(request,callBack);
     }
 
