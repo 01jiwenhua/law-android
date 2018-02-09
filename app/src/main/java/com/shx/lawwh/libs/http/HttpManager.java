@@ -161,7 +161,7 @@ public class HttpManager {
             return;
         }
         String url = SystemConfig.BASEURL+request.getUrl();
-        String requestStr = MyJSON.toJSONString(request);
+        String requestStr = MyJSON.toJSONString(request.getParams());
         LogGloble.d("http",requestStr);
         // 使用multipart表单上传文件
         PostFormBuilder builder= OkHttpUtils.post();
