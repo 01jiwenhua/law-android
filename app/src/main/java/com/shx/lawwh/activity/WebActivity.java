@@ -3,6 +3,7 @@ package com.shx.lawwh.activity;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.webkit.WebSettings;
@@ -34,7 +35,7 @@ public class WebActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.webview_activity);
-        getTopbar().setTitle("详细内容");
+        getTopbar().setTitle("详情");
         getTopbar().setLeftImageListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -71,6 +72,7 @@ public class WebActivity extends BaseActivity {
         });
         webView = (WebView) findViewById(R.id.webView);
         url = getIntent().getStringExtra("URL");
+//        url="http://192.168.1.127:8080/files/11.html";
         if (!url.startsWith("http")) {
 //            if (url.startsWith("0")) {
 //                url = url.substring(url.indexOf("0") + 1);
@@ -136,18 +138,27 @@ public class WebActivity extends BaseActivity {
 
     void initSettings(WebSettings webSettings) {
         webSettings.setJavaScriptEnabled(true);
-
-
-// User settings
-
-        webSettings.setJavaScriptEnabled(true);
+        webSettings.setRenderPriority(WebSettings.RenderPriority.HIGH);
+        webSettings.setCacheMode(WebSettings.LOAD_DEFAULT);  //设置 缓存模式
+        // 开启 DOM storage API 功能
+        webSettings.setDomStorageEnabled(true);
+        //开启 database storage API 功能
+        webSettings.setDatabaseEnabled(true);
+        String cacheDirPath = getFilesDir().getAbsolutePath()+"webCache";
+        //      String cacheDirPath = getCacheDir().getAbsolutePath()+Constant.APP_DB_DIRNAME;
+        Log.i("WEB", "cacheDirPath="+cacheDirPath);
+        //设置数据库缓存路径
+        webSettings.setDatabasePath(cacheDirPath);
+        //设置  Application Caches 缓存目录
+        webSettings.setAppCachePath(cacheDirPath);
+        //开启 Application Caches 功能
+        webSettings.setAppCacheEnabled(true);
         webSettings.setJavaScriptCanOpenWindowsAutomatically(true);
         webSettings.setUseWideViewPort(true);//关键点
 
         webSettings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
 
         webSettings.setDisplayZoomControls(false);
-        webSettings.setJavaScriptEnabled(true); // 设置支持javascript脚本
         webSettings.setAllowFileAccess(true); // 允许访问文件
         webSettings.setBuiltInZoomControls(true); // 设置显示缩放按钮
         webSettings.setSupportZoom(true); // 支持缩放

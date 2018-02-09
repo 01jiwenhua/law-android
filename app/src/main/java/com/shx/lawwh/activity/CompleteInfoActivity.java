@@ -54,6 +54,7 @@ public class CompleteInfoActivity extends BaseActivity implements View.OnClickLi
     private List<ResponseDepartmentList> departmentList;
     private List<ResponseJobList> jobList;
     private View registerTip;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

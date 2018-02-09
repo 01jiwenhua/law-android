@@ -31,6 +31,7 @@ public class ChemicalsDetailsActivity extends BaseActivity {
     private ExpandableListView mListView;
     private boolean isCollect= false;
     private int is_favorite=-1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

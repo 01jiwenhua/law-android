@@ -18,6 +18,7 @@ import com.shx.lawwh.databinding.FragmentLocationSelectBinding;
 import com.shx.lawwh.entity.response.ResponseCompanyList;
 import com.shx.lawwh.entity.response.ResponseGasolineItem;
 import com.shx.lawwh.entity.response.ResponseGasolineResult;
+import com.shx.lawwh.libs.dialog.ToastUtil;
 import com.shx.lawwh.libs.http.HttpCallBack;
 import com.shx.lawwh.libs.http.HttpTrowable;
 import com.shx.lawwh.libs.http.MyJSON;
@@ -46,14 +47,15 @@ public class LocationSelectFragment extends Fragment implements View.OnClickList
     private List<ResponseGasolineItem> items;
     private int index = 0;//默认为0
     //用于记录第一条数据的code和第5条数据的code
-    private String oneCode, twoCode,threeCode,fourCode,fiveCode,sixCode,sevenCode,eightCode;
+    private String oneCode, twoCode, threeCode, fourCode, fiveCode, sixCode, sevenCode, eightCode;
     //记录第一次得到的两个Key值，在下个页面用
-    private String oneKey,twoKey;
+    private String oneKey, twoKey;
     //记录最后两条记录的id
-    private int oneId,twoId;
+    private int oneId, twoId;
 
-    private Map<Integer,String> conditionOneSelected=new HashMap<>();
-    private Map<Integer,String> conditionTwoSelected=new HashMap<>();
+    private Map<Integer, String> conditionOneSelected = new HashMap<>();
+    private Map<Integer, String> conditionTwoSelected = new HashMap<>();
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -79,7 +81,7 @@ public class LocationSelectFragment extends Fragment implements View.OnClickList
 
     private void initData() {
         items = new ArrayList<>();
-        RequestCenter.getArchitecture("站址选择", "站址选择", "GB 50156-2012", this);
+        RequestCenter.getArchitecture("站址选择", "", "GB 50156-2012", this);
     }
 
     @Override
@@ -130,7 +132,7 @@ public class LocationSelectFragment extends Fragment implements View.OnClickList
                 RequestCenter.getArchitecture("", eightCode, "GB 50156-2012", this);
                 break;
             case R.id.btn_search:
-                RequestCenter.getDistance(oneId,twoId,this);
+                RequestCenter.getDistance(oneId, twoId, this);
                 break;
         }
     }
@@ -187,8 +189,8 @@ public class LocationSelectFragment extends Fragment implements View.OnClickList
                         mBinding.tvFiveKey.setText(items.get(1).getName());
                         oneCode = items.get(0).getCode();
                         fiveCode = items.get(1).getCode();
-                        oneKey=items.get(0).getName();
-                        twoKey= items.get(1).getName();
+                        oneKey = items.get(0).getName();
+                        twoKey = items.get(1).getName();
 
                     } else {
                         showItemCchoice();
@@ -196,16 +198,20 @@ public class LocationSelectFragment extends Fragment implements View.OnClickList
                 }
 
             }
-        }else if(requestUrl.equals(RequestCenter.GET_DISTANCE)){
+        } else if (requestUrl.equals(RequestCenter.GET_DISTANCE)) {
             JSONObject mainData = respose.getMainData();
-            ResponseGasolineResult responseGasolineResult=MyJSON.parseObject(mainData.getString("distance"),ResponseGasolineResult.class);
-            Intent intent=new Intent(getActivity(), GasolineResultActivity.class);
-            intent.putExtra("result",responseGasolineResult);
-            intent.putExtra("oneCondition", (Serializable) conditionOneSelected);
-            intent.putExtra("twoCondition", (Serializable) conditionTwoSelected);
-            intent.putExtra("oneKey",oneKey);
-            intent.putExtra("twoKey",twoKey);
-            startActivity(intent);
+            ResponseGasolineResult responseGasolineResult = MyJSON.parseObject(mainData.getString("distance"), ResponseGasolineResult.class);
+            if (responseGasolineResult == null) {
+                ToastUtil.getInstance().toastInCenter(getActivity(), "数据不存在！");
+            } else {
+                Intent intent = new Intent(getActivity(), GasolineResultActivity.class);
+                intent.putExtra("result", responseGasolineResult);
+                intent.putExtra("oneCondition", (Serializable) conditionOneSelected);
+                intent.putExtra("twoCondition", (Serializable) conditionTwoSelected);
+                intent.putExtra("oneKey", oneKey);
+                intent.putExtra("twoKey", twoKey);
+                startActivity(intent);
+            }
         }
         return false;
     }
@@ -222,42 +228,42 @@ public class LocationSelectFragment extends Fragment implements View.OnClickList
             @Override
             public void onItemPicked(int i, ResponseGasolineItem item) {
                 currentValue.setText(item.getName());
-                if(index<5) {
+                if (index < 5) {
                     conditionOneSelected.put(index, item.getName());
-                }else{
-                    conditionTwoSelected.put(index,item.getName());
+                } else {
+                    conditionTwoSelected.put(index, item.getName());
                 }
-                if(item.getLevel()<6){
+                if (item.getLevel() < 6) {
                     layout.setVisibility(View.VISIBLE);
-                }else{
-                    if(index<5){
-                        oneId=item.getId();
-                    }else{
-                        twoId=item.getId();
+                } else {
+                    if (index < 5) {
+                        oneId = item.getId();
+                    } else {
+                        twoId = item.getId();
                     }
                 }
                 nextKey.setText(item.getName());
-                switch (index){
+                switch (index) {
                     case 1:
-                        twoCode=item.getCode();
+                        twoCode = item.getCode();
                         break;
                     case 2:
-                        threeCode=item.getCode();
+                        threeCode = item.getCode();
                         break;
                     case 3:
-                        fourCode=item.getCode();
+                        fourCode = item.getCode();
                         break;
                     case 4:
-                        fiveCode=item.getCode();
+                        fiveCode = item.getCode();
                         break;
                     case 5:
-                        sixCode=item.getCode();
+                        sixCode = item.getCode();
                         break;
                     case 6:
-                        sevenCode=item.getCode();
+                        sevenCode = item.getCode();
                         break;
                     case 7:
-                        eightCode=item.getCode();
+                        eightCode = item.getCode();
                         break;
 
                 }
@@ -279,39 +285,39 @@ public class LocationSelectFragment extends Fragment implements View.OnClickList
             @Override
             public void onItemPicked(int index, ResponseGasolineItem item) {
                 currentValue.setText(item.getName());
-                if(index<5) {
+                if (index < 5) {
                     conditionOneSelected.put(index, item.getName());
-                }else{
-                    conditionTwoSelected.put(index,item.getName());
+                } else {
+                    conditionTwoSelected.put(index, item.getName());
                 }
-                if(item.getLevel()==6){
-                    if(index<5){
-                        oneId=item.getId();
-                    }else{
-                        twoId=item.getId();
+                if (item.getLevel() == 6) {
+                    if (index < 5) {
+                        oneId = item.getId();
+                    } else {
+                        twoId = item.getId();
                     }
                 }
-                switch (index){
+                switch (index) {
                     case 1:
-                        twoCode=item.getCode();
+                        twoCode = item.getCode();
                         break;
                     case 2:
-                        threeCode=item.getCode();
+                        threeCode = item.getCode();
                         break;
                     case 3:
-                        fourCode=item.getCode();
+                        fourCode = item.getCode();
                         break;
                     case 4:
-                        fiveCode=item.getCode();
+                        fiveCode = item.getCode();
                         break;
                     case 5:
-                        sixCode=item.getCode();
+                        sixCode = item.getCode();
                         break;
                     case 6:
-                        sevenCode=item.getCode();
+                        sevenCode = item.getCode();
                         break;
                     case 7:
-                        eightCode=item.getCode();
+                        eightCode = item.getCode();
                         break;
 
                 }

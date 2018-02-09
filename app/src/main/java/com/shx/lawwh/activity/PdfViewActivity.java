@@ -43,7 +43,7 @@ public class PdfViewActivity extends BaseActivity implements OnPageChangeListene
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pdf_view);
-        getTopbar().setTitle("详情见");
+        getTopbar().setTitle("详情");
         getTopbar().setRightImageVisibility(View.VISIBLE);
         final String typeCode=getIntent().getStringExtra("typeCode");
         final int id=getIntent().getIntExtra("lawId",-1);
@@ -87,7 +87,7 @@ public class PdfViewActivity extends BaseActivity implements OnPageChangeListene
         mUrl = String.format(SystemConfig.PDFURL, mUrl);
         int index = mUrl.lastIndexOf("/");
         String fileName = mUrl.substring(index);
-        DialogManager.getInstance().showProgressDialogNotCancelbale(this);
+        DialogManager.getInstance().showProgressDialog(this);
         new Thread(new Runnable() {
             @Override
             public void run() {

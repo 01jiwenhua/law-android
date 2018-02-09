@@ -58,7 +58,7 @@
             android:layout_alignParentRight="true"
             android:layout_toLeftOf="@+id/iv_actionBarRight"
             android:gravity="center_vertical"
-            android:textColor="@color/colorWhite"
+            android:textColor="@color/colorBlue"
             android:textSize="@dimen/textsize_16"
             android:visibility="visible"
             android:paddingRight="10dp"

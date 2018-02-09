@@ -4,14 +4,18 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSONObject;
 import com.bumptech.glide.Glide;
 import com.shx.lawwh.R;
 import com.shx.lawwh.activity.ChemicalsActivity;
@@ -20,19 +24,34 @@ import com.shx.lawwh.activity.LawActivity;
 import com.shx.lawwh.activity.LawSearchActivity;
 import com.shx.lawwh.activity.MainSearchActivity;
 import com.shx.lawwh.activity.NewsActivity;
+import com.shx.lawwh.activity.PdfViewActivity;
 import com.shx.lawwh.activity.SSActivity;
+import com.shx.lawwh.activity.WebActivity;
+import com.shx.lawwh.adapter.LawBaseAdapter;
+import com.shx.lawwh.adapter.LawListAdapter;
 import com.shx.lawwh.adapter.LoopViewPagerAdapter;
+import com.shx.lawwh.adapter.NewLawAdapter;
 import com.shx.lawwh.base.LayoutValue;
+import com.shx.lawwh.base.UserInfo;
 import com.shx.lawwh.base.ViewPagerScheduler;
+import com.shx.lawwh.common.LogGloble;
+import com.shx.lawwh.entity.response.LawResponse;
 import com.shx.lawwh.libs.dialog.ToastUtil;
+import com.shx.lawwh.libs.http.HttpCallBack;
+import com.shx.lawwh.libs.http.HttpTrowable;
+import com.shx.lawwh.libs.http.MyJSON;
+import com.shx.lawwh.libs.http.RequestCenter;
+import com.shx.lawwh.libs.http.ZCResponse;
 import com.shx.lawwh.view.ViewPageWithIndicator;
+
+import java.util.List;
 
 /**
  * 首页的Fragment
  * Created by 邵鸿轩 on 2016/12/1.
  */
 
-public class MainFragment extends Fragment implements View.OnClickListener {
+public class MainFragment extends Fragment implements View.OnClickListener,HttpCallBack ,AdapterView.OnItemClickListener{
     private ViewPageWithIndicator mLoopView;
     private ImageView[] imageViews;
     private LoopViewPagerAdapter loopViewPagerAdapter;
@@ -40,7 +59,9 @@ public class MainFragment extends Fragment implements View.OnClickListener {
     private LinearLayout mFlfg,mBzgf,mWxhxp,mFhjj,mZcwj;
     private int res[] = new int[]{R.drawable.img_banner1,R.drawable.img_banner2,R.drawable.img_banner3};
     private TextView searchTv;
-
+    private ListView mNewListView;
+    private NewLawAdapter mAdapter;
+    private List<LawResponse> lawList;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -52,6 +73,7 @@ public class MainFragment extends Fragment implements View.OnClickListener {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initView(view);
+        RequestCenter.getNewLawList(String.valueOf(UserInfo.getUserInfoInstance().getId()),this);
     }
 
     private void initView(View view){
@@ -61,6 +83,8 @@ public class MainFragment extends Fragment implements View.OnClickListener {
         mWxhxp= (LinearLayout) view.findViewById(R.id.layout_whp);
         mFhjj= (LinearLayout) view.findViewById(R.id.layout_fhjjjs);
         searchTv= (TextView) view.findViewById(R.id.tv_search);
+        mNewListView= (ListView) view.findViewById(R.id.lv_new);
+        mNewListView.setOnItemClickListener(this);
         view.findViewById(R.id.iv_message).setOnClickListener(this);
         searchTv.setOnClickListener(this);
         mFhjj.setOnClickListener(this);
@@ -135,6 +159,52 @@ public class MainFragment extends Fragment implements View.OnClickListener {
             case R.id.iv_message:
                 startActivity(new Intent(getActivity(), NewsActivity.class));
                 break;
+        }
+    }
+
+    @Override
+    public boolean doSuccess(ZCResponse respose, String requestUrl) {
+        JSONObject mainData = respose.getMainData();
+        if(requestUrl.equals(RequestCenter.GET_NEWLAW)){
+            lawList = MyJSON.parseArray(mainData.getString("newList"), LawResponse.class);
+            mAdapter =new NewLawAdapter(lawList,getContext());
+            mNewListView.setAdapter(mAdapter);
+        }
+        return false;
+    }
+
+    @Override
+    public boolean doFaild(HttpTrowable error, String url) {
+        return false;
+    }
+
+    @Override
+    public boolean httpCallBackPreFilter(String result, String url) {
+        return false;
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        LawResponse item = (LawResponse) mAdapter.getItem(position);
+        LogGloble.d("MainFragment", item.getFilePath() + "");
+        if (TextUtils.isEmpty(item.getFilePath())) {
+            ToastUtil.getInstance().toastInCenter(getContext(), "该文件不存在！");
+            return;
+        }
+        if (item.getFileFrom().equals("pdf")) {
+            Intent intent = new Intent(getContext(), PdfViewActivity.class);
+            intent.putExtra("URL", item.getFilePath());
+            intent.putExtra("typeCode",item.getTypeCode());
+            intent.putExtra("lawId",item.getId());
+            intent.putExtra("is_favorite",item.getIs_favorite());
+            startActivity(intent);
+        } else {
+            Intent intent = new Intent(getContext(), WebActivity.class);
+            intent.putExtra("URL", item.getFilePath());
+            intent.putExtra("typeCode",item.getTypeCode());
+            intent.putExtra("lawId",item.getId());
+            intent.putExtra("is_favorite",item.getIs_favorite());
+            startActivity(intent);
         }
     }
 }

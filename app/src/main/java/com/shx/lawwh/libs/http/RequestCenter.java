@@ -1,9 +1,12 @@
 package com.shx.lawwh.libs.http;
 
+import android.text.Editable;
+
 import com.shx.lawwh.base.UserInfo;
 import com.shx.lawwh.entity.request.RequestRegisterInfo;
 import com.shx.lawwh.entity.request.ChemicalsRequest;
 import com.shx.lawwh.entity.request.LawRequest;
+import com.shx.lawwh.entity.response.ResponseUserInfo;
 
 /**
  * Created by 邵鸿轩 on 2016/12/6.
@@ -31,7 +34,27 @@ public class RequestCenter {
     public static final String GET_MESSAGE="/user/getMessage";
     public static final String GET_ARCHITECTURE="/distance/getArchitecture";
     public static final String GET_DISTANCE="/distance/getDistance";
+    public static final String GET_NEWLAW="/law/getNewLawList";
+    public static final String GET_NEWVERSION="/user/getNewVersion";
+    public static final String SAVE_ADVICE="/system/saveAdvice";
+    public static final String CHANGE_PHONE="/user/changePhone";
 
+
+    /**
+     *
+     * 修改手机号
+     * @param
+     * @param phone
+     * @param verifyCode
+     * @param callBack
+     */
+    public static void changePhone(Editable phone, Editable verifyCode, HttpCallBack callBack){
+        ZCRequest request=new ZCRequest();
+        request.setUrl(CHANGE_PHONE);
+        request.putParams("phone",phone);
+        request.putParams("verifyCode",verifyCode);
+        HttpManager.getInstance().doPost(request,callBack);
+    }
 
     /**
      *
@@ -46,6 +69,32 @@ public class RequestCenter {
         HttpManager.getInstance().doPost(request,callBack);
     }
 
+    /**
+     * 版本更新
+     * @param versionCode
+     * @param callBack
+     */
+    public static void getNewVersion(int versionCode,HttpCallBack callBack){
+        ZCRequest request=new ZCRequest();
+        request.setUrl(GET_NEWVERSION);
+        request.putParams("versionCode",versionCode);
+        HttpManager.getInstance().doPost(request,callBack);
+    }
+
+    /**
+     * 提交意见反馈
+     * @param content
+     * @param userId
+     * @param callBack
+     */
+    public static void saveAdvice(String content,String userId,HttpCallBack callBack){
+
+        ZCRequest request=new ZCRequest();
+        request.setUrl(SAVE_ADVICE);
+        request.putParams("userId",userId);
+        request.putParams("content",content);
+        HttpManager.getInstance().doPost(request,callBack);
+    }
     /**
      *
      * @param
@@ -113,7 +162,17 @@ public class RequestCenter {
         request.putParams("userId",userId);
         HttpManager.getInstance().doPost(request,callBack);
     }
-
+    /**
+     * 获取最近查询列表
+     * @param
+     * @param callBack
+     */
+    public static void getNewLawList(String userId ,HttpCallBack callBack){
+        ZCRequest request=new ZCRequest();
+        request.setUrl(GET_NEWLAW);
+        request.putParams("userId",userId);
+        HttpManager.getInstance().doPost(request,callBack);
+    }
     /**
      * 获取法律法规列表
      * @param lawRequest
@@ -254,6 +313,27 @@ public class RequestCenter {
         request.putParams("sex",info.getSex());
         request.putParams("userType",info.getUserType());
         request.putParams("licenseType",info.getLicenseType());
+        HttpManager.getInstance().doPost(request,callBack);
+    }
+
+    /**
+     * 注册
+     * */
+    public static void updateUserInfo(ResponseUserInfo info, HttpCallBack callBack){
+        ZCRequest request=new ZCRequest();
+        request.setUrl(REGIST);
+        request.putParams("loginName","");
+        request.putParams("nickName","");
+        request.putParams("realName",info.getReal_name());
+        request.putParams("departmentId",info.getDepartment_id());
+        request.putParams("regionId",info.getRegion_id());
+        request.putParams("email",info.getEmail());
+        request.putParams("idNo",info.getId_no());
+        request.putParams("jobId",info.getJob_id());
+        request.putParams("phone",info.getPhone());
+        request.putParams("sex",info.getSex());
+        request.putParams("userType","");
+        request.putParams("licenseType",info.getLicense_type());
         HttpManager.getInstance().doPost(request,callBack);
     }
 

@@ -6,6 +6,7 @@
     >
     <include layout="@layout/layout_topbar"/>
     <EditText
+        android:id="@+id/et_content"
         android:layout_width="match_parent"
         android:layout_height="300dp"
         android:hint="请留下您的宝贵意见或建议，我们将努力改进"
