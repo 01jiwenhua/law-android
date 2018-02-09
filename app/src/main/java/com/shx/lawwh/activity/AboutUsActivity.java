@@ -8,6 +8,7 @@ import android.widget.LinearLayout;
 
 import com.shx.lawwh.R;
 import com.shx.lawwh.base.BaseActivity;
+import com.shx.lawwh.common.SystemConfig;
 
 /**
  * Created by adm on 2018/2/4.
@@ -40,13 +41,20 @@ public class AboutUsActivity extends BaseActivity implements View.OnClickListene
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.ll_versions:
-                startActivity(new Intent(this,VersionActivity.class));
+                Intent versionIntent=new Intent(this,CommonWebActivity.class);
+                versionIntent.putExtra("title","版本说明");
+                versionIntent.putExtra("url", SystemConfig.VERSIONURL);
+
+                startActivity(versionIntent);
                 break;
             case R.id.ll_opinion:
                 startActivity(new Intent(this,OpinionActivity.class));
                 break;
             case R.id.ll_protocol:
-                startActivity(new Intent(this,ProtocolActivity.class));
+                Intent proIntent=new Intent(this,CommonWebActivity.class);
+                proIntent.putExtra("title","服务协议");
+                proIntent.putExtra("url", SystemConfig.SERVICEITEMURL);
+                startActivity(proIntent);
                 break;
         }
     }

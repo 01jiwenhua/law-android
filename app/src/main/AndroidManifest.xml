@@ -103,6 +103,7 @@
         <activity android:name=".activity.OpinionActivity"></activity>
         <activity android:name=".activity.GasolineResultActivity"></activity>
         <activity android:name=".activity.UpdatePhoneActivity"></activity>
+        <activity android:name=".activity.CommonWebActivity"></activity>
     </application>
 
 </manifest>

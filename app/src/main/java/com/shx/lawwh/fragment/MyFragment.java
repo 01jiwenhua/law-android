@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 import com.bumptech.glide.Glide;
 import com.shx.lawwh.R;
 import com.shx.lawwh.activity.AboutUsActivity;
+import com.shx.lawwh.activity.CommonWebActivity;
 import com.shx.lawwh.activity.HelpActivity;
 import com.shx.lawwh.activity.NewsActivity;
 import com.shx.lawwh.activity.SettingActivity;
@@ -101,7 +102,12 @@ public class MyFragment extends Fragment implements View.OnClickListener,HttpCal
                 startActivity(new Intent(getActivity(), AboutUsActivity.class));
                 break;
             case R.id.ll_help:
-                startActivity(new Intent(getActivity(), HelpActivity.class));
+                Intent versionIntent=new Intent(getContext(),CommonWebActivity.class);
+                versionIntent.putExtra("title","常见问题与帮助");
+                versionIntent.putExtra("url", SystemConfig.QAURL);
+
+                startActivity(versionIntent);
+                //                startActivity(new Intent(getActivity(), HelpActivity.class));
                 break;
             case R.id.ll_setting:
                 startActivity(new Intent(getActivity(), SettingActivity.class));
