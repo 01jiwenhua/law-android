@@ -8,6 +8,10 @@ import com.shx.lawwh.entity.request.ChemicalsRequest;
 import com.shx.lawwh.entity.request.LawRequest;
 import com.shx.lawwh.entity.response.ResponseUserInfo;
 
+import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Created by 邵鸿轩 on 2016/12/6.
  */
@@ -63,11 +67,13 @@ public class RequestCenter {
      * @param userId
      * @param callBack
      */
-    public static void uploadAvatar(String userId, HttpCallBack callBack){
+    public static void uploadAvatar(int userId, File avatar,HttpCallBack callBack){
         ZCRequest request=new ZCRequest();
         request.setUrl(UPLOAD_AVATAR);
         request.putParams("userId",userId);
-        HttpManager.getInstance().doPost(request,callBack);
+        Map<String, File> fileMap = new HashMap<>();
+        fileMap.put("avatar",avatar);
+        HttpManager.getInstance().upLoadOneFile(request,fileMap,callBack);
     }
 
     /**

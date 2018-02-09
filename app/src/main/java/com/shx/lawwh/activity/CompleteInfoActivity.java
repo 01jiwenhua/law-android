@@ -22,6 +22,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.shx.lawwh.R;
 import com.shx.lawwh.base.APPActivityManager;
 import com.shx.lawwh.base.BaseActivity;
+import com.shx.lawwh.base.UserInfo;
 import com.shx.lawwh.databinding.ActivityCompleteinfoBinding;
 import com.shx.lawwh.entity.request.RequestRegisterInfo;
 import com.shx.lawwh.entity.response.ResponseCompanyList;
@@ -103,10 +104,15 @@ public class CompleteInfoActivity extends BaseActivity implements View.OnClickLi
         registerInfo.setPhone(getIntent().getStringExtra("phone"));
         registerInfo.setRegionId("1");
         registerInfo.setSex("1");
+        registerInfo.setLicenseType("1");
+        registerInfo.setDepartmentId("1");
+        registerInfo.setJobId("1");
+        mBinding.tvCompany.setText("北京市安全生产监督管理局");
         companyList = new ArrayList<>();
         departmentList = new ArrayList<>();
         jobList = new ArrayList<>();
         mBinding.setRegisterInfo(registerInfo);
+
         mAvatarPath = getApplicationContext().getFilesDir().getAbsolutePath() + "/avatar.jpg";
     }
 
@@ -230,6 +236,7 @@ public class CompleteInfoActivity extends BaseActivity implements View.OnClickLi
                             mAvatarFile = BitmapTools.compress(mAvatarPath);
                             if (mAvatarFile != null) {
                                 //这里写上传图片的接口
+                                RequestCenter.uploadAvatar(UserInfo.getUserInfoInstance().getId(),mAvatarFile,this);
                             }
                         } catch (IOException e) {
                             e.printStackTrace();
@@ -244,6 +251,7 @@ public class CompleteInfoActivity extends BaseActivity implements View.OnClickLi
                             mAvatarFile = BitmapTools.compress(mAvatarPath);
                             if (mAvatarFile != null) {
                                 //这里写上传图片的接口
+                                RequestCenter.uploadAvatar(UserInfo.getUserInfoInstance().getId(),mAvatarFile,this);
                             }
                         } catch (IOException e) {
                             e.printStackTrace();
@@ -329,7 +337,7 @@ public class CompleteInfoActivity extends BaseActivity implements View.OnClickLi
             @Override
             public void onItemPicked(int index, ResponseDepartmentList item) {
                 mBinding.tvDepartment.setText(item.getName());
-                registerInfo.setDepartmentId("1");
+                registerInfo.setDepartmentId(String.valueOf(item.getId()));
             }
         });
         picker.show();
@@ -347,7 +355,7 @@ public class CompleteInfoActivity extends BaseActivity implements View.OnClickLi
             @Override
             public void onItemPicked(int index, ResponseJobList item) {
                 mBinding.tvDuty.setText(item.getName());
-                registerInfo.setJobId("1");
+                registerInfo.setJobId(String.valueOf(item.getId()));
             }
         });
         picker.show();
@@ -426,6 +434,8 @@ public class CompleteInfoActivity extends BaseActivity implements View.OnClickLi
             pickJob();
         } else if (requestUrl.equals(RequestCenter.REGIST)) {
             popRegisterTip();
+        }else if(requestUrl.equals(RequestCenter.UPLOAD_AVATAR)){
+
         }
         return super.doSuccess(respose, requestUrl);
     }

@@ -1,19 +1,26 @@
 package com.shx.lawwh.libs.http;
 
+import android.app.Activity;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.annotation.NonNull;
+import android.util.Base64;
 
 import com.shx.lawwh.base.BaseApplication;
+import com.shx.lawwh.base.UserInfo;
 import com.shx.lawwh.common.LogGloble;
 import com.shx.lawwh.common.SystemConfig;
 import com.shx.lawwh.libs.dialog.ToastUtil;
+import com.shx.lawwh.utils.StringUtil;
 import com.zhy.http.okhttp.OkHttpUtils;
+import com.zhy.http.okhttp.builder.PostFormBuilder;
 import com.zhy.http.okhttp.callback.Callback;
 import com.zhy.http.okhttp.callback.FileCallBack;
 import com.zhy.http.okhttp.log.LoggerInterceptor;
 
+import java.io.File;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.Call;
@@ -143,5 +150,63 @@ public class HttpManager {
             }
         }
         return false;
+    }
+
+    /**
+     * 文件上传的接口请求
+     */
+    public void upLoadOneFile(final ZCRequest request, final Map<String, File> fileMap, final HttpCallBack callBack) {
+        if (!isNetworkAvailable(BaseApplication.getContext())) {
+            ToastUtil.getInstance().toastInCenter(BaseApplication.getContext(), "网络异常");
+            return;
+        }
+        String url = SystemConfig.BASEURL+request.getUrl();
+        String requestStr = MyJSON.toJSONString(request);
+        LogGloble.d("http",requestStr);
+        // 使用multipart表单上传文件
+        PostFormBuilder builder= OkHttpUtils.post();
+        for (String key : fileMap.keySet()) {
+            //userid+字段名称用base64编码+.jpg
+            String filename= new String(Base64.encode((UserInfo.getUserInfoInstance().getId()+key).getBytes(),Base64.DEFAULT))+".jpg";
+            builder.addFile(key,filename,fileMap.get(key));
+        }
+        builder.url(url)
+                .addHeader("charset","utf-8")
+                .addParams("data",requestStr)
+                .build()//
+                .execute(new Callback() {
+                    @Override
+                    public Object parseNetworkResponse(okhttp3.Response response, int id) throws Exception {
+                        return response.body().string();
+                    }
+
+                    @Override
+                    public void onError(Call call, Exception e, int id) {
+                        e.printStackTrace();
+                        ToastUtil.getInstance().toastInCenter((Context) callBack,"服务器异常");
+                        HttpTrowable httpTrowable=new HttpTrowable(e.getMessage(),"99999");
+                        callBack.doFaild(httpTrowable, request.getUrl());
+                    }
+
+                    @Override
+                    public void onResponse(Object result, int id) {
+                        ZCResponse response = null;
+                        try {
+                            response = MyJSON.parseObject((String) result, ZCResponse.class);
+                            if (!httpCalllBackPreFilter(response, request.getUrl())) {
+                                callBack.doSuccess(response, request.getUrl());
+                            }else{
+                                HttpTrowable httpTrowable=new HttpTrowable(response.getMessage(),response.getMessageCode());
+                                callBack.doFaild(httpTrowable,request.getUrl());
+                            }
+                            ToastUtil.getInstance().toastInCenter((Context) callBack,response.getMessage());
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            LogGloble.d("http",e.getMessage());
+                        }
+                    }
+                });
+
+
     }
 }

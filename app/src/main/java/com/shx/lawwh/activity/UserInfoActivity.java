@@ -1,8 +1,14 @@
 package com.shx.lawwh.activity;
 
+import android.Manifest;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.databinding.DataBindingUtil;
 import android.graphics.Color;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
@@ -26,6 +32,7 @@ import com.shx.lawwh.utils.RegexpUtils;
 import com.shx.lawwh.utils.SharedPreferencesUtil;
 import com.shx.lawwh.view.AddressInitTask;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,12 +51,16 @@ import static com.shx.lawwh.utils.SharedPreferencesUtil.readObject;
  */
 
 public class UserInfoActivity extends BaseActivity implements View.OnClickListener {
+    private static final int AVATAR_CAMAER_CODE = 101;//头像拍照
+    private static final int AVATAR_PICK_CODE = 102;//头像从相册选择
     private ActivityUserInfoBinding mBinding;
     private ResponseUserInfo userInfo;
     private List<ResponseCompanyList> companyList;
     private List<ResponseDepartmentList> departmentList;
     private List<ResponseJobList> jobList;
-
+    private String mAvatarPath;
+    private File mAvatarFile;
+    private String[] mPermissions = new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA};
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -102,6 +113,55 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.ll_avatar:
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    for (String permission : mPermissions) {
+                        //判断是否授权
+                        int result = checkSelfPermission(permission);
+                        if (result == PackageManager.PERMISSION_GRANTED) {
+                            continue;
+                        } else {
+                            //判断是否需要向用户说明权限申请原因
+                            if (shouldShowRequestPermissionRationale(permission)) {
+                                //以对话框的形式呈现，向用户解释申请权限的原因
+                                new AlertDialog.Builder(UserInfoActivity.this)
+                                        .setCancelable(false)
+                                        .setTitle("为了不影响使用请开启以下权限")
+                                        .setMessage("1、读写手机存储\n" +
+                                                " 2、相机")
+                                        .setPositiveButton("前往开启", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                Intent localIntent = new Intent();
+                                                localIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                                if (Build.VERSION.SDK_INT > 8) {
+                                                    localIntent.setAction("android.settings.APPLICATION_DETAILS_SETTINGS");
+                                                    localIntent.setData(Uri.fromParts("package", getPackageName(), null));
+                                                } else {
+                                                    localIntent.setAction(Intent.ACTION_VIEW);
+                                                    localIntent.setClassName("com.android.settings", "com.android.settings.InstalledAppDetails");
+                                                    localIntent.putExtra("com.android.settings.ApplicationPkgName", getPackageName());
+                                                }
+                                                startActivity(localIntent);
+                                            }
+                                        })
+                                        .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+
+                                            }
+                                        }).show();
+                            } else {
+                                //申请权限
+                                requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA}, 1);
+                            }
+
+                        }
+                    }
+                    doCarmer(AVATAR_CAMAER_CODE, AVATAR_PICK_CODE);
+                } else {
+                    //6.0以下直接调用
+                    doCarmer(AVATAR_CAMAER_CODE, AVATAR_PICK_CODE);
+                }
                 break;
             case R.id.ll_company:
                 RequestCenter.getCompanyList(this);
