@@ -53,10 +53,11 @@ public class RequestCenter {
      * @param verifyCode
      * @param callBack
      */
-    public static void changePhone(Editable phone, Editable verifyCode, HttpCallBack callBack){
+    public static void changePhone(String userId,Editable phone, Editable verifyCode, HttpCallBack callBack){
         ZCRequest request=new ZCRequest();
         request.setUrl(CHANGE_PHONE);
         request.putParams("phone",phone);
+        request.putParams("userId",userId);
         request.putParams("verifyCode",verifyCode);
         HttpManager.getInstance().doPost(request,callBack);
     }

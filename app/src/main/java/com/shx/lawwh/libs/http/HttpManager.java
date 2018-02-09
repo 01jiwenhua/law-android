@@ -167,7 +167,8 @@ public class HttpManager {
         PostFormBuilder builder= OkHttpUtils.post();
         for (String key : fileMap.keySet()) {
             //userid+字段名称用base64编码+.jpg
-            String filename= new String(Base64.encode((UserInfo.getUserInfoInstance().getId()+key).getBytes(),Base64.DEFAULT))+".jpg";
+//            String filename= new String(Base64.encode((UserInfo.getUserInfoInstance().getId()+key).getBytes(),Base64.DEFAULT))+".jpg";
+            String filename= "avatar"+".jpg";
             builder.addFile(key,filename,fileMap.get(key));
         }
         builder.url(url)

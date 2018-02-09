@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.shx.lawwh.R;
 import com.shx.lawwh.base.BaseActivity;
+import com.shx.lawwh.base.UserInfo;
 import com.shx.lawwh.libs.dialog.ToastUtil;
 import com.shx.lawwh.libs.http.RequestCenter;
 import com.shx.lawwh.libs.http.ZCResponse;
@@ -67,7 +68,7 @@ public class UpdatePhoneActivity extends BaseActivity implements View.OnClickLis
                     ToastUtil.getInstance().toastInCenter(this,"请输入验证码!");
                     return;
                 }
-                RequestCenter.changePhone(phoneEt.getText(),verifyCodeEt.getText(),this);
+                RequestCenter.changePhone(String.valueOf(UserInfo.getUserInfoInstance().getId()),phoneEt.getText(),verifyCodeEt.getText(),this);
                 break;
         }
     }
