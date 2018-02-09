@@ -11,6 +11,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 
 import com.alibaba.fastjson.JSONObject;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -35,13 +36,14 @@ import java.util.List;
  * Created by adm on 2018/2/4.
  */
 
-public class SumFragment extends Fragment implements HttpCallBack ,BaseQuickAdapter.OnItemClickListener{
+public class SumFragment extends Fragment implements HttpCallBack, BaseQuickAdapter.OnItemClickListener {
 
     private LawBaseAdapter mAdapter;
     private RecyclerView mRecyclerView;
     private SwipeRefreshLayout refreshLayout;
     private LawRequest mRequest;
     private List<LawResponse> lawList = new ArrayList<>();
+    private RelativeLayout emptyRL;
 
     @Nullable
     @Override
@@ -51,11 +53,13 @@ public class SumFragment extends Fragment implements HttpCallBack ,BaseQuickAdap
         return view;
     }
 
-    private void initView(View view){
-        refreshLayout= (SwipeRefreshLayout) view.findViewById(R.id.layout_refresh);
-        mRecyclerView= (RecyclerView) view.findViewById(R.id.rv_list);
-        LinearLayoutManager manager=new LinearLayoutManager(getActivity());
+    private void initView(View view) {
+        refreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.layout_refresh);
+        mRecyclerView = (RecyclerView) view.findViewById(R.id.rv_list);
+        emptyRL = (RelativeLayout) view.findViewById(R.id.rl_empty);
+        LinearLayoutManager manager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(manager);
+
     }
 
     @Override
@@ -64,11 +68,11 @@ public class SumFragment extends Fragment implements HttpCallBack ,BaseQuickAdap
         super.onActivityCreated(savedInstanceState);
     }
 
-    private void initData(){
-        mRequest=new LawRequest();
+    private void initData() {
+        mRequest = new LawRequest();
         mRequest.setPage(1);
         mRequest.setPageSize(30);
-        RequestCenter.getLawList(mRequest,this);
+        //RequestCenter.getLawList(mRequest,this);
 
     }
 
@@ -76,15 +80,16 @@ public class SumFragment extends Fragment implements HttpCallBack ,BaseQuickAdap
     @Override
     public boolean doSuccess(ZCResponse respose, String requestUrl) {
         JSONObject mainData = respose.getMainData();
-        if(requestUrl.equals(RequestCenter.GET_LAWLIST)){
+        if (requestUrl.equals(RequestCenter.GET_LAWLIST)) {
             lawList = MyJSON.parseArray(mainData.getString("lawList"), LawResponse.class);
-            mAdapter =new LawBaseAdapter(lawList);
-            mAdapter.setLight(true,mRequest);
+            mAdapter = new LawBaseAdapter(lawList);
+            mAdapter.setLight(true, mRequest);
             mRecyclerView.setAdapter(mAdapter);
             mAdapter.setOnItemClickListener(this);
         }
+
         return false;
-    }
+}
 
     @Override
     public boolean doFaild(HttpTrowable error, String url) {
@@ -96,10 +101,10 @@ public class SumFragment extends Fragment implements HttpCallBack ,BaseQuickAdap
         return false;
     }
 
-    public void searchKey(String key){
+    public void searchKey(String key) {
         mRequest.setName(key);
         mRequest.setDescription(key);
-        RequestCenter.getLawList(mRequest,this);
+        RequestCenter.getLawList(mRequest, this);
     }
 
 

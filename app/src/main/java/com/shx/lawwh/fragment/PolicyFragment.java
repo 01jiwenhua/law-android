@@ -42,6 +42,10 @@ public class PolicyFragment extends Fragment implements HttpCallBack ,BaseQuickA
     private SwipeRefreshLayout refreshLayout;
     private LawRequest mRequest;
     private List<LawResponse> lawList = new ArrayList<>();
+    /**
+     * 是否创建
+     */
+    protected boolean isCreate = false;
 
     @Nullable
     @Override
@@ -64,12 +68,14 @@ public class PolicyFragment extends Fragment implements HttpCallBack ,BaseQuickA
         super.onActivityCreated(savedInstanceState);
     }
 
+
+
     private void initData(){
         mRequest=new LawRequest();
         mRequest.setPage(1);
         mRequest.setPageSize(30);
         mRequest.setTypeCode("zcwj");
-        RequestCenter.getLawList(mRequest,this);
+        //RequestCenter.getLawList(mRequest,this);
     }
 
 

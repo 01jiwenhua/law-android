@@ -69,7 +69,7 @@ public class StandardFragment extends Fragment implements HttpCallBack ,BaseQuic
         mRequest.setPage(1);
         mRequest.setPageSize(30);
         mRequest.setTypeCode("bzgf");
-        RequestCenter.getLawList(mRequest,this);
+        //RequestCenter.getLawList(mRequest,this);
     }
 
 

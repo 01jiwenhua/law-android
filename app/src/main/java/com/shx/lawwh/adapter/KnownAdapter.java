@@ -33,9 +33,9 @@ public class KnownAdapter extends BaseQuickAdapter<ChemicalsResponse, KnownAdapt
        // 是否需要部分文字高亮
         if(isLight){
             if(mChemicalsRequest!=null){
-                if(TextUtils.isEmpty(mChemicalsRequest.getName())){
-                    return;
-                }
+//                if(TextUtils.isEmpty(mChemicalsRequest.getName())){
+//                    return;
+//                }
                     //内容
                     //item.setNameCn();
                 String name=item.getNameCn().replace(mChemicalsRequest.getName(),"<font color='#FF0000'>"+mChemicalsRequest.getName()+"</font>");

@@ -69,7 +69,7 @@ public class LawFragment extends Fragment implements HttpCallBack , BaseQuickAda
         mRequest.setPage(1);
         mRequest.setPageSize(30);
         mRequest.setTypeCode("flfg");
-        RequestCenter.getLawList(mRequest,this);
+        //RequestCenter.getLawList(mRequest,this);
     }
 
 

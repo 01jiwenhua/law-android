@@ -78,16 +78,6 @@ public class ChemicalsActivity extends BaseActivity implements View.OnClickListe
             case 1:
                 transaction.replace(R.id.content, mUnknowFragment);
                 getTopbar().setTitle("未知物质查询");
-                getTopbar().setRightText("清空");
-                getTopbar().setRightTextListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        UnknowFragment.checkMap.clear();
-                        ((UnknowFragment)mUnknowFragment).getmAdapter().notifyDataSetChanged();
-                        ((UnknowFragment)mUnknowFragment).getmAdapter2().notifyDataSetChanged();
-
-                    }
-                });
                 line1.setVisibility(View.GONE);
                 line2.setVisibility(View.VISIBLE);
                 break;

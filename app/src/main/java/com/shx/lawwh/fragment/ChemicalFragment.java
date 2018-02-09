@@ -61,11 +61,12 @@ public class ChemicalFragment extends Fragment implements HttpCallBack, BaseQuic
         initData();
     }
 
+
     private void initData(){
         mRequest=new ChemicalsRequest();
         mRequest.setPage(1);
         mRequest.setPageSize(30);
-        RequestCenter.getKnownlist(mRequest, this);
+        //RequestCenter.getKnownlist(mRequest, this);
     }
 
     @Override
