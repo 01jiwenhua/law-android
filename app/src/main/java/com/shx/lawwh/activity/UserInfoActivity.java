@@ -100,6 +100,7 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
             }
         });
         initListerner();
+        mAvatarPath = getApplicationContext().getFilesDir().getAbsolutePath() + "/avatar.jpg";
     }
 
     private void initListerner() {
