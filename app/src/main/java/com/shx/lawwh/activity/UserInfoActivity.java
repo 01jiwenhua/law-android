@@ -6,10 +6,12 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.databinding.DataBindingUtil;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.view.View;
 
@@ -27,12 +29,14 @@ import com.shx.lawwh.libs.dialog.ToastUtil;
 import com.shx.lawwh.libs.http.MyJSON;
 import com.shx.lawwh.libs.http.RequestCenter;
 import com.shx.lawwh.libs.http.ZCResponse;
+import com.shx.lawwh.utils.BitmapTools;
 import com.shx.lawwh.utils.DateUtil;
 import com.shx.lawwh.utils.RegexpUtils;
 import com.shx.lawwh.utils.SharedPreferencesUtil;
 import com.shx.lawwh.view.AddressInitTask;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -182,19 +186,66 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
                 pickSex();
                 break;
             case R.id.ll_phone:
-                startActivityForResult(new Intent(this,UpdatePhoneActivity.class),0);
+                startActivity(new Intent(this,UpdatePhoneActivity.class));
                 break;
         }
     }
 
-    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode==RESULT_OK){
-            if(requestCode==0){
-                String phone=data.getStringExtra("phone");
-                mBinding.tvPhone.setText(phone);
-                userInfo.setPhone(phone);
+        if (resultCode == RESULT_OK) {
+            Bitmap image = null;
+            if (data != null) {
+                //取得返回的Uri,基本上选择照片的时候返回的是以Uri形式，但是在拍照中有得机子呢Uri是空的，所以要特别注意
+                Uri mImageCaptureUri = data.getData();
+                //返回的Uri不为空时，那么图片信息数据都会在Uri中获得。如果为空，那么我们就进行下面的方式获取
+                if (mImageCaptureUri != null) {
+                    try {
+                        //这个方法是根据Uri获取Bitmap图片的静态方法
+                        image = MediaStore.Images.Media.getBitmap(this.getContentResolver(), mImageCaptureUri);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    Bundle extras = data.getExtras();
+                    if (extras != null) {
+                        //这里是有些拍照后的图片是直接存放到Bundle中的所以我们可以从这里面获取Bitmap图片
+                        image = extras.getParcelable("data");
+                    }
+                }
+
+            }
+            switch (requestCode) {
+                case AVATAR_CAMAER_CODE:
+                    if (image != null) {
+                        try {
+                            BitmapTools.saveBitmap(mAvatarPath, image);
+                            mAvatarFile = BitmapTools.compress(mAvatarPath);
+                            if (mAvatarFile != null) {
+                                //这里写上传图片的接口
+                                RequestCenter.uploadAvatar(UserInfo.getUserInfoInstance().getId(),mAvatarFile,this);
+                            }
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                    break;
+                case AVATAR_PICK_CODE:
+                    if (image != null) {
+                        try {
+                            BitmapTools.saveBitmap(mAvatarPath, image);
+                            mAvatarFile = BitmapTools.compress(mAvatarPath);
+                            if (mAvatarFile != null) {
+                                //这里写上传图片的接口
+                                RequestCenter.uploadAvatar(UserInfo.getUserInfoInstance().getId(),mAvatarFile,this);
+                            }
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                    break;
             }
         }
     }

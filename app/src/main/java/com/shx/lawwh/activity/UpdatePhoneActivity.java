@@ -77,9 +77,10 @@ public class UpdatePhoneActivity extends BaseActivity implements View.OnClickLis
         if(requestUrl.equals(RequestCenter.GET_VERIFYCODE)){
             mCountDownTimerUtils.start();
         }else if (requestUrl.equals(RequestCenter.CHANGE_PHONE)){
-            Intent intent=getIntent();
-            intent.putExtra("phone",phoneEt.getText().toString());
-            setResult(RESULT_OK,intent);
+            ToastUtil.getInstance().toastInCenter(this,"手机修改成功，请重新登录！");
+            Intent intent=new Intent(this,LoginActivity.class);
+            startActivity(intent);
+            finish();
         }
         return super.doSuccess(respose, requestUrl);
     }
