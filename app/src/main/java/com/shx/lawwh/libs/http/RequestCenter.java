@@ -33,20 +33,7 @@ public class RequestCenter {
     public static final String GET_DISTANCE="/distance/getDistance";
     public static final String GET_NEWLAW="/law/getNewLawList";
     public static final String GET_NEWVERSION="/user/getNewVersion";
-
-
-    /**
-     * 得到新版本号
-     * @param
-     * @param callBack
-     */
-    public static void getNewVersion(String versionCode,HttpCallBack callBack){
-        ZCRequest request=new ZCRequest();
-        request.setUrl(GET_NEWVERSION);
-        request.putParams("versionCode",versionCode);
-        HttpManager.getInstance().doPost(request,callBack);
-    }
-
+    public static final String SAVE_ADVICE="/system/saveAdvice";
 
     /**
      *
@@ -61,6 +48,32 @@ public class RequestCenter {
         HttpManager.getInstance().doPost(request,callBack);
     }
 
+    /**
+     * 版本更新
+     * @param versionCode
+     * @param callBack
+     */
+    public static void getNewVersion(int versionCode,HttpCallBack callBack){
+        ZCRequest request=new ZCRequest();
+        request.setUrl(GET_NEWVERSION);
+        request.putParams("versionCode",versionCode);
+        HttpManager.getInstance().doPost(request,callBack);
+    }
+
+    /**
+     * 提交意见反馈
+     * @param content
+     * @param userId
+     * @param callBack
+     */
+    public static void saveAdvice(String content,String userId,HttpCallBack callBack){
+
+        ZCRequest request=new ZCRequest();
+        request.setUrl(SAVE_ADVICE);
+        request.putParams("userId",userId);
+        request.putParams("content",content);
+        HttpManager.getInstance().doPost(request,callBack);
+    }
     /**
      *
      * @param

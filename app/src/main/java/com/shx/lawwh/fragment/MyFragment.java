@@ -20,7 +20,16 @@ import com.shx.lawwh.activity.UserInfoActivity;
 import com.shx.lawwh.common.CommonValues;
 import com.shx.lawwh.databinding.FragmentMyBinding;
 import com.shx.lawwh.entity.response.ResponseUserInfo;
+import com.shx.lawwh.entity.response.ResponseVersionInfo;
+import com.shx.lawwh.libs.http.HttpCallBack;
+import com.shx.lawwh.libs.http.HttpTrowable;
+import com.shx.lawwh.libs.http.MyJSON;
+import com.shx.lawwh.libs.http.RequestCenter;
+import com.shx.lawwh.libs.http.ZCResponse;
+import com.shx.lawwh.utils.DeviceUtils;
 import com.shx.lawwh.utils.SharedPreferencesUtil;
+
+import org.json.JSONObject;
 
 import static com.shx.lawwh.utils.SharedPreferencesUtil.readObject;
 
@@ -29,7 +38,7 @@ import static com.shx.lawwh.utils.SharedPreferencesUtil.readObject;
  * 我的界面
  */
 
-public class MyFragment extends Fragment implements View.OnClickListener {
+public class MyFragment extends Fragment implements View.OnClickListener,HttpCallBack {
 
     private LinearLayout loginLL,userInfoLL,newsLL,updateLL,aboutUsLL,helpLL,settingLL;
     private FragmentMyBinding myBinding;
@@ -76,7 +85,8 @@ public class MyFragment extends Fragment implements View.OnClickListener {
                 startActivity(new Intent(getActivity(),NewsActivity.class));
                 break;
             case R.id.ll_update:
-                startActivity(new Intent(getActivity(), UpdateActivity.class));
+                RequestCenter.getNewVersion(DeviceUtils.getVersionCode(getActivity()),this);
+
                 break;
             case R.id.ll_aboutUs:
                 startActivity(new Intent(getActivity(), AboutUsActivity.class));
@@ -89,5 +99,25 @@ public class MyFragment extends Fragment implements View.OnClickListener {
                 break;
         }
 
+    }
+
+    @Override
+    public boolean doSuccess(ZCResponse respose, String requestUrl) {
+        com.alibaba.fastjson.JSONObject mainData=respose.getMainData();
+        ResponseVersionInfo responseVersionInfo=MyJSON.parseObject(mainData.getString("versionInfo"), ResponseVersionInfo.class);
+        Intent intent=new Intent(getContext(),UpdateActivity.class);
+        intent.putExtra("versionInfo",responseVersionInfo);
+        startActivity(intent);
+        return false;
+    }
+
+    @Override
+    public boolean doFaild(HttpTrowable error, String url) {
+        return false;
+    }
+
+    @Override
+    public boolean httpCallBackPreFilter(String result, String url) {
+        return false;
     }
 }

@@ -46,7 +46,7 @@ public class ChemicalsSeaarchResultActivity extends BaseActivity implements Http
     private SwipeRefreshLayout mRefreshLayout;
     private KnownAdapter mAdapter;
     private int page = 1;
-    private final int pageSize = 10;
+    private final int pageSize = 50;
     private boolean isLastPage = false;
     private ChemicalsRequest mRequest;
     private List<ChemicalsResponse> chemicalsResponseList=new ArrayList<>();

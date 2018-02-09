@@ -23,6 +23,7 @@
         <include layout="@layout/layout_placeview" />
 
         <TextView
+            android:id="@+id/tv_currentVersion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -51,6 +52,7 @@
         <include layout="@layout/layout_placeview" />
 
         <TextView
+            android:id="@+id/tv_newVersion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
