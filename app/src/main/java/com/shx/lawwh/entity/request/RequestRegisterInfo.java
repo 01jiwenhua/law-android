@@ -28,6 +28,8 @@ public class RequestRegisterInfo extends BaseObservable {
     private String userType;
     private String licenseType;
 
+
+
     @Bindable
     public String getLoginName() {
         return loginName;

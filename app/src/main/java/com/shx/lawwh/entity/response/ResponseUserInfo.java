@@ -45,8 +45,15 @@ public class ResponseUserInfo  implements Serializable{
     private String real_name;
     private int region_id;
     private int sex=-1;
+    private String head_icon;
 
+    public String getHead_icon() {
+        return head_icon;
+    }
 
+    public void setHead_icon(String head_icon) {
+        this.head_icon = head_icon;
+    }
 
     public int getCompany_id() {
         return company_id;
