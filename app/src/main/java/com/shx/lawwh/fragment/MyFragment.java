@@ -11,6 +11,8 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.signature.MediaStoreSignature;
+import com.bumptech.glide.signature.StringSignature;
 import com.shx.lawwh.R;
 import com.shx.lawwh.activity.AboutUsActivity;
 import com.shx.lawwh.activity.CommonWebActivity;
@@ -60,7 +62,7 @@ public class MyFragment extends Fragment implements View.OnClickListener,HttpCal
         super.onResume();
         ResponseUserInfo userInfo= (ResponseUserInfo) SharedPreferencesUtil.readObject(getActivity(), CommonValues.USERINFO);
         myBinding.setUserInfo(userInfo);
-        Glide.with(this).load(SystemConfig.BASEURL+userInfo.getHead_icon()).placeholder(R.drawable.ic_avatar).transform(new GlideCircleTransform(getActivity())).into(myBinding.ivAvatar);
+        Glide.with(this).load(SystemConfig.BASEURL+userInfo.getHead_icon()).signature(new MediaStoreSignature()).placeholder(R.drawable.ic_avatar).transform(new GlideCircleTransform(getActivity())).into(myBinding.ivAvatar);
     }
 
     private void initView(View view){
