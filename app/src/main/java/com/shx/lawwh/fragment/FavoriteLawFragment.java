@@ -73,9 +73,16 @@ public class FavoriteLawFragment extends Fragment implements HttpCallBack, BaseQ
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if(isVisibleToUser){
-            initData();
+//            initData();
         }
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        initData();
+    }
+
     private void initView(View view){
         refreshLayout= (SwipeRefreshLayout) view.findViewById(R.id.layout_refresh);
         mRecyclerView= (RecyclerView) view.findViewById(R.id.rv_list);
@@ -137,7 +144,7 @@ public class FavoriteLawFragment extends Fragment implements HttpCallBack, BaseQ
             startActivity(intent);
         } else {
             Intent intent = new Intent(getContext(), WebActivity.class);
-            intent.putExtra("URL", SystemConfig.BASEURL);
+            intent.putExtra("URL", item.getFilePath());
             intent.putExtra("typeCode",item.getTypeCode());
             intent.putExtra("lawId",item.getId());
             intent.putExtra("is_favorite",1);

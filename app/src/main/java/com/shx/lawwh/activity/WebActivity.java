@@ -72,6 +72,7 @@ public class WebActivity extends BaseActivity {
         });
         webView = (WebView) findViewById(R.id.webView);
         url = getIntent().getStringExtra("URL");
+        LogGloble.d("web",url);
 //        url="http://192.168.1.127:8080/files/11.html";
         if (!url.startsWith("http")) {
 //            if (url.startsWith("0")) {
