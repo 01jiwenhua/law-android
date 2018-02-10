@@ -59,6 +59,7 @@
                         android:textSize="18dp" />
 
                     <ImageView
+                        android:id="@+id/iv_one"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
@@ -106,6 +107,7 @@
                         android:textSize="18dp" />
 
                     <ImageView
+                        android:id="@+id/iv_two"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
@@ -152,6 +154,7 @@
                         android:textSize="18dp" />
 
                     <ImageView
+                        android:id="@+id/iv_three"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
@@ -198,6 +201,7 @@
                         android:textSize="18dp" />
 
                     <ImageView
+                        android:id="@+id/iv_four"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
@@ -245,6 +249,7 @@
                         android:textSize="18dp" />
 
                     <ImageView
+                        android:id="@+id/iv_five"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
@@ -290,6 +295,7 @@
                         android:textSize="18dp" />
 
                     <ImageView
+                        android:id="@+id/iv_six"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
@@ -335,6 +341,7 @@
                         android:textSize="18dp" />
 
                     <ImageView
+                        android:id="@+id/iv_seven"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
@@ -380,6 +387,7 @@
                         android:textSize="18dp" />
 
                     <ImageView
+                        android:id="@+id/iv_eight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"

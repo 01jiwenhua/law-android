@@ -16,8 +16,10 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.shx.lawwh.R;
 import com.shx.lawwh.activity.ChemicalsDetailsActivity;
 import com.shx.lawwh.adapter.KnownAdapter;
+import com.shx.lawwh.common.LogGloble;
 import com.shx.lawwh.entity.request.ChemicalsRequest;
 import com.shx.lawwh.entity.response.ChemicalsResponse;
+import com.shx.lawwh.entity.response.LawResponse;
 import com.shx.lawwh.libs.http.HttpCallBack;
 import com.shx.lawwh.libs.http.HttpTrowable;
 import com.shx.lawwh.libs.http.MyJSON;
@@ -39,6 +41,10 @@ public class ChemicalFragment extends Fragment implements HttpCallBack, BaseQuic
     private KnownAdapter mAdapter;
     private ChemicalsRequest mRequest;
     private List<ChemicalsResponse> chemicalsResponseList=new ArrayList<>();
+    private int mPage = 1;
+    private final int pageSize = 10;
+    private boolean isLastPage = false;
+    private boolean isReSearch=false;//是否是通过关键字重新搜索
 
     @Nullable
     @Override
@@ -55,6 +61,23 @@ public class ChemicalFragment extends Fragment implements HttpCallBack, BaseQuic
         mRecyclerView.setLayoutManager(manager);
     }
 
+    private void loadMoreData() {
+        if (isLastPage) {
+            setFooterView();
+            mAdapter.loadMoreEnd();
+            return;
+        }
+        mPage++;
+        LogGloble.d("loadMoreData", mPage + "");
+        mRequest.setPage(mPage);
+        RequestCenter.getKnownlist(mRequest, this);
+    }
+
+    private void setFooterView() {
+        View footer = LayoutInflater.from(getActivity()).inflate(R.layout.layout_footer, null);
+        mAdapter.setFooterView(footer);
+    }
+
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -66,7 +89,35 @@ public class ChemicalFragment extends Fragment implements HttpCallBack, BaseQuic
         mRequest=new ChemicalsRequest();
         mRequest.setPage(1);
         mRequest.setPageSize(30);
+        mAdapter=new KnownAdapter(chemicalsResponseList);
+        mRecyclerView.setAdapter(mAdapter);
+        mAdapter.setOnItemClickListener(this);
+        mAdapter.bindToRecyclerView(mRecyclerView);
+        mAdapter.setEmptyView(R.layout.layout_empty_view);
         //RequestCenter.getKnownlist(mRequest, this);
+        mAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
+            @Override
+            public void onLoadMoreRequested() {
+                isReSearch=false;
+                loadMoreData();
+            }
+        },mRecyclerView);
+        //RequestCenter.getLawList(mRequest,this);
+        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            public void onRefresh() {
+                isLastPage = false;
+                mPage = 1;
+
+                chemicalsResponseList.clear();
+                mAdapter.getData().clear();
+                mRequest.setPage(mPage);
+                mRequest.setPageSize(pageSize);
+                isReSearch=true;
+                RequestCenter.getKnownlist(mRequest,ChemicalFragment.this);
+                //数据重新加载完成后，提示数据发生改变，并且设置现在不在刷新
+                refreshLayout.setRefreshing(false);
+            }
+        });
     }
 
     @Override
@@ -74,10 +125,22 @@ public class ChemicalFragment extends Fragment implements HttpCallBack, BaseQuic
         JSONObject mainData = respose.getMainData();
         if(requestUrl.equals(RequestCenter.GET_KNOWNLIST)){
             chemicalsResponseList = MyJSON.parseArray(mainData.getString("chemicalsList"), ChemicalsResponse.class);
-            mAdapter=new KnownAdapter(chemicalsResponseList);
-            mAdapter.setLight(true,mRequest);
-            mRecyclerView.setAdapter(mAdapter);
-            mAdapter.setOnItemClickListener(this);
+            if (mainData.size() > 0) {
+                chemicalsResponseList = MyJSON.parseArray(mainData.getString("chemicalsList"), ChemicalsResponse.class);
+                if (chemicalsResponseList.size() < pageSize) {
+                    isLastPage = true;
+                    setFooterView();
+                    mAdapter.loadMoreEnd();
+                } else {
+                    mAdapter.loadMoreComplete();
+                }
+                if(isReSearch) {
+                    mAdapter.replaceData(chemicalsResponseList);
+                }else{
+                    mAdapter.addData(chemicalsResponseList);
+                }
+                mAdapter.notifyDataSetChanged();
+            }
         }
         return false;
     }
@@ -94,6 +157,8 @@ public class ChemicalFragment extends Fragment implements HttpCallBack, BaseQuic
 
     public void searchKey(String key){
         mRequest.setName(key);
+        mAdapter.setLight(true,mRequest);
+        isReSearch=true;
         RequestCenter.getKnownlist(mRequest,this);
     }
 

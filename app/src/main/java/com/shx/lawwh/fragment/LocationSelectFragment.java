@@ -245,25 +245,67 @@ public class LocationSelectFragment extends Fragment implements View.OnClickList
                 nextKey.setText(item.getName());
                 switch (index) {
                     case 1:
+                        if(item.getLevel()==6){
+                            mBinding.ivOne.setVisibility(View.GONE);
+                        }else{
+                            mBinding.ivOne.setVisibility(View.VISIBLE);
+                        }
                         twoCode = item.getCode();
                         break;
                     case 2:
+                        if(item.getLevel()==6){
+                            mBinding.ivTwo.setVisibility(View.GONE);
+                        }else{
+                            mBinding.ivTwo.setVisibility(View.VISIBLE);
+                        }
                         threeCode = item.getCode();
                         break;
                     case 3:
+                        if(item.getLevel()==6){
+                            mBinding.ivThree.setVisibility(View.GONE);
+                        }else{
+                            mBinding.ivThree.setVisibility(View.VISIBLE);
+                        }
                         fourCode = item.getCode();
                         break;
                     case 4:
+                        if(item.getLevel()==6){
+                            mBinding.ivFour.setVisibility(View.GONE);
+                        }else{
+                            mBinding.ivFour.setVisibility(View.VISIBLE);
+                        }
                         fiveCode = item.getCode();
                         break;
                     case 5:
+                        if(item.getLevel()==6){
+                            mBinding.ivFive.setVisibility(View.GONE);
+                        }else{
+                            mBinding.ivFive.setVisibility(View.VISIBLE);
+                        }
                         sixCode = item.getCode();
                         break;
                     case 6:
+                        if(item.getLevel()==6){
+                            mBinding.ivSix.setVisibility(View.GONE);
+                        }else{
+                            mBinding.ivSix.setVisibility(View.VISIBLE);
+                        }
                         sevenCode = item.getCode();
                         break;
                     case 7:
+                        if(item.getLevel()==6){
+                            mBinding.ivSeven.setVisibility(View.GONE);
+                        }else{
+                            mBinding.ivSeven.setVisibility(View.VISIBLE);
+                        }
                         eightCode = item.getCode();
+                        break;
+                    case 8:
+                        if(item.getLevel()==6){
+                            mBinding.ivEight.setVisibility(View.GONE);
+                        }else{
+                            mBinding.ivEight.setVisibility(View.VISIBLE);
+                        }
                         break;
 
                 }

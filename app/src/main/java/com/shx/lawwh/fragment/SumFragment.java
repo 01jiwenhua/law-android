@@ -44,6 +44,10 @@ public class SumFragment extends Fragment implements HttpCallBack, BaseQuickAdap
     private SwipeRefreshLayout refreshLayout;
     private LawRequest mRequest;
     private List<LawResponse> lawList = new ArrayList<>();
+    private int mPage = 1;
+    private final int pageSize = 10;
+    private boolean isLastPage = false;
+    private boolean isReSearch=false;//是否是通过关键字重新搜索
 
     @Nullable
     @Override
@@ -61,6 +65,25 @@ public class SumFragment extends Fragment implements HttpCallBack, BaseQuickAdap
 
     }
 
+    private void loadMoreData() {
+        if (isLastPage) {
+            setFooterView();
+            mAdapter.loadMoreEnd();
+            return;
+        }
+        mPage++;
+        LogGloble.d("loadMoreData", mPage + "");
+        mRequest.setPage(mPage);
+        RequestCenter.getLawList(mRequest, this);
+
+
+    }
+
+    private void setFooterView() {
+        View footer = LayoutInflater.from(getActivity()).inflate(R.layout.layout_footer, null);
+        mAdapter.setFooterView(footer);
+    }
+
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         initData();
@@ -71,8 +94,34 @@ public class SumFragment extends Fragment implements HttpCallBack, BaseQuickAdap
         mRequest = new LawRequest();
         mRequest.setPage(1);
         mRequest.setPageSize(30);
+        mAdapter = new LawBaseAdapter(lawList);
+        mRecyclerView.setAdapter(mAdapter);
+        mAdapter.setOnItemClickListener(this);
+        mAdapter.bindToRecyclerView(mRecyclerView);
+        mAdapter.setEmptyView(R.layout.layout_empty_view);
+        mAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
+            @Override
+            public void onLoadMoreRequested() {
+                isReSearch=false;
+                loadMoreData();
+            }
+        },mRecyclerView);
         //RequestCenter.getLawList(mRequest,this);
+        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            public void onRefresh() {
+                isLastPage = false;
+                mPage = 1;
 
+                lawList.clear();
+                mAdapter.getData().clear();
+                mRequest.setPage(mPage);
+                mRequest.setPageSize(pageSize);
+                isReSearch=true;
+                RequestCenter.getLawList(mRequest, SumFragment.this);
+                //数据重新加载完成后，提示数据发生改变，并且设置现在不在刷新
+                refreshLayout.setRefreshing(false);
+            }
+        });
     }
 
 
@@ -80,11 +129,22 @@ public class SumFragment extends Fragment implements HttpCallBack, BaseQuickAdap
     public boolean doSuccess(ZCResponse respose, String requestUrl) {
         JSONObject mainData = respose.getMainData();
         if (requestUrl.equals(RequestCenter.GET_LAWLIST)) {
-            lawList = MyJSON.parseArray(mainData.getString("lawList"), LawResponse.class);
-            mAdapter = new LawBaseAdapter(lawList);
-            mAdapter.setLight(true, mRequest);
-            mRecyclerView.setAdapter(mAdapter);
-            mAdapter.setOnItemClickListener(this);
+            if (mainData.size() > 0) {
+                lawList = MyJSON.parseArray(mainData.getString("lawList"), LawResponse.class);
+                if (lawList.size() < pageSize) {
+                    isLastPage = true;
+                    setFooterView();
+                    mAdapter.loadMoreEnd();
+                } else {
+                    mAdapter.loadMoreComplete();
+                }
+                if(isReSearch) {
+                   mAdapter.replaceData(lawList);
+                }else{
+                    mAdapter.addData(lawList);
+                }
+                mAdapter.notifyDataSetChanged();
+            }
         }
 
         return false;
@@ -103,6 +163,8 @@ public class SumFragment extends Fragment implements HttpCallBack, BaseQuickAdap
     public void searchKey(String key) {
         mRequest.setName(key);
         mRequest.setDescription(key);
+        mAdapter.setLight(true,mRequest);
+        isReSearch=true;
         RequestCenter.getLawList(mRequest, this);
     }
 
