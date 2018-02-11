@@ -75,8 +75,6 @@ public class SumFragment extends Fragment implements HttpCallBack, BaseQuickAdap
         LogGloble.d("loadMoreData", mPage + "");
         mRequest.setPage(mPage);
         RequestCenter.getLawList(mRequest, this);
-
-
     }
 
     private void setFooterView() {
