@@ -1,7 +1,9 @@
 package com.shx.lawwh.activity;
 
 import android.graphics.Bitmap;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -74,6 +76,7 @@ public class CommonWebActivity extends BaseActivity {
         });
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     void initSettings(WebSettings webSettings) {
         webSettings.setJavaScriptEnabled(true);
         webSettings.setRenderPriority(WebSettings.RenderPriority.HIGH);
@@ -108,26 +111,27 @@ public class CommonWebActivity extends BaseActivity {
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
         int mDensity = metrics.densityDpi;
         LogGloble.d("maomao", "densityDpi = " + mDensity);
-//        if (mDensity == 240) {
-//            webSettings.setDefaultZoom(WebSettings.ZoomDensity.FAR);
-//        } else if (mDensity == 160) {
-//            webSettings.setDefaultZoom(WebSettings.ZoomDensity.MEDIUM);
-//        } else if (mDensity == 120) {
-//            webSettings.setDefaultZoom(WebSettings.ZoomDensity.CLOSE);
-//        } else if (mDensity == DisplayMetrics.DENSITY_XHIGH) {
-//            webSettings.setDefaultZoom(WebSettings.ZoomDensity.FAR);
-//        } else if (mDensity == DisplayMetrics.DENSITY_TV) {
-//            webSettings.setDefaultZoom(WebSettings.ZoomDensity.FAR);
-//        } else {
-//            webSettings.setDefaultZoom(WebSettings.ZoomDensity.MEDIUM);
-//        }
+        if (mDensity == 240) {
+            webSettings.setDefaultZoom(WebSettings.ZoomDensity.FAR);
+        } else if (mDensity == 160) {
+            webSettings.setDefaultZoom(WebSettings.ZoomDensity.MEDIUM);
+        } else if (mDensity == 120) {
+            webSettings.setDefaultZoom(WebSettings.ZoomDensity.CLOSE);
+        } else if (mDensity == DisplayMetrics.DENSITY_XHIGH) {
+            webSettings.setDefaultZoom(WebSettings.ZoomDensity.FAR);
+        } else if (mDensity == DisplayMetrics.DENSITY_TV) {
+            webSettings.setDefaultZoom(WebSettings.ZoomDensity.FAR);
+        }else {
+            webSettings.setDefaultZoom(WebSettings.ZoomDensity.MEDIUM);
+        }
+        webSettings.setDefaultFontSize(20);
 
 
 /**
  * 用WebView显示图片，可使用这个参数 设置网页布局类型： 1、LayoutAlgorithm.NARROW_COLUMNS ：
  * 适应内容大小 2、LayoutAlgorithm.SINGLE_COLUMN:适应屏幕，内容将自动缩放
  */
-        webSettings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+        webSettings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.TEXT_AUTOSIZING);
     }
 
     //改写物理按键——返回的逻辑
