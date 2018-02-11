@@ -3,7 +3,6 @@ package com.shx.lawwh.activity;
 import android.graphics.Canvas;
 import android.os.Bundle;
 import android.os.Environment;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -85,6 +84,7 @@ public class PdfViewActivity extends BaseActivity implements OnPageChangeListene
         mUrl = getIntent().getStringExtra("URL");
 
         mUrl = String.format(SystemConfig.PDFURL, mUrl);
+        LogGloble.d("pdfview",mUrl);
         int index = mUrl.lastIndexOf("/");
         String fileName = mUrl.substring(index);
         DialogManager.getInstance().showProgressDialog(this);
