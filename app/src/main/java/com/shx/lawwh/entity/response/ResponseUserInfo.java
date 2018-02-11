@@ -1,14 +1,14 @@
 package com.shx.lawwh.entity.response;
 
-import java.io.Serializable;
+import android.text.TextUtils;
 
-import static android.R.attr.path;
+import java.io.Serializable;
 
 /**
  * Created by zhou on 2018/2/1.
  */
 
-public class ResponseUserInfo  implements Serializable{
+public class ResponseUserInfo implements Serializable {
 
 
     private static final long serialVersionUID = 5558410932748370767L;
@@ -46,12 +46,16 @@ public class ResponseUserInfo  implements Serializable{
     private String phone;
     private String real_name;
     private int region_id;
-    private int sex=-1;
+    private int sex = -1;
     private String head_icon;
 
     public String getHead_icon() {
-
-        return head_icon.replace("\\","/");
+        if (TextUtils.isEmpty(head_icon)) {
+            return head_icon;
+        } else {
+            head_icon.replace("\\", "/");
+        }
+        return head_icon;
     }
 
     public void setHead_icon(String head_icon) {
