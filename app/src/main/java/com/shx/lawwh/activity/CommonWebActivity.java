@@ -12,14 +12,7 @@ import android.webkit.WebViewClient;
 
 import com.shx.lawwh.R;
 import com.shx.lawwh.base.BaseActivity;
-import com.shx.lawwh.common.CommonValues;
 import com.shx.lawwh.common.LogGloble;
-import com.shx.lawwh.common.SystemConfig;
-import com.shx.lawwh.entity.response.ResponseUserInfo;
-import com.shx.lawwh.libs.dialog.ToastUtil;
-import com.shx.lawwh.libs.http.RequestCenter;
-import com.shx.lawwh.libs.http.ZCResponse;
-import com.shx.lawwh.utils.SharedPreferencesUtil;
 
 
 public class CommonWebActivity extends BaseActivity {
@@ -46,6 +39,7 @@ public class CommonWebActivity extends BaseActivity {
         getTopbar().setRightImageVisibility(View.VISIBLE);
         webView = (WebView) findViewById(R.id.webView);
         url = getIntent().getStringExtra("url");
+        LogGloble.d("commonWeb",url+"");
         title=getIntent().getStringExtra("title");
         getTopbar().setTitle(title);
         init();
@@ -87,7 +81,7 @@ public class CommonWebActivity extends BaseActivity {
         // 开启 DOM storage API 功能
         webSettings.setDomStorageEnabled(true);
         //开启 database storage API 功能
-        webSettings.setDatabaseEnabled(true);
+        webSettings.setDatabaseEnabled(false);
         String cacheDirPath = getFilesDir().getAbsolutePath()+"webCache";
         //      String cacheDirPath = getCacheDir().getAbsolutePath()+Constant.APP_DB_DIRNAME;
         Log.i("WEB", "cacheDirPath="+cacheDirPath);
@@ -114,26 +108,26 @@ public class CommonWebActivity extends BaseActivity {
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
         int mDensity = metrics.densityDpi;
         LogGloble.d("maomao", "densityDpi = " + mDensity);
-        if (mDensity == 240) {
-            webSettings.setDefaultZoom(WebSettings.ZoomDensity.FAR);
-        } else if (mDensity == 160) {
-            webSettings.setDefaultZoom(WebSettings.ZoomDensity.MEDIUM);
-        } else if (mDensity == 120) {
-            webSettings.setDefaultZoom(WebSettings.ZoomDensity.CLOSE);
-        } else if (mDensity == DisplayMetrics.DENSITY_XHIGH) {
-            webSettings.setDefaultZoom(WebSettings.ZoomDensity.FAR);
-        } else if (mDensity == DisplayMetrics.DENSITY_TV) {
-            webSettings.setDefaultZoom(WebSettings.ZoomDensity.FAR);
-        } else {
-            webSettings.setDefaultZoom(WebSettings.ZoomDensity.MEDIUM);
-        }
+//        if (mDensity == 240) {
+//            webSettings.setDefaultZoom(WebSettings.ZoomDensity.FAR);
+//        } else if (mDensity == 160) {
+//            webSettings.setDefaultZoom(WebSettings.ZoomDensity.MEDIUM);
+//        } else if (mDensity == 120) {
+//            webSettings.setDefaultZoom(WebSettings.ZoomDensity.CLOSE);
+//        } else if (mDensity == DisplayMetrics.DENSITY_XHIGH) {
+//            webSettings.setDefaultZoom(WebSettings.ZoomDensity.FAR);
+//        } else if (mDensity == DisplayMetrics.DENSITY_TV) {
+//            webSettings.setDefaultZoom(WebSettings.ZoomDensity.FAR);
+//        } else {
+//            webSettings.setDefaultZoom(WebSettings.ZoomDensity.MEDIUM);
+//        }
 
 
 /**
  * 用WebView显示图片，可使用这个参数 设置网页布局类型： 1、LayoutAlgorithm.NARROW_COLUMNS ：
  * 适应内容大小 2、LayoutAlgorithm.SINGLE_COLUMN:适应屏幕，内容将自动缩放
  */
-        webSettings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.NARROW_COLUMNS);
+        webSettings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
     }
 
     //改写物理按键——返回的逻辑
