@@ -17,6 +17,7 @@ import android.view.View;
 
 import com.alibaba.fastjson.JSONObject;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.signature.StringSignature;
 import com.shx.lawwh.R;
 import com.shx.lawwh.base.BaseActivity;
@@ -107,7 +108,7 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
         });
         initListerner();
         mAvatarPath = getApplicationContext().getFilesDir().getAbsolutePath() + "/avatar.jpg";
-        Glide.with(this).load(SystemConfig.BASEURL+userInfo.getHead_icon()).signature(new StringSignature("0")).placeholder(R.drawable.ic_avatar).transform(new GlideCircleTransform(this)).into(mBinding.ivAvatar);
+        Glide.with(this).load(SystemConfig.BASEURL+userInfo.getHead_icon()).skipMemoryCache(true).diskCacheStrategy(DiskCacheStrategy.NONE).placeholder(R.drawable.ic_avatar).transform(new GlideCircleTransform(this)).into(mBinding.ivAvatar);
     }
 
     private void initListerner() {
@@ -422,7 +423,7 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
             userInfo.setHead_icon(newPath);
             SharedPreferencesUtil.saveObject(this, CommonValues.USERINFO, userInfo);
             LogGloble.d("aaaa",url);
-            Glide.with(this).load(url).placeholder(R.drawable.ic_avatar).signature(new StringSignature("0")).transform(new GlideCircleTransform(this)).into(mBinding.ivAvatar);
+            Glide.with(this).load(url).placeholder(R.drawable.ic_avatar).skipMemoryCache(true).diskCacheStrategy(DiskCacheStrategy.NONE).transform(new GlideCircleTransform(this)).into(mBinding.ivAvatar);
             mAvatarFile.delete();
         }
         return super.doSuccess(respose, requestUrl);
