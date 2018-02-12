@@ -24,6 +24,7 @@ public class CommonAdapter extends RecyclerView.Adapter<CommonAdapter.LawsHolder
     private Context mContext;
     private OnRecyclerViewItemClickListener mOnItemClickListener=null;
 
+
     public CommonAdapter(List<LawItem> mDatas, Context mContext) {
         this.mDatas = mDatas;
         this.mContext = mContext;
