@@ -39,6 +39,7 @@ import com.shx.lawwh.utils.GlideCircleTransform;
 import com.shx.lawwh.utils.LogGloble;
 import com.shx.lawwh.utils.RegexpUtils;
 import com.shx.lawwh.utils.SharedPreferencesUtil;
+import com.shx.lawwh.utils.StringUtil;
 import com.shx.lawwh.view.AddressInitTask;
 
 import java.io.File;
@@ -108,7 +109,7 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
         });
         initListerner();
         mAvatarPath = getApplicationContext().getFilesDir().getAbsolutePath() + "/avatar.jpg";
-        Glide.with(this).load(SystemConfig.BASEURL+userInfo.getHead_icon()).skipMemoryCache(true).diskCacheStrategy(DiskCacheStrategy.NONE).placeholder(R.drawable.ic_avatar).transform(new GlideCircleTransform(this)).into(mBinding.ivAvatar);
+        Glide.with(this).load(SystemConfig.BASEURL+ StringUtil.replaceSeparator(userInfo.getHead_icon())).skipMemoryCache(true).diskCacheStrategy(DiskCacheStrategy.NONE).placeholder(R.drawable.ic_avatar).transform(new GlideCircleTransform(this)).into(mBinding.ivAvatar);
     }
 
     private void initListerner() {

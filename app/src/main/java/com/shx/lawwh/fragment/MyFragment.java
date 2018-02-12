@@ -32,6 +32,7 @@ import com.shx.lawwh.libs.http.ZCResponse;
 import com.shx.lawwh.utils.DeviceUtils;
 import com.shx.lawwh.utils.GlideCircleTransform;
 import com.shx.lawwh.utils.SharedPreferencesUtil;
+import com.shx.lawwh.utils.StringUtil;
 
 /**
  * Created by adm on 2018/2/3.
@@ -56,7 +57,7 @@ public class MyFragment extends Fragment implements View.OnClickListener,HttpCal
         super.onResume();
         ResponseUserInfo userInfo= (ResponseUserInfo) SharedPreferencesUtil.readObject(getActivity(), CommonValues.USERINFO);
         myBinding.setUserInfo(userInfo);
-        Glide.with(this).load(SystemConfig.BASEURL+userInfo.getHead_icon()).skipMemoryCache(true).diskCacheStrategy(DiskCacheStrategy.NONE).placeholder(R.drawable.ic_avatar).transform(new GlideCircleTransform(getActivity())).into(myBinding.ivAvatar);
+        Glide.with(this).load(SystemConfig.BASEURL+ StringUtil.replaceSeparator(userInfo.getHead_icon())).skipMemoryCache(true).diskCacheStrategy(DiskCacheStrategy.NONE).placeholder(R.drawable.ic_avatar).transform(new GlideCircleTransform(getActivity())).into(myBinding.ivAvatar);
     }
 
     private void initView(View view){
