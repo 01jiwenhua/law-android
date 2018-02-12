@@ -1,7 +1,9 @@
 package com.shx.lawwh.activity;
 
 import android.graphics.Bitmap;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -117,6 +119,7 @@ public class WebActivity extends BaseActivity {
 //        }
 //        settings.setTextZoom(fontSize);
         initSettings(settings);
+
         webView.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
@@ -137,61 +140,118 @@ public class WebActivity extends BaseActivity {
         });
     }
 
-    void initSettings(WebSettings webSettings) {
-        webSettings.setJavaScriptEnabled(true);
-        webSettings.setRenderPriority(WebSettings.RenderPriority.HIGH);
-        webSettings.setCacheMode(WebSettings.LOAD_DEFAULT);  //设置 缓存模式
-        // 开启 DOM storage API 功能
-        webSettings.setDomStorageEnabled(true);
-        //开启 database storage API 功能
-        webSettings.setDatabaseEnabled(true);
-        String cacheDirPath = getFilesDir().getAbsolutePath()+"webCache";
-        //      String cacheDirPath = getCacheDir().getAbsolutePath()+Constant.APP_DB_DIRNAME;
-        Log.i("WEB", "cacheDirPath="+cacheDirPath);
-        //设置数据库缓存路径
-        webSettings.setDatabasePath(cacheDirPath);
-        //设置  Application Caches 缓存目录
-        webSettings.setAppCachePath(cacheDirPath);
-        //开启 Application Caches 功能
-        webSettings.setAppCacheEnabled(true);
-        webSettings.setJavaScriptCanOpenWindowsAutomatically(true);
-        webSettings.setUseWideViewPort(true);//关键点
+//    void initSettings(WebSettings webSettings) {
+//        webSettings.setJavaScriptEnabled(true);
+//        webSettings.setRenderPriority(WebSettings.RenderPriority.HIGH);
+//        webSettings.setCacheMode(WebSettings.LOAD_DEFAULT);  //设置 缓存模式
+//        // 开启 DOM storage API 功能
+//        webSettings.setDomStorageEnabled(true);
+//        //开启 database storage API 功能
+//        webSettings.setDatabaseEnabled(true);
+//        String cacheDirPath = getFilesDir().getAbsolutePath()+"webCache";
+//        //      String cacheDirPath = getCacheDir().getAbsolutePath()+Constant.APP_DB_DIRNAME;
+//        Log.i("WEB", "cacheDirPath="+cacheDirPath);
+//        //设置数据库缓存路径
+//        webSettings.setDatabasePath(cacheDirPath);
+//        //设置  Application Caches 缓存目录
+//        webSettings.setAppCachePath(cacheDirPath);
+//        //开启 Application Caches 功能
+//        webSettings.setAppCacheEnabled(true);
+//        webSettings.setJavaScriptCanOpenWindowsAutomatically(true);
+//        webSettings.setUseWideViewPort(true);//关键点
+//
+//        webSettings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+//
+//        webSettings.setDisplayZoomControls(false);
+//        webSettings.setAllowFileAccess(true); // 允许访问文件
+//        webSettings.setBuiltInZoomControls(true); // 设置显示缩放按钮
+//        webSettings.setSupportZoom(true); // 支持缩放
+//
+//
+//        webSettings.setLoadWithOverviewMode(true);
+//
+//        DisplayMetrics metrics = new DisplayMetrics();
+//        getWindowManager().getDefaultDisplay().getMetrics(metrics);
+//        int mDensity = metrics.densityDpi;
+//        LogGloble.d("maomao", "densityDpi = " + mDensity);
+//        if (mDensity == 240) {
+//            webSettings.setDefaultZoom(WebSettings.ZoomDensity.FAR);
+//        } else if (mDensity == 160) {
+//            webSettings.setDefaultZoom(WebSettings.ZoomDensity.MEDIUM);
+//        } else if (mDensity == 120) {
+//            webSettings.setDefaultZoom(WebSettings.ZoomDensity.CLOSE);
+//        } else if (mDensity == DisplayMetrics.DENSITY_XHIGH) {
+//            webSettings.setDefaultZoom(WebSettings.ZoomDensity.FAR);
+//        } else if (mDensity == DisplayMetrics.DENSITY_TV) {
+//            webSettings.setDefaultZoom(WebSettings.ZoomDensity.FAR);
+//        } else {
+//            webSettings.setDefaultZoom(WebSettings.ZoomDensity.MEDIUM);
+//        }
+//        webSettings.setDefaultFontSize(20);
+//
+///**
+// * 用WebView显示图片，可使用这个参数 设置网页布局类型： 1、LayoutAlgorithm.NARROW_COLUMNS ：
+// * 适应内容大小 2、LayoutAlgorithm.SINGLE_COLUMN:适应屏幕，内容将自动缩放
+// */
+//        webSettings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.NARROW_COLUMNS);
+//    }
+@RequiresApi(api = Build.VERSION_CODES.KITKAT)
+void initSettings(WebSettings webSettings) {
+    webSettings.setJavaScriptEnabled(true);
+    webSettings.setRenderPriority(WebSettings.RenderPriority.HIGH);
+    webSettings.setCacheMode(WebSettings.LOAD_DEFAULT);  //设置 缓存模式
+    // 开启 DOM storage API 功能
+    webSettings.setDomStorageEnabled(true);
+    //开启 database storage API 功能
+    webSettings.setDatabaseEnabled(false);
+    String cacheDirPath = getFilesDir().getAbsolutePath()+"webCache";
+    //      String cacheDirPath = getCacheDir().getAbsolutePath()+Constant.APP_DB_DIRNAME;
+    Log.i("WEB", "cacheDirPath="+cacheDirPath);
+    //设置数据库缓存路径
+    webSettings.setDatabasePath(cacheDirPath);
+    //设置  Application Caches 缓存目录
+    webSettings.setAppCachePath(cacheDirPath);
+    //开启 Application Caches 功能
+    webSettings.setAppCacheEnabled(true);
+    webSettings.setJavaScriptCanOpenWindowsAutomatically(true);
+    webSettings.setUseWideViewPort(true);//关键点
 
-        webSettings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+    webSettings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
 
-        webSettings.setDisplayZoomControls(false);
-        webSettings.setAllowFileAccess(true); // 允许访问文件
-        webSettings.setBuiltInZoomControls(true); // 设置显示缩放按钮
-        webSettings.setSupportZoom(true); // 支持缩放
+    webSettings.setDisplayZoomControls(false);
+    webSettings.setAllowFileAccess(true); // 允许访问文件
+    webSettings.setBuiltInZoomControls(true); // 设置显示缩放按钮
+    webSettings.setSupportZoom(true); // 支持缩放
 
 
-        webSettings.setLoadWithOverviewMode(true);
+    webSettings.setLoadWithOverviewMode(true);
 
-        DisplayMetrics metrics = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(metrics);
-        int mDensity = metrics.densityDpi;
-        LogGloble.d("maomao", "densityDpi = " + mDensity);
-        if (mDensity == 240) {
-            webSettings.setDefaultZoom(WebSettings.ZoomDensity.FAR);
-        } else if (mDensity == 160) {
-            webSettings.setDefaultZoom(WebSettings.ZoomDensity.MEDIUM);
-        } else if (mDensity == 120) {
-            webSettings.setDefaultZoom(WebSettings.ZoomDensity.CLOSE);
-        } else if (mDensity == DisplayMetrics.DENSITY_XHIGH) {
-            webSettings.setDefaultZoom(WebSettings.ZoomDensity.FAR);
-        } else if (mDensity == DisplayMetrics.DENSITY_TV) {
-            webSettings.setDefaultZoom(WebSettings.ZoomDensity.FAR);
-        } else {
-            webSettings.setDefaultZoom(WebSettings.ZoomDensity.MEDIUM);
-        }
+    DisplayMetrics metrics = new DisplayMetrics();
+    getWindowManager().getDefaultDisplay().getMetrics(metrics);
+    int mDensity = metrics.densityDpi;
+    LogGloble.d("maomao", "densityDpi = " + mDensity);
+    if (mDensity == 240) {
+        webSettings.setDefaultZoom(WebSettings.ZoomDensity.FAR);
+    } else if (mDensity == 160) {
+        webSettings.setDefaultZoom(WebSettings.ZoomDensity.MEDIUM);
+    } else if (mDensity == 120) {
+        webSettings.setDefaultZoom(WebSettings.ZoomDensity.CLOSE);
+    } else if (mDensity == DisplayMetrics.DENSITY_XHIGH) {
+        webSettings.setDefaultZoom(WebSettings.ZoomDensity.FAR);
+    } else if (mDensity == DisplayMetrics.DENSITY_TV) {
+        webSettings.setDefaultZoom(WebSettings.ZoomDensity.FAR);
+    }else {
+        webSettings.setDefaultZoom(WebSettings.ZoomDensity.MEDIUM);
+    }
+    webSettings.setDefaultFontSize(20);
 
 
 /**
  * 用WebView显示图片，可使用这个参数 设置网页布局类型： 1、LayoutAlgorithm.NARROW_COLUMNS ：
  * 适应内容大小 2、LayoutAlgorithm.SINGLE_COLUMN:适应屏幕，内容将自动缩放
  */
-        webSettings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.NARROW_COLUMNS);
-    }
+    webSettings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.TEXT_AUTOSIZING);
+}
 
     //改写物理按键——返回的逻辑
     @Override

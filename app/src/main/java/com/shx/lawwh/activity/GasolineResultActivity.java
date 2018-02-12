@@ -12,8 +12,6 @@ import com.shx.lawwh.entity.response.ResponseGasolineResult;
 
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
 
 /**
  * Created by adm on 2018/2/8.
@@ -47,7 +45,7 @@ public class GasolineResultActivity extends BaseActivity {
         mBinding.tvTwoCondition.setText(sortKey(twoMap));
         mBinding.tvDistance.setText(responseGasolineResult.getDistance()+"m");
         mBinding.tvStandard.setText(responseGasolineResult.getStandard());
-        mBinding.tvDeclare.setText(responseGasolineResult.getInstruction());
+        mBinding.tvDeclare.setText(responseGasolineResult.getNoteContent());
     }
 
     /**

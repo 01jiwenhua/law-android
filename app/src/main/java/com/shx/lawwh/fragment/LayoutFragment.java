@@ -197,7 +197,7 @@ public class LayoutFragment extends Fragment implements View.OnClickListener, Ht
             JSONObject mainData = respose.getMainData();
             ResponseGasolineResult responseGasolineResult=MyJSON.parseObject(mainData.getString("distance"),ResponseGasolineResult.class);
             if(responseGasolineResult==null){
-                ToastUtil.getInstance().toastInCenter(getActivity(),"数据不存在！");
+                ToastUtil.getInstance().toastInCenter(getActivity(),"暂未收录此内容");
             }else {
                 Intent intent = new Intent(getActivity(), GasolineResultActivity.class);
                 intent.putExtra("result", responseGasolineResult);

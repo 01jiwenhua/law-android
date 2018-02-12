@@ -29,6 +29,15 @@ public class ResponseGasolineResult  implements Serializable{
     private String standard;
     private int structureOutId;
     private String tableNo;
+    private String noteContent;
+
+    public String getNoteContent() {
+        return noteContent;
+    }
+
+    public void setNoteContent(String noteContent) {
+        this.noteContent = noteContent;
+    }
 
     public int getDeviceInId() {
         return deviceInId;
