@@ -21,6 +21,15 @@ public class ResponseGasolineItem {
     private String name;
     private String parentCode;
     private String standard;
+    private String fullName;
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
 
     public String getCode() {
         return code;
