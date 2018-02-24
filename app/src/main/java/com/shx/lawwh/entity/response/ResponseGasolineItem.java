@@ -1,10 +1,12 @@
 package com.shx.lawwh.entity.response;
 
+import java.io.Serializable;
+
 /**
  * Created by zhou on 2018/2/7.
  */
 
-public class ResponseGasolineItem {
+public class ResponseGasolineItem implements Serializable{
 
     /**
      * code : 1020000000000

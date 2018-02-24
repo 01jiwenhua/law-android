@@ -1,5 +1,6 @@
 package com.shx.lawwh.fragment;
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -11,11 +12,14 @@ import android.widget.AdapterView;
 
 import com.alibaba.fastjson.JSONObject;
 import com.shx.lawwh.R;
+import com.shx.lawwh.activity.LocationPickerActivity;
 import com.shx.lawwh.adapter.LocationAdapter;
 import com.shx.lawwh.common.LogGloble;
 import com.shx.lawwh.databinding.FragmentLocationSelect2Binding;
 import com.shx.lawwh.entity.response.ResponseGasoline;
 import com.shx.lawwh.entity.response.ResponseGasolineItem;
+import com.shx.lawwh.entity.response.ResponseGasolineResult;
+import com.shx.lawwh.libs.dialog.ToastUtil;
 import com.shx.lawwh.libs.http.HttpCallBack;
 import com.shx.lawwh.libs.http.HttpTrowable;
 import com.shx.lawwh.libs.http.MyJSON;
@@ -25,16 +29,17 @@ import com.shx.lawwh.libs.http.ZCResponse;
 import java.util.LinkedList;
 import java.util.List;
 
-import cn.qqtheme.framework.picker.SinglePicker;
+import static android.app.Activity.RESULT_OK;
 
 /**
- * Created by zhou on 2018/2/6.
+ * 在没完全弄好之前先用LocationSelectFragment
+ * Created by xuan on 2018/2/6.
  * 站址选择
  */
 
 public class LocationSelectFragment2 extends Fragment implements View.OnClickListener, AdapterView.OnItemClickListener, HttpCallBack {
     private FragmentLocationSelect2Binding mBinding;
-    private String mCurrentClickItem = "parent";
+    private String mCurrentClickItem = "parent";//用来记录当前请求发起的地方，默认第一次请求是获取两个建筑物的，此后会分成a,b两种
     private LinkedList<ResponseGasoline> mAList;
     private LinkedList<ResponseGasoline> mBList;
     private LocationAdapter mAdapterA;
@@ -64,87 +69,54 @@ public class LocationSelectFragment2 extends Fragment implements View.OnClickLis
         mBinding.lvB.setOnItemClickListener(this);
         mBinding.lvA.setAdapter(mAdapterA);
         mBinding.lvB.setAdapter(mAdapterB);
-        RequestCenter.getArchitecture("站址选择", "", "GB 50156-2012", this);
+        RequestCenter.getArchitectureV2("站址选择", "", "GB 50156-2012", this);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.ll_one:
-//                RequestCenter.getArchitecture("", oneCode, "GB 50156-2012", this);
-                break;
-            case R.id.ll_five:
-                break;
+
         }
     }
 
-    private void showItemCchoice(final AdapterView adapterView, ResponseGasoline responseGasoline) {
-        SinglePicker<ResponseGasolineItem> picker = new SinglePicker<>(getActivity(), responseGasoline.getChild());
-        picker.setCanceledOnTouchOutside(false);
-        picker.setSelectedIndex(1);
-        picker.setCycleDisable(true);
-        picker.setOnItemPickListener(new SinglePicker.OnItemPickListener<ResponseGasolineItem>() {
-            @Override
-            public void onItemPicked(int i, ResponseGasolineItem item) {
-
-                switch (adapterView.getId()) {
-                    case R.id.lv_A:
-                        List<ResponseGasolineItem> child = mAList.getLast().getChild();
-                        child.clear();
-                        child.add(item);
-                        mAList.getLast().setChild(child);
-                        if (item.getLevel() == 6) {
-                            mAdapterA.setHasNext(false);
-                        }else{
-                            RequestCenter.getArchitecture("",item.getParentCode(),"GB 50156-2012",LocationSelectFragment2.this);
-                        }
-                        mAdapterA.notifyDataSetChanged();
-                        break;
-                    case R.id.lv_B:
-                        List<ResponseGasolineItem> child2 = mBList.getLast().getChild();
-                        child2.clear();
-                        child2.add(item);
-                        mBList.getLast().setChild(child2);
-                        if (item.getLevel() == 6) {
-                            mAdapterB.setHasNext(false);
-                        }else{
-                            RequestCenter.getArchitecture("",item.getParentCode(),"GB 50156-2012",LocationSelectFragment2.this);
-                        }
-                        mAdapterB.notifyDataSetChanged();
-                        break;
-            }
-
-
-        }
-    });
-        picker.show();
-}
-
     @Override
     public boolean doSuccess(ZCResponse respose, String requestUrl) {
-        if (requestUrl.equals(RequestCenter.GET_ARCHITECTURE)) {
+        if (requestUrl.equals(RequestCenter.GET_ARCHITECTURE_V2)) {
             JSONObject mainData = respose.getMainData();
             List<ResponseGasoline> responseGasolineList = MyJSON.parseArray(mainData.getString("architecture"), ResponseGasoline.class);
             //当前是顶级请求返回结果
             if (mCurrentClickItem.equals("parent")) {
                 mAList.addFirst(responseGasolineList.get(0));
                 mBList.addFirst(responseGasolineList.get(1));
-            } else if (mCurrentClickItem.equals("stationA")) {
-
-                mAList.add(responseGasolineList.get(0));
-
-            } else if (mCurrentClickItem.equals("stationB")) {
-                mBList.add(responseGasolineList.get(0));
             }
             mAdapterA.notifyDataSetChanged();
             mAdapterB.notifyDataSetChanged();
-
+        } else if (requestUrl.equals(RequestCenter.GET_ARCHITECTURE)) {
+            JSONObject data = respose.getMainData();
+            List<ResponseGasolineItem> items = MyJSON.parseArray(data.getString("architecture"), ResponseGasolineItem.class);
+            if (mCurrentClickItem.equals("stationA")) {
+                //构造新的一行数据
+                ResponseGasoline responseGasoline = new ResponseGasoline();
+                //key是上一级的value
+                responseGasoline.setParent(mAList.getLast().getChild().get(0));
+                //value为下一级的数据
+                responseGasoline.setChild(items);
+                mAList.add(responseGasoline);
+            } else if (mCurrentClickItem.equals("stationB")) {
+                ResponseGasoline responseGasoline = new ResponseGasoline();
+                responseGasoline.setParent(mBList.getLast().getChild().get(0));
+                responseGasoline.setChild(items);
+                mBList.add(responseGasoline);
+            }
+            mAdapterA.notifyDataSetChanged();
+            mAdapterB.notifyDataSetChanged();
         } else if (requestUrl.equals(RequestCenter.GET_DISTANCE)) {
-//            JSONObject mainData = respose.getMainData();
-//            ResponseGasolineResult responseGasolineResult = MyJSON.parseObject(mainData.getString("distance"), ResponseGasolineResult.class);
-//            if (responseGasolineResult == null) {
-//                ToastUtil.getInstance().toastInCenter(getActivity(), "暂未收录此内容");
-//            } else {
+            JSONObject mainData = respose.getMainData();
+            ResponseGasolineResult responseGasolineResult = MyJSON.parseObject(mainData.getString("distance"), ResponseGasolineResult.class);
+            if (responseGasolineResult == null) {
+                ToastUtil.getInstance().toastInCenter(getActivity(), "暂未收录此内容");
+            } else {
+                //获取距离还没调，去两个list最后一个数据的parent就可以了，fullneme是全部的请求参数传到下一个页面就可以
 //                Intent intent = new Intent(getActivity(), GasolineResultActivity.class);
 //                intent.putExtra("result", responseGasolineResult);
 //                intent.putExtra("oneCondition", (Serializable) conditionOneSelected);
@@ -152,7 +124,7 @@ public class LocationSelectFragment2 extends Fragment implements View.OnClickLis
 //                intent.putExtra("oneKey", oneKey);
 //                intent.putExtra("twoKey", twoKey);
 //                startActivity(intent);
-//            }
+            }
         }
         return false;
     }
@@ -169,33 +141,81 @@ public class LocationSelectFragment2 extends Fragment implements View.OnClickLis
     }
 
     @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            if (requestCode == 1) {
+                ResponseGasolineItem item = (ResponseGasolineItem) data.getSerializableExtra("result");
+                List<ResponseGasolineItem> childlist = mAList.getLast().getChild();
+                childlist.clear();
+                childlist.add(item);
+                mAList.getLast().setChild(childlist);
+                mAdapterA.notifyDataSetChanged();
+                if(item.getLevel()==6){
+                    ResponseGasoline responseGasoline = new ResponseGasoline();
+                    responseGasoline.setParent(mAList.getLast().getChild().get(0));
+                    responseGasoline.setChild(null);
+                    mAList.add(responseGasoline);
+                    mAdapterA.notifyDataSetChanged();
+                    return;
+                }
+                RequestCenter.getArchitecture("", mAList.getLast().getChild().get(0).getCode(), "GB 50156-2012", this);
+            }
+            if (requestCode == 2) {
+                ResponseGasolineItem item = (ResponseGasolineItem) data.getSerializableExtra("result");
+                List<ResponseGasolineItem> childlist = mBList.getLast().getChild();
+                childlist.clear();
+                childlist.add(item);
+                mBList.getLast().setChild(childlist);
+                mAdapterB.notifyDataSetChanged();
+                //如果level==6不再往下请求了
+                if(item.getLevel()==6){
+                    //构造最后一行数据
+                    ResponseGasoline responseGasoline = new ResponseGasoline();
+                    //key是上一行的value
+                    responseGasoline.setParent(mBList.getLast().getChild().get(0));
+                    responseGasoline.setChild(null);
+                    mBList.add(responseGasoline);
+                    mAdapterB.notifyDataSetChanged();
+                    return;
+                }
+                RequestCenter.getArchitecture("", mBList.getLast().getChild().get(0).getCode(), "GB 50156-2012", this);
+            }
+        }
+    }
+
+    @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
         LogGloble.d("onItemClick", adapterView.getId() + ";" + R.id.lv_A);
         LogGloble.d("onItemClick", adapterView.getId() + ";" + R.id.lv_B);
         switch (adapterView.getId()) {
             case R.id.lv_A:
                 mCurrentClickItem = "stationA";
-
-                if (!mAdapterA.isHasNext()) {
+                //当前点击的是哪一行则把他后面的所有数据清空
+                List subList = mAList.subList(i+1, mAList.size());
+                subList.clear();
+                if(mAList.get(i).getChild()==null||mAList.get(i).getChild().size()<=0){
+                    //如果没有下一级了不再响应点击事件，即最后一行点击无效果
                     return;
                 }
-
-                if (mAList.get(i).getChild() != null || mAList.get(i).getChild().size() > 0) {
-
-                    showItemCchoice(adapterView, mAList.get(i));
-
-                }
+                Intent intent = new Intent(getActivity(), LocationPickerActivity.class);
+                ResponseGasoline item = (ResponseGasoline) mAdapterA.getItem(i);
+                intent.putExtra("parentCode", item.getParent().getCode());
+                startActivityForResult(intent, 1);
 
                 break;
             case R.id.lv_B:
                 mCurrentClickItem = "stationB";
-                if (!mAdapterB.isHasNext()) {
+                //同上
+                List subListb = mBList.subList(i+1, mBList.size());
+                subListb.clear();
+                if(mBList.get(i).getChild()==null||mBList.get(i).getChild().size()<=0){
                     return;
                 }
-
-                if (mBList.get(i).getChild() != null || mBList.get(i).getChild().size() > 0) {
-                    showItemCchoice(adapterView, mBList.get(i));
-                }
+                Intent intent2 = new Intent(getActivity(), LocationPickerActivity.class);
+                ResponseGasoline item2 = (ResponseGasoline) mAdapterB.getItem(i);
+                intent2.putExtra("parentCode", item2.getParent().getCode());
+                startActivityForResult(intent2, 2);
                 break;
         }
     }

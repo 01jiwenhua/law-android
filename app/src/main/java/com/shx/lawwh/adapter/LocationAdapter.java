@@ -73,15 +73,12 @@ public class LocationAdapter extends BaseAdapter {
             holder.mIcon.setVisibility(View.GONE);
         }
         if(mList.get(i).getChild()!=null&&mList.get(i).getChild().size()>0){
-            if(!isHasNext()&&(getCount()-1==i)){
-                holder.mValue.setText("");
-                holder.mNext.setVisibility(View.GONE);
 
-            }else{
                 holder.mValue.setText(mList.get(i).getChild().get(0).getName());
                 holder.mNext.setVisibility(View.VISIBLE);
-            }
-
+        }else{
+            holder.mValue.setText("");
+            holder.mNext.setVisibility(View.GONE);
         }
         return view;
     }
