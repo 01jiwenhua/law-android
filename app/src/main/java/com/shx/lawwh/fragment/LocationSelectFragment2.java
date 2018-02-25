@@ -190,6 +190,8 @@ public class LocationSelectFragment2 extends Fragment implements View.OnClickLis
                 RequestCenter.getArchitecture("", mBList.getLast().getChild().get(0).getCode(), "GB 50156-2012", this);
             }
         }
+        mAdapterA.notifyDataSetChanged();
+        mAdapterB.notifyDataSetChanged();
     }
 
     @Override
