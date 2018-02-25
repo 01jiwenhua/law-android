@@ -27,7 +27,8 @@ public class LocationPickerActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_location_picker);
         String parentCode=getIntent().getStringExtra("parentCode");
-        RequestCenter.getArchitecture("", parentCode, "GB 50156-2012", this);
+        String standard=getIntent().getStringExtra("standard");
+        RequestCenter.getArchitecture("", parentCode, standard, this);
     }
 
     @Override
