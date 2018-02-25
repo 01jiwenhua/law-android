@@ -47,6 +47,9 @@ public class LocationSelectFragment2 extends Fragment implements View.OnClickLis
     private LinkedList<ResponseGasoline> mBList;
     private LocationAdapter mAdapterA;
     private LocationAdapter mAdapterB;
+    private boolean mAisLast;
+    private boolean mBisLast;
+
 
     @Nullable
     @Override
@@ -105,12 +108,18 @@ public class LocationSelectFragment2 extends Fragment implements View.OnClickLis
                 ResponseGasoline responseGasoline = new ResponseGasoline();
                 //key是上一级的value
                 responseGasoline.setParent(mAList.getLast().getChild().get(0));
+                if(items==null||items.size()<=0){
+                    mAisLast=true;
+                }
                 //value为下一级的数据
                 responseGasoline.setChild(items);
                 mAList.add(responseGasoline);
             } else if (mCurrentClickItem.equals("stationB")) {
                 ResponseGasoline responseGasoline = new ResponseGasoline();
                 responseGasoline.setParent(mBList.getLast().getChild().get(0));
+                if(items==null||items.size()<=0){
+                    mBisLast=true;
+                }
                 responseGasoline.setChild(items);
                 mBList.add(responseGasoline);
             }
@@ -159,7 +168,7 @@ public class LocationSelectFragment2 extends Fragment implements View.OnClickLis
                 childlist.add(item);
                 mAList.getLast().setChild(childlist);
                 mAdapterA.notifyDataSetChanged();
-                if(item.getLevel()==6){
+                if(mAisLast){
                     ResponseGasoline responseGasoline = new ResponseGasoline();
                     responseGasoline.setParent(mAList.getLast().getChild().get(0));
                     responseGasoline.setChild(null);
@@ -177,7 +186,7 @@ public class LocationSelectFragment2 extends Fragment implements View.OnClickLis
                 mBList.getLast().setChild(childlist);
                 mAdapterB.notifyDataSetChanged();
                 //如果level==6不再往下请求了
-                if(item.getLevel()==6){
+                if(mBisLast){
                     //构造最后一行数据
                     ResponseGasoline responseGasoline = new ResponseGasoline();
                     //key是上一行的value
@@ -201,6 +210,7 @@ public class LocationSelectFragment2 extends Fragment implements View.OnClickLis
         switch (adapterView.getId()) {
             case R.id.lv_A:
                 mCurrentClickItem = "stationA";
+                mAisLast=false;
                 //当前点击的是哪一行则把他后面的所有数据清空
                 List subList = mAList.subList(i+1, mAList.size());
                 subList.clear();
@@ -216,6 +226,7 @@ public class LocationSelectFragment2 extends Fragment implements View.OnClickLis
                 break;
             case R.id.lv_B:
                 mCurrentClickItem = "stationB";
+                mBisLast=false;
                 //同上
                 List subListb = mBList.subList(i+1, mBList.size());
                 subListb.clear();
