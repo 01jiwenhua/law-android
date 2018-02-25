@@ -49,6 +49,7 @@ import static com.shx.lawwh.R.id.btn_search;
  * 站内平面布局
  */
 
+@SuppressLint("ValidFragment")
 public class LayoutFragment extends Fragment implements View.OnClickListener, AdapterView.OnItemClickListener, HttpCallBack {
 
     private FragmentTwoitemBinding mBinding;
@@ -88,8 +89,10 @@ public class LayoutFragment extends Fragment implements View.OnClickListener, Ad
     }
 
     private void initData() {
-        mAList = new LinkedList<>();
-        mBList = new LinkedList<>();
+        mAList = new LinkedList<ResponseGasoline>();
+        mBList = new LinkedList<ResponseGasoline>();
+        LogGloble.d("listinit", mAList + "");
+        LogGloble.d("listinit", mBList + "");
         mAdapterA = new LocationAdapter(getContext(), mAList, true);
         mAdapterB = new LocationAdapter(getContext(), mBList, true);
         mBinding.lvA.setOnItemClickListener(this);
@@ -117,11 +120,41 @@ public class LayoutFragment extends Fragment implements View.OnClickListener, Ad
             List<ResponseGasoline> responseGasolineList = MyJSON.parseArray(mainData.getString("architecture"), ResponseGasoline.class);
             //当前是顶级请求返回结果
             if (mCurrentClickItem.equals("parent")) {
-                    mAList.addFirst(responseGasolineList.get(0));
-                    mBList.addFirst(responseGasolineList.get(0));
+                ResponseGasoline responseGasolineA = new ResponseGasoline();
+                responseGasolineA.setParent(responseGasolineList.get(0).getParent());
+                responseGasolineA.setChild(responseGasolineList.get(0).getChild());
+                responseGasolineA.getParent().setName("站内设备A");
+                mAList.addFirst(responseGasolineA);
+                RequestCenter.getArchitectureV2(name, "", standard, new HttpCallBack() {
+                    @Override
+                    public boolean doSuccess(ZCResponse respose, String requestUrl) {
+                        JSONObject mainData = respose.getMainData();
+                        List<ResponseGasoline> responseGasolineListB = MyJSON.parseArray(mainData.getString("architecture"), ResponseGasoline.class);
+                        //当前是顶级请求返回结果
+                        ResponseGasoline responseGasolineB = new ResponseGasoline();
+                        responseGasolineB.setParent(responseGasolineListB.get(0).getParent());
+                        responseGasolineB.setChild(responseGasolineListB.get(0).getChild());
+                        responseGasolineB.getParent().setName("站内设备B");
+                        mBList.addFirst(responseGasolineB);
+                        mAdapterB.notifyDataSetChanged();
+                        return false;
+                    }
+
+                    @Override
+                    public boolean doFaild(HttpTrowable error, String url) {
+                        return false;
+                    }
+
+                    @Override
+                    public boolean httpCallBackPreFilter(String result, String url) {
+                        return false;
+                    }
+                });
+//
+//
             }
             mAdapterA.notifyDataSetChanged();
-            mAdapterB.notifyDataSetChanged();
+
         } else if (requestUrl.equals(RequestCenter.GET_ARCHITECTURE)) {
             JSONObject data = respose.getMainData();
             List<ResponseGasolineItem> items = MyJSON.parseArray(data.getString("architecture"), ResponseGasolineItem.class);
@@ -145,6 +178,8 @@ public class LayoutFragment extends Fragment implements View.OnClickListener, Ad
                 responseGasoline.setChild(items);
                 mBList.add(responseGasoline);
             }
+            LogGloble.d("list", mAList.hashCode() + "");
+            LogGloble.d("list", mBList.hashCode() + "");
             mAdapterA.notifyDataSetChanged();
             mAdapterB.notifyDataSetChanged();
         } else if (requestUrl.equals(RequestCenter.GET_DISTANCE)) {
@@ -199,13 +234,12 @@ public class LayoutFragment extends Fragment implements View.OnClickListener, Ad
                     return;
                 }
                 RequestCenter.getArchitecture("", mAList.getLast().getChild().get(0).getCode(), standard, this);
-            }
-            if (requestCode == 2) {
+            } else if (requestCode == 2) {
                 ResponseGasolineItem item = (ResponseGasolineItem) data.getSerializableExtra("result");
-                List<ResponseGasolineItem> childlist = mBList.getLast().getChild();
-                childlist.clear();
-                childlist.add(item);
-                mBList.getLast().setChild(childlist);
+                List<ResponseGasolineItem> childlistb = mBList.getLast().getChild();
+                childlistb.clear();
+                childlistb.add(item);
+                mBList.getLast().setChild(childlistb);
                 mAdapterB.notifyDataSetChanged();
                 //如果level==6不再往下请求了
                 if (mBisLast) {
