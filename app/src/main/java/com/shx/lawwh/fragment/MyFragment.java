@@ -11,12 +11,10 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.signature.MediaStoreSignature;
-import com.bumptech.glide.signature.StringSignature;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.shx.lawwh.R;
 import com.shx.lawwh.activity.AboutUsActivity;
 import com.shx.lawwh.activity.CommonWebActivity;
-import com.shx.lawwh.activity.HelpActivity;
 import com.shx.lawwh.activity.NewsActivity;
 import com.shx.lawwh.activity.SettingActivity;
 import com.shx.lawwh.activity.UpdateActivity;
@@ -34,10 +32,7 @@ import com.shx.lawwh.libs.http.ZCResponse;
 import com.shx.lawwh.utils.DeviceUtils;
 import com.shx.lawwh.utils.GlideCircleTransform;
 import com.shx.lawwh.utils.SharedPreferencesUtil;
-
-import org.json.JSONObject;
-
-import static com.shx.lawwh.utils.SharedPreferencesUtil.readObject;
+import com.shx.lawwh.utils.StringUtil;
 
 /**
  * Created by adm on 2018/2/3.
@@ -63,7 +58,7 @@ public class MyFragment extends Fragment implements View.OnClickListener,HttpCal
         super.onResume();
         ResponseUserInfo userInfo= (ResponseUserInfo) SharedPreferencesUtil.readObject(getActivity(), CommonValues.USERINFO);
         myBinding.setUserInfo(userInfo);
-        Glide.with(this).load(SystemConfig.BASEURL+userInfo.getHead_icon()).signature(new MediaStoreSignature()).placeholder(R.drawable.ic_avatar).transform(new GlideCircleTransform(getActivity())).into(myBinding.ivAvatar);
+        Glide.with(this).load(SystemConfig.BASEURL+ StringUtil.replaceSeparator(userInfo.getHead_icon())).skipMemoryCache(true).diskCacheStrategy(DiskCacheStrategy.NONE).placeholder(R.drawable.ic_avatar).transform(new GlideCircleTransform(getActivity())).into(myBinding.ivAvatar);
     }
 
     private void initView(View view){
@@ -108,6 +103,7 @@ public class MyFragment extends Fragment implements View.OnClickListener,HttpCal
                 Intent versionIntent=new Intent(getContext(),CommonWebActivity.class);
                 versionIntent.putExtra("title","常见问题与帮助");
                 versionIntent.putExtra("url", SystemConfig.QAURL);
+//                versionIntent.putExtra("url", "http://60.210.40.196:25018/law-server/files/中华人民共和国安全生产法.html");
 
                 startActivity(versionIntent);
                 //                startActivity(new Intent(getActivity(), HelpActivity.class));

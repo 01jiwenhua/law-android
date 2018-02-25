@@ -1,10 +1,12 @@
 package com.shx.lawwh.entity.response;
 
+import java.io.Serializable;
+
 /**
  * Created by zhou on 2018/2/7.
  */
 
-public class ResponseGasolineItem {
+public class ResponseGasolineItem implements Serializable{
 
     /**
      * code : 1020000000000
@@ -21,6 +23,15 @@ public class ResponseGasolineItem {
     private String name;
     private String parentCode;
     private String standard;
+    private String fullName;
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
 
     public String getCode() {
         return code;

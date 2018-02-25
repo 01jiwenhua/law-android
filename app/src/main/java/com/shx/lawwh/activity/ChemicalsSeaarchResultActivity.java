@@ -95,6 +95,7 @@ public class ChemicalsSeaarchResultActivity extends BaseActivity implements Http
         page++;
         LogGloble.d("loadMoreData", page + "");
         mRequest.setPage(page);
+        RequestCenter.getKnownlist(mRequest,this);
     }
 
     public void initView() {

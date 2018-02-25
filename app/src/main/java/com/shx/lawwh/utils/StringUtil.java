@@ -836,4 +836,11 @@ public class StringUtil {
         style.setSpan(new RelativeSizeSpan(0.7f), fstart, fend, Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
         return style;
     }
+
+    public static String  replaceSeparator(String url){
+        if(TextUtils.isEmpty(url)){
+            return "";
+        }
+        return url.replace("\\","/");
+    }
 }

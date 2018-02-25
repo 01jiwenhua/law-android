@@ -32,6 +32,20 @@
         <item name="android:windowFullscreen">false</item>
         <!-- 设置全屏 -->
     </style>
+    <style name="Theme_DialogActivity" parent="Theme.AppCompat.Light.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <!-- 边框 -->
+        <item name="android:windowIsFloating">false</item>
+        <!-- 是悬浮还是覆盖 -->
+        <item name="android:windowIsTranslucent">true</item>
+        <!-- 半透明 -->
+        <item name="windowNoTitle">true</item>
+        <!-- 是否有系统自带标题栏 -->
+        <item name="windowActionBar">false</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <!-- 背景是否变暗 -->
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
     <style name="style_mainmenu">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>

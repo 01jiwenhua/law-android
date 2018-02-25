@@ -104,6 +104,8 @@
         <activity android:name=".activity.GasolineResultActivity"></activity>
         <activity android:name=".activity.UpdatePhoneActivity"></activity>
         <activity android:name=".activity.CommonWebActivity"></activity>
+        <activity android:name=".activity.LocationPickerActivity"
+            android:theme="@style/Theme_DialogActivity"></activity>
     </application>
 
 </manifest>
