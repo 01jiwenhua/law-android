@@ -46,7 +46,6 @@ public class OilActivity extends BaseActivity {
     private void initData(){
         FragmentManager manager=getSupportFragmentManager();
 
-        pagerAdapter=new CommonPagerAdapter()
     }
 
     @Override
