@@ -67,6 +67,7 @@ public class FireProofCommonFragment extends Fragment implements View.OnClickLis
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_twoitem, container, false);
         mBinding.btnSearch.setOnClickListener(this);
+
         return mBinding.getRoot();
     }
 
@@ -89,6 +90,7 @@ public class FireProofCommonFragment extends Fragment implements View.OnClickLis
         mBinding.lvB.setAdapter(mAdapterB);
         RequestCenter.getArchitectureV2(name, "", standard, this);
     }
+
 
     @Override
     public void onClick(View v) {

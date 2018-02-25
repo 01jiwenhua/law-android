@@ -38,7 +38,7 @@ public class ArchitecturalDesignActivity extends BaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_gasoline);
+        setContentView(R.layout.activity_oil);
         initView();
 
         RequestCenter.getTabs("GB50016-2014", this);

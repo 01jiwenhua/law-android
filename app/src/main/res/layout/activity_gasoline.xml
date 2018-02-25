@@ -12,7 +12,7 @@
         android:id="@+id/tl_item"
         style="@style/TabLayoutStyle"
         app:tabGravity="fill"
-        app:tabMode="scrollable"
+        app:tabMode="fixed"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
