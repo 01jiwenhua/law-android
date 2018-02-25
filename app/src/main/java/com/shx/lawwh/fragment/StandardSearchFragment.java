@@ -14,9 +14,11 @@ import android.widget.LinearLayout;
 
 import com.shx.lawwh.R;
 import com.shx.lawwh.activity.GasolineActivity;
+import com.shx.lawwh.activity.OilActivity;
 
 /**
  * Created by zhou on 2018/2/5.
+ * 防火间距-标准查询
  */
 
 public class StandardSearchFragment extends Fragment implements View.OnClickListener {
@@ -45,6 +47,7 @@ public class StandardSearchFragment extends Fragment implements View.OnClickList
 
                 break;
             case R.id.ll_second:
+                startActivity(new Intent(getActivity(), OilActivity.class));
                 break;
             case R.id.ll_third:
                 startActivity(new Intent(getActivity(), GasolineActivity.class));

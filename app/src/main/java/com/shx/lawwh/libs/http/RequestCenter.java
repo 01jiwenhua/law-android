@@ -44,7 +44,19 @@ public class RequestCenter {
     public static final String SAVE_ADVICE="/system/saveAdvice";
     public static final String CHANGE_PHONE="/user/changePhone";
     public static final String UPLOAD_AVATAR="/user/uploadAvatar";
+    public static final String GET_TABS="/distance/getTabs";
 
+
+    /**
+     * 获取防火间距tabs
+     * standard:石油传GB50160-2008，建筑传GB50016-2014
+     * */
+    public static void getTabs(String standard ,HttpCallBack callBack){
+        ZCRequest request=new ZCRequest();
+        request.setUrl(GET_TABS);
+        request.putParams("standard",standard);
+        HttpManager.getInstance().doPost(request,callBack);
+    }
 
     /**
      *
