@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.shx.lawwh.R;
+import com.shx.lawwh.activity.ArchitecturalDesignActivity;
 import com.shx.lawwh.activity.GasolineActivity;
 import com.shx.lawwh.activity.OilActivity;
 
@@ -44,7 +45,7 @@ public class StandardSearchFragment extends Fragment implements View.OnClickList
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.ll_first:
-
+                startActivity(new Intent(getActivity(), ArchitecturalDesignActivity.class));
                 break;
             case R.id.ll_second:
                 startActivity(new Intent(getActivity(), OilActivity.class));

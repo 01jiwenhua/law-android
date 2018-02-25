@@ -107,6 +107,7 @@
         <activity android:name=".activity.OilActivity"></activity>
         <activity android:name=".activity.LocationPickerActivity"
             android:theme="@style/Theme_DialogActivity"></activity>
+        <activity android:name=".activity.ArchitecturalDesignActivity"></activity>
     </application>
 
 </manifest>
