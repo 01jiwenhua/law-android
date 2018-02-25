@@ -1,5 +1,6 @@
 package com.shx.lawwh.activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -54,6 +55,12 @@ public class LocationPickerActivity extends BaseActivity {
                 //setResult(resultCode, data);第一个参数表示结果返回码，一般只要大于1就可以，但是
                 setResult(RESULT_OK, intent);
                 finish(); //结束当前的activity的生命周期
+            }
+        });
+        picker.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialogInterface) {
+                onBackPressed();
             }
         });
         picker.show();

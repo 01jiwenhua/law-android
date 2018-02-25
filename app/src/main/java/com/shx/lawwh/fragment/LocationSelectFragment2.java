@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 
 import com.alibaba.fastjson.JSONObject;
 import com.shx.lawwh.R;
+import com.shx.lawwh.activity.GasolineResultActivity;
 import com.shx.lawwh.activity.LocationPickerActivity;
 import com.shx.lawwh.adapter.LocationAdapter;
 import com.shx.lawwh.common.LogGloble;
@@ -26,10 +27,12 @@ import com.shx.lawwh.libs.http.MyJSON;
 import com.shx.lawwh.libs.http.RequestCenter;
 import com.shx.lawwh.libs.http.ZCResponse;
 
+import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
 
 import static android.app.Activity.RESULT_OK;
+import static com.shx.lawwh.R.id.btn_search;
 
 /**
  * 在没完全弄好之前先用LocationSelectFragment
@@ -67,6 +70,7 @@ public class LocationSelectFragment2 extends Fragment implements View.OnClickLis
         mAdapterB = new LocationAdapter(getContext(), mBList, true);
         mBinding.lvA.setOnItemClickListener(this);
         mBinding.lvB.setOnItemClickListener(this);
+        mBinding.btnSearch.setOnClickListener(this);
         mBinding.lvA.setAdapter(mAdapterA);
         mBinding.lvB.setAdapter(mAdapterB);
         RequestCenter.getArchitectureV2("站址选择", "", "GB 50156-2012", this);
@@ -75,7 +79,9 @@ public class LocationSelectFragment2 extends Fragment implements View.OnClickLis
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-
+            case btn_search:
+                RequestCenter.getDistance(mAList.getLast().getParent().getId(), mBList.getLast().getParent().getId(), this);
+                break;
         }
     }
 
@@ -116,14 +122,16 @@ public class LocationSelectFragment2 extends Fragment implements View.OnClickLis
             if (responseGasolineResult == null) {
                 ToastUtil.getInstance().toastInCenter(getActivity(), "暂未收录此内容");
             } else {
-                //获取距离还没调，去两个list最后一个数据的parent就可以了，fullneme是全部的请求参数传到下一个页面就可以
-//                Intent intent = new Intent(getActivity(), GasolineResultActivity.class);
-//                intent.putExtra("result", responseGasolineResult);
-//                intent.putExtra("oneCondition", (Serializable) conditionOneSelected);
-//                intent.putExtra("twoCondition", (Serializable) conditionTwoSelected);
-//                intent.putExtra("oneKey", oneKey);
-//                intent.putExtra("twoKey", twoKey);
-//                startActivity(intent);
+                //去两个list最后一个数据的parent就可以了，fullneme是全部的请求参数传到下一个页面就可以
+                Intent intent = new Intent(getActivity(), GasolineResultActivity.class);
+                intent.putExtra("result", responseGasolineResult);
+                intent.putExtra("oneKey", mAList.getFirst().getParent().getName());
+                intent.putExtra("oneValue", mAList.getFirst().getChild().get(0).getName());
+                intent.putExtra("twoKey", mBList.getFirst().getParent().getName());
+                intent.putExtra("twoValue", mBList.getFirst().getChild().get(0).getName());
+                intent.putExtra("AFullName", mAList.getLast().getParent().getFullName());
+                intent.putExtra("BFullName", mBList.getLast().getParent().getFullName());
+                startActivity(intent);
             }
         }
         return false;

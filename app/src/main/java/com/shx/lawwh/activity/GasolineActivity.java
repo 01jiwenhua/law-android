@@ -13,6 +13,7 @@ import com.shx.lawwh.adapter.CommonPagerAdapter;
 import com.shx.lawwh.base.BaseActivity;
 import com.shx.lawwh.fragment.LayoutFragment;
 import com.shx.lawwh.fragment.LocationSelectFragment;
+import com.shx.lawwh.fragment.LocationSelectFragment2;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,7 +52,7 @@ public class GasolineActivity extends BaseActivity {
 
     private void initData(){
         String [] title=new String[]{"站址选择","站内平面布局"};
-        locationSelectFragment=new LocationSelectFragment();
+        locationSelectFragment=new LocationSelectFragment2();
         layoutFragment=new LayoutFragment();
         fragments=new ArrayList<>();
         fragments.add(locationSelectFragment);
