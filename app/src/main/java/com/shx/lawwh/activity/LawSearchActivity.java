@@ -91,7 +91,7 @@ public class LawSearchActivity extends BaseActivity implements View.OnClickListe
     private void initData() {
         mRequest.setPage(mPage);
         mRequest.setPageSize(pageSize);
-        DialogManager.getInstance().showProgressDialog(this);
+        //DialogManager.getInstance().showProgressDialog(this);
         RequestCenter.getLawList(mRequest, this);
     }
 
@@ -102,45 +102,8 @@ public class LawSearchActivity extends BaseActivity implements View.OnClickListe
         mRequest.setTypeCode(type);
         getTopbar().setTitle(title);
         RequestCenter.getLevelList(type,this);
-//        if (TextUtils.isEmpty(type)) {
-//            //三司
-//            mTabLayout.setVisibility(View.VISIBLE);
-//            mTabTitle = new String[]{"全部", "安全标准", "部门规章", "地方法规", "国家标准", "国家法律", "行业标准", "行政法规"};
-//            String typeName = getIntent().getStringExtra("typeName");
-//            String typeCode = getIntent().getStringExtra("typeCode");
-//            mRequest.setTypeName(typeName);
-//            mRequest.setTypeCode(typeCode);
-//
-//        } else {
-//            //法律法规
-//            mTabLayout.setVisibility(View.GONE);
-//            if (TextUtils.equals(type, "law")) {
-//                mTabTitle = new String[]{"国家法律"};
-//                mRequest.setLevel("law");
-//            }
-//            if (TextUtils.equals(type, "regulation")) {
-//                mTabTitle = new String[]{"全部", "部门规章", "地方法规", "行政法规"};
-//                mRequest.setLevel("regulation");
-//            }
-//            if (TextUtils.equals(type, "standard")) {
-//                mTabTitle = new String[]{"全部", "安全标准", "国家标准", "行业标准"};
-//                mRequest.setLevel("standard");
-//            }
-//        }
-//        for (String tab : mTabTitle) {
-//            mTabLayout.addTab(mTabLayout.newTab().setText(tab));
-//        }
-
     }
 
-    private void setDefaultRequest() {
-        mRequest.setIssue_no(null);
-        mRequest.setTypeName(null);
-        mRequest.setLevel(null);
-        mRequest.setName(null);
-        mRequest.setLevel(null);
-
-    }
 
 
     /**
@@ -200,7 +163,7 @@ public class LawSearchActivity extends BaseActivity implements View.OnClickListe
     @Override
     public void onResume() {
         super.onResume();
-        initData();
+        //initData();
     }
 
     private void initView() {
@@ -356,36 +319,6 @@ public class LawSearchActivity extends BaseActivity implements View.OnClickListe
     @Override
     public void onTabSelected(TabLayout.Tab tab){
         mRequest.setLevel(levelDatas.get(tab.getPosition()).getCode());
-
-//        LogGloble.d("Tab","onTabSlected==="+tab.getText().toString());
-//        if(TextUtils.isEmpty(tab.getText())){
-////        mIndustryLayout.setVisibility(View.GONE);
-//        mRequest.setLevel("");
-//        return;
-//        }
-//        if(tab.getText().toString().equals("全部")){
-//        mRequest.setLevel("");
-//        }else{
-//        mRequest.setLevel(tab.getText().toString());
-//        }
-//        if(tab.getText().toString().equals("行业标准")){
-//        mRequest.setLevel("行业标准");
-//        if("三司".equals(mRequest.getTypeName())){
-////        mIndustryLayout.setVisibility(View.GONE);
-//        }else{
-////                mIndustryLayout.setVisibility(View.VISIBLE);
-//        }
-//        }else{
-////        mIndustryLayout.setVisibility(View.GONE);
-//        mRequest.setLevel(tab.getText().toString());
-//        }
-//        if("三司".equals(mRequest.getTypeName())){
-////        mIndustryLayout.setVisibility(View.GONE);
-//        }else{
-////            mIndustryLayout.setVisibility(View.VISIBLE);
-//        }
-////        mIndustryLayout.setVisibility(View.VISIBLE);
-
         isLastPage = false;
         mPage = 1;
         initData();
@@ -456,7 +389,6 @@ public class LawSearchActivity extends BaseActivity implements View.OnClickListe
                 mTabLayout.addTab(mTabLayout.newTab().setText(levelDatas.get(i).getName()));
             }
             mRequest.setLevel(levelDatas.get(0).getCode());
-            RequestCenter.getLawList(mRequest,this);
         }
         return super.doSuccess(respose, requestUrl);
     }

@@ -39,6 +39,7 @@ import static com.shx.lawwh.R.id.btn_search;
  * Created by adm on 2018/2/25.
  */
 
+@SuppressLint("ValidFragment")
 public class FireProofCommonFragment extends Fragment implements View.OnClickListener, AdapterView.OnItemClickListener, HttpCallBack {
 
     private FragmentTwoitemBinding mBinding;
