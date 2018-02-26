@@ -1,5 +1,6 @@
 package com.shx.lawwh.fragment;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -8,14 +9,19 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSONObject;
 import com.shx.lawwh.R;
 import com.shx.lawwh.activity.GasolineResultActivity;
+import com.shx.lawwh.activity.LocationPickerActivity;
+import com.shx.lawwh.adapter.LocationAdapter;
 import com.shx.lawwh.databinding.FragmentLayoutBinding;
 import com.shx.lawwh.databinding.FragmentLocationSelectBinding;
+import com.shx.lawwh.databinding.FragmentTwoitemBinding;
+import com.shx.lawwh.entity.response.ResponseGasoline;
 import com.shx.lawwh.entity.response.ResponseGasolineItem;
 import com.shx.lawwh.entity.response.ResponseGasolineResult;
 import com.shx.lawwh.libs.dialog.ToastUtil;
@@ -24,46 +30,54 @@ import com.shx.lawwh.libs.http.HttpTrowable;
 import com.shx.lawwh.libs.http.MyJSON;
 import com.shx.lawwh.libs.http.RequestCenter;
 import com.shx.lawwh.libs.http.ZCResponse;
+import com.shx.lawwh.utils.LogGloble;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
 import cn.qqtheme.framework.picker.SinglePicker;
+
+import static android.app.Activity.RESULT_OK;
+import static com.shx.lawwh.R.id.btn_search;
 
 /**
  * Created by zhou on 2018/2/6.
  * 站内平面布局
  */
 
-public class LayoutFragment extends Fragment implements View.OnClickListener, HttpCallBack {
-    private FragmentLayoutBinding mBinding;
-    private List<ResponseGasolineItem> items;
-    private int index = 0;//默认为0
-    //用于记录第一条数据的code和第5条数据的code
-    private String oneCode, twoCode,threeCode,fourCode,fiveCode,sixCode,sevenCode,eightCode;
-    //记录第一次得到的两个Key值，在下个页面用
-    private String oneKey,twoKey;
-    //记录最后两条记录的id
-    private int oneId,twoId;
+@SuppressLint("ValidFragment")
+public class LayoutFragment extends Fragment implements View.OnClickListener, AdapterView.OnItemClickListener, HttpCallBack {
 
-    private Map<Integer,String> conditionOneSelected=new HashMap<>();
-    private Map<Integer,String> conditionTwoSelected=new HashMap<>();
+    private FragmentTwoitemBinding mBinding;
+    private String mCurrentClickItem = "parent";//用来记录当前请求发起的地方，默认第一次请求是获取两个建筑物的，此后会分成a,b两种
+    private LinkedList<ResponseGasoline> mAList;
+    private LinkedList<ResponseGasoline> mBList;
+    private LocationAdapter mAdapterA;
+    private LocationAdapter mAdapterB;
+    private boolean mAisLast;
+    private boolean mBisLast;
+    private String name;
+    private String standard;
+
+
+    @SuppressLint("ValidFragment")
+    public LayoutFragment(String name, String standard) {
+        super();
+        this.name = name;
+        this.standard = standard;
+    }
+
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_layout, container, false);
-        mBinding.llOne.setOnClickListener(this);
-        mBinding.llTwo.setOnClickListener(this);
-        mBinding.llThree.setOnClickListener(this);
-        mBinding.llFour.setOnClickListener(this);
-        mBinding.llFive.setOnClickListener(this);
-        mBinding.llSix.setOnClickListener(this);
-        mBinding.llSeven.setOnClickListener(this);
-        mBinding.llEight.setOnClickListener(this);
+        mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_twoitem, container, false);
         mBinding.btnSearch.setOnClickListener(this);
+
         return mBinding.getRoot();
     }
 
@@ -75,292 +89,120 @@ public class LayoutFragment extends Fragment implements View.OnClickListener, Ht
     }
 
     private void initData() {
-        items = new ArrayList<>();
-        RequestCenter.getArchitecture("站内平面布置", "", "GB 50156-2012", this);
+        mAList = new LinkedList<ResponseGasoline>();
+        mBList = new LinkedList<ResponseGasoline>();
+        LogGloble.d("listinit", mAList + "");
+        LogGloble.d("listinit", mBList + "");
+        mAdapterA = new LocationAdapter(getContext(), mAList, true);
+        mAdapterB = new LocationAdapter(getContext(), mBList, true);
+        mBinding.lvA.setOnItemClickListener(this);
+        mBinding.lvB.setOnItemClickListener(this);
+        mBinding.btnSearch.setOnClickListener(this);
+        mBinding.lvA.setAdapter(mAdapterA);
+        mBinding.lvB.setAdapter(mAdapterB);
+        RequestCenter.getArchitectureV2(name, "", standard, this);
     }
+
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.ll_one:
-                index = 1;
-                mBinding.llTwo.setVisibility(View.GONE);
-                mBinding.llThree.setVisibility(View.GONE);
-                mBinding.llFour.setVisibility(View.GONE);
-                RequestCenter.getArchitecture("", oneCode, "GB 50156-2012", this);
-                break;
-            case R.id.ll_two:
-                index = 2;
-                mBinding.llThree.setVisibility(View.GONE);
-                mBinding.llFour.setVisibility(View.GONE);
-                RequestCenter.getArchitecture("", twoCode, "GB 50156-2012", this);
-                break;
-            case R.id.ll_three:
-                index = 3;
-                mBinding.llFour.setVisibility(View.GONE);
-                RequestCenter.getArchitecture("", threeCode, "GB 50156-2012", this);
-                break;
-            case R.id.ll_four:
-                index = 4;
-                RequestCenter.getArchitecture("", fourCode, "GB 50156-2012", this);
-                break;
-            case R.id.ll_five:
-                index = 5;
-                mBinding.llSix.setVisibility(View.GONE);
-                mBinding.llSeven.setVisibility(View.GONE);
-                mBinding.llEight.setVisibility(View.GONE);
-                RequestCenter.getArchitecture("", fiveCode, "GB 50156-2012", this);
-                break;
-            case R.id.ll_six:
-                index = 6;
-                mBinding.llSeven.setVisibility(View.GONE);
-                mBinding.llEight.setVisibility(View.GONE);
-                RequestCenter.getArchitecture("", sixCode, "GB 50156-2012", this);
-                break;
-            case R.id.ll_seven:
-                index = 7;
-                mBinding.llEight.setVisibility(View.GONE);
-                RequestCenter.getArchitecture("", sevenCode, "GB 50156-2012", this);
-                break;
-            case R.id.ll_eight:
-                index = 8;
-                RequestCenter.getArchitecture("", eightCode, "GB 50156-2012", this);
-                break;
-            case R.id.btn_search:
-                RequestCenter.getDistance(oneId,twoId,this);
-                break;
-        }
-    }
-
-    private void showItemCchoice() {
-        //默认数据已经回来了，回不来可以用ProgressDialog控制
-        //显示选择管轮弹框
-
-        //当点击弹框里边的数据时即选中了一条
-        //接下来出来应该显示哪个数据了
-        //list.onItemClicke({
-        //  点击了第几个，获取数据
-        switch (index) {
-            case 1:
-                pick(mBinding.tvOneValue, mBinding.llTwo, mBinding.tvTwoKey);
-                break;
-            case 2:
-                pick(mBinding.tvTwoValue, mBinding.llThree, mBinding.tvThreeKey);
-
-                break;
-            case 3:
-                pick(mBinding.tvThreeValue, mBinding.llFour, mBinding.tvFourKey);
-                break;
-            case 4:
-                pick(mBinding.tvFourValue);
-                break;
-            case 5:
-                pick(mBinding.tvFiveValue, mBinding.llSix, mBinding.tvSixKey);
-                break;
-            case 6:
-                pick(mBinding.tvSixValue, mBinding.llSeven, mBinding.tvSevenKey);
-                break;
-            case 7:
-                pick(mBinding.tvSevenValue, mBinding.llEight, mBinding.tvEightKey);
-                break;
-            case 8:
-                pick(mBinding.tvEightValue);
+            case btn_search:
+                RequestCenter.getDistance(mAList.getLast().getParent().getId(), mAList.getLast().getParent().getId(), this);
                 break;
         }
     }
 
     @Override
     public boolean doSuccess(ZCResponse respose, String requestUrl) {
-        if (requestUrl.equals(RequestCenter.GET_ARCHITECTURE)) {
+        if (requestUrl.equals(RequestCenter.GET_ARCHITECTURE_V2)) {
             JSONObject mainData = respose.getMainData();
-            items = MyJSON.parseArray(mainData.getString("architecture"), ResponseGasolineItem.class);
-            if (items.size() > 0) {
-                if (items.get(0).getLevel() <= 6) {
-                    //判断数据是否为空
-                    if (index == 0) {
-                        //第一次进来
-//                mBinding.one 的右侧显示list(0);
-                        mBinding.tvOneKey.setText(items.get(0).getName()+"A");
-                        mBinding.tvFiveKey.setText(items.get(0).getName()+"B");
-                        oneCode = items.get(0).getCode();
-                        fiveCode = items.get(0).getCode();
-                        oneKey=items.get(0).getName();
-                        twoKey= items.get(0).getName();
-
-                    } else {
-                        showItemCchoice();
+            List<ResponseGasoline> responseGasolineList = MyJSON.parseArray(mainData.getString("architecture"), ResponseGasoline.class);
+            //当前是顶级请求返回结果
+            if (mCurrentClickItem.equals("parent")) {
+                ResponseGasoline responseGasolineA = new ResponseGasoline();
+                responseGasolineA.setParent(responseGasolineList.get(0).getParent());
+                responseGasolineA.setChild(responseGasolineList.get(0).getChild());
+                responseGasolineA.getParent().setName("站内设备A");
+                mAList.addFirst(responseGasolineA);
+                RequestCenter.getArchitectureV2(name, "", standard, new HttpCallBack() {
+                    @Override
+                    public boolean doSuccess(ZCResponse respose, String requestUrl) {
+                        JSONObject mainData = respose.getMainData();
+                        List<ResponseGasoline> responseGasolineListB = MyJSON.parseArray(mainData.getString("architecture"), ResponseGasoline.class);
+                        //当前是顶级请求返回结果
+                        ResponseGasoline responseGasolineB = new ResponseGasoline();
+                        responseGasolineB.setParent(responseGasolineListB.get(0).getParent());
+                        responseGasolineB.setChild(responseGasolineListB.get(0).getChild());
+                        responseGasolineB.getParent().setName("站内设备B");
+                        mBList.addFirst(responseGasolineB);
+                        mAdapterB.notifyDataSetChanged();
+                        return false;
                     }
-                }
 
+                    @Override
+                    public boolean doFaild(HttpTrowable error, String url) {
+                        return false;
+                    }
+
+                    @Override
+                    public boolean httpCallBackPreFilter(String result, String url) {
+                        return false;
+                    }
+                });
+//
+//
             }
-        }else if(requestUrl.equals(RequestCenter.GET_DISTANCE)){
+            mAdapterA.notifyDataSetChanged();
+
+        } else if (requestUrl.equals(RequestCenter.GET_ARCHITECTURE)) {
+            JSONObject data = respose.getMainData();
+            List<ResponseGasolineItem> items = MyJSON.parseArray(data.getString("architecture"), ResponseGasolineItem.class);
+            if (mCurrentClickItem.equals("stationA")) {
+                //构造新的一行数据
+                ResponseGasoline responseGasoline = new ResponseGasoline();
+                //key是上一级的value
+                responseGasoline.setParent(mAList.getLast().getChild().get(0));
+                if (items == null || items.size() <= 0) {
+                    mAisLast = true;
+                }
+                //value为下一级的数据
+                responseGasoline.setChild(items);
+                mAList.add(responseGasoline);
+            } else if (mCurrentClickItem.equals("stationB")) {
+                ResponseGasoline responseGasoline = new ResponseGasoline();
+                responseGasoline.setParent(mBList.getLast().getChild().get(0));
+                if (items == null || items.size() <= 0) {
+                    mBisLast = true;
+                }
+                responseGasoline.setChild(items);
+                mBList.add(responseGasoline);
+            }
+            LogGloble.d("list", mAList.hashCode() + "");
+            LogGloble.d("list", mBList.hashCode() + "");
+            mAdapterA.notifyDataSetChanged();
+            mAdapterB.notifyDataSetChanged();
+        } else if (requestUrl.equals(RequestCenter.GET_DISTANCE)) {
             JSONObject mainData = respose.getMainData();
-            ResponseGasolineResult responseGasolineResult=MyJSON.parseObject(mainData.getString("distance"),ResponseGasolineResult.class);
-            if(responseGasolineResult==null){
-                ToastUtil.getInstance().toastInCenter(getActivity(),"暂未收录此内容");
-            }else {
+            ResponseGasolineResult responseGasolineResult = MyJSON.parseObject(mainData.getString("distance"), ResponseGasolineResult.class);
+            if (responseGasolineResult == null) {
+                ToastUtil.getInstance().toastInCenter(getActivity(), "暂未收录此内容");
+            } else {
                 Intent intent = new Intent(getActivity(), GasolineResultActivity.class);
                 intent.putExtra("result", responseGasolineResult);
-                intent.putExtra("oneCondition", (Serializable) conditionOneSelected);
-                intent.putExtra("twoCondition", (Serializable) conditionTwoSelected);
-                intent.putExtra("oneKey", oneKey + "A");
-                intent.putExtra("twoKey", twoKey + "B");
+                //去两个list最后一个数据的parent就可以了，fullneme是全部的请求参数传到下一个页面就可以
+                intent.putExtra("oneKey", mAList.getFirst().getParent().getName());
+                intent.putExtra("oneValue", mAList.getFirst().getChild().get(0).getName());
+                intent.putExtra("twoKey", mBList.getFirst().getParent().getName());
+                intent.putExtra("twoValue", mBList.getFirst().getChild().get(0).getName());
+                intent.putExtra("AFullName", mAList.getLast().getParent().getFullName());
+                intent.putExtra("BFullName", mBList.getLast().getParent().getFullName());
                 startActivity(intent);
             }
         }
         return false;
     }
 
-    /**
-     * 选择
-     */
-    private void pick(final TextView currentValue, final LinearLayout layout, final TextView nextKey) {
-        SinglePicker<ResponseGasolineItem> picker = new SinglePicker<>(getActivity(), items);
-        picker.setCanceledOnTouchOutside(false);
-        picker.setSelectedIndex(1);
-        picker.setCycleDisable(true);
-        picker.setOnItemPickListener(new SinglePicker.OnItemPickListener<ResponseGasolineItem>() {
-            @Override
-            public void onItemPicked(int i, ResponseGasolineItem item) {
-                currentValue.setText(item.getName());
-                if(index<5) {
-                    conditionOneSelected.put(index, item.getName());
-                }else{
-                    conditionTwoSelected.put(index,item.getName());
-                }
-                if(item.getLevel()<6){
-                    layout.setVisibility(View.VISIBLE);
-                }else{
-                    if(index<5){
-                        oneId=item.getId();
-                    }else{
-                        twoId=item.getId();
-                    }
-                }
-                nextKey.setText(item.getName());
-                switch (index) {
-                    case 1:
-                        if(item.getLevel()==6){
-                            mBinding.ivOne.setVisibility(View.GONE);
-                        }else{
-                            mBinding.ivOne.setVisibility(View.VISIBLE);
-                        }
-                        twoCode = item.getCode();
-                        break;
-                    case 2:
-                        if(item.getLevel()==6){
-                            mBinding.ivTwo.setVisibility(View.GONE);
-                        }else{
-                            mBinding.ivTwo.setVisibility(View.VISIBLE);
-                        }
-                        threeCode = item.getCode();
-                        break;
-                    case 3:
-                        if(item.getLevel()==6){
-                            mBinding.ivThree.setVisibility(View.GONE);
-                        }else{
-                            mBinding.ivThree.setVisibility(View.VISIBLE);
-                        }
-                        fourCode = item.getCode();
-                        break;
-                    case 4:
-                        if(item.getLevel()==6){
-                            mBinding.ivFour.setVisibility(View.GONE);
-                        }else{
-                            mBinding.ivFour.setVisibility(View.VISIBLE);
-                        }
-                        fiveCode = item.getCode();
-                        break;
-                    case 5:
-                        if(item.getLevel()==6){
-                            mBinding.ivFive.setVisibility(View.GONE);
-                        }else{
-                            mBinding.ivFive.setVisibility(View.VISIBLE);
-                        }
-                        sixCode = item.getCode();
-                        break;
-                    case 6:
-                        if(item.getLevel()==6){
-                            mBinding.ivSix.setVisibility(View.GONE);
-                        }else{
-                            mBinding.ivSix.setVisibility(View.VISIBLE);
-                        }
-                        sevenCode = item.getCode();
-                        break;
-                    case 7:
-                        if(item.getLevel()==6){
-                            mBinding.ivSeven.setVisibility(View.GONE);
-                        }else{
-                            mBinding.ivSeven.setVisibility(View.VISIBLE);
-                        }
-                        eightCode = item.getCode();
-                        break;
-                    case 8:
-                        if(item.getLevel()==6){
-                            mBinding.ivEight.setVisibility(View.GONE);
-                        }else{
-                            mBinding.ivEight.setVisibility(View.VISIBLE);
-                        }
-                        break;
-
-                }
-            }
-        });
-        picker.show();
-    }
-
-    /**
-     * 选择
-     */
-    private void pick(final TextView currentValue) {
-        SinglePicker<ResponseGasolineItem> picker = new SinglePicker<>(getActivity(), items);
-        picker.setCanceledOnTouchOutside(false);
-        picker.setSelectedIndex(1);
-        picker.setCycleDisable(true);
-        picker.setOnItemPickListener(new SinglePicker.OnItemPickListener<ResponseGasolineItem>() {
-            @Override
-            public void onItemPicked(int index, ResponseGasolineItem item) {
-                currentValue.setText(item.getName());
-                if(index<5) {
-                    conditionOneSelected.put(index, item.getName());
-                }else{
-                    conditionTwoSelected.put(index,item.getName());
-                }
-                if(item.getLevel()==6){
-                    if(index<5){
-                        oneId=item.getId();
-                    }else{
-                        twoId=item.getId();
-                    }
-                }
-                switch (index){
-                    case 1:
-                        twoCode=item.getCode();
-                        break;
-                    case 2:
-                        threeCode=item.getCode();
-                        break;
-                    case 3:
-                        fourCode=item.getCode();
-                        break;
-                    case 4:
-                        fiveCode=item.getCode();
-                        break;
-                    case 5:
-                        sixCode=item.getCode();
-                        break;
-                    case 6:
-                        sevenCode=item.getCode();
-                        break;
-                    case 7:
-                        eightCode=item.getCode();
-                        break;
-
-                }
-            }
-        });
-        picker.show();
-    }
 
     @Override
     public boolean doFaild(HttpTrowable error, String url) {
@@ -370,5 +212,90 @@ public class LayoutFragment extends Fragment implements View.OnClickListener, Ht
     @Override
     public boolean httpCallBackPreFilter(String result, String url) {
         return false;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            if (requestCode == 1) {
+                ResponseGasolineItem item = (ResponseGasolineItem) data.getSerializableExtra("result");
+                List<ResponseGasolineItem> childlist = mAList.getLast().getChild();
+                childlist.clear();
+                childlist.add(item);
+                mAList.getLast().setChild(childlist);
+                mAdapterA.notifyDataSetChanged();
+                if (mAisLast) {
+                    ResponseGasoline responseGasoline = new ResponseGasoline();
+                    responseGasoline.setParent(mAList.getLast().getChild().get(0));
+                    responseGasoline.setChild(null);
+                    mAList.add(responseGasoline);
+                    mAdapterA.notifyDataSetChanged();
+                    return;
+                }
+                RequestCenter.getArchitecture("", mAList.getLast().getChild().get(0).getCode(), standard, this);
+            } else if (requestCode == 2) {
+                ResponseGasolineItem item = (ResponseGasolineItem) data.getSerializableExtra("result");
+                List<ResponseGasolineItem> childlistb = mBList.getLast().getChild();
+                childlistb.clear();
+                childlistb.add(item);
+                mBList.getLast().setChild(childlistb);
+                mAdapterB.notifyDataSetChanged();
+                //如果level==6不再往下请求了
+                if (mBisLast) {
+                    //构造最后一行数据
+                    ResponseGasoline responseGasoline = new ResponseGasoline();
+                    //key是上一行的value
+                    responseGasoline.setParent(mBList.getLast().getChild().get(0));
+                    responseGasoline.setChild(null);
+                    mBList.add(responseGasoline);
+                    mAdapterB.notifyDataSetChanged();
+                    return;
+                }
+                RequestCenter.getArchitecture("", mBList.getLast().getChild().get(0).getCode(), standard, this);
+            }
+        }
+        mAdapterA.notifyDataSetChanged();
+        mAdapterB.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+        LogGloble.d("onItemClick", adapterView.getId() + ";" + R.id.lv_A);
+        LogGloble.d("onItemClick", adapterView.getId() + ";" + R.id.lv_B);
+        switch (adapterView.getId()) {
+            case R.id.lv_A:
+                mCurrentClickItem = "stationA";
+                mAisLast = false;
+                //当前点击的是哪一行则把他后面的所有数据清空
+                List subList = mAList.subList(i + 1, mAList.size());
+                subList.clear();
+                if (mAList.get(i).getChild() == null || mAList.get(i).getChild().size() <= 0) {
+                    //如果没有下一级了不再响应点击事件，即最后一行点击无效果
+                    return;
+                }
+                Intent intent = new Intent(getActivity(), LocationPickerActivity.class);
+                ResponseGasoline item = (ResponseGasoline) mAdapterA.getItem(i);
+                intent.putExtra("parentCode", item.getParent().getCode());
+                intent.putExtra("standard", standard);
+                startActivityForResult(intent, 1);
+
+                break;
+            case R.id.lv_B:
+                mCurrentClickItem = "stationB";
+                mBisLast = false;
+                //同上
+                List subListb = mBList.subList(i + 1, mBList.size());
+                subListb.clear();
+                if (mBList.get(i).getChild() == null || mBList.get(i).getChild().size() <= 0) {
+                    return;
+                }
+                Intent intent2 = new Intent(getActivity(), LocationPickerActivity.class);
+                ResponseGasoline item2 = (ResponseGasoline) mAdapterB.getItem(i);
+                intent2.putExtra("parentCode", item2.getParent().getCode());
+                intent2.putExtra("standard", standard);
+                startActivityForResult(intent2, 2);
+                break;
+        }
     }
 }

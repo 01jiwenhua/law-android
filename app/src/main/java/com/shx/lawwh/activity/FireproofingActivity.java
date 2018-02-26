@@ -21,6 +21,7 @@ import java.util.List;
 
 /**
  * Created by zhou on 2018/2/5.
+ * 防火间距页面
  */
 
 public class FireproofingActivity extends BaseActivity {

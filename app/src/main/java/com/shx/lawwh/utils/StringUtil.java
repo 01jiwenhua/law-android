@@ -838,6 +838,9 @@ public class StringUtil {
     }
 
     public static String  replaceSeparator(String url){
+        if(TextUtils.isEmpty(url)){
+            return "";
+        }
         return url.replace("\\","/");
     }
 }

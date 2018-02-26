@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_one"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorWhite"
+    android:orientation="horizontal"
+    android:paddingBottom="18dp"
+    android:paddingLeft="10dp"
+    android:paddingTop="18dp"
+    android:tag="1">
+
+    <ImageView
+        android:id="@+id/iv_icon"
+        android:layout_width="5dp"
+        android:layout_height="20dp"
+        android:layout_gravity="center_vertical"
+        android:background="@color/colorBlue" />
+
+    <TextView
+        android:id="@+id/tv_key"
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="5dp"
+        android:textColor="#474747"
+        android:textSize="@dimen/textsize_18" />
+
+    <include layout="@layout/layout_placeview" />
+
+    <TextView
+        android:id="@+id/tv_value"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="10dp"
+        android:textColor="#474747"
+        android:textSize="18dp" />
+
+    <ImageView
+        android:id="@+id/iv_next"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:paddingRight="20dp"
+        android:src="@drawable/ic_right"
+
+        />
+
+</LinearLayout>

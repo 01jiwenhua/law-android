@@ -43,6 +43,7 @@ public class MyFragment extends Fragment implements View.OnClickListener,HttpCal
 
     private LinearLayout loginLL,userInfoLL,newsLL,updateLL,aboutUsLL,helpLL,settingLL;
     private FragmentMyBinding myBinding;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

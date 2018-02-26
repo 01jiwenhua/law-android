@@ -11,8 +11,10 @@ import android.view.View;
 import com.shx.lawwh.R;
 import com.shx.lawwh.adapter.CommonPagerAdapter;
 import com.shx.lawwh.base.BaseActivity;
+import com.shx.lawwh.fragment.FireProofCommonFragment;
 import com.shx.lawwh.fragment.LayoutFragment;
 import com.shx.lawwh.fragment.LocationSelectFragment;
+import com.shx.lawwh.fragment.LocationSelectFragment2;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,8 +53,8 @@ public class GasolineActivity extends BaseActivity {
 
     private void initData(){
         String [] title=new String[]{"站址选择","站内平面布局"};
-        locationSelectFragment=new LocationSelectFragment();
-        layoutFragment=new LayoutFragment();
+        locationSelectFragment=new LocationSelectFragment2();
+        layoutFragment=new LayoutFragment("站内平面布置","GB 50156-2012");
         fragments=new ArrayList<>();
         fragments.add(locationSelectFragment);
         fragments.add(layoutFragment);

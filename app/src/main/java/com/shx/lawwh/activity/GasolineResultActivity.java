@@ -8,10 +8,14 @@ import android.view.View;
 import com.shx.lawwh.R;
 import com.shx.lawwh.base.BaseActivity;
 import com.shx.lawwh.databinding.ActivityGasolineResultBinding;
+import com.shx.lawwh.entity.response.ResponseGasoline;
 import com.shx.lawwh.entity.response.ResponseGasolineResult;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Created by adm on 2018/2/8.
@@ -32,17 +36,13 @@ public class GasolineResultActivity extends BaseActivity {
                 onBackPressed();
             }
         });
-        responseGasolineResult= (ResponseGasolineResult) getIntent().getSerializableExtra("result");
-        HashMap<Integer,String> oneMap= (HashMap<Integer, String>) getIntent().getSerializableExtra("oneCondition");
-        HashMap<Integer,String> twoMap= (HashMap<Integer, String>) getIntent().getSerializableExtra("twoCondition");
-        String onekey=getIntent().getStringExtra("oneKey");
-        String twokey=getIntent().getStringExtra("twoKey");
-        mBinding.tvOneKey.setText(onekey+":");
-        mBinding.tvTwoKey.setText(twokey+":");
-        mBinding.tvOneValue.setText(oneMap.get(1));
-        mBinding.tvTwoValue.setText(twoMap.get(5));
-        mBinding.tvOneCondition.setText(sortKey(oneMap));
-        mBinding.tvTwoCondition.setText(sortKey(twoMap));
+        responseGasolineResult=(ResponseGasolineResult)getIntent().getSerializableExtra("result");
+        mBinding.tvOneKey.setText(getIntent().getStringExtra("oneKey")+":");
+        mBinding.tvTwoKey.setText(getIntent().getStringExtra("twoKey")+":");
+        mBinding.tvOneValue.setText(getIntent().getStringExtra("oneValue"));
+        mBinding.tvTwoValue.setText(getIntent().getStringExtra("twoValue"));
+        mBinding.tvOneCondition.setText(getIntent().getStringExtra("AFullName"));
+        mBinding.tvTwoCondition.setText(getIntent().getStringExtra("BFullName"));
         mBinding.tvDistance.setText(responseGasolineResult.getDistance()+"m");
         mBinding.tvStandard.setText(responseGasolineResult.getStandard());
         mBinding.tvDeclare.setText(responseGasolineResult.getNoteContent());

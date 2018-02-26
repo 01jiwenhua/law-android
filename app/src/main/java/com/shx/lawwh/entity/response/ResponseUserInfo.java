@@ -53,7 +53,7 @@ public class ResponseUserInfo implements Serializable {
         if (TextUtils.isEmpty(head_icon)) {
             return head_icon;
         } else {
-            head_icon.replace("\\", "/");
+            head_icon= head_icon.replace("\\", "/");
         }
         return head_icon;
     }

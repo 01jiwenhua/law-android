@@ -37,13 +37,26 @@ public class RequestCenter {
     public static final String CANCEL_FAVORITE="/law/cancelFavorite";
     public static final String GET_MESSAGE="/user/getMessage";
     public static final String GET_ARCHITECTURE="/distance/getArchitecture";
+    public static final String GET_ARCHITECTURE_V2="/distance/getArchitecture/v2";
     public static final String GET_DISTANCE="/distance/getDistance";
     public static final String GET_NEWLAW="/law/getNewLawList";
     public static final String GET_NEWVERSION="/user/getNewVersion";
     public static final String SAVE_ADVICE="/system/saveAdvice";
     public static final String CHANGE_PHONE="/user/changePhone";
     public static final String UPLOAD_AVATAR="/user/uploadAvatar";
+    public static final String GET_TABS="/distance/getTabs";
 
+
+    /**
+     * 获取防火间距tabs
+     * standard:石油传GB50160-2008，建筑传GB50016-2014
+     * */
+    public static void getTabs(String standard ,HttpCallBack callBack){
+        ZCRequest request=new ZCRequest();
+        request.setUrl(GET_TABS);
+        request.putParams("standard",standard);
+        HttpManager.getInstance().doPost(request,callBack);
+    }
 
     /**
      *
@@ -121,11 +134,24 @@ public class RequestCenter {
      * @param
      * @param callBack
      */
-    public static void getArchitecture(String name,String typarentCodepe,String standard,HttpCallBack callBack){
+    public static void getArchitecture(String name,String parentCode,String standard,HttpCallBack callBack){
         ZCRequest request=new ZCRequest();
         request.setUrl(GET_ARCHITECTURE);
         request.putParams("name",name);
-        request.putParams("parentCode",typarentCodepe);
+        request.putParams("parentCode",parentCode);
+        request.putParams("standard",standard);
+        HttpManager.getInstance().doPost(request,callBack);
+    }
+/**
+     *返回带下级列表的请求项
+     * @param
+     * @param callBack
+     */
+    public static void getArchitectureV2(String name,String parentCode,String standard,HttpCallBack callBack){
+        ZCRequest request=new ZCRequest();
+        request.setUrl(GET_ARCHITECTURE_V2);
+        request.putParams("name",name);
+        request.putParams("parentCode",parentCode);
         request.putParams("standard",standard);
         HttpManager.getInstance().doPost(request,callBack);
     }
