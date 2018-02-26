@@ -72,6 +72,7 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
     private List<ResponseJobList> jobList;
     private String mAvatarPath;
     private File mAvatarFile;
+
     private String[] mPermissions = new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA};
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
