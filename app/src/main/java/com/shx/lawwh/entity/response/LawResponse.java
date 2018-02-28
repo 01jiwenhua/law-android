@@ -35,6 +35,15 @@ public class LawResponse implements Serializable{
     private String typeCode;
     private int is_favorite;
     private String fileFrom;
+    private int status;
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
 
     public String getFileFrom() {
         return fileFrom;
