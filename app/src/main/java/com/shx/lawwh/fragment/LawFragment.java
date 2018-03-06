@@ -170,7 +170,7 @@ public class LawFragment extends Fragment implements HttpCallBack , BaseQuickAda
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
         LawResponse item = (LawResponse) mAdapter.getItem(position);
         LogGloble.d("MainFragment", item.getFilePath() + "");
-        if (TextUtils.isEmpty(item.getFilePath())) {
+        if (TextUtils.isEmpty(item.getFilePath())||item.getStatus()==-1) {
             ToastUtil.getInstance().toastInCenter(getContext(), "该文件不存在！");
             return;
         }
