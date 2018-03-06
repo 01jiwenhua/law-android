@@ -67,6 +67,7 @@ public class LawSearchActivity extends BaseActivity implements View.OnClickListe
     //关键字筛选 和结果筛选选项文字
     private TextView mKeywordTypeTV, mFilterTV;
     private LinearLayout mlayoutEmpty;
+
     //结果筛选布局
 //    private LinearLayout mIndustryLayout;
     private LawRequest mRequest;
@@ -213,7 +214,6 @@ public class LawSearchActivity extends BaseActivity implements View.OnClickListe
             public void onRefresh() {
                 isLastPage = false;
                 mPage = 1;
-
                 lawList.clear();
                 mAdapter.getData().clear();
                 initData();
