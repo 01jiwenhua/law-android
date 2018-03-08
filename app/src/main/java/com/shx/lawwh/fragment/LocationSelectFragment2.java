@@ -83,7 +83,7 @@ public class LocationSelectFragment2 extends Fragment implements View.OnClickLis
     public void onClick(View v) {
         switch (v.getId()) {
             case btn_search:
-                RequestCenter.getDistance(mAList.getLast().getParent().getId(), mBList.getLast().getParent().getId(), this);
+                RequestCenter.getDistance(mAList.getLast().getChild().get(0).getId(), mBList.getLast().getChild().get(0).getId(), this);
                 break;
         }
     }
@@ -150,8 +150,8 @@ public class LocationSelectFragment2 extends Fragment implements View.OnClickLis
                 intent.putExtra("oneValue", mAList.getFirst().getChild().get(0).getName());
                 intent.putExtra("twoKey", mBList.getFirst().getParent().getName());
                 intent.putExtra("twoValue", mBList.getFirst().getChild().get(0).getName());
-                intent.putExtra("AFullName", mAList.getLast().getParent().getFullName());
-                intent.putExtra("BFullName", mBList.getLast().getParent().getFullName());
+                intent.putExtra("AFullName", mAList.getLast().getChild().get(0).getFullName());
+                intent.putExtra("BFullName", mBList.getLast().getChild().get(0).getFullName());
                 startActivity(intent);
             }
         }

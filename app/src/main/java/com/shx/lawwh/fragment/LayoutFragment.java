@@ -108,7 +108,7 @@ public class LayoutFragment extends Fragment implements View.OnClickListener, Ad
     public void onClick(View v) {
         switch (v.getId()) {
             case btn_search:
-                RequestCenter.getDistance(mAList.getLast().getParent().getId(), mAList.getLast().getParent().getId(), this);
+                RequestCenter.getDistance(mAList.getLast().getChild().get(0).getId(), mAList.getLast().getChild().get(0).getId(), this);
                 break;
         }
     }
@@ -206,8 +206,8 @@ public class LayoutFragment extends Fragment implements View.OnClickListener, Ad
                 intent.putExtra("oneValue", mAList.getFirst().getChild().get(0).getName());
                 intent.putExtra("twoKey", mBList.getFirst().getParent().getName());
                 intent.putExtra("twoValue", mBList.getFirst().getChild().get(0).getName());
-                intent.putExtra("AFullName", mAList.getLast().getParent().getFullName());
-                intent.putExtra("BFullName", mBList.getLast().getParent().getFullName());
+                intent.putExtra("AFullName", mAList.getLast().getChild().get(0).getFullName());
+                intent.putExtra("BFullName", mBList.getLast().getChild().get(0).getFullName());
                 startActivity(intent);
             }
         }

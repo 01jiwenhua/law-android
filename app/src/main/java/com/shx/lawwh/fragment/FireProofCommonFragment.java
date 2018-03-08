@@ -98,9 +98,9 @@ public class FireProofCommonFragment extends Fragment implements View.OnClickLis
         switch (v.getId()) {
             case btn_search:
                 if(isOne){
-                    RequestCenter.getDistance(mAList.getLast().getParent().getId(), mAList.getLast().getParent().getId(), this);
+                    RequestCenter.getDistance(mAList.getLast().getChild().get(0).getId(), mAList.getLast().getChild().get(0).getId(), this);
                 }else {
-                    RequestCenter.getDistance(mAList.getLast().getParent().getId(), mBList.getLast().getParent().getId(), this);
+                    RequestCenter.getDistance(mAList.getLast().getChild().get(0).getId(), mBList.getLast().getChild().get(0).getId(), this);
                 }
                 break;
         }
@@ -177,15 +177,15 @@ public class FireProofCommonFragment extends Fragment implements View.OnClickLis
                 if(isOne){
                     intent.putExtra("oneKey", mAList.getFirst().getParent().getName());
                     intent.putExtra("oneValue", mAList.getFirst().getChild().get(0).getName());
-                    intent.putExtra("AFullName", mAList.getLast().getParent().getFullName());
+                    intent.putExtra("AFullName", mAList.getLast().getChild().get(0).getFullName());
                 }else {
                     //去两个list最后一个数据的parent就可以了，fullneme是全部的请求参数传到下一个页面就可以
                     intent.putExtra("oneKey", mAList.getFirst().getParent().getName());
                     intent.putExtra("oneValue", mAList.getFirst().getChild().get(0).getName());
                     intent.putExtra("twoKey", mBList.getFirst().getParent().getName());
                     intent.putExtra("twoValue", mBList.getFirst().getChild().get(0).getName());
-                    intent.putExtra("AFullName", mAList.getLast().getParent().getFullName());
-                    intent.putExtra("BFullName", mBList.getLast().getParent().getFullName());
+                    intent.putExtra("AFullName", mAList.getLast().getChild().get(0).getFullName());
+                    intent.putExtra("BFullName", mBList.getLast().getChild().get(0).getFullName());
                 }
                 startActivity(intent);
             }
