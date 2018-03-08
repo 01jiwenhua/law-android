@@ -3,6 +3,7 @@ package com.shx.lawwh.activity;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.shx.lawwh.R;
@@ -37,12 +38,31 @@ public class GasolineResultActivity extends BaseActivity {
             }
         });
         responseGasolineResult=(ResponseGasolineResult)getIntent().getSerializableExtra("result");
-        mBinding.tvOneKey.setText(getIntent().getStringExtra("oneKey")+":");
-        mBinding.tvTwoKey.setText(getIntent().getStringExtra("twoKey")+":");
-        mBinding.tvOneValue.setText(getIntent().getStringExtra("oneValue"));
-        mBinding.tvTwoValue.setText(getIntent().getStringExtra("twoValue"));
-        mBinding.tvOneCondition.setText(getIntent().getStringExtra("AFullName"));
-        mBinding.tvTwoCondition.setText(getIntent().getStringExtra("BFullName"));
+        String oneKey=getIntent().getStringExtra("oneKey");
+        String twoKey=getIntent().getStringExtra("twoKey");
+        if(twoKey==null || twoKey.isEmpty()){
+            mBinding.tvTwoKey.setVisibility(View.GONE);
+        }else{
+            mBinding.tvTwoKey.setText(twoKey+":");
+        }
+        mBinding.tvOneKey.setText(oneKey+":");
+        String oneValue=getIntent().getStringExtra("oneValue");
+        String twoValue=getIntent().getStringExtra("twoValue");
+        if(twoValue==null||twoValue.isEmpty()){
+            mBinding.tvTwoValue.setVisibility(View.GONE);
+        }else{
+            mBinding.tvTwoValue.setText(twoValue);
+        }
+        mBinding.tvOneValue.setText(oneValue);
+
+        String aFullName=getIntent().getStringExtra("AFullName");
+        String bFullName=getIntent().getStringExtra("BFullName");
+        if(bFullName==null || bFullName.isEmpty()){
+            mBinding.tvTwoCondition.setVisibility(View.GONE);
+        }else {
+            mBinding.tvTwoCondition.setText(bFullName);
+        }
+        mBinding.tvOneCondition.setText(aFullName);
         mBinding.tvDistance.setText(responseGasolineResult.getDistance()+"m");
         mBinding.tvStandard.setText(responseGasolineResult.getStandard());
         mBinding.tvDeclare.setText(responseGasolineResult.getNoteContent());
