@@ -164,7 +164,8 @@ public class LawSearchActivity extends BaseActivity implements View.OnClickListe
     @Override
     public void onResume() {
         super.onResume();
-        //initData();
+        mAdapter.getData().clear();
+        initData();
     }
 
     private void initView() {
@@ -321,9 +322,9 @@ public class LawSearchActivity extends BaseActivity implements View.OnClickListe
         mRequest.setLevel(levelDatas.get(tab.getPosition()).getCode());
         isLastPage = false;
         mPage = 1;
-        initData();
         //数据重新加载完成后，提示数据发生改变，并且设置现在不在刷新
         lawList.clear();
+        initData();
         mAdapter.setNewData(lawList);
         mAdapter.notifyDataSetChanged();
         mAdapter.setEnableLoadMore(true);
@@ -381,7 +382,6 @@ public class LawSearchActivity extends BaseActivity implements View.OnClickListe
                 }
                 mAdapter.addData(lawList);
                 mAdapter.notifyDataSetChanged();
-
             }
         }else  if(requestUrl.equals(RequestCenter.GET_LEVELLIST)){
             levelDatas= MyJSON.parseArray(object.getString("levelList"),ResponseLevelList.class);

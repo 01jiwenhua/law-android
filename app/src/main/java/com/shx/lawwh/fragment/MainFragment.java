@@ -57,7 +57,7 @@ public class MainFragment extends Fragment implements View.OnClickListener,HttpC
     private LoopViewPagerAdapter loopViewPagerAdapter;
     private ViewPagerScheduler vps;
     private LinearLayout mFlfg,mBzgf,mWxhxp,mFhjj,mZcwj;
-    private int res[] = new int[]{R.drawable.img_banner1,R.drawable.img_banner2,R.drawable.img_banner3};
+    private int res[] = new int[]{R.drawable.img_banner1};
     private TextView searchTv;
     private ListView mNewListView;
     private NewLawAdapter mAdapter;

@@ -45,6 +45,8 @@ public class ChemicalFragment extends Fragment implements HttpCallBack, BaseQuic
     private final int pageSize = 10;
     private boolean isLastPage = false;
     private boolean isReSearch=false;//是否是通过关键字重新搜索
+    //记录是否是第一次运行，如果是第一次运行则不加载数据。
+    private boolean isFirstRun=true;
 
     @Nullable
     @Override
@@ -84,6 +86,14 @@ public class ChemicalFragment extends Fragment implements HttpCallBack, BaseQuic
         initData();
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(!isFirstRun){
+            isReSearch=true;
+            RequestCenter.getKnownlist(mRequest,ChemicalFragment.this);
+        }
+    }
 
     private void initData(){
         mRequest=new ChemicalsRequest();
@@ -164,6 +174,8 @@ public class ChemicalFragment extends Fragment implements HttpCallBack, BaseQuic
 
     @Override
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+        //如果点击了item，之后再返回就不是第一次运行，必须刷新数据，这样才能得到是否收藏的最新状态
+        isFirstRun=false;
         ChemicalsResponse chemicalsResponse= (ChemicalsResponse) adapter.getData().get(position);
         Intent intent=new Intent(getContext(), ChemicalsDetailsActivity.class);
         intent.putExtra("chemicals",chemicalsResponse);

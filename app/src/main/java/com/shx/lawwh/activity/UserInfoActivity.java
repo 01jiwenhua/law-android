@@ -2,6 +2,7 @@ package com.shx.lawwh.activity;
 
 import android.Manifest;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -14,6 +15,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 
 import com.alibaba.fastjson.JSONObject;
 import com.bumptech.glide.Glide;
@@ -409,6 +411,21 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
             pickJob();
         }else if(requestUrl.equals(RequestCenter.REGIST)){
             ToastUtil.getInstance().toastInCenter(this,"修改成功！");
+            //修改成功以后，把名字，身份证，邮箱失去焦点，让性别textView获取焦点，这样就可以去掉EditeView的贯标
+            mBinding.etName.setFocusableInTouchMode(true);
+            mBinding.etName.setFocusable(true);
+
+            mBinding.etIdNo.setFocusableInTouchMode(true);
+            mBinding.etIdNo.setFocusable(true);
+
+            mBinding.etMail.setFocusableInTouchMode(true);
+            mBinding.etMail.setFocusable(true);
+
+            mBinding.tvSex.setFocusableInTouchMode(true);
+            mBinding.tvSex.setFocusable(true);
+            mBinding.tvSex.requestFocus();
+
+            hideKeyBoard();
             RequestCenter.getUserInfo(String.valueOf(userInfo.getId()),this);
         }else if(requestUrl.equals(RequestCenter.GET_USERINFO)){
             JSONObject mainData = respose.getMainData();
@@ -429,5 +446,17 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
             mAvatarFile.delete();
         }
         return super.doSuccess(respose, requestUrl);
+    }
+
+    // 隐藏键盘
+    private void hideKeyBoard() {
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        // 得到InputMethodManager的实例
+        if (imm.isActive()) {
+            // 如果开启
+            imm.toggleSoftInput(InputMethodManager.SHOW_IMPLICIT,
+                    InputMethodManager.HIDE_NOT_ALWAYS);
+            // 关闭软键盘，开启方法相同，这个方法是切换开启与关闭状态的
+        }
     }
 }

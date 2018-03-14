@@ -48,6 +48,8 @@ public class SumFragment extends Fragment implements HttpCallBack, BaseQuickAdap
     private final int pageSize = 10;
     private boolean isLastPage = false;
     private boolean isReSearch=false;//是否是通过关键字重新搜索
+    //记录是否是第一次运行，如果是第一次运行则不加载数据。
+    private boolean isFirstRun=true;
 
     @Nullable
     @Override
@@ -62,7 +64,6 @@ public class SumFragment extends Fragment implements HttpCallBack, BaseQuickAdap
         mRecyclerView = (RecyclerView) view.findViewById(R.id.rv_list);
         LinearLayoutManager manager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(manager);
-
     }
 
     private void loadMoreData() {
@@ -86,6 +87,15 @@ public class SumFragment extends Fragment implements HttpCallBack, BaseQuickAdap
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         initData();
         super.onActivityCreated(savedInstanceState);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(!isFirstRun){
+            isReSearch=true;
+            RequestCenter.getLawList(mRequest, this);
+        }
     }
 
     private void initData() {
@@ -170,7 +180,8 @@ public class SumFragment extends Fragment implements HttpCallBack, BaseQuickAdap
     @Override
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
         LawResponse item = (LawResponse) mAdapter.getItem(position);
-        LogGloble.d("MainFragment", item.getFilePath() + "");
+        //如果点击了item，之后再返回就不是第一次运行，必须刷新数据，这样才能得到是否收藏的最新状态
+        isFirstRun=false;
         if (TextUtils.isEmpty(item.getFilePath())||item.getStatus()==-1) {
             ToastUtil.getInstance().toastInCenter(getContext(), "该文件不存在！");
             return;
@@ -178,10 +189,16 @@ public class SumFragment extends Fragment implements HttpCallBack, BaseQuickAdap
         if (item.getFileFrom().equals("pdf")) {
             Intent intent = new Intent(getContext(), PdfViewActivity.class);
             intent.putExtra("URL", item.getFilePath());
+            intent.putExtra("typeCode",item.getTypeCode());
+            intent.putExtra("lawId",item.getId());
+            intent.putExtra("is_favorite",item.getIs_favorite());
             startActivity(intent);
         } else {
             Intent intent = new Intent(getContext(), WebActivity.class);
             intent.putExtra("URL", item.getFilePath());
+            intent.putExtra("typeCode",item.getTypeCode());
+            intent.putExtra("lawId",item.getId());
+            intent.putExtra("is_favorite",item.getIs_favorite());
             startActivity(intent);
         }
     }
