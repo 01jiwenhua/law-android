@@ -74,6 +74,7 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
     private List<ResponseJobList> jobList;
     private String mAvatarPath;
     private File mAvatarFile;
+    private String address;
 
     private String[] mPermissions = new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA};
     @Override
@@ -84,6 +85,8 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
         if(userInfo==null){
             startActivity(new Intent(this,LoginActivity.class));
         }else {
+            address=SharedPreferencesUtil.getStringValue(this,CommonValues.ADDRESS,"北京市,东城区");
+            mBinding.tvDistrict.setText(address);
             mBinding.setUserInfo(userInfo);
         }
         getTopbar().setTitle("个人资料");
@@ -292,7 +295,8 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
                         if (county != null) {
                             countyName = county.getName();
                         }
-                        mBinding.tvDistrict.setText(provinceName+","+countyName);
+                        address=provinceName+","+countyName;
+                        mBinding.tvDistrict.setText(address);
                         userInfo.setRegion_id(1);
                     }
                 });
@@ -370,7 +374,7 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
             @Override
             public void onItemPicked(int index, ResponseDepartmentList item) {
                 mBinding.tvDepartment.setText(item.getName());
-                userInfo.setDepartment_id(1);
+                userInfo.setDepartment_id(index+1);
             }
         });
         picker.show();
@@ -388,7 +392,7 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
             @Override
             public void onItemPicked(int index, ResponseJobList item) {
                 mBinding.tvDuty.setText(item.getName());
-                userInfo.setJob_id(1);
+                userInfo.setJob_id(index+1);
             }
         });
         picker.show();
@@ -411,6 +415,7 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
             pickJob();
         }else if(requestUrl.equals(RequestCenter.REGIST)){
             ToastUtil.getInstance().toastInCenter(this,"修改成功！");
+            SharedPreferencesUtil.saveValue(this,CommonValues.ADDRESS,address);
             //修改成功以后，把名字，身份证，邮箱失去焦点，让性别textView获取焦点，这样就可以去掉EditeView的贯标
             mBinding.etName.setFocusableInTouchMode(true);
             mBinding.etName.setFocusable(true);
@@ -454,8 +459,9 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
         // 得到InputMethodManager的实例
         if (imm.isActive()) {
             // 如果开启
-            imm.toggleSoftInput(InputMethodManager.SHOW_IMPLICIT,
-                    InputMethodManager.HIDE_NOT_ALWAYS);
+//            imm.toggleSoftInput(InputMethodManager.SHOW_IMPLICIT,
+//                    InputMethodManager.HIDE_NOT_ALWAYS);
+            imm.hideSoftInputFromWindow(this.getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
             // 关闭软键盘，开启方法相同，这个方法是切换开启与关闭状态的
         }
     }

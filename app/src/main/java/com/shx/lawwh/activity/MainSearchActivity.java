@@ -40,10 +40,12 @@ public class MainSearchActivity extends BaseActivity implements TextWatcher {
     private LawFragment lawFragment;
     private PolicyFragment policyFragment;
     private ChemicalFragment chemicalFragment;
-    private FireproofingFragment fireproofingFragment;
+    //private FireproofingFragment fireproofingFragment;
     private List<Fragment> fragments;
     private EditText searchEt;
     private static int currentIndex;
+    //如果搜索框里从未搜索过，tabs切换都是没有数据的。
+    private boolean isFirstSearch=true;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,14 +74,14 @@ public class MainSearchActivity extends BaseActivity implements TextWatcher {
         lawFragment=new LawFragment();
         policyFragment=new PolicyFragment();
         chemicalFragment=new ChemicalFragment();
-        fireproofingFragment=new FireproofingFragment();
+        //fireproofingFragment=new FireproofingFragment();
         fragments=new ArrayList<>();
         fragments.add(sumFragment);
         fragments.add(lawFragment);
         fragments.add(standerFragment);
         fragments.add(policyFragment);
         fragments.add(chemicalFragment);
-        fragments.add(fireproofingFragment);
+        //fragments.add(fireproofingFragment);
         FragmentManager manager=getSupportFragmentManager();
         mAdatper=new MainSearchPagerAdapter(manager,fragments);
         mViewPager.setAdapter(mAdatper);
@@ -93,6 +95,9 @@ public class MainSearchActivity extends BaseActivity implements TextWatcher {
             @Override
             public void onPageSelected(int position) {
                 currentIndex=position;
+                if(!isFirstSearch) {
+                    searchKey(searchEt.getText().toString());
+                }
             }
 
             @Override
@@ -110,13 +115,17 @@ public class MainSearchActivity extends BaseActivity implements TextWatcher {
 
     @Override
     public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
+        isFirstSearch=false;
     }
 
     @Override
     public void afterTextChanged(Editable editable) {
 
         String key=editable.toString();
+        searchKey(key);
+    }
+
+    private void searchKey(String key){
         switch (currentIndex) {
             case 0:
                 sumFragment.searchKey(key);
