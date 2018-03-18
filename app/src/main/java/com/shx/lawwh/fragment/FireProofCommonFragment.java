@@ -198,12 +198,12 @@ public class FireProofCommonFragment extends Fragment implements View.OnClickLis
                 childlist.add(item);
                 mAList.getLast().setChild(childlist);
                 mAdapterA.notifyDataSetChanged();
-                if(mAisLast){
-                    ResponseGasoline responseGasoline = new ResponseGasoline();
-                    responseGasoline.setParent(mAList.getLast().getChild().get(0));
-                    responseGasoline.setChild(null);
-                    mAList.add(responseGasoline);
-                    mAdapterA.notifyDataSetChanged();
+                if(item.get){
+//                    ResponseGasoline responseGasoline = new ResponseGasoline();
+//                    responseGasoline.setParent(mAList.getLast().getChild().get(0));
+//                    responseGasoline.setChild(null);
+//                    mAList.add(responseGasoline);
+//                    mAdapterA.notifyDataSetChanged();
                     return;
                 }
                 RequestCenter.getArchitecture("", mAList.getLast().getChild().get(0).getCode(), standard, this);

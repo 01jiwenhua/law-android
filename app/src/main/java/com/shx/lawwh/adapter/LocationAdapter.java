@@ -1,6 +1,7 @@
 package com.shx.lawwh.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -62,6 +63,7 @@ public class LocationAdapter extends BaseAdapter {
             holder.mValue= (TextView) view.findViewById(R.id.tv_value);
             holder.mIcon= (ImageView) view.findViewById(R.id.iv_icon);
             holder.mNext= (ImageView) view.findViewById(R.id.iv_next);
+            holder.mLayout= (LinearLayout) view.findViewById(R.id.ll_one);
             view.setTag(holder);
         }
         holder= (ViewHolder) view.getTag();
@@ -69,18 +71,23 @@ public class LocationAdapter extends BaseAdapter {
         holder.mKey.setText(mList.get(i).getParent().getName());
         if(i==0){
             holder.mIcon.setVisibility(View.VISIBLE);
+            holder.mLayout.setBackgroundColor(Color.parseColor("#F5F5F5"));
         }else{
             holder.mIcon.setVisibility(View.GONE);
+            holder.mLayout.setBackgroundColor(Color.parseColor("#FFFFFF"));
         }
         if(mList.get(i).getChild()!=null&&mList.get(i).getChild().size()>0){
 
                 holder.mValue.setText(mList.get(i).getChild().get(0).getName());
                 holder.mNext.setVisibility(View.VISIBLE);
+                holder.mValue.setTextColor(Color.parseColor("#3BA0F3"));
         }else{
             holder.mValue.setText("");
             holder.mNext.setVisibility(View.GONE);
+            holder.mValue.setTextColor(Color.parseColor("#555555"));
         }
         return view;
+
     }
     private class ViewHolder{
         private TextView mKey;
