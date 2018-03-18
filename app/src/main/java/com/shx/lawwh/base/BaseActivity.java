@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Toast;
 
+import com.igexin.sdk.PushManager;
 import com.shx.lawwh.R;
 import com.shx.lawwh.activity.MainActivity;
 import com.shx.lawwh.activity.UserGuideActivity;
@@ -33,6 +34,7 @@ public class BaseActivity extends AppCompatActivity implements HttpCallBack{
         super.onCreate(savedInstanceState);
         APPActivityManager.getInstance().addActivity(this);
         MobclickAgent.setScenarioType(this, MobclickAgent.EScenarioType. E_UM_NORMAL);
+        PushManager.getInstance().initialize(getApplicationContext(),null);
     }
     public ActionBarView getTopbar() {
         if (topbarView == null) {
