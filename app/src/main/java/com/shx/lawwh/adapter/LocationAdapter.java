@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.shx.lawwh.R;
 import com.shx.lawwh.entity.response.ResponseGasoline;
+import com.shx.lawwh.utils.StringUtil;
 
 import java.util.LinkedList;
 
@@ -22,20 +23,20 @@ import java.util.LinkedList;
 public class LocationAdapter extends BaseAdapter {
     private Context mContext;
     private LinkedList<ResponseGasoline> mList;
-    private boolean hasNext;
+    private boolean isLast;
 
-    public boolean isHasNext() {
-        return hasNext;
+    public boolean isLast() {
+        return isLast;
     }
 
-    public void setHasNext(boolean hasNext) {
-        this.hasNext = hasNext;
+    public void setLast(boolean last) {
+        isLast = last;
     }
 
-    public LocationAdapter(Context mContext, LinkedList<ResponseGasoline> mList, boolean hasNext) {
+    public LocationAdapter(Context mContext, LinkedList<ResponseGasoline> mList, boolean isLast) {
         this.mContext = mContext;
         this.mList = mList;
-        this.hasNext = hasNext;
+        this.isLast = isLast;
     }
 
     @Override
@@ -67,28 +68,33 @@ public class LocationAdapter extends BaseAdapter {
             view.setTag(holder);
         }
         holder= (ViewHolder) view.getTag();
-
-        holder.mKey.setText(mList.get(i).getParent().getName());
         if(i==0){
+            holder.mKey.setText(mList.get(i).getParent().getName());
             holder.mIcon.setVisibility(View.VISIBLE);
             holder.mLayout.setBackgroundColor(Color.parseColor("#F5F5F5"));
         }else{
             holder.mIcon.setVisibility(View.GONE);
+            holder.mKey.setText(StringUtil.toChinese(String.valueOf(i))+"级选项");
             holder.mLayout.setBackgroundColor(Color.parseColor("#FFFFFF"));
         }
-        if(mList.get(i).getChild()!=null&&mList.get(i).getChild().size()>0){
-
-                holder.mValue.setText(mList.get(i).getChild().get(0).getName());
-                holder.mNext.setVisibility(View.VISIBLE);
-                holder.mValue.setTextColor(Color.parseColor("#3BA0F3"));
+        if(mList.get(i).getChild()==null||mList.get(i).getChild().size()==0){
+        }else {
+            holder.mValue.setText(mList.get(i).getChild().get(0).getName());
+        }
+        //如果没有下一级
+        if(isLast&&mList.size()==i+1){
+//                holder.mValue.setText(mList.get(i).getChild().get(0).getName());
+//                holder.mNext.setVisibility(View.VISIBLE);
+            holder.mValue.setTextColor(Color.parseColor("#666666"));
         }else{
-            holder.mValue.setText("");
-            holder.mNext.setVisibility(View.GONE);
-            holder.mValue.setTextColor(Color.parseColor("#555555"));
+//            holder.mValue.setText("");
+//            holder.mNext.setVisibility(View.GONE);
+            holder.mValue.setTextColor(Color.parseColor("#3BA0F3"));
         }
         return view;
-
     }
+
+
     private class ViewHolder{
         private TextView mKey;
         private TextView mValue;

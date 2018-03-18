@@ -13,16 +13,16 @@ public class SystemConfig {
     public static String PDFURL="http://60.210.40.196:25018/law-server/files/%s.pdf";
 //    public static String BASEURL="http://192.168.8.120:8090";
     //测试地址
-    public static String TEST_URL="http://192.168.8.127:8080";
+    public static String TEST_URL="http://192.168.1.127:8080";
 //    public static String TEST_URL="http://192.168.1.127:8080";
     //生产地址
     public static String PRODUCE_URL="http://60.210.40.196:25018/law-server";
-    public static String BASEURL=PRODUCE_URL;
+    public static String BASEURL=TEST_URL;
     //版本说明
-    public static String VERSIONURL=BASEURL+"/version.jsp";
+    public static String VERSIONURL=BASEURL+"/jsp/version.jsp";
     //服务协议
-    public static String SERVICEITEMURL=BASEURL+"/serviceitem.jsp";
+    public static String SERVICEITEMURL=BASEURL+"/jsp/serviceitem.jsp";
     //帮助
-    public static String QAURL=BASEURL+"/qa.jsp";
+    public static String QAURL=BASEURL+"/jsp/qa.jsp";
 
 }
