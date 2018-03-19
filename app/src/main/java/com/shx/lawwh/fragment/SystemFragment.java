@@ -43,6 +43,12 @@ public class SystemFragment extends Fragment implements HttpCallBack, OnRecycler
         mRecyclerView= (RecyclerView) view.findViewById(R.id.rv_list);
         mRefreshLayout= (SwipeRefreshLayout) view.findViewById(R.id.layout_refresh);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                mRefreshLayout.setRefreshing(false);
+            }
+        });
         RequestCenter.getMessage(1,this);
         return view;
     }
@@ -55,6 +61,7 @@ public class SystemFragment extends Fragment implements HttpCallBack, OnRecycler
             mAdapter=new MessageAdapter(messages,getActivity());
             mAdapter.setmOnItemClickListener(this);
             mRecyclerView.setAdapter(mAdapter);
+            RequestCenter.getMessage(1,SystemFragment.this);
         }
         return false;
     }

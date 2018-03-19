@@ -43,6 +43,12 @@ public class WorkFragment extends Fragment implements HttpCallBack, OnRecyclerVi
         mRecyclerView= (RecyclerView) view.findViewById(R.id.rv_list);
         mRefreshLayout= (SwipeRefreshLayout) view.findViewById(R.id.layout_refresh);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                RequestCenter.getMessage(2,WorkFragment.this);
+            }
+        });
         RequestCenter.getMessage(2,this);
         return view;
     }
@@ -55,6 +61,7 @@ public class WorkFragment extends Fragment implements HttpCallBack, OnRecyclerVi
             mAdapter=new MessageAdapter(messages,getActivity());
             mAdapter.setmOnItemClickListener(this);
             mRecyclerView.setAdapter(mAdapter);
+            mRefreshLayout.setRefreshing(false);
         }
         return false;
     }

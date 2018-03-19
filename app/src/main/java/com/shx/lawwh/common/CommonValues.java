@@ -12,6 +12,9 @@ public class CommonValues {
     public static final String USERINFO="userInfo";
     public static final String ADDRESS="address";
     public static final String ISMESSAGEOPEN="isMessageOpen";
+    public static final String CID="cid";
+    public static final String NEWMESSAGE="newMessage";
+
 
     public static final String DEFAULT_SHAREDPREFERENCES_NAME = "law_sharedpreferences";
 

@@ -4,21 +4,28 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSONObject;
 import com.shx.lawwh.R;
+import com.shx.lawwh.base.APPActivityManager;
 import com.shx.lawwh.base.BaseActivity;
 import com.shx.lawwh.common.CommonValues;
 import com.shx.lawwh.entity.response.ResponseUserInfo;
+import com.shx.lawwh.libs.dialog.DialogManager;
 import com.shx.lawwh.libs.dialog.ToastUtil;
+import com.shx.lawwh.libs.http.HttpTrowable;
 import com.shx.lawwh.libs.http.MyJSON;
 import com.shx.lawwh.libs.http.RequestCenter;
 import com.shx.lawwh.libs.http.ZCResponse;
 import com.shx.lawwh.utils.CountDownTimerUtils;
+import com.shx.lawwh.utils.DeviceUtil;
+import com.shx.lawwh.utils.DeviceUtils;
 import com.shx.lawwh.utils.SharedPreferencesUtil;
 
 /**
@@ -84,17 +91,42 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener{
         }
     }
 
+    /**
+     * 弹出正在审核的提示框
+     */
+    private void popRegisterTip() {
+        View registerTip = LayoutInflater.from(this).inflate(R.layout.pop_registertip, null);
+        LinearLayout mLinelayout = (LinearLayout) registerTip.findViewById(R.id.ll_pop);
+        DialogManager.getInstance().showCustomDialog(this, registerTip, true);
+        Button okBtn = (Button) registerTip.findViewById(R.id.btn_ok);
+        okBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DialogManager.getInstance().dissMissCustomDialog();
+                APPActivityManager.getInstance().finishActivities();
+                System.exit(0);
+            }
+        });
+    }
+
     @Override
     public boolean doSuccess(ZCResponse respose, String requestUrl) {
         JSONObject mainData = respose.getMainData();
         if(requestUrl.equals(RequestCenter.LOGIN)){
             ResponseUserInfo userInfo=MyJSON.parseObject(mainData.getString("userInfo"),ResponseUserInfo.class);
-            SharedPreferencesUtil.saveObject(LoginActivity.this, CommonValues.USERINFO,userInfo);
-            startActivity(new Intent(this,MainActivity.class));
-            finish();
+            if(userInfo.getStatus()==1) {
+                SharedPreferencesUtil.saveObject(LoginActivity.this, CommonValues.USERINFO, userInfo);
+                startActivity(new Intent(this, MainActivity.class));
+                String cid = SharedPreferencesUtil.getStringValue(this, CommonValues.CID, "");
+                RequestCenter.uploadAppid(userInfo.getId(), cid, this);
+                finish();
+            }else{
+                popRegisterTip();
+            }
         }else if(requestUrl.equals(RequestCenter.GET_VERIFYCODE)){
             mCountDownTimerUtils.start();
         }
         return super.doSuccess(respose, requestUrl);
     }
+
 }

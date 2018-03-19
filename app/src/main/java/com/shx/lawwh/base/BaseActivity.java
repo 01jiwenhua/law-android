@@ -17,6 +17,7 @@ import com.shx.lawwh.activity.UserGuideActivity;
 import com.shx.lawwh.libs.http.HttpCallBack;
 import com.shx.lawwh.libs.http.HttpTrowable;
 import com.shx.lawwh.libs.http.ZCResponse;
+import com.shx.lawwh.service.PushService;
 import com.shx.lawwh.view.ActionBarView;
 import com.shx.lawwh.view.ActionSheet;
 import com.umeng.analytics.MobclickAgent;
@@ -35,6 +36,7 @@ public class BaseActivity extends AppCompatActivity implements HttpCallBack{
         APPActivityManager.getInstance().addActivity(this);
         MobclickAgent.setScenarioType(this, MobclickAgent.EScenarioType. E_UM_NORMAL);
         PushManager.getInstance().initialize(getApplicationContext(),null);
+        PushManager.getInstance().registerPushIntentService(this.getApplicationContext(), PushService.class);
     }
     public ActionBarView getTopbar() {
         if (topbarView == null) {

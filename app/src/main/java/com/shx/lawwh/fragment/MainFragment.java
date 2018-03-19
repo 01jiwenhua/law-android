@@ -1,5 +1,7 @@
 package com.shx.lawwh.fragment;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -34,6 +36,7 @@ import com.shx.lawwh.adapter.NewLawAdapter;
 import com.shx.lawwh.base.LayoutValue;
 import com.shx.lawwh.base.UserInfo;
 import com.shx.lawwh.base.ViewPagerScheduler;
+import com.shx.lawwh.common.CommonValues;
 import com.shx.lawwh.common.LogGloble;
 import com.shx.lawwh.entity.response.LawResponse;
 import com.shx.lawwh.libs.dialog.ToastUtil;
@@ -42,6 +45,7 @@ import com.shx.lawwh.libs.http.HttpTrowable;
 import com.shx.lawwh.libs.http.MyJSON;
 import com.shx.lawwh.libs.http.RequestCenter;
 import com.shx.lawwh.libs.http.ZCResponse;
+import com.shx.lawwh.utils.SharedPreferencesUtil;
 import com.shx.lawwh.view.ViewPageWithIndicator;
 
 import java.util.List;
@@ -62,6 +66,7 @@ public class MainFragment extends Fragment implements View.OnClickListener,HttpC
     private ListView mNewListView;
     private NewLawAdapter mAdapter;
     private List<LawResponse> lawList;
+    public static  ImageView messageIv;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -84,8 +89,9 @@ public class MainFragment extends Fragment implements View.OnClickListener,HttpC
         mFhjj= (LinearLayout) view.findViewById(R.id.layout_fhjjjs);
         searchTv= (TextView) view.findViewById(R.id.tv_search);
         mNewListView= (ListView) view.findViewById(R.id.lv_new);
+        messageIv= (ImageView) view.findViewById(R.id.iv_message);
         mNewListView.setOnItemClickListener(this);
-        view.findViewById(R.id.iv_message).setOnClickListener(this);
+        messageIv.setOnClickListener(this);
         searchTv.setOnClickListener(this);
         mFhjj.setOnClickListener(this);
         mFlfg.setOnClickListener(this);
@@ -99,6 +105,18 @@ public class MainFragment extends Fragment implements View.OnClickListener,HttpC
         mLoopView.requestFocus();
         initBanner();
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Boolean newMessage=SharedPreferencesUtil.getBooleanValue(getContext(), CommonValues.NEWMESSAGE,false);
+        if(newMessage){
+            messageIv.setImageResource(R.drawable.ic_message_new);
+        }else{
+            messageIv.setImageResource(R.drawable.ic_message);
+        }
+    }
+
     /**
      * 初始化首页Banner
      */
@@ -157,6 +175,7 @@ public class MainFragment extends Fragment implements View.OnClickListener,HttpC
                 startActivity(new Intent(getActivity(), MainSearchActivity.class));
                 break;
             case R.id.iv_message:
+                SharedPreferencesUtil.saveValue(getContext(),CommonValues.NEWMESSAGE,false);
                 startActivity(new Intent(getActivity(), NewsActivity.class));
                 break;
         }
@@ -207,4 +226,6 @@ public class MainFragment extends Fragment implements View.OnClickListener,HttpC
             startActivity(intent);
         }
     }
+
+
 }

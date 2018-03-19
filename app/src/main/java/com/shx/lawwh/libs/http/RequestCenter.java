@@ -45,6 +45,20 @@ public class RequestCenter {
     public static final String CHANGE_PHONE="/user/changePhone";
     public static final String UPLOAD_AVATAR="/user/uploadAvatar";
     public static final String GET_TABS="/distance/getTabs";
+    public static final String UPLOAD_APPID="/user/uploadAppid";
+
+
+    /**
+     * 更新APPid
+     *
+     * */
+    public static void uploadAppid(int userId ,String appId,HttpCallBack callBack){
+        ZCRequest request=new ZCRequest();
+        request.setUrl(UPLOAD_APPID);
+        request.putParams("userId",userId);
+        request.putParams("appId",appId);
+        HttpManager.getInstance().doPost(request,callBack);
+    }
 
 
     /**
