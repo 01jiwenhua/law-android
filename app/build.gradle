@@ -16,9 +16,9 @@ android {
             abiFilters "armeabi", "armeabi-v7a", "x86_64"
         }
         manifestPlaceholders = [
-                GETUI_APP_ID : "yR95PWxc326TmcviJQnBE8",
-                GETUI_APP_KEY : "z57D5bDF1x5VCRbRe55GX3",
-                GETUI_APP_SECRET : "RImfVkZL9A63xeS6OuiRb3"
+                GETUI_APP_ID : "s5WroWDwRcASoCz2FFpfA4",
+                GETUI_APP_KEY : "ufTzEBvART7iHwXl0pyZl8",
+                GETUI_APP_SECRET : "QPVXrfGBcQ8gyVUOpYA1d3"
         ]
     }
     dataBinding{
