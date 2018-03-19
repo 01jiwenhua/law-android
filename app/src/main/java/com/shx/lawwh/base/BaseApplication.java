@@ -9,6 +9,7 @@ import android.os.Message;
 import android.util.DisplayMetrics;
 import android.util.Log;
 
+import com.igexin.sdk.PushManager;
 import com.shx.lawwh.common.LogGloble;
 import com.shx.lawwh.dao.DaoMaster;
 import com.shx.lawwh.dao.DaoSession;
@@ -40,7 +41,6 @@ public class BaseApplication extends Application {
     public void onCreate() {
         super.onCreate();
         //搜集本地tbs内核信息并上报服务器，服务器返回结果决定使用哪个内核。
-
         QbSdk.PreInitCallback cb = new QbSdk.PreInitCallback() {
 
             @Override
