@@ -17,7 +17,7 @@ public class SystemConfig {
 //    public static String TEST_URL="http://192.168.1.127:8080";
     //生产地址
     public static String PRODUCE_URL="http://60.210.40.196:25018/law-server";
-    public static String BASEURL=TEST_URL;
+    public static String BASEURL=PRODUCE_URL;
     //版本说明
     public static String VERSIONURL=BASEURL+"/jsp/version.jsp";
     //服务协议
