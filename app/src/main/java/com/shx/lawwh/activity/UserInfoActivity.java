@@ -31,6 +31,7 @@ import com.shx.lawwh.entity.response.ResponseCompanyList;
 import com.shx.lawwh.entity.response.ResponseDepartmentList;
 import com.shx.lawwh.entity.response.ResponseJobList;
 import com.shx.lawwh.entity.response.ResponseUserInfo;
+import com.shx.lawwh.libs.dialog.DialogManager;
 import com.shx.lawwh.libs.dialog.ToastUtil;
 import com.shx.lawwh.libs.http.MyJSON;
 import com.shx.lawwh.libs.http.RequestCenter;
@@ -100,22 +101,52 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
         getTopbar().setRightTextListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (userInfo.getDepartment_id()==0 || userInfo.getEmail()==null
-                        || userInfo.getId_no()==null || userInfo.getJob_id()==0
-                        || userInfo.getLicense_type()==0 || userInfo.getPhone()==null
-                        || userInfo.getReal_name()==null || userInfo.getRegion_id()==0
-                        || userInfo.getSex()==-1) {
-                    ToastUtil.getInstance().toastInCenter(UserInfoActivity.this,"请将信息填写完整！");
-                } else {
-                    if(RegexpUtils.regexEdttext(UserInfoActivity.this,mBinding.etIdNo,mBinding.etMail)) {
-                        RequestCenter.updateUserInfo(userInfo, UserInfoActivity.this);
-                    }
-                }
+                saveInfo();
             }
         });
         initListerner();
         mAvatarPath = getApplicationContext().getFilesDir().getAbsolutePath() + "/avatar.jpg";
         Glide.with(this).load(SystemConfig.BASEURL+ StringUtil.replaceSeparator(userInfo.getHead_icon())).skipMemoryCache(true).diskCacheStrategy(DiskCacheStrategy.NONE).placeholder(R.drawable.ic_avatar).transform(new GlideCircleTransform(this)).into(mBinding.ivAvatar);
+    }
+
+    /**
+     * 保存
+     * */
+    private boolean saveInfo() {
+        if (userInfo.getDepartment_id()==0 || userInfo.getEmail()==null
+                || userInfo.getId_no()==null || userInfo.getJob_id()==0
+                || userInfo.getLicense_type()==0 || userInfo.getPhone()==null
+                || userInfo.getReal_name()==null || userInfo.getRegion_id()==0
+                || userInfo.getSex()==-1) {
+            ToastUtil.getInstance().toastInCenter(UserInfoActivity.this,"请将信息填写完整！");
+            return false;
+        } else {
+            if(RegexpUtils.regexEdttext(UserInfoActivity.this,mBinding.etIdNo,mBinding.etMail)) {
+                RequestCenter.updateUserInfo(userInfo, UserInfoActivity.this);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public void onBackPressed() {
+        DialogManager.getInstance().showMessageDialogWithDoubleButton(this,"提示", "是否保存?", new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                switch (view.getId()){
+                    case R.id.btn_confirm_on_dialog:
+                        if(saveInfo()){
+                            UserInfoActivity.super.onBackPressed();
+                        }
+                        break;
+                    case R.id.btn_cancle_on_dialog:
+                        UserInfoActivity.super.onBackPressed();
+                        break;
+                }
+            }
+        },"保存","放弃");
+
     }
 
     private void initListerner() {

@@ -89,6 +89,9 @@ public class FavoriteChemicalFragment extends Fragment implements HttpCallBack, 
             mAdapter=new KnownAdapter(chemicalsResponseList);
             mAdapter.setOnItemClickListener(this);
             mRecyclerView.setAdapter(mAdapter);
+            if(chemicalsResponseList==null||chemicalsResponseList.size()==0){
+                ToastUtil.getInstance().toastInCenter(getActivity(),"您暂未收藏内容");
+            }
         }
         return false;
     }
