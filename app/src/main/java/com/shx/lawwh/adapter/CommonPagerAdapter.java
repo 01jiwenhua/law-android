@@ -41,6 +41,7 @@ public class CommonPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
+        //禁止自动销毁item
         //super.destroyItem(container, position, object);
     }
 }

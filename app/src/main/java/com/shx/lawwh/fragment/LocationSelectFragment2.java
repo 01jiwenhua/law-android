@@ -69,8 +69,8 @@ public class LocationSelectFragment2 extends Fragment implements View.OnClickLis
     private void initData() {
         mAList = new LinkedList<>();
         mBList = new LinkedList<>();
-        mAdapterA = new LocationAdapter(getContext(), mAList, true);
-        mAdapterB = new LocationAdapter(getContext(), mBList, true);
+        mAdapterA = new LocationAdapter(getContext(), mAList, false);
+        mAdapterB = new LocationAdapter(getContext(), mBList, false);
         mBinding.lvA.setOnItemClickListener(this);
         mBinding.lvB.setOnItemClickListener(this);
         mBinding.btnSearch.setOnClickListener(this);
@@ -83,7 +83,7 @@ public class LocationSelectFragment2 extends Fragment implements View.OnClickLis
     public void onClick(View v) {
         switch (v.getId()) {
             case btn_search:
-                RequestCenter.getDistance(mAList.getLast().getParent().getId(), mBList.getLast().getParent().getId(), this);
+                RequestCenter.getDistance(mAList.getLast().getChild().get(0).getId(), mBList.getLast().getChild().get(0).getId(), this);
                 break;
         }
     }
@@ -105,31 +105,43 @@ public class LocationSelectFragment2 extends Fragment implements View.OnClickLis
             List<ResponseGasolineItem> items = MyJSON.parseArray(data.getString("architecture"), ResponseGasolineItem.class);
             if (mCurrentClickItem.equals("stationA")) {
                 //构造新的一行数据
-                ResponseGasoline responseGasoline = new ResponseGasoline();
+//                ResponseGasoline responseGasoline = new ResponseGasoline();
                 //key是上一级的value
-                responseGasoline.setParent(mAList.getLast().getChild().get(0));
+//                responseGasoline.setParent(mAList.getLast().getChild().get(0));
                 if(items==null||items.size()<=0){
                     mAisLast=true;
+                    mAdapterA.setLast(mAisLast);
+                    mAdapterA.notifyDataSetChanged();
+                    return false;
                 }
-                //value为下一级的数据
+                ResponseGasoline responseGasoline = new ResponseGasoline();
+                responseGasoline.setParent(mAList.getLast().getChild().get(0));
                 responseGasoline.setChild(items);
                 mAList.add(responseGasoline);
+                mAdapterA.notifyDataSetChanged();
+                //value为下一级的数据
             } else if (mCurrentClickItem.equals("stationB")) {
-                ResponseGasoline responseGasoline = new ResponseGasoline();
-                responseGasoline.setParent(mBList.getLast().getChild().get(0));
+//                ResponseGasoline responseGasoline = new ResponseGasoline();
+//                responseGasoline.setParent(mBList.getLast().getChild().get(0));
                 if(items==null||items.size()<=0){
                     mBisLast=true;
+                    mAdapterB.setLast(mBisLast);
+                    mAdapterB.notifyDataSetChanged();
+                    return false;
                 }
+                //构造最后一行数据
+                ResponseGasoline responseGasoline = new ResponseGasoline();
+                //key是上一行的value
+                responseGasoline.setParent(mBList.getLast().getChild().get(0));
                 responseGasoline.setChild(items);
                 mBList.add(responseGasoline);
+                mAdapterB.notifyDataSetChanged();
             }
-            mAdapterA.notifyDataSetChanged();
-            mAdapterB.notifyDataSetChanged();
         } else if (requestUrl.equals(RequestCenter.GET_DISTANCE)) {
             JSONObject mainData = respose.getMainData();
             ResponseGasolineResult responseGasolineResult = MyJSON.parseObject(mainData.getString("distance"), ResponseGasolineResult.class);
             if (responseGasolineResult == null) {
-                ToastUtil.getInstance().toastInCenter(getActivity(), "暂未收录此内容");
+                ToastUtil.getInstance().toastInCenter(getActivity(), "该设施间的间距不存在");
             } else {
                 //去两个list最后一个数据的parent就可以了，fullneme是全部的请求参数传到下一个页面就可以
                 Intent intent = new Intent(getActivity(), GasolineResultActivity.class);
@@ -138,8 +150,8 @@ public class LocationSelectFragment2 extends Fragment implements View.OnClickLis
                 intent.putExtra("oneValue", mAList.getFirst().getChild().get(0).getName());
                 intent.putExtra("twoKey", mBList.getFirst().getParent().getName());
                 intent.putExtra("twoValue", mBList.getFirst().getChild().get(0).getName());
-                intent.putExtra("AFullName", mAList.getLast().getParent().getFullName());
-                intent.putExtra("BFullName", mBList.getLast().getParent().getFullName());
+                intent.putExtra("AFullName", mAList.getLast().getChild().get(0).getFullName());
+                intent.putExtra("BFullName", mBList.getLast().getChild().get(0).getFullName());
                 startActivity(intent);
             }
         }
@@ -169,11 +181,7 @@ public class LocationSelectFragment2 extends Fragment implements View.OnClickLis
                 mAList.getLast().setChild(childlist);
                 mAdapterA.notifyDataSetChanged();
                 if(mAisLast){
-                    ResponseGasoline responseGasoline = new ResponseGasoline();
-                    responseGasoline.setParent(mAList.getLast().getChild().get(0));
-                    responseGasoline.setChild(null);
-                    mAList.add(responseGasoline);
-                    mAdapterA.notifyDataSetChanged();
+
                     return;
                 }
                 RequestCenter.getArchitecture("", mAList.getLast().getChild().get(0).getCode(), "GB 50156-2012", this);
@@ -185,15 +193,7 @@ public class LocationSelectFragment2 extends Fragment implements View.OnClickLis
                 childlist.add(item);
                 mBList.getLast().setChild(childlist);
                 mAdapterB.notifyDataSetChanged();
-                //如果level==6不再往下请求了
                 if(mBisLast){
-                    //构造最后一行数据
-                    ResponseGasoline responseGasoline = new ResponseGasoline();
-                    //key是上一行的value
-                    responseGasoline.setParent(mBList.getLast().getChild().get(0));
-                    responseGasoline.setChild(null);
-                    mBList.add(responseGasoline);
-                    mAdapterB.notifyDataSetChanged();
                     return;
                 }
                 RequestCenter.getArchitecture("", mBList.getLast().getChild().get(0).getCode(), "GB 50156-2012", this);
@@ -222,7 +222,6 @@ public class LocationSelectFragment2 extends Fragment implements View.OnClickLis
                 ResponseGasoline item = (ResponseGasoline) mAdapterA.getItem(i);
                 intent.putExtra("parentCode", item.getParent().getCode());
                 startActivityForResult(intent, 1);
-
                 break;
             case R.id.lv_B:
                 mCurrentClickItem = "stationB";

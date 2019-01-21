@@ -20,6 +20,7 @@ import com.shx.lawwh.activity.LoginActivity;
 import com.shx.lawwh.activity.PdfViewActivity;
 import com.shx.lawwh.activity.WebActivity;
 import com.shx.lawwh.adapter.LawBaseAdapter;
+import com.shx.lawwh.base.LazyLoadFragment;
 import com.shx.lawwh.base.UserInfo;
 import com.shx.lawwh.common.LogGloble;
 import com.shx.lawwh.common.SystemConfig;
@@ -39,7 +40,7 @@ import java.util.List;
  * Created by adm on 2018/2/4.
  */
 
-public class FavoriteLawFragment extends Fragment implements HttpCallBack, BaseQuickAdapter.OnItemClickListener{
+public class FavoriteLawFragment extends LazyLoadFragment implements HttpCallBack, BaseQuickAdapter.OnItemClickListener{
     private LawBaseAdapter mAdatper;
     private RecyclerView mRecyclerView;
     private SwipeRefreshLayout refreshLayout;
@@ -57,13 +58,6 @@ public class FavoriteLawFragment extends Fragment implements HttpCallBack, BaseQ
 
     }
 
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_favorite_law, container, false);
-        initView(view);
-        return view;
-    }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
@@ -78,17 +72,27 @@ public class FavoriteLawFragment extends Fragment implements HttpCallBack, BaseQ
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
+    protected int setContentView() {
+        return R.layout.fragment_favorite_law;
+    }
+
+
+    @Override
+    protected void lazyLoad() {
         initData();
     }
 
-    private void initView(View view){
+    @Override
+    public void onResume() {
+        super.onResume();
+
+    }
+
+    protected void initView(View view){
         refreshLayout= (SwipeRefreshLayout) view.findViewById(R.id.layout_refresh);
         mRecyclerView= (RecyclerView) view.findViewById(R.id.rv_list);
         LinearLayoutManager manager=new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(manager);
-
     }
 
 
@@ -112,6 +116,9 @@ public class FavoriteLawFragment extends Fragment implements HttpCallBack, BaseQ
             mAdatper=new LawBaseAdapter(lawList);
             mRecyclerView.setAdapter(mAdatper);
             mAdatper.setOnItemClickListener(this);
+            if(lawList==null||lawList.size()==0){
+                ToastUtil.getInstance().toastInCenter(getActivity(),"您暂未收藏内容");
+            }
         }
         return false;
     }

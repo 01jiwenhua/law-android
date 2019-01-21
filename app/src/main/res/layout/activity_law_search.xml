@@ -38,6 +38,7 @@
             android:drawableLeft="@drawable/ic_top_search"
             android:drawablePadding="5dp"
             android:hint="请输入关键字"
+            android:singleLine="true"
             android:padding="5dp"
             android:textSize="@dimen/textsize_14" />
     </LinearLayout>

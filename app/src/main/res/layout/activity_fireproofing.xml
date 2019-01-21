@@ -12,9 +12,10 @@
         app:tabGravity="fill"
         app:tabMode="fixed"
         android:layout_width="match_parent"
+        android:visibility="gone"
         android:layout_height="wrap_content" />
 
-    <android.support.v4.view.ViewPager
+    <com.shx.lawwh.view.MyViewPager
         android:id="@+id/vp_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />

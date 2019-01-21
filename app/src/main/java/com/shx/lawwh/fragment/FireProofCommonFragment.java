@@ -82,8 +82,8 @@ public class FireProofCommonFragment extends Fragment implements View.OnClickLis
     private void initData() {
         mAList = new LinkedList<>();
         mBList = new LinkedList<>();
-        mAdapterA = new LocationAdapter(getContext(), mAList, true);
-        mAdapterB = new LocationAdapter(getContext(), mBList, true);
+        mAdapterA = new LocationAdapter(getContext(), mAList, false);
+        mAdapterB = new LocationAdapter(getContext(), mBList, false);
         mBinding.lvA.setOnItemClickListener(this);
         mBinding.lvB.setOnItemClickListener(this);
         mBinding.btnSearch.setOnClickListener(this);
@@ -98,9 +98,9 @@ public class FireProofCommonFragment extends Fragment implements View.OnClickLis
         switch (v.getId()) {
             case btn_search:
                 if(isOne){
-                    RequestCenter.getDistance(mAList.getLast().getParent().getId(), mAList.getLast().getParent().getId(), this);
+                    RequestCenter.getDistance(mAList.getLast().getChild().get(0).getId(), mAList.getLast().getChild().get(0).getId(), this);
                 }else {
-                    RequestCenter.getDistance(mAList.getLast().getParent().getId(), mBList.getLast().getParent().getId(), this);
+                    RequestCenter.getDistance(mAList.getLast().getChild().get(0).getId(), mBList.getLast().getChild().get(0).getId(), this);
                 }
                 break;
         }
@@ -129,46 +129,63 @@ public class FireProofCommonFragment extends Fragment implements View.OnClickLis
             List<ResponseGasolineItem> items = MyJSON.parseArray(data.getString("architecture"), ResponseGasolineItem.class);
             if (mCurrentClickItem.equals("stationA")) {
                 //构造新的一行数据
-                ResponseGasoline responseGasoline = new ResponseGasoline();
+//                ResponseGasoline responseGasoline = new ResponseGasoline();
                 //key是上一级的value
-                responseGasoline.setParent(mAList.getLast().getChild().get(0));
+//                responseGasoline.setParent(mAList.getLast().getChild().get(0));
+                //构造新的数据，parent是上一行的
                 if(items==null||items.size()<=0){
                     mAisLast=true;
+                    mAdapterA.setLast(mAisLast);
+                    mAdapterA.notifyDataSetChanged();
+                    return false;
                 }
-                //value为下一级的数据
+                ResponseGasoline responseGasoline = new ResponseGasoline();
+                responseGasoline.setParent(mAList.getLast().getChild().get(0));
                 responseGasoline.setChild(items);
                 mAList.add(responseGasoline);
+                mAdapterA.notifyDataSetChanged();
+                //value为下一级的数据
+//                responseGasoline.setChild(items);
+//                mAList.add(responseGasoline);
             } else if (mCurrentClickItem.equals("stationB")) {
-                ResponseGasoline responseGasoline = new ResponseGasoline();
-                responseGasoline.setParent(mBList.getLast().getChild().get(0));
+//                ResponseGasoline responseGasoline = new ResponseGasoline();
+//                responseGasoline.setParent(mBList.getLast().getChild().get(0));
                 if(items==null||items.size()<=0){
                     mBisLast=true;
+                    mAdapterB.setLast(mBisLast);
+                    mAdapterB.notifyDataSetChanged();
+                    return false;
                 }
+                //构造最后一行数据
+                ResponseGasoline responseGasoline = new ResponseGasoline();
+                //key是上一行的value
+                responseGasoline.setParent(mBList.getLast().getChild().get(0));
                 responseGasoline.setChild(items);
                 mBList.add(responseGasoline);
+                mAdapterB.notifyDataSetChanged();
+//                responseGasoline.setChild(items);
+//                mBList.add(responseGasoline);
             }
-            mAdapterA.notifyDataSetChanged();
-            mAdapterB.notifyDataSetChanged();
         } else if (requestUrl.equals(RequestCenter.GET_DISTANCE)) {
             JSONObject mainData = respose.getMainData();
             ResponseGasolineResult responseGasolineResult = MyJSON.parseObject(mainData.getString("distance"), ResponseGasolineResult.class);
             if (responseGasolineResult == null) {
-                ToastUtil.getInstance().toastInCenter(getActivity(), "暂未收录此内容");
+                ToastUtil.getInstance().toastInCenter(getActivity(), "该设施间的间距不存在");
             } else {
                 Intent intent = new Intent(getActivity(), GasolineResultActivity.class);
                 intent.putExtra("result", responseGasolineResult);
                 if(isOne){
                     intent.putExtra("oneKey", mAList.getFirst().getParent().getName());
                     intent.putExtra("oneValue", mAList.getFirst().getChild().get(0).getName());
-                    intent.putExtra("AFullName", mAList.getLast().getParent().getFullName());
+                    intent.putExtra("AFullName", mAList.getLast().getChild().get(0).getFullName());
                 }else {
                     //去两个list最后一个数据的parent就可以了，fullneme是全部的请求参数传到下一个页面就可以
                     intent.putExtra("oneKey", mAList.getFirst().getParent().getName());
                     intent.putExtra("oneValue", mAList.getFirst().getChild().get(0).getName());
                     intent.putExtra("twoKey", mBList.getFirst().getParent().getName());
                     intent.putExtra("twoValue", mBList.getFirst().getChild().get(0).getName());
-                    intent.putExtra("AFullName", mAList.getLast().getParent().getFullName());
-                    intent.putExtra("BFullName", mBList.getLast().getParent().getFullName());
+                    intent.putExtra("AFullName", mAList.getLast().getChild().get(0).getFullName());
+                    intent.putExtra("BFullName", mBList.getLast().getChild().get(0).getFullName());
                 }
                 startActivity(intent);
             }
@@ -199,11 +216,7 @@ public class FireProofCommonFragment extends Fragment implements View.OnClickLis
                 mAList.getLast().setChild(childlist);
                 mAdapterA.notifyDataSetChanged();
                 if(mAisLast){
-                    ResponseGasoline responseGasoline = new ResponseGasoline();
-                    responseGasoline.setParent(mAList.getLast().getChild().get(0));
-                    responseGasoline.setChild(null);
-                    mAList.add(responseGasoline);
-                    mAdapterA.notifyDataSetChanged();
+
                     return;
                 }
                 RequestCenter.getArchitecture("", mAList.getLast().getChild().get(0).getCode(), standard, this);
@@ -217,20 +230,12 @@ public class FireProofCommonFragment extends Fragment implements View.OnClickLis
                 mAdapterB.notifyDataSetChanged();
                 //如果level==6不再往下请求了
                 if(mBisLast){
-                    //构造最后一行数据
-                    ResponseGasoline responseGasoline = new ResponseGasoline();
-                    //key是上一行的value
-                    responseGasoline.setParent(mBList.getLast().getChild().get(0));
-                    responseGasoline.setChild(null);
-                    mBList.add(responseGasoline);
-                    mAdapterB.notifyDataSetChanged();
+
                     return;
                 }
                 RequestCenter.getArchitecture("", mBList.getLast().getChild().get(0).getCode(), standard, this);
             }
         }
-        mAdapterA.notifyDataSetChanged();
-        mAdapterB.notifyDataSetChanged();
     }
 
     @Override
@@ -241,7 +246,6 @@ public class FireProofCommonFragment extends Fragment implements View.OnClickLis
             case R.id.lv_A:
                 mCurrentClickItem = "stationA";
                 mAisLast=false;
-                //当前点击的是哪一行则把他后面的所有数据清空
                 List subList = mAList.subList(i+1, mAList.size());
                 subList.clear();
                 if(mAList.get(i).getChild()==null||mAList.get(i).getChild().size()<=0){
@@ -261,7 +265,7 @@ public class FireProofCommonFragment extends Fragment implements View.OnClickLis
                 //同上
                 List subListb = mBList.subList(i+1, mBList.size());
                 subListb.clear();
-                if(mBList.get(i).getChild()==null||mBList.get(i).getChild().size()<=0){
+                if(mBisLast){
                     return;
                 }
                 Intent intent2 = new Intent(getActivity(), LocationPickerActivity.class);

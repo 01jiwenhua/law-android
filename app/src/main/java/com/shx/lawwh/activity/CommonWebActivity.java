@@ -124,7 +124,7 @@ public class CommonWebActivity extends BaseActivity {
         }else {
             webSettings.setDefaultZoom(WebSettings.ZoomDensity.MEDIUM);
         }
-        webSettings.setDefaultFontSize(20);
+        //webSettings.setDefaultFontSize(20);
 
 
 /**

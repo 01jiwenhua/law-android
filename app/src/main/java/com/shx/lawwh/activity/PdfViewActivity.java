@@ -123,7 +123,7 @@ public class PdfViewActivity extends BaseActivity implements OnPageChangeListene
                                     @Override
                                     public void loadComplete(int nbPages) {
                                         DialogManager.getInstance().dissMissProgressDialog();
-                                        Toast.makeText(getApplicationContext(), "loadComplete", Toast.LENGTH_SHORT).show();
+                                        //Toast.makeText(getApplicationContext(), "loadComplete", Toast.LENGTH_SHORT).show();
                                     }
                                 })
                                 .onPageChange(new OnPageChangeListener() {

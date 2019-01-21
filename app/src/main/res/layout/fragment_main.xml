@@ -54,7 +54,7 @@
                     android:layout_width="24dp"
                     android:layout_height="19dp"
                     android:layout_marginLeft="15dp"
-                    android:background="@drawable/ic_message" />
+                    />
             </LinearLayout>
 
             <com.shx.lawwh.view.ViewPageWithIndicator

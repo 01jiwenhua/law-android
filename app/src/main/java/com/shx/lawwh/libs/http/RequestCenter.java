@@ -45,6 +45,20 @@ public class RequestCenter {
     public static final String CHANGE_PHONE="/user/changePhone";
     public static final String UPLOAD_AVATAR="/user/uploadAvatar";
     public static final String GET_TABS="/distance/getTabs";
+    public static final String UPLOAD_APPID="/user/uploadAppid";
+
+
+    /**
+     * 更新APPid
+     *
+     * */
+    public static void uploadAppid(int userId ,String appId,HttpCallBack callBack){
+        ZCRequest request=new ZCRequest();
+        request.setUrl(UPLOAD_APPID);
+        request.putParams("userId",userId);
+        request.putParams("appId",appId);
+        HttpManager.getInstance().doPost(request,callBack);
+    }
 
 
     /**
@@ -91,7 +105,7 @@ public class RequestCenter {
     }
 
     /**
-     *
+     * 获取防火间距的距离
      * @param
      * @param callBack
      */
@@ -130,7 +144,7 @@ public class RequestCenter {
         HttpManager.getInstance().doPost(request,callBack);
     }
     /**
-     *
+     * 防火间距得到建筑
      * @param
      * @param callBack
      */
@@ -143,7 +157,7 @@ public class RequestCenter {
         HttpManager.getInstance().doPost(request,callBack);
     }
 /**
-     *返回带下级列表的请求项
+     *防火间距返回带下级列表的请求项
      * @param
      * @param callBack
      */
@@ -271,6 +285,10 @@ public class RequestCenter {
         HttpManager.getInstance().doPost(request,callBack);
 
     }
+
+    /**
+     *获取危化品详情
+     * */
     public static void getChemicalsdetails(String id,HttpCallBack callBack){
         ZCRequest request=new ZCRequest();
         request.setUrl(GET_CHEMICALSDETAILS);
@@ -280,12 +298,18 @@ public class RequestCenter {
         HttpManager.getInstance().doPost(request,callBack);
 
     }
+    /**
+     * 获取未知物品
+     * */
     public static void getUnknowparams(HttpCallBack callBack){
         ZCRequest request=new ZCRequest();
         request.setUrl(GET_UNKNOWPARAMS);
         HttpManager.getInstance().doPost(request,callBack);
     }
 
+    /**
+     * 获取未知物品详情
+     * */
     public static void getUnknowparamsDetails(String code,HttpCallBack callBack){
         ZCRequest request=new ZCRequest();
         request.setUrl(GET_UNKNOWPARAMS_DETAILS);
@@ -313,7 +337,7 @@ public class RequestCenter {
     }
 
     /**
-     * 得到部门列表
+     * 得到职位列表
      * */
     public static void getJobList(HttpCallBack callBack){
         ZCRequest request=new ZCRequest();
@@ -364,7 +388,7 @@ public class RequestCenter {
     }
 
     /**
-     * 注册
+     * 修改注册信息
      * */
     public static void updateUserInfo(ResponseUserInfo info, HttpCallBack callBack){
         ZCRequest request=new ZCRequest();
