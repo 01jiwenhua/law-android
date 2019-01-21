@@ -871,4 +871,11 @@ public class StringUtil {
         return result;
 
     }
+
+    /**
+     * 得到性别
+     * */
+    public static String getSex(int sex){
+        return sex==0 ? "女":"男";
+    }
 }

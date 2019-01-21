@@ -48,6 +48,15 @@ public class ResponseUserInfo implements Serializable {
     private int region_id;
     private int sex = -1;
     private String head_icon;
+    private int status;
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
 
     public String getHead_icon() {
         if (TextUtils.isEmpty(head_icon)) {

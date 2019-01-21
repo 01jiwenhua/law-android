@@ -85,6 +85,7 @@
             android:layout_height="wrap_content"
             android:src="@drawable/ic_right"
             android:layout_marginRight="20dp"
+            android:visibility="gone"
             android:layout_gravity="center_vertical"
             />
     </LinearLayout>

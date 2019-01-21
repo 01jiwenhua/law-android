@@ -1,15 +1,11 @@
 package com.shx.lawwh.activity;
 
 import android.Manifest;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.databinding.DataBindingUtil;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
@@ -23,6 +19,7 @@ import com.shx.lawwh.R;
 import com.shx.lawwh.base.APPActivityManager;
 import com.shx.lawwh.base.BaseActivity;
 import com.shx.lawwh.base.UserInfo;
+import com.shx.lawwh.common.CommonValues;
 import com.shx.lawwh.databinding.ActivityCompleteinfoBinding;
 import com.shx.lawwh.entity.request.RequestRegisterInfo;
 import com.shx.lawwh.entity.response.ResponseCompanyList;
@@ -35,11 +32,11 @@ import com.shx.lawwh.libs.http.RequestCenter;
 import com.shx.lawwh.libs.http.ZCResponse;
 import com.shx.lawwh.utils.BitmapTools;
 import com.shx.lawwh.utils.RegexpUtils;
+import com.shx.lawwh.utils.SharedPreferencesUtil;
 import com.shx.lawwh.view.AddressInitTask;
 
 import java.io.File;
 import java.io.IOException;
-import java.lang.ref.ReferenceQueue;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,9 +47,6 @@ import cn.qqtheme.framework.picker.AddressPicker;
 import cn.qqtheme.framework.picker.OptionPicker;
 import cn.qqtheme.framework.picker.SinglePicker;
 import cn.qqtheme.framework.widget.WheelView;
-
-import static android.R.attr.data;
-import static com.shx.lawwh.R.id.tv_district;
 
 /**
  * Created by zhou on 2018/1/31.
@@ -70,6 +64,8 @@ public class CompleteInfoActivity extends BaseActivity implements View.OnClickLi
     private String mAvatarPath;
     private File mAvatarFile;
     private View registerTip;
+    //记录最终选择的地址
+    private String address;
     private String[] mPermissions = new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA};
 
     @Override
@@ -407,7 +403,8 @@ public class CompleteInfoActivity extends BaseActivity implements View.OnClickLi
                         if (county != null) {
                             countyName = county.getName();
                         }
-                        mBinding.tvDistrict.setText(provinceName + "," + countyName);
+                        address=provinceName + "," + countyName;
+                        mBinding.tvDistrict.setText(address);
                         registerInfo.setRegionId("1");
                     }
                 });
@@ -432,6 +429,8 @@ public class CompleteInfoActivity extends BaseActivity implements View.OnClickLi
             jobList = MyJSON.parseArray(mainData.getString("jobList"), ResponseJobList.class);
             pickJob();
         } else if (requestUrl.equals(RequestCenter.REGIST)) {
+            SharedPreferencesUtil.saveValue(this, CommonValues.ADDRESS,address);
+            SharedPreferencesUtil.saveValue(this,CommonValues.ISMESSAGEOPEN,true);
             popRegisterTip();
         }else if(requestUrl.equals(RequestCenter.UPLOAD_AVATAR)){
 
