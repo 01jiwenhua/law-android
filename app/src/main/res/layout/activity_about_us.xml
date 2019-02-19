@@ -104,7 +104,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="北京市安全生产监督管理局"
+        android:text="北京市应急管理局"
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="20dp"
         />
