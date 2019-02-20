@@ -62,6 +62,7 @@
             />
     </LinearLayout>
     <Button
+        android:id="@+id/update"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="立即更新"
