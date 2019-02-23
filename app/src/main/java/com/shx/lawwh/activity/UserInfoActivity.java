@@ -390,6 +390,7 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
             @Override
             public void onItemPicked(int index, ResponseCompanyList item) {
                 mBinding.tvCompany.setText(item.getName());
+                userInfo.setCompany_id(item.getId());
             }
         });
         picker.show();
@@ -405,7 +406,7 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
             @Override
             public void onItemPicked(int index, ResponseDepartmentList item) {
                 mBinding.tvDepartment.setText(item.getName());
-                userInfo.setDepartment_id(index+1);
+                userInfo.setDepartment_id(item.getId());
             }
         });
         picker.show();
@@ -423,7 +424,7 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
             @Override
             public void onItemPicked(int index, ResponseJobList item) {
                 mBinding.tvDuty.setText(item.getName());
-                userInfo.setJob_id(index+1);
+                userInfo.setJob_id(item.getId());
             }
         });
         picker.show();
